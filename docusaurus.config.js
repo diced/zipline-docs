@@ -11,7 +11,7 @@ module.exports = {
     navbar: {
       title: 'Zipline',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Zipline Zip Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -40,9 +40,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/ziplineproject/zipline-docs/edit/master/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
