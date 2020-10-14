@@ -1,6 +1,6 @@
 ---
 title: cURL Script
-description: cURL Uploader
+description: cURL Script
 slug: /uploaders/curl
 ---
 
