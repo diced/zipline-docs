@@ -1,4 +1,4 @@
---
+---
 title: Uploader
 description: Uploader Config
 slug: /config/urls

@@ -1,4 +1,4 @@
---
+---
 title: Meta
 description: Meta Config
 slug: /config/meta
