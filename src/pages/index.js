@@ -59,8 +59,8 @@ function Home() {
   const { siteConfig = {} } = context;
   return (
     <Layout
-      title={siteConfig.title}
-      description="Zipline v2 Docs">
+      title='Documentation'
+      description="Speed & reliability first.">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
