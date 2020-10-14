@@ -1,7 +1,7 @@
 ---
 title: Uploader
 description: Uploader Config
-slug: /config/urls
+slug: /config/uploader
 ---
 
 ## Directory

@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
     Zipline: ['getting-started', 'auto-setup', 'migrations'],
-    Configuration: ['configuration', 'config/example', 'config/uploader', 'config/urls', 'config/core', 'config/meta']
+    Configuration: ['configuration', 'config/meta', 'config/core', 'config/uploader', 'config/urls']
   },
 };
