@@ -12,4 +12,4 @@ curl -H "Content-Type: multipart/form-data" -H "authorization: $TOKEN" -F file=@
 
 ```sh title="uploader.sh copy to clipboard"
 curl -H "Content-Type: multipart/form-data" -H "authorization: $TOKEN" -F file=@$1 $HOST/api/upload | xsel -ib
-```t
+```
