@@ -7,37 +7,35 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
-// const features = [
-//   {
-//     title: 'Configurable',
-//     imageUrl: 'img/undraw_docusaurus_mountain.svg',
-//     description: (
-//       <>
-//         Zipline allows you to configure your heart out.
-//       </>
-//     ),
-//   },
-//   {
-//     title: 'Focus on What Matters',
-//     imageUrl: 'img/undraw_docusaurus_tree.svg',
-//     description: (
-//       <>
-//         Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-//         ahead and move your docs into the <code>docs</code> directory.
-//       </>
-//     ),
-//   },
-//   {
-//     title: 'Powered by React',
-//     imageUrl: 'img/undraw_docusaurus_react.svg',
-//     description: (
-//       <>
-//         Extend or customize your website layout by reusing React. Docusaurus can
-//         be extended while reusing the same header and footer.
-//       </>
-//     ),
-//   },
-// ];
+const features = [
+  {
+    title: 'Configurable',
+    imageUrl: 'img/undraw_Options_re_9vxh.svg',
+    description: (
+      <>
+        Zipline allows you to configure your heart out.
+      </>
+    ),
+  },
+  {
+    title: 'Speed',
+    imageUrl: 'img/undraw_fast_loading_0lbh.svg',
+    description: (
+      <>
+        Zipline provides a speedy web app & a speedy api to upload your images.
+      </>
+    ),
+  },
+  {
+    title: 'Built on Next.js',
+    imageUrl: 'img/undraw_next_js_8g5m.svg',
+    description: (
+      <>
+        Zipline is built on Next.js & React, to provide a fast web interface.
+      </>
+    ),
+  }
+];
 
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
@@ -78,7 +76,7 @@ function Home() {
         </div>
       </header>
       <main>
-        {/* {features && features.length > 0 && (
+        {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
               <div className="row">
@@ -88,7 +86,7 @@ function Home() {
               </div>
             </div>
           </section>
-        )} */}
+        )}
       </main>
     </Layout>
   );
