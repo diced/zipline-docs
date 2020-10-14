@@ -18,4 +18,5 @@ If you upload images using [ShareX](https://getsharex.com), you can use this con
   },
   "Body": "MultipartFormData",
   "FileFormName": "file"
-}```
+}
+```
