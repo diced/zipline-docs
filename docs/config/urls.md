@@ -4,33 +4,24 @@ description: URLs Config
 slug: /config/urls
 ---
 
-## Directory
-Where uploaded files should be stored.
-
-**Option**: `core.directory`<br/>
-**Type**: `path`<br/>
-**Example**:
-```js
-"./uploads"
-```
-
 ## Route
-The route where your uploads will be served at.
+The route where your shortened urls will be served at.
 
 **Option**: `core.route`<br/>
 **Type**: `string`<br/>
 **Example**:
 ```js
-"/u"
-"/u/"
-"/cdn"
-"/cdn/"
+"/s"
+"/s/"
+"/urls"
+"/urls/"
 ```
 
 ## Length
-This will determine how long your randomly generated file names should be.
+This will determine how long your randomly generated url names should be. This option is not used when `vanity` is supplied while creating a url.
+
 :::danger Remember
-Make sure the length is **greater** than `1` or `2`, this will only allow `72` or `32` images to be uploaded.
+Make sure the length is **greater** than `1` or `2`, this will only allow `72` or `32` urls to be shortened.
 :::
 
 **Option**: `core.length`<br/>
@@ -38,4 +29,14 @@ Make sure the length is **greater** than `1` or `2`, this will only allow `72` o
 **Example**:
 ```js
 6
+```
+
+## Vanity
+This will allow for custom urls like `https://example.com/s/google` or `https://example.com/s/zipline`. If this option is disabled, then if a `vanity` url is supplied, it will be ignored.
+
+**Option**: `core.vanity`<br/>
+**Type**: `boolean`<br/>
+**Example**:
+```js
+true
 ```
