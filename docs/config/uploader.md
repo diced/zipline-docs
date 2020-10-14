@@ -39,3 +39,23 @@ Make sure the length is **greater** than `1` or `2`, this will only allow `72` o
 ```js
 6
 ```
+
+## Original
+If this is enabled, then the original file name & extension will be kept.
+
+**Option**: `core.original`<br/>
+**Type**: `boolean`<br/>
+**Example**:
+```js
+false
+```
+
+## Blacklisted
+Blacklist certain extensions from entering your server.
+
+**Option**: `core.blacklisted`<br/>
+**Type**: `string[]`<br/>
+**Example**:
+```js
+["jpg"]
+```

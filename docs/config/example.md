@@ -14,6 +14,12 @@ username = "zipline"
 password = "password"
 database = "zipline"
 
+[meta]
+title = "Zipline"
+description = "My Zipline Server"
+thumbnail = "https://github.githubassets.com/images/modules/open_graph/github-mark.png"
+color = "#128377"
+
 [core]
 secret = "my-secret"
 port = 3000
@@ -22,6 +28,8 @@ port = 3000
 directory = "./uploads"
 route = "/u"
 length = 6
+original = false
+blacklisted = ["jpg"]
 
 [urls]
 route = "/s"
