@@ -41,7 +41,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/ziplineproject/zipline-docs/edit/master/docs/',
+            'https://github.com/ziplineproject/zipline-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
