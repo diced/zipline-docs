@@ -21,7 +21,7 @@ The route where your shortened urls will be served at.
 This will determine how long your randomly generated url names should be. This option is not used when `vanity` is supplied while creating a url.
 
 :::danger Remember
-Make sure the length is **greater** than `1` or `2`, this will only allow `72` or `32` urls to be shortened.
+Make sure the length is **greater** than `1` or `2`, this will only allow `62` or `3844` urls to be shortened.
 :::
 
 **Option**: `core.length`<br/>
