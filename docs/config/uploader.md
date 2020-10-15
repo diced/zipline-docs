@@ -30,7 +30,7 @@ The route where your uploads will be served at.
 ## Length
 This will determine how long your randomly generated file names should be.
 :::danger Remember
-Make sure the length is **greater** than `1` or `2`, this will only allow `72` or `32` images to be uploaded.
+Make sure the length is **greater** than `1` or `2`, this will only allow `62` or `3844` images to be uploaded.
 :::
 
 **Option**: `core.length`<br/>
