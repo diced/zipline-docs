@@ -24,6 +24,30 @@ Some database support is experimental, try at your own risk.
 - [mssql](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md#mssql-connection-options)
 - Upcoming support: [mongodb](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md#mongodb-connection-options)
 
+### Installing Database Drivers
+Run the following command for your prefered database, 
+
+#### Postgres / CockroachDB
+```bash
+npm install pg --save
+```
+
+#### MySQL / MariaDB
+```bash
+npm install mysql --save
+```
+
+#### SQLite
+```bash
+npm install sqlite --save
+```
+
+#### Microsoft SQL Server
+```bash
+npm install mssql --save
+```
+
+
 ## Core
 These are the core configuration options, like your `secret` and `port`. See more [here](/docs/config/core)
 
