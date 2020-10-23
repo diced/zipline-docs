@@ -35,4 +35,28 @@ blacklisted = ["jpg"]
 route = "/s"
 length = 4
 vanity = false
+
+[webhooks]
+enabled = true
+url = "https://discord.com/api/webhooks/420/sometoken"
+username = "Zipline Logs"
+events = ["upload", "shorten", "login", "token_reset", "user_delete", "user_edit"]
+ 
+  [webhooks.upload]
+  content = "{user_name} uploaded an image: {image_url}"
+
+  [webhooks.shorten]
+  content = "{user_name} shortened a url {url_to} -> {url}"
+
+  [webhooks.login]
+  content = "{user_name} logged in"
+
+  [webhooks.token_reset]
+  content = "{user_name} reset their token"
+
+  [webhooks.user_delete]
+  content = "{user_name} was deleted"
+
+  [webhooks.user_edit]
+  content = "{user_name} edited their account"
 ```

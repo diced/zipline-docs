@@ -4,13 +4,15 @@ description: Creating a base configuration
 slug: /config/getting-started
 ---
 
-Zipline's configuration is determined by TOML. You can see an example configuration [here](/docs/config/example)
+Zipline's configuration is determined by TOM, you can read more about [TOML spec here](https://toml.io/en/v1.0.0-rc.3). You can see an example configuration [here](/docs/config/example)
 
-Your configuration should include **4** sections.
+Your configuration should include **6** sections.
 - database
+- meta
 - core
 - uploader
 - urls
+- webhooks (optional)
 
 ## Database
 The database settings are determined by [TypeORM's Configuration Options](https://github.com/typeorm/typeorm/blob/master/docs/connection-options.md)
@@ -47,6 +49,8 @@ npm install sqlite --save
 npm install mssql --save
 ```
 
+## Meta
+These are the meta tags that will change your title & description, to be shown on link previews and such.
 
 ## Core
 These are the core configuration options, like your `secret` and `port`. See more [here](/docs/config/core)
@@ -56,3 +60,6 @@ These are your uploader options, the main feature of Zipline is uploading images
 
 ## URLs
 These are your URL Shortener options, you can entirely disable it if you wanted to! [here](/docs/config/urls)
+
+## Discord Webhooks
+Zipline will have Discord Webhooks support very soon. You can see how to configure it [here](/docs/config/webhooks)
