@@ -6,7 +6,7 @@ slug: /
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/en/download/) version >= 12.19.0 or above (which can be checked by running `node -v`). 
+- [Node.js](https://nodejs.org/en/download/) version >= 14 or above (which can be checked by running `node -v`). 
 
 ## Installing
 
