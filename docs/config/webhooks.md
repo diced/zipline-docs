@@ -42,17 +42,20 @@ A list of events you would like the webhook to post on. See [Webhook Events](/do
 **Type**: `webhookevents[]`<br/>
 **Example**:
 ```js
-["upload", "shorten", "login", "token_reset", "user_delete", "user_edit"]
+["upload", "delete_image", "shorten", "delete_url", "login", "token_reset", "user_delete", "user_edit", "create_user"]
 ```
 
 ---
 ## Webhook Events
 - Upload (`upload`)
+- Delete Image (`delete_image`)
 - Shorten (`shorten`)
+- Delete URL (`delete_url`)
 - Login (`login`)
 - Token Reset (`token_reset`)
 - User Delete (`user_delete`)
 - User Edit (`user_edit`)
+- Create User (`create_user`)
 
 ### Upload
 Triggers whenever an image is uploaded to Zipline.

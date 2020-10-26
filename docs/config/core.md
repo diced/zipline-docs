@@ -23,3 +23,13 @@ This is the secret (that can't be shared to anyone!) that is used for cookies an
 ```js
 "secret"
 ```
+
+## Blacklisted IPs
+Want someone out of your server? Add their IP to this array and they will not be able to use Zipline at all.
+
+**Option**: `core.blacklisted_ips`<br/>
+**Type**: `string[]`<br/>
+**Example**:
+```js
+["127.0.0.1", "localhost"]
+```
