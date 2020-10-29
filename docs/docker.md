@@ -6,27 +6,9 @@ slug: /docker
 
 Zipline now comes with a docker file that you can build & run.
 
-## Build
-Once you are inside of the `zipline` directory build the `Dockerfile`
-```bash
-docker build -t zipline .
-```
+## Run with compose
+First edit the `docker-compose.yml` to your liking. This will not be needed soon as we are making a script that auto-generates it from your input. Then run the following, and zipline should be up and running on the specified port.
 
-## Run while persisted
-If you want to persist zipline uploads, you must specify a volume.
 ```bash
-docker run -d \
- -p 8000:8000 \
- -v ~/zipline/uploads:/opt/zipline/uploads \
- --name=zipline \
- zipline
-```
-
-## Run without persistence
-If you **don't** want to persist your uploads, then there is no need t supply a volume here.
-```bash
-docker run -d \
- -p 8000:8000 \
- --name=zipline \
- zipline
+docker-compose up -d --build
 ```
