@@ -20,6 +20,7 @@ The AutoSetup will attempt to ask:
 - database port (will use default if empty)
 - secret
 - whether or not you would like vanity urls
+- asks if you would like to generate a docker-compose with all your options.
 
 You can finally, run the executable here:
 ```bash

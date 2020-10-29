@@ -7,7 +7,7 @@ slug: /docker
 Zipline now comes with a docker file that you can build & run.
 
 ## Run with compose
-First edit the `docker-compose.yml` to your liking. This will not be needed soon as we are making a script that auto-generates it from your input. Then run the following, and zipline should be up and running on the specified port.
+Before running anything, you should generate a `docker-compose.yml`. This should be asked during the [Auto Setup](/docs/auto). If you select `Yes` to the `Use docker?` question then a `docker-compose.yml` should be created and you can proceed with the following command. 
 
 ```bash
 docker-compose up -d --build
