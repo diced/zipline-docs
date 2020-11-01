@@ -4,6 +4,10 @@ description: Running in docker.
 slug: /docker
 ---
 
+## Requirements
+- [Docker](https://docs.docker.com/get-docker/) latest version. 
+- [Docker-Compose](https://github.com/docker/compose/) latest version. 
+
 Zipline now comes with a docker file that you can build & run.
 
 ## Run with compose
