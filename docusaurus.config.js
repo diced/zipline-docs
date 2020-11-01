@@ -30,8 +30,12 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} ZiplineProject. Built with Docusaurus.`,
+      logo: {
+        alt: 'Deploy with Vercel',
+        src: 'https://vercel.com/button',
+        href: 'https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fdicedtomatoreal%2Fzipline-docs%2Ftree%2Fmaster'
+      },
+      copyright: `Copyright © ${new Date().getFullYear()} ZiplineProject. Built with Docusaurus. `,
     },
   },
   presets: [
@@ -45,8 +49,8 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },
-      },
-    ],
-  ],
+        }
+      }
+    ]
+  ]
 };
