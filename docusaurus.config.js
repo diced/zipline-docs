@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'ziplineproject', // Usually your GitHub org/user name.
+  organizationName: 'dicedtomatoreal', // Usually your GitHub org/user name.
   projectName: 'zipline', // Usually your repo name.
   themeConfig: {
     navbar: {
@@ -22,7 +22,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/ziplineproject/zipline',
+          href: 'https://github.com/dicedtomatoreal/zipline',
           label: 'GitHub',
           position: 'right',
         },
@@ -45,7 +45,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/ziplineproject/zipline-docs/edit/master/',
+            'https://github.com/dicedtomatoreal/zipline-docs/edit/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

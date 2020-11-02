@@ -14,6 +14,19 @@ Where Zipline should serve to.
 3000
 ```
 
+## Theme
+The theme Zipline should be in, there is `dark` and `light`.
+:::caution
+Warning! Using Light theme could delete your eyes.
+:::
+
+**Option**: `core.theme`<br/>
+**Type**: `string`<br/>
+**Example**:
+```js
+'dark' 
+```
+
 ## Secret
 This is the secret (that can't be shared to anyone!) that is used for cookies and encrypting user tokens.
 
