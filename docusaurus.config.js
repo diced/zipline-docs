@@ -8,6 +8,15 @@ module.exports = {
   organizationName: 'dicedtomatoreal', // Usually your GitHub org/user name.
   projectName: 'zipline', // Usually your repo name.
   themeConfig: {
+    announcementBar: {
+      id: 'starzipline',
+      content:
+        '⭐️ If you like Zipline, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/dicedtomatoreal/zipline">GitHub</a>! ⭐️',
+    },
+    prism: {
+      theme: require('prism-react-renderer/themes/github'),
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+    },
     navbar: {
       title: 'Zipline',
       logo: {
@@ -24,6 +33,11 @@ module.exports = {
         {
           href: 'https://github.com/dicedtomatoreal/zipline',
           label: 'GitHub',
+          position: 'right',
+        },
+        {
+          href: 'https://discord.gg/PWU8rxy',
+          label: 'Discord',
           position: 'right',
         },
       ],
