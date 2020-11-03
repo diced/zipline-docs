@@ -8,6 +8,12 @@ module.exports = {
   organizationName: 'dicedtomatoreal', // Usually your GitHub org/user name.
   projectName: 'zipline', // Usually your repo name.
   themeConfig: {
+    algolia: {
+      apiKey: '6c53c673cd48e2713f933f9f398412a0',
+      indexName: 'zipline',
+      contextualSearch: true,
+      searchParameters: {},
+    },
     announcementBar: {
       id: 'starzipline',
       content:
