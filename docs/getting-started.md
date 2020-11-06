@@ -7,8 +7,10 @@ slug: /
 ## Requirements
 
 - [Node.js](https://nodejs.org/en/download/) version >= 14 or above (which can be checked by running `node -v`).
-## Installing
 
+**We recomend using [docker](/docs/docker), yet if you want a simple install continue along.**
+
+## Installing
 You can clone Zipline by doing
 
 ```bash
@@ -18,10 +20,14 @@ cd zipline
 
 Once you are inside of the `zipline` directory, you will need to setup a configuration file (we recomend using [auto setup](/docs/auto))
 
+## Building
+Note this might take some time!
+```bash
+npm i && npm run build
+```
+
 ## Starting
-
-Start zipline by running
-
+Start zipline by running the command, after building.
 ```bash
 npm start
 ```
