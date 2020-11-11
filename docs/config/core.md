@@ -46,3 +46,13 @@ Want someone out of your server? Add their IP to this array and they will not be
 ```js
 ["127.0.0.1", "localhost"]
 ```
+
+## MultiFactor Authentication (TOTP)
+Enable MFA with Authy/Google Authenticator to add an extra layer of protection when accessing Zipline.
+
+**Option**: `core.mfa`<br/>
+**Type**: `boolean`<br/>
+**Example**:
+```js
+false
+```
