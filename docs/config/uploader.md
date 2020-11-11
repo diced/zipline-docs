@@ -13,8 +13,7 @@ Where uploaded files should be stored.
 **Example**:
 
 ```js
-"./uploads";
-
+"./uploads"
 ```
 
 ## Route
@@ -26,11 +25,10 @@ The route where your uploads will be served at.
 **Example**:
 
 ```js
-"/u";
-"/u/";
-"/cdn";
-"/cdn/";
-
+"/u"
+"/u/"
+"/cdn"
+"/cdn/"
 ```
 
 ## Length
@@ -45,7 +43,7 @@ Make sure the length is **greater** than `1` or `2`, this will only allow `62` o
 **Example**:
 
 ```js
-6;
+6
 ```
 
 ## Original
@@ -57,7 +55,7 @@ If this is enabled, then the original file name & extension will be kept.
 **Example**:
 
 ```js
-false;
+false
 ```
 
 ## Blacklisted
@@ -69,7 +67,7 @@ Blacklist certain extensions from entering your server.
 **Example**:
 
 ```js
-["jpg"];
+["jpg"]
 ```
 
 ## Rich Content Route
@@ -81,6 +79,5 @@ If this option is in your config then when you upload images it will return a di
 **Example**:
 
 ```js
-"/a";
-
+"/a"
 ```
