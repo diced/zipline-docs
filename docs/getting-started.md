@@ -14,7 +14,7 @@ slug: /
 You can clone Zipline by doing
 
 ```bash
-git clone https://github.com/ZiplineProject/zipline
+git clone https://github.com/diced/zipline
 cd zipline
 ```
 
