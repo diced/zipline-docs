@@ -18,7 +18,11 @@ git clone https://github.com/ZiplineProject/zipline
 cd zipline
 ```
 
-Once you are inside of the `zipline` directory, you will need to setup a configuration file (we recomend using [auto setup](/docs/auto))
+Once you are inside of the `zipline` directory, you will need to setup a configuration file
+
+:::danger Remember to generate a config!
+Zipline will not work without a configuration. [You can auto generate one here](/docs/auto)
+:::
 
 ## Building
 Note this might take some time!
