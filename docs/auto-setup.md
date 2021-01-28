@@ -8,7 +8,6 @@ slug: /auto
 
 - [Node.js](https://nodejs.org/en/download/) version >= 14.15.0 or above (which can be checked by running `node -v`). 
 
-
 Navigate to your existing Zipline directory, that you would have setup in [Getting Started](/docs/).
 
 The AutoSetup will attempt to ask:
