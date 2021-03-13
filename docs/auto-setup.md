@@ -11,7 +11,7 @@ slug: /auto
 Navigate to your existing Zipline directory, that you would have setup in [Getting Started](/docs/).
 
 Before running autosetup, make sure to run `npm i` to install dependencies required by autosetup.
-Run `setup.js` with the following command:
+Run autosetup with the following command:
 ```bash
 node setup.js
 ```
