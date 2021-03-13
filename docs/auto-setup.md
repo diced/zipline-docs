@@ -10,7 +10,13 @@ slug: /auto
 
 Navigate to your existing Zipline directory, that you would have setup in [Getting Started](/docs/).
 
-The AutoSetup will attempt to ask:
+Before running autosetup, make sure to run `npm i` to install dependencies required by autosetup.
+Run `setup.js` with the following command:
+```bash
+node setup.js
+```
+
+The autosetup will attempt to ask:
 - for your database type
 - database host
 - database password
@@ -20,8 +26,3 @@ The AutoSetup will attempt to ask:
 - secret
 - whether or not you would like vanity urls
 - asks if you would like to generate a docker-compose with all your options.
-
-You can finally, run the executable here:
-```bash
-node setup.js
-```
