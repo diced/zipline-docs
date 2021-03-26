@@ -46,7 +46,7 @@ npm start
 Start zipline by running the command, after building.
 
 ```bash
-npm start:windows
+npm run start:windows
 ```
 
 ### Starting in Verbose mode
