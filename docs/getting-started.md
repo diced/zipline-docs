@@ -11,6 +11,7 @@ slug: /
 **We recomend using [docker](/docs/docker), yet if you want a simple install continue along.**
 
 ## Installing
+
 You can clone Zipline by doing
 
 ```bash
@@ -25,20 +26,33 @@ Zipline will not work without a configuration. [You can auto generate one here](
 :::
 
 ## Building
+
 Note this might take some time!
+
 ```bash
 npm i && npm run build
 ```
 
-## Starting
+## Starting UNIX Based
+
 Start zipline by running the command, after building.
+
 ```bash
 npm start
+```
+
+## Starting on Windows
+
+Start zipline by running the command, after building.
+
+```bash
+npm start:windows
 ```
 
 ### Starting in Verbose mode
 
 Run Zipline in verbose mode by running `npm run start:verbose`
+or on windows `npm run start:windows:verbose`
 
 ### Starting in Dev mode
 
