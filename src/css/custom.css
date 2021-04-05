@@ -26,9 +26,12 @@
 html[data-theme="dark"] {
   --ifm-background-color: #0b1524;
   --ifm-background-surface-color: #162946;
-  --ifm-footer-background-color: #ffffff;
   --ifm-color-primary: #23406b;
   --ifm-heading-color: #ffffff;
   --ifm-menu-color-active: #5e6bb3;
   --ifm-navbar-link-hover-color: #5e6bb3;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #101d31;
 }
