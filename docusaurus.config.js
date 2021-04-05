@@ -26,7 +26,7 @@ module.exports = {
     navbar: {
       title: "Zipline",
       logo: {
-        alt: "Zipline Zip Logo",
+        alt: "Zipline Logo",
         src: "img/logo.svg",
       },
       items: [
