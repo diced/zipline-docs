@@ -1,7 +1,7 @@
 ---
-title: Comparison
-description: Comparison between other popular upload servers
-slug: /comparison
+title: Flame
+description: Flame other uploaders lmao 
+slug: /flame
 ---
 
 You might be wondering what is the comparison between other uploaders that you have used. Well you've come to the right place.
