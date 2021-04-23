@@ -6,7 +6,7 @@ module.exports = {
       "auto-setup",
       "migrations",
       "faq",
-      "comparison",
+      "flame",
       "NGINX"
     ],
     Configuration: [
