@@ -1,10 +1,9 @@
 ---
-title: Flameshot (Linux) Script
-description: Flameshot Script
-slug: /uploaders/flameshot
+id: flameshot
+title: Flameshot (Linux, macOS)
 ---
 
-Using [flameshot](https://flameshot.org/) on linux you can pipe raw image data to a file and upload it using cURL.
+Using [flameshot](https://flameshot.org/) on Linux or macOS you can pipe raw image data to a file and upload it using cURL.
 Use the `upload.sh` from [here](/docs/uploaders/curl). The script below saves the raw image to a file with the date.
 
 ```sh title="screenshot.sh"
@@ -15,3 +14,4 @@ flameshot gui -r > ~/pictures/$DATE;
 # uses the upload.sh from the the cURL example script
 ./upload.sh ~/pictures/$DATE;
 ```
+

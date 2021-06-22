@@ -1,15 +1,13 @@
 ---
-title: Migrations
-description: Migrate old data
-slug: /migrate
+id: migrations
+title: Migrate from v2 to v3
 ---
 
-Zipline Migrations will allow you to migrate Zipline v1 data over to the new Zipline v2 data structures.
+Migrating from v2 to v3 is easy as we provide a script that automatically take files from a dir and turn them into database entries from your [`config.toml`](/docs/config)
 
-## Requirements
+The script can be found at `scripts/migrate-v2-v3.js`, and can be run by:
+```bash
+node scripts/migrate-v2-v3.js /path/to/v2/uploads/dir
+```
 
-- [Node.js](https://nodejs.org/en/download/) version >= 12.19.0 or above (which can be checked by running `node -v`). 
-
-## Installing
-
-Zipline Migrations is coming soon to a NPM package registry near you.
+Once the migration is finished (even if there are thousands of images in the directory, it should only take a few seconds) it will ask you to move your old uploads dir to the one you have in the `config.toml` - **make sure to do this or none of your uploads will be available on v3**

@@ -1,45 +1,43 @@
 ---
-title: Core
-description: Core Config
-slug: /config/core
+id: core
+title: Core Config
 ---
 
-## Port
-Where Zipline should serve to.
+## `core.secure`
+Whether or not to use https or not
 
-**Option**: `core.port`<br/>
-**Type**: `number`<br/>
-**Example**:
+**Type**: `boolean`
+**Example:**:
+```js
+true
+```
+
+## `core.secret`
+Whether or not to use https or not
+
+**Type**: `string`
+**Example:**:
+```js
+'1234567890qwertyuiopasdfghjklzxcvbnm'
+```
+
+## `core.host`
+What host Zipline should run on.
+:::info
+If using Docker, set the value to `'0.0.0.0'`
+:::
+
+**Type**: `string`
+**Example:**:
+```js
+'0.0.0.0'
+```
+
+## `core.port`
+What port Zipline should run on
+
+**Type**: `number`
+**Example:**:
 ```js
 3000
-```
-
-## Secret
-This is the secret (that can't be shared to anyone!) that is used for cookies and encrypting user tokens.
-
-**Option**: `core.secret`<br/>
-**Type**: `string`<br/>
-**Example**:
-```js
-"secret"
-```
-
-## Blacklisted IPs
-Want someone out of your server? Add their IP to this array and they will not be able to use Zipline at all.
-
-**Option**: `core.blacklisted_ips`<br/>
-**Type**: `string[]`<br/>
-**Example**:
-```js
-["127.0.0.1", "localhost"]
-```
-
-## MultiFactor Authentication (TOTP)
-Enable MFA with Authy/Google Authenticator to add an extra layer of protection when accessing Zipline.
-
-**Option**: `core.mfa`<br/>
-**Type**: `boolean`<br/>
-**Example**:
-```js
-false
 ```

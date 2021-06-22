@@ -1,24 +1,39 @@
 module.exports = {
-  someSidebar: {
-    Zipline: [
-      "getting-started",
-      "docker",
-      "auto-setup",
-      "migrations",
-      "faq",
-      "comparison",
-      "NGINX"
-    ],
-    Configuration: [
-      "configuration",
-      "config/example",
-      "config/meta",
-      "config/core",
-      "config/uploader",
-      "config/urls",
-      "config/webhooks"
-    ],
-    Uploaders: ["uploaders/sharex", "uploaders/curl", "uploaders/flameshot"],
-    Plugins: ["plugins/getting-started"]
-  }
+  sidebar: [
+    {
+      type: 'category',
+      label: 'Zipline',
+      items: [
+        'getting-started',
+        'migrations',
+        'nginx'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Uploaders',
+      items: [
+        'uploaders/sharex',
+        'uploaders/curl',
+        'uploaders/flameshot'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Configuration',
+      items: [
+        'config/overview',
+        'config/example',
+        {
+          type: 'category',
+          label: 'Sections',
+          items: [
+            'config/core',
+            'config/database',
+            'config/uploader'
+          ]
+        }
+      ]
+    }
+  ]
 };

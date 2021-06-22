@@ -1,7 +1,7 @@
 module.exports = {
   title: "Zipline",
   tagline: "Fast & lightweight file uploading.",
-  url: "https://zipline.diced.wtf/",
+  url: "https://zipline.diced.me/",
   baseUrl: "/",
   onBrokenLinks: "throw",
   favicon: "img/favicon.ico",
@@ -34,7 +34,7 @@ module.exports = {
       },
       items: [
         {
-          to: "docs/",
+          to: "docs/getting-started",
           activeBasePath: "docs",
           label: "Docs",
           position: "left"
@@ -73,8 +73,10 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl:
-            "https://github.com/dicedtomatoreal/zipline-docs/edit/master/"
+          editUrl: "https://github.com/dicedtomatoreal/zipline-docs/edit/master/",
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          ],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css")

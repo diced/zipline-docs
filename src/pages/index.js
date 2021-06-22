@@ -12,7 +12,7 @@ const features = [
     imageUrl: 'img/undraw_Options_re_9vxh.svg',
     description: (
       <>
-        Zipline allows you to configure your heart out.
+        Zipline allows you to configure every part of it.
       </>
     ),
   },
@@ -68,7 +68,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/')}>
+              to={useBaseUrl('docs/getting-started')}>
               Get Started
             </Link>
           </div>
