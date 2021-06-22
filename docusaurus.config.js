@@ -73,7 +73,7 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/dicedtomatoreal/zipline-docs/edit/master/",
+          editUrl: "https://github.com/diced/zipline-docs/edit/trunk/",
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
           ],
