@@ -16,6 +16,7 @@ If you upload images using [ShareX](https://getsharex.com), you can use this con
   "Headers": {
     "Authorization": "{YOUR TOKEN}"
   },
+  "URL": "$json:url$",
   "Body": "MultipartFormData",
   "FileFormName": "file"
 }
@@ -33,6 +34,7 @@ If you upload images using [ShareX](https://getsharex.com), you can use this con
     "Authorization": "{YOUR TOKEN}",
     "Embed": "true"
   },
+  "URL": "$json:data.url$",
   "Body": "MultipartFormData",
   "FileFormName": "file"
 }
