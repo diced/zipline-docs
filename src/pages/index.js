@@ -57,7 +57,7 @@ function Home() {
   return (
     <Layout
       title='Documentation'
-      description="Speed & reliability first.">
+      description="Fast & lightweight file uploading.">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
