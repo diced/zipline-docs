@@ -7,6 +7,7 @@ title: Database Config
 The type of the database
 
 **Type**: `psql, mysql or sqlite` (`string`)
+**Env Property**: `DATABASE_TYPE`
 **Example:**:
 ```js
 'psql'
@@ -16,6 +17,7 @@ The type of the database
 The url of the database
 
 **Type**: `string`
+**Env Property**: `DATABASE_URL`
 **Example:**:
 ```js
 // for postgresql

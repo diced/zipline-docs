@@ -7,6 +7,7 @@ title: Uploader Config
 Which route uploads should be served on
 
 **Type**: `string`
+**Env Property**: `UPLOADER_ROUTE`
 **Example:**:
 ```js
 '/u'
@@ -16,6 +17,7 @@ Which route uploads should be served on
 Which route embed routes should be accessed via
 
 **Type**: `string`
+**Env Property**: `UPLOADER_EMBED_ROUTE`
 **Example:**:
 ```js
 '/a'
@@ -25,6 +27,7 @@ Which route embed routes should be accessed via
 Length of randomly generated characters for uploads
 
 **Type**: `number`
+**Env Property**: `UPLOADER_LENGTH`
 **Example:**:
 ```js
 6
@@ -34,6 +37,7 @@ Length of randomly generated characters for uploads
 Which directory uploads should be stored to
 
 **Type**: `string`
+**Env Property**: `UPLOADER_DIRECTORY`
 **Example:**:
 ```js
 './uploads'
