@@ -20,7 +20,7 @@ module.exports = {
     announcementBar: {
       id: "starzipline",
       content:
-        '⭐️ If you like Zipline, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/dicedtomatoreal/zipline">GitHub</a>! ⭐️'
+        '⭐️ If you like Zipline, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/diced/zipline">GitHub</a>! ⭐️'
     },
     prism: {
       theme: require("prism-react-renderer/themes/github"),
@@ -50,7 +50,7 @@ module.exports = {
           position: "right"
         },
         {
-          href: "https://discord.gg/hCAS87WaQz",
+          href: "https://discord.gg/EAhCRfGxCF",
           label: "Join us on Discord",
           position: "right"
         }
