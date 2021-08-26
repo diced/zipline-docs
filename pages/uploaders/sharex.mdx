@@ -1,0 +1,38 @@
+# ShareX Config
+
+If you're using [ShareX](https://getsharex.com), you can use this config to upload.
+
+## Without Embed
+```json
+{
+  "Version": "13.2.1",
+  "Name": "Zipline",
+  "DestinationType": "ImageUploader, TextUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "http(s)://{YOUR HOST}/api/upload",
+  "Headers": {
+    "Authorization": "{YOUR TOKEN}"
+  },
+  "URL": "$json:url$",
+  "Body": "MultipartFormData",
+  "FileFormName": "file"
+}
+```
+
+## With Embed
+```json
+{
+  "Version": "13.2.1",
+  "Name": "Zipline",
+  "DestinationType": "ImageUploader, TextUploader",
+  "RequestMethod": "POST",
+  "RequestURL": "http(s)://{YOUR HOST}/api/upload",
+  "Headers": {
+    "Authorization": "{YOUR TOKEN}",
+    "Embed": "true"
+  },
+  "URL": "$json:data.url$",
+  "Body": "MultipartFormData",
+  "FileFormName": "file"
+}
+```
