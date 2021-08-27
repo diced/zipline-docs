@@ -36,5 +36,5 @@ export default {
   nextLinks: true,
   footer: true,
   footerEditLink: 'Edit this page on GitHub',
-  footerText: <>© {new Date().getFullYear()} Zipline</>
+  footerText: <>© {new Date().getFullYear()} diced</>
 }
