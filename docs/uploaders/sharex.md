@@ -34,7 +34,7 @@ If you upload images using [ShareX](https://getsharex.com), you can use this con
     "Authorization": "{YOUR TOKEN}",
     "Embed": "true"
   },
-  "URL": "$json:data.url$",
+  "URL": "$json:url$",
   "Body": "MultipartFormData",
   "FileFormName": "file"
 }
