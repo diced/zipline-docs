@@ -28,7 +28,7 @@ export default {
         sizes="256x256"
         href="/favicon.ico"
       />
-      <style>{`.dark body, .dark .sidebar, .dark nav { background-color: #05070f !important; }`}</style>
+      <style>{`.dark body, .dark .sidebar, .dark nav { background-color: #05070f !important; } .token-line { display: flex; }`}</style>
     </>
   ),
   search: false,

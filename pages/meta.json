@@ -1,6 +1,7 @@
 {
   "index": "Introduction",
   "get-started": "Get Started",
+  "nginx": "NGINX Config",
   "uploaders": "Uploaders",
   "configuration": "Configuration",
   "themes": "Theming"

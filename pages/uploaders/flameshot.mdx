@@ -3,7 +3,7 @@
 Using [flameshot](https://flameshot.org/) on Linux or macOS you can pipe raw image data to a file and upload it using cURL.
 Use the `upload.sh` from [here](/uploaders/curl). The script below saves the raw image to a file with the date.
 
-```sh
+```bash
 # create DATE variable for the below commands
 DATE=$(date '+%h_%Y_%d_%I_%m_%S.png');
 # open flameshot gui and returns raw image with the -r flag then saved to ~/pictures/$DATE

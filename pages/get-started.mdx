@@ -10,20 +10,51 @@
 
 ## With Docker
 
-```sh
+```bash
 docker pull diced/zipline:trunk
 ```
-```sh
+```bash
 docker run -p 3000:3000 -v $PWD/config.toml:/zipline/config.toml -d diced/zipline:trunk
 ```
 
 ## With Docker Compose
 
-```sh
+```bash
 git clone https://github.com/diced/zipline
 cd zipline
 ```
 Rename `config.example.toml` to `config.toml` and edit any values to your liking.
-```sh
+```bash
 docker-compose up --build -dced/zipline:trunk
+```
+
+## Without Docker (using plain node)
+1. Clone the repo
+```bash
+git clone https://github.com/diced/zipline
+```
+2. Change the `config.example.toml`, and then rename it to `config.toml`
+3. Install Dependencies with `npm` or `yarn`
+```bash
+npm install
+```
+```bash
+yarn install
+```
+4. Build Zipline with `npm` or `yarn`
+```bash
+npm run build
+```
+```bash
+yarn build
+```
+5. Run Zipline with `npm` or `yarn` or plain `node`
+```bash
+npm start
+```
+```bash
+yarn start
+```
+```bash
+node server
 ```
