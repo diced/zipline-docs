@@ -1,6 +1,6 @@
 export default {
   github: 'https://github.com/diced/zipline',
-  docsRepositoryBase: 'https://github.com/diced/zipline/blob/new',
+  docsRepositoryBase: 'https://github.com/diced/zipline-docs/blob/new',
   titleSuffix: ' – Zipline',
   logo: (
     <>
