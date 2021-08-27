@@ -1,0 +1,28 @@
+import Callout from 'nextra-theme-docs/callout'
+
+# Database Config
+
+<Callout type="warning" emoji="⚠️">
+  This section will be deprecated soon, since multi-db support was removed.
+</Callout>
+
+## `database.type`
+The type of the database
+
+**Type**: `psql` (`string`)
+**Env Property**: `DATABASE_TYPE`
+**Example:**:
+```js
+'psql'
+```
+
+## `database.url`
+The url of the database
+
+**Type**: `string`
+**Env Property**: `DATABASE_URL`
+**Example:**:
+```js
+// for postgresql
+'postgres://zipline:zipline@localhost:5432/zipline'
+```

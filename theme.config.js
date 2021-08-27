@@ -1,7 +1,7 @@
 export default {
-  github: 'https://github.com/shuding/nextra',
-  docsRepositoryBase: 'https://github.com/shuding/nextra/blob/master',
-  titleSuffix: ' – Zipline Docs',
+  github: 'https://github.com/diced/zipline',
+  docsRepositoryBase: 'https://github.com/diced/zipline/blob/new',
+  titleSuffix: ' – Zipline',
   logo: (
     <>
       <span className="mr-2 font-extrabold hidden md:inline">Zipline</span>
@@ -35,5 +35,5 @@ export default {
   nextLinks: true,
   footer: true,
   footerEditLink: 'Edit this page on GitHub',
-  footerText: <>© {new Date().getFullYear()}  Zipline</>
+  footerText: <>© {new Date().getFullYear()} Zipline</>
 }
