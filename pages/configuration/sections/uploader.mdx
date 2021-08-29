@@ -46,3 +46,40 @@ Which directory uploads should be stored to
 ```js
 './uploads'
 ```
+
+## `uploader.admin_limit`
+File size limit for administrators
+**Type**: `number`
+
+**Env Property**: `UPLOADER_ADMIN_LIMIT`
+
+**Example**:
+```js
+104900000 // 100mb
+```
+
+## `uploader.user_limit`
+File size limit for normal users
+**Type**: `number`
+
+**Env Property**: `UPLOADER_USER_LIMIT`
+
+**Example**:
+```js
+104900000 // 100mb
+```
+
+## `uploader.disabled_extensions`
+An array of disabled extensions to be blocked when uploading files
+**Type**: `array`
+
+**Env Property**: `UPLOADER_DISABLED_EXTENSIONS`
+
+**Example**:
+```js
+// if config.toml
+['png', 'jpg']
+
+// if env vars (comma delimited)
+png,jpg
+```
