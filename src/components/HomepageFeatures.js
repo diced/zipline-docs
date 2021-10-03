@@ -8,7 +8,7 @@ const FeatureList = [
     Svg: require('../../static/img/setup.svg').default,
     description: (
       <>
-        Setup zipline in just 1 command using docker-compose
+        Set up Zipline in just 1 command with docker-compose
       </>
     )
   },
@@ -17,7 +17,7 @@ const FeatureList = [
     Svg: require('../../static/img/options.svg').default,
     description: (
       <>
-        Almost every part of Zipline is customizable, to the routes it serves and the theme of the dashboard 
+        Almost every part of Zipline is customizable, up to the routes it serves and the dashboard theme
       </>
     )
   },
@@ -26,7 +26,7 @@ const FeatureList = [
     Svg: require('../../static/img/upload.svg').default,
     description: (
       <>
-        Zipline supports uploading images, favoriting images to view them later and with ZWS support (zero-width space urls)
+        Zipline supports uploading images, favoriting images to view them later, and now ZWS support! (zero-width space urls)
       </>
     )
   },
