@@ -17,4 +17,4 @@ You might be asking, what are system themes? Well, they are themes curated by ma
 You can create a system theme by [forking zipline](https://github.com/diced/zipline) and adding a theme to the src/lib/themes directory copying the structure of an existing theme.
 
 
-[System Themes](/docs/themes/system)
+[System Themes](/docs/themes/publish)
