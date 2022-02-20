@@ -32,7 +32,7 @@ cd zipline
 ```
 Rename `config.example.toml` to `config.toml` and edit any values to your liking.
 ```bash
-docker-compose up --build -d
+docker-compose up -d
 ```
 
 ## Without Docker (using plain node)
