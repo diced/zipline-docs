@@ -24,14 +24,21 @@ docker pull diced/zipline:trunk
 docker run -p 3000:3000 -v $PWD/config.toml:/zipline/config.toml -d diced/zipline:trunk
 ```
 
-## With Docker Compose
-
+## With Docker Compose (recomended)
+This is the most easy way to setup zipline as it takes virtually zero work from you to setup.
 ```bash
 git clone https://github.com/diced/zipline
 cd zipline
 ```
-Rename `config.example.toml` to `config.toml` and edit any values to your liking.
+The configuration is editable via [environment variables](/docs/config/overview) inside the [`docker-compose.yml`](https://github.com/diced/zipline/blob/trunk/docker-compose.yml) file.
 ```bash
+docker-compose up -d
+```
+
+### Updating with Docker Compose (recomended)
+```bash
+# make sure you're in zipline dir
+docker-compose pull
 docker-compose up -d
 ```
 

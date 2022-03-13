@@ -5,7 +5,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (module.exports = {
   title: 'Zipline',
-  tagline: 'Zipline is a ShareX/file upload server that is easy to use, packed with features and can be setup in one command! ',
+  tagline: 'Zipline is a ShareX/file upload server that is easy to use, packed with features and can be setup in one command!',
   url: 'https://zipline.diced.me',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -65,12 +65,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             label: 'Uploaders',
           },
           {
-            type: 'doc',
-            docId: 'themes/reference',
-            position: 'left',
-            label: 'Themes',
-          },
-          {
             href: 'https://github.com/diced/zipline',
             label: 'GitHub',
             position: 'right',
@@ -88,10 +82,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                 to: '/docs/get-started',
               },
               {
-                label: 'Migrate from v2 to v3',
-                to: '/docs/migrate',
-              },
-              {
                 label: 'Configuration',
                 to: '/docs/config/overview',
               },
@@ -100,15 +90,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
                 to: '/docs/nginx',
               },
               {
-                label: 'Themes',
-                to: '/docs/themes/reference',
-              },
-              {
                 label: 'Uploaders',
                 to: '/docs/uploaders/sharex',
-              },{
-                label: 'API Reference',
-                to: '/docs/api-reference/api/upload',
               },
             ],
           },
@@ -117,7 +100,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             items: [
               {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://discordapp.com/invite/EAhCRfGxCF',
               },
               {
                 label: 'GitHub',
@@ -125,7 +108,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               },
               {
                 label: 'GitHub Docs',
-                href: 'https://github.com/diced/zipline-dcs',
+                href: 'https://github.com/diced/zipline-docs',
               },
             ],
           },

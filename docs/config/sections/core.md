@@ -13,7 +13,10 @@ true
 ```
 
 ## `core.secret`
-Whether or not to use https or not
+Secret used to hash cookies and other fun stuff.
+:::caution
+Please use something that will randomly generate a string of chars!
+:::
 
 **Type**: `string`
 
@@ -61,4 +64,28 @@ The PostgreSQL database url to connect to
 **Example**:
 ```js
 'postgres://zipline:zipline@localhost:5432/zipline'
+```
+
+## `core.logger`
+Whether or not to log route access, and other fun stuff
+
+**Type**: `boolean`
+
+**Env Property**: `LOGGER`
+
+**Example**:
+```js
+false
+```
+
+## `core.stats_interval`
+The interval in seconds that stats will be collected. Recomended to set this to more than 30 minutes.
+
+**Type**: `boolean`
+
+**Env Property**: `STATS_INTERVAL`
+
+**Example**:
+```js
+1800 // 30 minutes
 ```

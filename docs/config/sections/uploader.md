@@ -36,18 +36,6 @@ Length of randomly generated characters for uploads
 6
 ```
 
-## `uploader.directory`
-Which directory uploads should be stored to
-
-**Type**: `string`
-
-**Env Property**: `UPLOADER_DIRECTORY`
-
-**Example**:
-```js
-'./uploads'
-```
-
 ## `uploader.admin_limit`
 File size limit for administrators
 **Type**: `number`
