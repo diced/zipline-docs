@@ -1407,11 +1407,13 @@
     prop-types "^15.6.2"
 
 "@docusaurus/remark-plugin-npm2yarn@^2.0.0-beta.6":
-  version "2.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/@docusaurus/remark-plugin-npm2yarn/-/remark-plugin-npm2yarn-2.0.0-beta.6.tgz#233a69867fbc8b23a0da2eb25e5acecb31e12913"
-  integrity sha512-R617/fZdXiFDK/aMQJ2hUUNcIp2u5Oj0mezRRE+7IB/jLkszRoaERclQPzVd5TWGYl8QkRZCI7ZGhz2VWYmEqg==
+  version "2.0.0-beta.21"
+  resolved "https://registry.yarnpkg.com/@docusaurus/remark-plugin-npm2yarn/-/remark-plugin-npm2yarn-2.0.0-beta.21.tgz#10eb88a2dab6193568eff76b6a83b79e313ef765"
+  integrity sha512-CqvmoFEj05NzaQBKxnsfI90aM8KHJZWyCzED/Qg5odUD9VtR9zNQJ1Nu/X1ctqCN7FBIxBYk2tz1Xb1+zCP8gg==
   dependencies:
     npm-to-yarn "^1.0.1"
+    tslib "^2.4.0"
+    unist-util-visit "^2.0.3"
 
 "@docusaurus/theme-classic@2.0.0-beta.6":
   version "2.0.0-beta.6"
@@ -6620,9 +6622,9 @@ pretty-time@^1.1.0:
   integrity sha512-28iF6xPQrP8Oa6uxE6a1biz+lWeTOAPKggvjB8HAs6nVMKZwf5bG++632Dx614hIWgUPkgivRfG+a8uAXGTIbA==
 
 prism-react-renderer@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.2.1.tgz#392460acf63540960e5e3caa699d851264e99b89"
-  integrity sha512-w23ch4f75V1Tnz8DajsYKvY5lF7H1+WvzvLUcF0paFxkTHSp42RS0H5CttdN2Q8RR3DRGZ9v5xD/h3n8C8kGmg==
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.3.3.tgz#9b5a4211a6756eee3c96fee9a05733abc0b0805c"
+  integrity sha512-Viur/7tBTCH2HmYzwCHmt2rEFn+rdIWNIINXyg0StiISbDiIhHKhrFuEK8eMkKgvsIYSjgGqy/hNyucHp6FpoQ==
 
 prismjs@^1.23.0:
   version "1.25.0"
@@ -8102,6 +8104,11 @@ tslib@^2.0.3, tslib@^2.1.0, tslib@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+
+tslib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.0.tgz#7cecaa7f073ce680a05847aa77be941098f36dc3"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 type-fest@^0.20.2:
   version "0.20.2"

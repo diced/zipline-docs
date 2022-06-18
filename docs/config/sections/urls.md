@@ -1,6 +1,6 @@
 # Urls
 
-## `uploader.route`
+## `urls.route`
 Which route urls should be served on
 
 **Type**: `string`

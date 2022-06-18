@@ -15,16 +15,7 @@ import TabItem from '@theme/TabItem';
 ### Without Docker
 * Node: [nodejs.org](https://nodejs.org)
 
-## With Docker
-
-```bash
-docker pull diced/zipline:trunk
-```
-```bash
-docker run -p 3000:3000 -v $PWD/config.toml:/zipline/config.toml -d diced/zipline:trunk
-```
-
-## With Docker Compose (recomended)
+## With Docker-Compose
 This is the most easy way to setup zipline as it takes virtually zero work from you to setup.
 ```bash
 git clone https://github.com/diced/zipline
@@ -35,7 +26,9 @@ The configuration is editable via [environment variables](/docs/config/overview)
 docker-compose up -d
 ```
 
-### Updating with Docker Compose (recomended)
+Once you do this you might be thrown into a restart loop as Zipline has a security feature in which if the default secret is still being used it will error out. You can find and change the secret inside of the docker-compose.yml and find under the `environment:` section change the `SECRET=changethis` to something else other than changethis. Preferably a generated string of alphanumeric chars with symbols if you wish.
+
+### Updating with Docker Compose
 ```bash
 # make sure you're in zipline dir
 docker-compose pull

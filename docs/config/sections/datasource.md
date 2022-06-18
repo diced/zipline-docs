@@ -36,7 +36,7 @@ AWS Access key
 
 **Type**: `string`
 
-**Env Property**: `DATASOURCE_S3_ACCESS_KEY`
+**Env Property**: `DATASOURCE_S3_ACCESS_ID`
 
 **Example**:
 ```js
@@ -65,4 +65,16 @@ S3 Bucket to use
 **Example**:
 ```js
 'zipline-uploads'
+```
+
+### `datasource.s3.endpoint`
+S3 Endpoint to use, for custom endpoints
+
+**Type**: `string`
+
+**Env Property**: `DATASOURCE_S3_ENDPOINT`
+
+**Example**:
+```js
+'http://someurl'
 ```

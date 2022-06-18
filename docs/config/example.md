@@ -13,14 +13,21 @@ Example Config, can be found [here](https://github.com/diced/zipline/tree/trunk/
 ```toml
 [core]
 secure = true
-secret = 'some secret'
+secret = 'changethis'
 host = '0.0.0.0'
 port = 3000
 database_url = 'postgres://postgres:postgres@postgres/postgres'
+
+[urls]
+route = '/go'
+length = 6
 
 [uploader]
 route = '/u'
 embed_route = '/a'
 length = 6
 directory = './uploads'
+user_limit = 104900000 # 100mb
+admin_limit = 104900000 # 100mb
+disabled_extentions = ['jpg']
 ```
