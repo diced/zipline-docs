@@ -36,7 +36,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/diced/zipline-docs/tree/newer/',
+          editUrl: 'https://github.com/diced/zipline-docs/tree/v4/',
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }],
           ],
@@ -48,36 +48,36 @@ const config = {
     ],
   ],
 
-  plugins: [
-    [
-      '@docusaurus/plugin-pwa',
-      {
-        debug: true,
-        offlineModeActivationStrategies: [
-          'appInstalled',
-          'standalone',
-          'queryString',
-        ],
-        pwaHead: [
-          {
-            tagName: 'link',
-            rel: 'icon',
-            href: '/img/zipline.png',
-          },
-          {
-            tagName: 'link',
-            rel: 'manifest',
-            href: '/manifest.json',
-          },
-          {
-            tagName: 'meta',
-            name: 'theme-color',
-            content: '#0d7ce2',
-          },
-        ],
-      },
-    ],
-  ],
+  // plugins: [
+  //   [
+  //     '@docusaurus/plugin-pwa',
+  //     {
+  //       debug: true,
+  //       offlineModeActivationStrategies: [
+  //         'appInstalled',
+  //         'standalone',
+  //         'queryString',
+  //       ],
+  //       pwaHead: [
+  //         {
+  //           tagName: 'link',
+  //           rel: 'icon',
+  //           href: '/img/zipline.png',
+  //         },
+  //         {
+  //           tagName: 'link',
+  //           rel: 'manifest',
+  //           href: '/manifest.json',
+  //         },
+  //         {
+  //           tagName: 'meta',
+  //           name: 'theme-color',
+  //           content: '#0d7ce2',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // ],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
