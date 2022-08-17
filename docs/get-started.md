@@ -56,3 +56,34 @@ After setting up Zipline for the first time, you may login to the dashboard with
 :::danger
 Remember to change this password in the manage user page.
 :::
+
+## Updating
+### Docker
+To update with docker you can simply run:
+```bash
+docker-compose pull
+```
+then run
+```
+docker-compose up -d
+```
+to restart.
+
+### From Source
+To update from source you can simply run:
+```bash
+git pull
+```
+then run
+```bash npm2yarn
+npm install
+```
+
+```bash npm2yarn
+npm run build
+```
+then run
+```bash npm2yarn
+npm run start
+```
+to start.
