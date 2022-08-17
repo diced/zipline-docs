@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { writeFileSync } from 'fs'
+import { mkdirSync, writeFileSync } from 'fs'
 import { join } from 'path'
 
 const frontmatter = (release, index) => {
@@ -13,6 +13,8 @@ sidebar_position: ${index}
 }
 
 (async () => {
+  mkdirSync('./docs/changelog');
+
   const res = await fetch('https://api.github.com/repos/diced/zipline/releases');
   const data = await res.json();
 
