@@ -12,3 +12,9 @@ Due to privacy concerns when running Zipline with many users, you may want to hi
 ```bash
 WEBSITE_SHOW_FILES_PER_USER=true
 ```
+
+## `WEBSITE_EXTERNAL_LINKS`
+External links to show on the sidebar, see [here](/docs/guides/external-links).
+```bash
+WEBSITE_EXTERNAL_LINKS='[{"label":"Zipline","link":"https://github.com/diced/zipline"}]'
+```

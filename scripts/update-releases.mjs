@@ -13,7 +13,7 @@ sidebar_position: ${index}
 }
 
 (async () => {
-  mkdirSync('./docs/changelog');
+  mkdirSync('./docs/changelog', { recursive: true });
 
   const res = await fetch('https://api.github.com/repos/diced/zipline/releases');
   const data = await res.json();

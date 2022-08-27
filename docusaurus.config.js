@@ -20,15 +20,6 @@ const config = {
     locales: ['en'],
   },
 
-  themes: [
-    [
-      require.resolve("@easyops-cn/docusaurus-search-local"),
-      {
-        hashed: true,
-      },
-    ],
-  ],
-
   presets: [
     [
       'classic',
@@ -161,6 +152,12 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
         additionalLanguages: ['nginx']
+      },
+      algolia: {
+        appId: 'BXUJSM62NY',
+        apiKey: '94e0a10b58aab0c08fcb8c7d1821fbb3',
+        indexName: 'zipline',
+        contextualSearch: false,
       },
     }),
 };
