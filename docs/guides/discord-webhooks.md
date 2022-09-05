@@ -56,12 +56,12 @@ You may customize the output of the webhook with variables like "`User uploaded 
 ### Upload Only Variables
 | Notaion | Description |
 |---------|-------------|
-| `{image.id}` | outputs the numeric id of the file |
-| `{image.file}` | outputs the file name |
-| `{image.mime}` | outputs the mimetype of the file |
-| `{image.created_at.full_string}` | outputs the full date |
-| `{image.created_at.date_string}` | outputs only the date |
-| `{image.created_at.time_string}` | outputs only the time |
+| `{file.id}` | outputs the numeric id of the file |
+| `{file.file}` | outputs the file name |
+| `{file.mime}` | outputs the mimetype of the file |
+| `{file.created_at.full_string}` | outputs the full date |
+| `{file.created_at.date_string}` | outputs only the date |
+| `{file.created_at.time_string}` | outputs only the time |
 
 ### Shorten Only Variables
 | Notaion | Description |
