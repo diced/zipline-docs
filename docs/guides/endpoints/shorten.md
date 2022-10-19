@@ -1,4 +1,4 @@
-# GET /api/shorten
+# POST /api/shorten
 
 Shortens a URL, an easier way to do this is straight from the dashboard.
 

@@ -1,4 +1,4 @@
-# GET /api/upload
+# POST /api/upload
 
 ## Headers
 Upload a file to Zipline, for more options see the [configuration](/docs/guides/upload-options) page.
