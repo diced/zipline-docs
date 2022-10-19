@@ -30,3 +30,10 @@ A comma separated list of file extensions that are not allowed to be uploaded.
 ```bash
 UPLOADER_DISABLED_EXTENSIONS=png,jpg,gif,mp4
 ```
+
+## `UPLOADER_FORMAT_DATE`
+When using the [`DATE` format on file uploads](/docs/guides/upload-options#image-format) you can set the date format to use. For more info on date formats, visit [dayjs format](https://day.js.org/docs/en/display/format).
+
+```bash
+UPLOADER_FORMAT_DATE='YYYY-MM-DD_HH:mm:ss'
+```
