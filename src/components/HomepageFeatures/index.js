@@ -28,6 +28,11 @@ const FeatureList = [
         <li>Discord embeds (OG metadata)</li>
         <li>Gallery viewer that supports multiple media formats</li>
         <li>Code highlighting</li>
+        <li>OAuth 2 registration via Discord/GitHub</li>
+        <li>User Invites</li>
+        <li>Fully customizable Discord webhook notifications</li>
+        <li>Password protected uploads</li>
+        <li>Image compression</li>
       </ul>
     </>
   },
