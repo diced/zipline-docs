@@ -33,7 +33,6 @@ Simply run the following command:
 yarn scripts:import-dir /path/to/import
 ```
 
-
 ### Import to another user account
 If you don't want files to be imported into the default `administrator` account, you can specify a number (the user id) to import to. This can be done by simply adding another argument to the command.
 

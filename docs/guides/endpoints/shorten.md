@@ -7,6 +7,7 @@ Shortens a URL, an easier way to do this is straight from the dashboard.
 | Header Name | Type | Description |
 |-------------|------|-------------|
 |`Zws`|`boolean`|If this header is present it will create a zero-width-space url|
+|`Max-Views`|`number`|The maximum amount of views before the url is deleted|
 |`Authorization`|`string`|A required field, your users auth token|
 
 ## Body (JSON)

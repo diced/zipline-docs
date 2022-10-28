@@ -12,3 +12,9 @@ Disable or enable Oauth user registration. If disabled, users will not be able t
 ```bash
 FEATURES_OAUTH_REGISTRATION=false
 ```
+
+## `FEATURES_USER_REGISTRATION`
+Disable or enable user registration. If disabled, users will not be able to register themselves. Defaults to being disabled.
+```bash
+FEATURES_USER_REGISTRATION=false
+```

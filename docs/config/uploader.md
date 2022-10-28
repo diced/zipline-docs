@@ -14,15 +14,15 @@ UPLOADER_LENGTH=6
 ```
 
 ## `UPLOADER_ADMIN_LIMIT`
-The amount of bytes that can be uploaded by an admin.
+The amount of bytes that can be uploaded by an admin. For more info on what values are accepted, see [here](/docs/guides/byte-format).
 ```bash
-UPLOADER_ADMIN_LIMIT=1000000
+UPLOADER_ADMIN_LIMIT=50mb
 ```
 
 ## `UPLOADER_USER_LIMIT`
-The amount of bytes that can be uploaded by a user.
+The amount of bytes that can be uploaded by a user. For more info on what values are accepted, see [here](/docs/guides/byte-format)
 ```bash
-UPLOADER_USER_LIMIT=1000000
+UPLOADER_USER_LIMIT=50mb
 ```
 
 ## `UPLOADER_DISABLED_EXTENSIONS`
