@@ -14,19 +14,26 @@ UPLOADER_LENGTH=6
 ```
 
 ## `UPLOADER_ADMIN_LIMIT`
-The amount of bytes that can be uploaded by an admin.
+The amount of bytes that can be uploaded by an admin. For more info on what values are accepted, see [here](/docs/guides/byte-format).
 ```bash
-UPLOADER_ADMIN_LIMIT=1000000
+UPLOADER_ADMIN_LIMIT=50mb
 ```
 
 ## `UPLOADER_USER_LIMIT`
-The amount of bytes that can be uploaded by a user.
+The amount of bytes that can be uploaded by a user. For more info on what values are accepted, see [here](/docs/guides/byte-format)
 ```bash
-UPLOADER_USER_LIMIT=1000000
+UPLOADER_USER_LIMIT=50mb
 ```
 
 ## `UPLOADER_DISABLED_EXTENSIONS`
 A comma separated list of file extensions that are not allowed to be uploaded.
 ```bash
 UPLOADER_DISABLED_EXTENSIONS=png,jpg,gif,mp4
+```
+
+## `UPLOADER_FORMAT_DATE`
+When using the [`DATE` format on file uploads](/docs/guides/upload-options#image-format) you can set the date format to use. For more info on date formats, visit [dayjs format](https://day.js.org/docs/en/display/format).
+
+```bash
+UPLOADER_FORMAT_DATE='YYYY-MM-DD_HH:mm:ss'
 ```

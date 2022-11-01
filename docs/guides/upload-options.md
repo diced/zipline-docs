@@ -13,6 +13,7 @@ When uploading files you have a few options to choose from in the form of header
 |`Password`|`string`|Create a password locked image|
 |`Zws`|`boolean`|If this header is present it will create a zero-width-space url|
 |`Embed`|`boolean`|If this header is present, the image will have additional `OG` metadata (mostly used on Discord)|
+|`Max-Views`|`number`|The maximum amount of views before the file is deleted|
 |`UploadText`|`boolean`|If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited)|
 |`Authorization`|`string`|A required field, your users auth token|
 
@@ -23,7 +24,7 @@ The `Format` header dictates the format of a file name. Here is a list of what e
 |------|-------------|---------|
 |`RANDOM`|This is the default format, which will create a alphanumeric string that is [UPLOADER_LENGTH](/docs/config/uploader#uploader_length) long|`8QdSZM.png`|
 |`UUID`|The UUID of the file is used as the name of the file.|`ec7eb6d2-c405-41ec-91eb-11387fc2f9a2.png`|
-|`DATE`|The current date as the file name in the format of `YYYY-MM-DD_HH:mm:ss`|`2022-08-16_09:55:31.png`|
+|`DATE`|The current date as the file name in the format specified in [UPLOADER_FORMAT_DATE](/docs/config/uploader#)|`2022-08-16_09:55:31.png`|
 |`NAME`|This will keep the original name of the file, when sent to the server.|`Somerandomfilenameidk.png`|
 
 ## Image Compression

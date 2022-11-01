@@ -41,7 +41,7 @@ DISCORD_URL=paste the webhook url from earlier here
 ```
 
 ## Customize the output
-By default if the environment variables, `DISCORD_UPLOAD` or `DISCORD_SHORTEN` are not present nothing will be sent. If you would like to configure them visit the configuration documentation [here](/docs/config/discord)
+By default if the environment variables, `DISCORD_UPLOAD_*` or `DISCORD_SHORTEN_*` (* = any key that zipline supports to send content/embeds) are not present nothing will be sent. If you would like to configure them visit the configuration documentation [here](/docs/config/discord)
 
 ## Variables
 You may customize the output of the webhook with variables like "`User uploaded {image.file}!`". The below variables are available for both shorten and upload notifications.
