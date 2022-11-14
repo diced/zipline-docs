@@ -7,6 +7,12 @@ Disable or enable invites. If disabled, users will not be able to invite other u
 FEATURES_INVITES=true
 ```
 
+## `FEATURES_INVITES_LENGTH`
+The length of the invite code. Defaults to 6.
+```bash
+FEATURES_INVITES_LENGTH=6
+```
+
 ## `FEATURES_OAUTH_REGISTRATION`
 Disable or enable Oauth user registration. If disabled, users will not be able to register themselves via an [oauth provider](/docs/guides/oauth). Defaults to being disabled.
 ```bash
