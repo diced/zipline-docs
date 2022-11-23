@@ -1,6 +1,12 @@
 # Uploader
 This page documents the uploader configuration of Zipline.
 
+## `UPLOADER_DEFAULT_FORMAT`
+The default 'upload format' for files. For more info on what values are accepted, see [here][(/docs/guides/upload-options#image-format).
+```bash
+UPLOADER_DEFAULT_FORMAT=NAME
+```
+
 ## `UPLOADER_ROUTE`
 The route to serve files on.
 ```bash
