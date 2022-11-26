@@ -14,7 +14,7 @@ When uploading files you have a few options to choose from in the form of header
 |`Zws`|`boolean`|If this header is present it will create a zero-width-space url|
 |`Embed`|`boolean`|If this header is present, the image will have additional `OG` metadata (mostly used on Discord)|
 |`Max-Views`|`number`|The maximum amount of views before the file is deleted|
-|`UploadText`|`boolean`|If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited)|
+|`UploadText`|`boolean`|If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited). This option is primarily used by the server for text uploads.|
 |`Authorization`|`string`|A required field, your users auth token|
 
 ## Image Format

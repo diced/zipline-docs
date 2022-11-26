@@ -4,6 +4,9 @@
  * work well for content-centric websites.
  */
 
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;500;700&display=swap");
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #0d7ce2;
@@ -16,10 +19,13 @@
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-footer-background-color: #1b1b1d;
+
+  --ifm-font-family-base: "Ubuntu", sans-serif;
+  --ifm-font-family-monospace: "Ubuntu Mono", monospace;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #0d7ce2;
   --ifm-color-primary-dark: #0c70cb;
   --ifm-color-primary-darker: #0b69c0;
@@ -37,15 +43,15 @@
 }
 
 @media screen and (min-width: 966px) {
-	footer > .container {
-		display: grid;
-		place-content: center;
-	}
+  footer > .container {
+    display: grid;
+    place-content: center;
+  }
 }
 
 @media screen and (max-width: 966px) {
-	footer > div > div.row.footer__links {
-		padding-left: 1rem !important;
-		padding-right: 1rem !important;
-	}
+  footer > div > div.row.footer__links {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }

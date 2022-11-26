@@ -9,3 +9,11 @@
   height: 200px;
   width: 200px;
 }
+
+.marginBottom {
+  margin-bottom: 2rem;
+}
+
+.centerText {
+  text-align: center;
+}
