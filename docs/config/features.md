@@ -24,3 +24,9 @@ Disable or enable user registration. If disabled, users will not be able to regi
 ```bash
 FEATURES_USER_REGISTRATION=false
 ```
+
+## `FEATURES_HEADLESS
+Runs Zipline in headless mode. This will entirely disable the front end, leaving only the API accessible. This defaults to being disabled as normal users usually want to use the front end. This may be useful if you create your own front end and want to use Zipline as a backend.
+```bash
+FEATURES_HEADLESS=false
+```

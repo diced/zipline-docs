@@ -1,41 +1,9 @@
-# Website
+# Zipline Docs
 
-This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
+Documentation for everything related to Zipline, including guides, configuration, and more.
 
-### Installation
+# Branches
+v4: This contains docs **IDENTICAL** to the latest **RELEASE** tag, for example, `v3.6.1`. This is the version most people are going to be using, and is recomended. [https://zipline.diced.tech](https://zipline.diced.tech)
 
-```
-$ yarn
-```
 
-### Local Development
-
-```
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
-
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Trunk: This contains docs **IDENTICAL** to the **trunk** tag of [https://github.com/diced/zipline](https://github.com/diced/zipline). This is only experimental, as with the `trunk` branch on Zipline, and is not recomended for production use. [https://zipline-trunk.diced.tech](https://zipline-trunk.diced.tech/)

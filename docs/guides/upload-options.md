@@ -14,13 +14,13 @@ When uploading files you have a few options to choose from in the form of header
 |`Zws`|`boolean`|If this header is present it will create a zero-width-space url|
 |`Embed`|`boolean`|If this header is present, the image will have additional `OG` metadata (mostly used on Discord)|
 |`Max-Views`|`number`|The maximum amount of views before the file is deleted|
-|`UploadText`|`boolean`|If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited)|
+|`UploadText`|`boolean`|If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited). This option is primarily used by the server for text uploads.|
 |`Authorization`|`string`|A required field, your users auth token|
 
 ## Image Format
 The `Format` header dictates the format of a file name. Here is a list of what each format does.
 
-| Name | Description | Example |m
+| Name | Description | Example |
 |------|-------------|---------|
 |`RANDOM`|This is the default format, which will create a alphanumeric string that is [UPLOADER_LENGTH](/docs/config/uploader#uploader_length) long|`8QdSZM.png`|
 |`UUID`|The UUID of the file is used as the name of the file.|`ec7eb6d2-c405-41ec-91eb-11387fc2f9a2.png`|
@@ -57,4 +57,4 @@ The expression is `{number}{optional space}{unit}`. The space between the number
 | `y` | Years | `10y`, `10 years`, `10 year`, `10 yrs`, `10 y` | 
 
 ## Ratelimit
-If your user is ratelimited, you can see how long you have to wait with the `X-Ratelimit-Remaining` header.
+If your user is ratelimited, you can see how long (seconds) you have to wait with the `X-Ratelimit-Remaining` header.

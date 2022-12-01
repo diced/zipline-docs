@@ -15,7 +15,7 @@ docker-compose up -d
 ```
 
 :::danger
-After installing, please edit the `docker-compose.yml` file and find the line that says `SECRET=changethis` and replace `changethis` with a random string.
+After installing, please edit the `docker-compose.yml` file and find the line that says `CORE_SECRET=changethis` and replace `changethis` with a random string.
 
 
 Ways you could generate the string could be from a password managers generator, or you could just slam your keyboard and hope for the best.

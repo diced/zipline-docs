@@ -1,6 +1,12 @@
 # Uploader
 This page documents the uploader configuration of Zipline.
 
+## `UPLOADER_DEFAULT_FORMAT`
+The default 'upload format' for files. For more info on what values are accepted, see [here][(/docs/guides/upload-options#image-format).
+```bash
+UPLOADER_DEFAULT_FORMAT=NAME
+```
+
 ## `UPLOADER_ROUTE`
 The route to serve files on.
 ```bash
@@ -36,4 +42,10 @@ When using the [`DATE` format on file uploads](/docs/guides/upload-options#image
 
 ```bash
 UPLOADER_FORMAT_DATE='YYYY-MM-DD_HH:mm:ss'
+```
+
+## `UPLOADER_DEFAULT_EXPIRATION`
+The default expiration time for files. For more info on what values are accepted, see [image expiration](/docs/guides/upload-options#image-expiration). This is defaulted to being disabled.
+```bash
+UPLOADER_DEFAULT_EXPIRATION=1d
 ```
