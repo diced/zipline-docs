@@ -34,7 +34,7 @@ ${release.body}
   }
   writeFileSync('./docs/changelog/_category_.json', JSON.stringify({
     label: 'Changelog',
-    position: 4
+    position: 5
   }));
   console.log('Generated release changelog');
 })();

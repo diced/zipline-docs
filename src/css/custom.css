@@ -55,3 +55,39 @@
     padding-right: 1rem !important;
   }
 }
+
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+
+.color-GET,
+.color-200 {
+  background-color: #11e47b;
+}
+
+.color-POST {
+  background-color: #d4a519;
+}
+
+.color-PUT {
+  background-color: #e4b11e;
+}
+
+.color-DELETE,
+.color-403,
+.color-401,
+.color-400 {
+  background-color: #d83a3a;
+}
+
+.color-PATCH {
+  background-color: #e4b11e;
+}
