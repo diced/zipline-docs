@@ -16,7 +16,7 @@ Upload a file to Zipline, for more options see the [configuration](/docs/guides/
 
 Field names of files should be `file`, if you want to upload multiple files then just append multiple fields with the name still being `file`.
 
-### <APIBadge type="200" /> Returns (JSON)
+### <APIBadge type="200" /> Ok (JSON)
 
 | Field Name    | Type               | Description                                            |
 | ------------- | ------------------ | ------------------------------------------------------ |
@@ -45,7 +45,7 @@ Field names of files should be `file`, if you want to upload multiple files then
 }
 ```
 
-### <APIBadge type="400" /> Errors (JSON)
+### <APIBadge type="400" /> Bad Request (JSON)
 
 - `invalid date` - Provided an invalid date for the `Expires-At` header.
 - `invalid date (UPLOADER_DEFAULT_EXPIRATION)` - The [`UPLOADER_DEFAULT_EXPIRATION`](/docs/config/uploader#uploader_default_expiration) is set to an invalid date, therefore the default expiration is invalid.
@@ -58,7 +58,7 @@ Field names of files should be `file`, if you want to upload multiple files then
 - `file[i]: no filename` - The file at index `i` has no filename.
 - `file[i]: disabled extension recieved: ext` - The file at index `i` has a disabled extension.
 
-### <APIBadge type="401" /> Errors (JSON)
+### <APIBadge type="401" /> Forbidden (JSON)
 
 - `no authorization` - No `Authorization` header present.
 - `authorization incorrect` - The provided `Authorization` header is incorrect.

@@ -30,7 +30,7 @@ Requires [authentication](/docs/api#authentication)
 }
 ```
 
-### <APIBadge type="200" /> Returns (JSON)
+### <APIBadge type="200" /> Ok (JSON)
 
 | Field Name | Type     | Description       |
 | ---------- | -------- | ----------------- |
@@ -42,7 +42,7 @@ Requires [authentication](/docs/api#authentication)
 }
 ```
 
-### <APIBadge type="400" /> Errors (JSON)
+### <APIBadge type="400" /> Bad Request (JSON)
 
 - `no body` - No JSON body was provided.
 - `no url` - No URL was provided. (.url)
@@ -50,7 +50,7 @@ Requires [authentication](/docs/api#authentication)
 - `invalid max views (max views < 0)` - The `Max-Views` header is set to a number less than 0.
 - `vanity already exists` - If a vanity is provided, and it exists.
 
-### <APIBadge type="401" /> Errors (JSON)
+### <APIBadge type="401" /> Forbidden (JSON)
 
 - `no authorization` - The `Authorization` header is not present.
 - `authorization incorrect` - The `Authorization` header is incorrect.

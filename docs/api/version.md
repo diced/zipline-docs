@@ -16,7 +16,7 @@ Upload a file to Zipline, for more options see the [configuration](/docs/guides/
 
 Field names of files should be `file`, if you want to upload multiple files then just append multiple fields with the name still being `file`.
 
-### <APIBadge type="200" /> Returns (JSON)
+### <APIBadge type="200" /> Ok (JSON)
 
 | Field Name | Type               | Description                    |
 | ---------- | ------------------ | ------------------------------ |
@@ -28,6 +28,6 @@ Field names of files should be `file`, if you want to upload multiple files then
 }
 ```
 
-### <APIBadge type="403" /> Errors (JSON)
+### <APIBadge type="403" /> Unauthorized (JSON)
 
 - `version hidden` - The [`WEBSITE_SHOW_VERSION`](/docs/config/website#website_show_version) is set to `false`, therefore the version is hidden.

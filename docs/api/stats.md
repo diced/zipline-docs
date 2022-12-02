@@ -14,7 +14,7 @@ Requires [authentication](/docs/api#authentication)
 | ---------- | -------- | -------------------------- |
 | `amount`   | `number` | The amount of stats to get |
 
-### <APIBadge type="200" /> Returns (JSON Array)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 | Field Name      | Type     | Description                           |
 | --------------- | -------- | ------------------------------------- |
@@ -100,15 +100,15 @@ Requires [authentication](/docs/api#authentication)
 ]
 ```
 
-### <APIBadge type="400" /> Errors (JSON)
+### <APIBadge type="400" /> Bad Request (JSON)
 
 - `invalid amount` - The `amount` field is not a number, or couldn't be parsed as one.
 
 ## <APIBadge type="POST" /> Force a stats update
 
-### <APIBadge type="200" /> Returns (JSON)
+### <APIBadge type="200" /> Ok (JSON)
 
 Same response as [this](#-returns-json-array)
 
-### <APIBadge type="403" /> Errors (JSON)
+### <APIBadge type="403" /> Unauthorized (JSON)
 `not an administrator` - You are not an administrator, therefore you cannot force a stats update.

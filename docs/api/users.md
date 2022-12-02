@@ -12,7 +12,7 @@ Requires the user to be an administrator
 
 ## <APIBadge type="GET" /> Get all users
 
-### <APIBadge type="200" /> Returns (JSON)
+### <APIBadge type="200" /> Ok (JSON)
 
 Returns an array of [users](/docs/api/models/user)
 
