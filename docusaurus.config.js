@@ -31,6 +31,8 @@ const config = {
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
           ],
+          sidebarCollapsible: true,
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -67,6 +69,12 @@ const config = {
             docId: "get-started",
             position: "left",
             label: "Docs",
+          },
+          {
+            type: "doc",
+            docId: "api/api",
+            position: "left",
+            label: "API",
           },
           {
             href: "https://github.com/diced/zipline",
