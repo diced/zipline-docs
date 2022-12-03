@@ -14,8 +14,9 @@ import APIBadge from '../../../src/components/APIBadge';
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-| Field Name | Type | Description |
-| `success` | `boolean` | `true` if the user was created, `false` otherwise |
+| Field Name | Type      | Description                                       |
+| ---------- | --------- | ------------------------------------------------- |
+| `success`  | `boolean` | `true` if the user was created, `false` otherwise |
 
 ### <APIBadge type="400" /> Bad Request (JSON)
 
