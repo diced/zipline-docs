@@ -19,13 +19,19 @@ Disable or enable Oauth user registration. If disabled, users will not be able t
 FEATURES_OAUTH_REGISTRATION=false
 ```
 
+## `FEATURES_OAUTH_LOGIN_ONLY`
+Enable or disable Oauth's user login. If enabled, users will only be able to login when using Oauth rather than registering. Logging in with a username and passworl will still work. Defaults to being disabled.
+```bash
+FEATURES_OAUTH_LOGIN_ONLY=true
+```
+
 ## `FEATURES_USER_REGISTRATION`
 Disable or enable user registration. If disabled, users will not be able to register themselves. Defaults to being disabled.
 ```bash
 FEATURES_USER_REGISTRATION=false
 ```
 
-## `FEATURES_HEADLESS
+## `FEATURES_HEADLESS`
 Runs Zipline in headless mode. This will entirely disable the front end, leaving only the API accessible. This defaults to being disabled as normal users usually want to use the front end. This may be useful if you create your own front end and want to use Zipline as a backend.
 ```bash
 FEATURES_HEADLESS=false
