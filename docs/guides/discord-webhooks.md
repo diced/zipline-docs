@@ -44,31 +44,4 @@ DISCORD_URL=paste the webhook url from earlier here
 By default if the environment variables, `DISCORD_UPLOAD_*` or `DISCORD_SHORTEN_*` (* = any key that zipline supports to send content/embeds) are not present nothing will be sent. If you would like to configure them visit the configuration documentation [here](/docs/config/discord)
 
 ## Variables
-You may customize the output of the webhook with variables like "`User uploaded {image.file}!`". The below variables are available for both shorten and upload notifications.
-
-| Notaion | Description |
-|---------|-------------|
-| `{link}` | outputs the full link that can be accessed |
-| `{user.admin}` | outputs yes or no if the user is an administrator |
-| `{user.id}` | outputs the id of the user |
-| `{user.name}` | outputs the name of the user |
-
-### Upload Only Variables
-| Notaion | Description |
-|---------|-------------|
-| `{file.id}` | outputs the numeric id of the file |
-| `{file.file}` | outputs the file name |
-| `{file.mime}` | outputs the mimetype of the file |
-| `{file.created_at.full_string}` | outputs the full date |
-| `{file.created_at.date_string}` | outputs only the date |
-| `{file.created_at.time_string}` | outputs only the time |
-
-### Shorten Only Variables
-| Notaion | Description |
-|---------|-------------|
-| `{url.id}` | outputs the url id |
-| `{url.vanity}` | outputs the url vanity |
-| `{url.destination}` | outputs the destination |
-| `{url.created_at.full_string}` | outputs the full date |
-| `{url.created_at.date_string}` | outputs only the date |
-| `{url.created_at.time_string}` | outputs only the time |
+Variables are the same as the ones found [here](/docs/guides/variables). Feel free to use the playground to test out the variables!
