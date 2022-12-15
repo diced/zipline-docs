@@ -13,8 +13,7 @@ Requires [authentication](/docs/api#authentication)
 | Field Name | Type       | Description                                                                                                             |
 | ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
 | `favorite` | `boolean?` | Only get favorite files                                                                                                 |
-| `filter`   | `string?`  | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image`/\* |
-| `paged`    | `boolean?` | Whether to return a paged response or not, defaults to `false`                                                          |
+| `filter`   | `string?`  | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image/text`/\* |
 
 ### <APIBadge type="200" /> Ok (JSON)
 
@@ -64,22 +63,6 @@ Returns a array of [files](/docs/api/models/file)
     "url": "/u/17qFqL.zip"
   },
   ...
-]
-```
-
-or when `paged=true`
-
-```json
-[
-  [
-    { "id": 1 },
-    ...,
-  ],
-  [
-    { "id": 2 },
-    ...,
-  ],
-  ...,
 ]
 ```
 

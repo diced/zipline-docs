@@ -15,7 +15,7 @@ Requires [authentication](/docs/api#authentication)
 | `favorite` | `boolean?` | Only get favorite files                                                                                                 |
 | `filter`   | `string?`  | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image`/\* |
 | `page`     | `number`   | The page to get, required if no `type`                                                                                  |
-| `type`     | `string?`  | If the `type` is `count`, this will retrieve the number of pages needed                                                 |
+| `count`    | `boolean?` | If `count` is provided, this will retrieve the number of pages needed                                                   |
 
 ### <APIBadge type="200" /> Ok (JSON)
 
@@ -68,7 +68,7 @@ Returns a array of [files](/docs/api/models/file)
 ]
 ```
 
-or when `type=count`
+or when `count=true`
 
 ```json
 {
