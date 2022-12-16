@@ -1,4 +1,4 @@
-# Core
+# SSL
 
 This page documents the SSL configuration of Zipline.
 
