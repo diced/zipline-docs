@@ -78,7 +78,7 @@ export default function ExternalLinksBuilder() {
       <CodeBlock language="bash">
         WEBSITE_EXTERNAL_LINKS='{JSON.stringify(links)}'
       </CodeBlock>
-      Or if using docker-compose, you need to remove the single qoutes
+      Or if using docker-compose, you need to remove the single quotes
       surrounding them:
       <CodeBlock language="bash">
         WEBSITE_EXTERNAL_LINKS={JSON.stringify(links)}
