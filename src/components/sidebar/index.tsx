@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'tabler-icons-react';
 import { randomStr } from '../../lib/random';
@@ -18,19 +19,23 @@ export interface Item {
 
 export default function Sidebar({ items, children }: SidebarProps) {
   const [open, setOpen] = useState(false);
-  const [onThisPageOpen, setOnThisPageOpen] = useState(true);
+  const [onThisPageOpen, setOnThisPageOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         setOpen(false);
+        setOnThisPageOpen(false);
       }
     }
 
     function handleScroll() {
       if (ref.current && window.scrollY > ref.current.clientHeight) {
         setOpen(false);
+        setOnThisPageOpen(false);
       }
     }
 
@@ -41,6 +46,11 @@ export default function Sidebar({ items, children }: SidebarProps) {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [ref]);
+
+  useEffect(() => {
+    setOpen(false);
+    setOnThisPageOpen(false);
+  }, [router.asPath]);
 
   return (
     <div className='max-xl md:max-w-full mx-auto md:px-0 flex mb-10'>
