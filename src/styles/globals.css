@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.color-GET,
+.color-200 {
+  background-color: #11e47b;
+}
+
+.color-POST {
+  background-color: #d4a519;
+}
+
+.color-PUT {
+  background-color: #e4b11e;
+}
+
+.color-DELETE,
+.color-403,
+.color-401,
+.color-400,
+.color-404 {
+  background-color: #d83a3a;
+}
+
+.color-PATCH {
+  background-color: #e4b11e;
+}
