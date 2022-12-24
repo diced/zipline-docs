@@ -40,4 +40,4 @@ next-env.d.ts
 docs/changelog/*.md
 
 # docs sidebars
-sidebar.json
+sidebar*.json
