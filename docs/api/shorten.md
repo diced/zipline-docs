@@ -46,6 +46,7 @@
 - `invalid max views (invalid number)` - The `Max-Views` header is set to an invalid number.
 - `invalid max views (max views < 0)` - The `Max-Views` header is set to a number less than 0.
 - `vanity already exists` - If a vanity is provided, and it exists.
+- `vanity is empty` - If a vanity is provided, and it is empty (no empty strings).
 
 ### <APIBadge type="401" /> Forbidden (JSON)
 
