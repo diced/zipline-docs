@@ -15,10 +15,10 @@
 
 ### Body (JSON)
 
-| Field Name | Type     | Description                                                              |
-| ---------- | -------- | ------------------------------------------------------------------------ |
-| `url`      | `string` | The URL to shorten                                                       |
-| `vanity`   | `string` | The vanity URL to use. If the vanity is used already, it will error out. |
+| Field Name | Type      | Description                                                              |
+| ---------- | --------- | ------------------------------------------------------------------------ |
+| `url`      | `string`  | The URL to shorten                                                       |
+| `vanity`   | `string?` | The vanity URL to use. If the vanity is used already, it will error out. |
 
 ```json
 {
