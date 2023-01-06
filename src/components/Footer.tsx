@@ -44,13 +44,13 @@ const items = [
 
 export default function Footer() {
   return (
-    <div className='dark:bg-gray-800 border-gray-200 dark:border-gray-700 border-t'>
+    <div className='dark:bg-gray-900 border-gray-100 dark:border-gray-700 border-t'>
       <Container>
         <div className='max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8'>
           <div className='flex md:flex-row flex-col items-center h-auto justify-between'>
             <div className='flex flex-col items-center'>
               <div className='flex items-center'>
-                <Image src='/img/zipline_small.png' alt='Zipline' width={200} height={200} />
+                <p className='text-4xl font-bold mx-6'>Zipline</p>
                 <div className='flex flex-row space-x-4'>
                   <Link href='/github' aria-label='github'>
                     <GithubIcon className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out hover:fill-gray-200' />

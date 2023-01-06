@@ -196,7 +196,7 @@ export default function DocsPage({
 
         <div className='flex justify-center my-8'>
           <Link
-            href={`https://github.com/diced/zipline-docs/tree/v4/${path}`}
+            href={`https://github.com/diced/zipline-docs/tree/v3-latest/${path}`}
             className='underline hover:decoration-2 decoration-blue-400 flex items-center space-x-2'
           >
             <Edit className='w-5 h-5' />

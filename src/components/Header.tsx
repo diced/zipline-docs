@@ -65,9 +65,8 @@ export default function Navbar() {
       <div className='mx-auto px-4 sm:px-6 lg:px-8 md:py-4 py-2'>
         <div className='flex lg:grid lg:grid-cols-3 flex-wrap justify-between items-center mx-auto max-w-screen-xl'>
           <div className='hidden justify-start items-center text-sm md:flex'>
-            <Link href='/' className='flex flex-row items-center flex-shrink-0 text-white mr-6'>
-              <Image src='/img/zipline.svg' alt='Zipline' width={45} height={45} />
-              <span className='ml-6 text-3xl font-bold text-blue-300'>Zipline</span>
+            <Link href='/' className='flex flex-row items-center flex-shrink-0 mr-6'>
+              <span className='ml-6 text-3xl font-bold'>Zipline</span>
             </Link>
           </div>
           <div className='justify-center items-baseline space-x-4 hidden md:flex'>

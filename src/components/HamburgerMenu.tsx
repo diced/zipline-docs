@@ -48,7 +48,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
           <div className='backdrop-filter border border-gray-200 dark:border-gray-700 backdrop-blur-3xl rounded-lg shadow-md overflow-hidden'>
             <div className='px-5 pt-4 flex items-center justify-between'>
               <div className='flex items-center'>
-                <Link href='/' className='text-3xl font-bold text-blue-300'>
+                <Link href='/' className='text-3xl font-bold'>
                   Zipline
                 </Link>
               </div>

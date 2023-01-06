@@ -12,7 +12,7 @@ export default function ThemeSwitch() {
 
   return (
     <button
-      className='transition-all flex items-center justify-center w-8 h-8 rounded-full text-gray-400 bg-none hover:bg-gray-100 dark:hover:bg-gray-600'
+      className='mx-2 transition-all flex items-center justify-center w-8 h-8 rounded-full text-gray-400 bg-none hover:bg-gray-100 dark:hover:bg-gray-700'
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
       }}
