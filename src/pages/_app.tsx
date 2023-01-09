@@ -3,8 +3,14 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
+import SearchProvider from '../components/search/SearchProvider';
 
-import '../styles/globals.css';
+// tw
+import '../styles/index.css';
+// algolia
+import '../styles/docsearch.css';
+// api docs http badges
+import '../styles/http-badge.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,16 +30,19 @@ export default function App({ Component, pageProps }: AppProps) {
           { rel: 'icon', type: 'image/png', href: '/favicons/favicon-64x64.png', sizes: '64x64' },
           { rel: 'icon', type: 'image/png', href: '/favicons/favicon-128x128.png', sizes: '128x128' },
           { rel: 'icon', type: 'image/png', href: '/favicons/favicon-512x512.png', sizes: '512x512' },
+          { rel: 'icon', type: 'image/svg', href: '/favicons/favicon.svg' },
         ]}
         additionalMetaTags={[
           { name: 'viewport', content: 'width=device-width,initial-scale=1' },
           { httpEquiv: 'x-ua-compatible', content: 'IE=edge' },
         ]}
       />
-      <ThemeProvider attribute='class'>
-        <Layout inter={inter}>
-          <Component {...pageProps} />
-        </Layout>
+      <ThemeProvider attribute='class' enableSystem={true}>
+        <SearchProvider>
+          <Layout inter={inter}>
+            <Component {...pageProps} />
+          </Layout>
+        </SearchProvider>
       </ThemeProvider>
     </>
   );

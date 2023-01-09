@@ -10,31 +10,31 @@ export default function Alert({ children, type }: AlertProps) {
   const Element = {
     danger: (props: any) => (
       <div
-        className='dark:bg-red-900/50 bg-red-200 py-2 px-1 rounded-md border-l-4 border-red-700 my-8'
+        className='dark:bg-red-900/60 bg-red-200 py-2 px-1 rounded-md border border-red-800 my-8'
         {...props}
       />
     ),
     info: (props: any) => (
       <div
-        className='dark:bg-blue-800 bg-blue-200 py-2 px-1 rounded-md border-l-4 border-blue-700 my-8'
+        className='dark:bg-blue-900 bg-blue-200 py-2 px-1 rounded-md border border-blue-800 my-8'
         {...props}
       />
     ),
     note: (props: any) => (
       <div
-        className='dark:bg-gray-800 bg-gray-100 py-2 px-1 rounded-md border-l-4 border-gray-700 my-8'
+        className='dark:bg-gray-800/30 bg-gray-100 py-2 px-1 rounded-md border border-gray-800 my-8'
         {...props}
       />
     ),
     tip: (props: any) => (
       <div
-        className='dark:bg-green-900 bg-green-200 py-2 px-1 rounded-md border-l-4 border-green-700 my-8'
+        className='dark:bg-green-900/50 bg-green-200 py-2 px-1 rounded-md border border-green-800 my-8'
         {...props}
       />
     ),
     warning: (props: any) => (
       <div
-        className='dark:bg-yellow-800 bg-yellow-200 py-2 px-1 rounded-md border-l-4 border-yellow-700 my-8'
+        className='dark:bg-yellow-900/70 bg-yellow-200 py-2 px-1 rounded-md border border-yellow-800 my-8'
         {...props}
       />
     ),
@@ -58,7 +58,7 @@ export default function Alert({ children, type }: AlertProps) {
 
   return (
     <Element>
-      <div className='flex dark:text-white text-black'>
+      <div className='flex dark:text-white text-black items-center mt-1 mx-2'>
         <Icon size={28} />
         <div className='ml-2 font-bold'>{name}</div>
       </div>

@@ -19,6 +19,7 @@ import galleryPageScreenshot from '../../public/img/screenshot-3.png';
 import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
 import urlsPageScreenshot from '../../public/img/screenshot-4.png';
 import MacTerminal from '../components/MacTerminal';
+import { Fragment } from 'react';
 
 const screenshotWindows = [
   {
@@ -28,7 +29,7 @@ const screenshotWindows = [
     Icon: LayoutDashboard,
     title: (
       <>
-        Zipline has an <EmphasizeText>amazing dashboard</EmphasizeText>
+        Zipline has an <EmphasizeText>amazing</EmphasizeText> dashboard
       </>
     ),
     text: "Zipline's dashboard is packed with features, and is designed to be easy to use.",
@@ -108,11 +109,11 @@ export default function Home({ stars }: { stars: number }) {
               Packed with features and a great dashboard. What more could you want?
             </p>
 
-            <ButtonLinks stars={stars} />
+            <ButtonLinks stars={stars} first={true} />
 
             <div className='grid grid-cols-1 md:grid-cols-2 mt-36 gap-12 gap-y-36'>
               {screenshotWindows.map((window, index) => (
-                <>
+                <Fragment key={index}>
                   <MacWindow>
                     <Image
                       src={window.darkImage}
@@ -143,7 +144,7 @@ export default function Home({ stars }: { stars: number }) {
                     <p className='text-xl my-4'>{window.text}</p>
                   </div>
                   <div className='h-0.5 bg-gray-200 dark:bg-gray-800 col-span-1 md:col-span-2' />
-                </>
+                </Fragment>
               ))}
             </div>
 

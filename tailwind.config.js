@@ -35,6 +35,7 @@ const tailwindConfig = {
               borderRadius: theme('borderRadius.md'),
               paddingRight: theme('spacing.1'),
               paddingLeft: theme('spacing.1'),
+              fontWeight: 'normal',
             },
             pre: {
               overflow: 'scroll',
@@ -99,9 +100,9 @@ const tailwindConfig = {
               color: theme('colors.white'),
               backgroundColor: theme('colors.gray.800'),
               borderRadius: theme('borderRadius.md'),
-              padding: theme('spacing.1'),
-              paddingTop: theme('spacing.0'),
-              paddingBottom: theme('spacing.0'),
+              paddingRight: theme('spacing.1'),
+              paddingLeft: theme('spacing.1'),
+              fontWeight: 'normal',
             },
             pre: {
               overflow: 'scroll',

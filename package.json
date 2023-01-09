@@ -7,12 +7,15 @@
     "build": "node scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}"
+    "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
+    "scripts": "node scripts/runAll.mjs"
   },
   "dependencies": {
+    "@docsearch/react": "3",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@next/font": "13.0.7",
     "@tailwindcss/typography": "^0.5.8",
+    "clsx": "^1.2.1",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "framer-motion": "^7.10.2",

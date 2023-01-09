@@ -5,6 +5,7 @@ import { randomStr } from '../lib/random';
 import Container from './Container';
 import DiscordIcon from './icons/DiscordIcon';
 import GithubIcon from './icons/GithubIcon';
+import ThemeDropdown from './ThemeDropdown';
 
 const items = [
   {
@@ -44,7 +45,7 @@ const items = [
 
 export default function Footer() {
   return (
-    <div className='dark:bg-gray-900 border-gray-100 dark:border-gray-700 border-t'>
+    <div className='dark:bg-gray-900 border-gray-100 dark:border-gray-800 border-t'>
       <Container>
         <div className='max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8'>
           <div className='flex md:flex-row flex-col items-center h-auto justify-between'>
@@ -64,6 +65,7 @@ export default function Footer() {
               <div className='text-gray-300 py-2 rounded-md font-normal text-md'>
                 © {new Date().getFullYear()} diced. All rights reserved.
               </div>
+              <ThemeDropdown withName />
             </div>
 
             <div className='justify-center'>

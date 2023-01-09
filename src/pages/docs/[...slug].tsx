@@ -8,12 +8,10 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { join } from 'path';
 import Highlight, { Prism } from 'prism-react-renderer';
-import nightOwl from 'prism-react-renderer/themes/nightOwl';
-import nightOwlLight from 'prism-react-renderer/themes/nightOwlLight';
 import { Fragment } from 'react';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { ArrowLeft, ArrowRight, Edit, Home } from 'tabler-icons-react';
+import { ChevronLeft, ChevronRight, Home } from 'tabler-icons-react';
 import Alert from '../../components/Alert';
 import APIBadge from '../../components/APIBadge';
 import ExternalLinksBuilder from '../../components/ExternalLinksBuilder';
@@ -23,6 +21,9 @@ import Sidebar from '../../components/sidebar';
 import SlugLink from '../../components/SlugLink';
 import Tabs from '../../components/tabs';
 import TabItem from '../../components/tabs/TabItem';
+
+import ayuDark from '../../lib/themes/ayuDark';
+import ayuLight from '../../lib/themes/ayuLight';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
@@ -39,6 +40,7 @@ interface DocsProps {
   next: any;
   path: string;
   breadcrumbs: string[];
+  lastUpdated: string;
 }
 
 const components = {
@@ -46,7 +48,7 @@ const components = {
     return <Link href={href} {...props} />;
   },
   img: (props: any) => {
-    return <img loading='lazy' className='block object-contain max-w-full h-auto' {...props} />;
+    return <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />;
   },
   APIBadge: (props: any) => {
     return <APIBadge {...props} />;
@@ -67,7 +69,7 @@ const components = {
         code={props.children.props.children.slice(0, -1)}
         // @ts-ignore
         language={match ? match[1] : 'text'}
-        theme={theme === 'light' ? nightOwlLight : nightOwl}
+        theme={theme === 'light' ? ayuLight : ayuDark}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${className} shadow-md`} style={style}>
@@ -128,9 +130,12 @@ export default function DocsPage({
   next,
   path,
   breadcrumbs,
+  lastUpdated: last,
 }: DocsProps) {
+  const lastUpdated = new Date(last);
+
   return (
-    <>
+    <div className='max-w-[90rem] w-full mx-auto flex flex-1 items-stretch'>
       <NextSeo
         title={title ?? undefined}
         description={description ?? undefined}
@@ -146,67 +151,85 @@ export default function DocsPage({
         }}
       />
       <Sidebar items={sidebar}>
-        <div className='flex items-center space-x-2'>
-          <Link href='/docs/get-started' className='flex items-center'>
-            <Home className='w-5 h-5 text-gray-500 dark:text-gray-400' />
-          </Link>
-          {breadcrumbs.map((breadcrumb, index) =>
-            breadcrumbs.length - 1 !== index ? (
-              <Fragment key={index}>
-                <span className='text-gray-300 dark:text-gray-600'>/</span>
-                <span className='text-gray-500 dark:text-gray-400'>{breadcrumb}</span>
-              </Fragment>
-            ) : (
-              <Fragment key={index}>
-                <span className='text-gray-300 dark:text-gray-600'>/</span>
-                <span className='text-gray-500 dark:text-gray-400'>{breadcrumb}</span>
-              </Fragment>
-            )
-          )}
-        </div>
+        <article className='prose dark:prose-invert dark:text-white text-black max-w-full min-w-0 pt-6 px-8 md:px-20 w-full'>
+          <div className='flex items-center cursor-default select-none mb-6'>
+            <Link href='/docs/get-started' className='flex items-center'>
+              <Home className='w-5 h-5 text-gray-500 dark:text-gray-400' />
+            </Link>
+            {breadcrumbs.map((breadcrumb, index) =>
+              breadcrumbs.length - 1 !== index ? (
+                <Fragment key={index}>
+                  <span className='text-gray-300 dark:text-gray-600'>
+                    <ChevronRight />
+                  </span>
+                  <span className='text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 transition-colors'>
+                    {breadcrumb}
+                  </span>
+                </Fragment>
+              ) : (
+                <Fragment key={index}>
+                  <span className='text-gray-300 dark:text-gray-600'>
+                    <ChevronRight />
+                  </span>
+                  <span className='text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 transition-colors'>
+                    {breadcrumb}
+                  </span>
+                </Fragment>
+              )
+            )}
+          </div>
 
-        <article className='my-6 prose dark:prose-invert max-w-none dark:text-white text-black'>
           <MDXRemote components={components} {...source} />
+
+          <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
+
+          <div className='flex justify-between my-8 not-prose'>
+            {prev ? (
+              <Link
+                href={prev.href}
+                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+              >
+                <ChevronLeft className='w-5 h-5 mr-2' />
+                {prev.title}
+              </Link>
+            ) : (
+              <div />
+            )}
+            {next ? (
+              <Link
+                href={next.href}
+                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+              >
+                {next.title}
+                <ChevronRight className='w-5 h-5 ml-2' />
+              </Link>
+            ) : (
+              <div />
+            )}
+          </div>
+
+          <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
+
+          <div className='not-prose flex justify-between my-8 cursor-default'>
+            <div className='flex items-center text-sm dark:text-gray-400'>
+              Last updated:{' '}
+              <span className='hover:text-gray-800 dark:hover:text-gray-100 transition-colors ml-1'>
+                {lastUpdated.toLocaleDateString()}
+              </span>
+            </div>
+
+            <Link
+              href={`https://github.com/diced/zipline-docs/tree/trunk/${path}`}
+              className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+            >
+              Edit this page on GitHub
+            </Link>
+          </div>
         </article>
-
-        <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
-
-        <div className='flex justify-between my-8'>
-          {prev && (
-            <Link
-              href={prev.href}
-              className='flex items-center space-x-2 transition-all ease-in-out p-2 hover:bg-blue-200/60 dark:hover:bg-blue-800/40 rounded-md'
-            >
-              <ArrowLeft className='w-5 h-5' />
-              <span>{prev.title}</span>
-            </Link>
-          )}
-          {next && (
-            <Link
-              href={next.href}
-              className='flex items-center space-x-2 transition-all ease-in-out p-2 hover:bg-blue-200/60 dark:hover:bg-blue-800/40 rounded-md'
-            >
-              <span>{next.title}</span>
-              <ArrowRight className='w-5 h-5' />
-            </Link>
-          )}
-        </div>
-
-        <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
-
-        <div className='flex justify-center my-8'>
-          <Link
-            href={`https://github.com/diced/zipline-docs/tree/v3-latest/${path}`}
-            className='underline hover:decoration-2 decoration-blue-400 flex items-center space-x-2'
-          >
-            <Edit className='w-5 h-5' />
-            <span>Edit this page on GitHub</span>
-          </Link>
-        </div>
       </Sidebar>
 
       <ScrollToTop />
-    </>
+    </div>
   );
 }
 
@@ -336,6 +359,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       next: next || null,
       path: page.path,
       breadcrumbs,
+      lastUpdated: page.lastUpdated,
     },
   };
 };

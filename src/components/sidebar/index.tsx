@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'tabler-icons-react';
 import { randomStr } from '../../lib/random';
-import Container from '../Container';
 import Headings from '../Headings';
+import SearchBar from '../search/SearchBar';
 import SidebarItem from './SidebarItem';
 
 export interface SidebarProps {
@@ -53,17 +53,16 @@ export default function Sidebar({ items, children }: SidebarProps) {
   }, [router.asPath]);
 
   return (
-    <div className='max-xl md:max-w-full mx-auto md:px-0 flex mb-10'>
-      <aside
-        style={{ top: 'calc(2rem + 50px)' }}
-        className='hidden md:block w-1/4 h-screen sticky dark:bg-gray-900 overflow-y-scroll overflow-x-hidden'
-      >
-        <div className='font-bold text-xl w-full ml-6 mr-1 my-2'>Documentation</div>
+    <div className='flex flex-1 w-full'>
+      <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
+        <div className='mx-2'>
+          <SearchBar />
+        </div>
         {items.map((item) => (
           <SidebarItem key={randomStr()} item={item} />
         ))}
       </aside>
-      <main className='w-full'>
+      <div className='w-full'>
         <div className='md:hidden flex justify-between p-1 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 -my-6 mb-2'>
           <button
             className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md'
@@ -87,6 +86,8 @@ export default function Sidebar({ items, children }: SidebarProps) {
             ref={ref}
             className='md:hidden block absolute top-12 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
           >
+            <SearchBar />
+
             {items.map((item) => (
               <SidebarItem key={randomStr()} item={item} />
             ))}
@@ -121,13 +122,10 @@ export default function Sidebar({ items, children }: SidebarProps) {
           </div>
         )}
 
-        <div className='container max-w-xl md:max-w-3xl mx-auto px-6'>{children}</div>
-      </main>
-      <aside
-        style={{ top: 'calc(2rem + 50px)' }}
-        className='hidden md:block w-1/4 h-screen sticky top-0 dark:bg-gray-900 pr-2'
-      >
-        <div className='font-bold text-xl w-fullmr-1 my-2'>On this page</div>
+        <div className='grow pb-8 w-full justify-center max-w-full flex min-w-0'>{children}</div>
+      </div>
+      <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
+        <div className='font-semibold text-sm w-full mr-1 mb-4'>On This Page</div>
 
         <Headings />
       </aside>

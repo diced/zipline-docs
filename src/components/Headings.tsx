@@ -90,7 +90,7 @@ export default function Headings() {
           href={`#${heading.id}`}
           className={`${headingToPadding(heading.level)} ${
             heading.visible ? 'text-blue-500' : 'text-gray-500'
-          }`}
+          } hover:text-gray-800 dark:hover:text-gray-300 transition-all ease-in-out`}
           onClick={(e) => onHeadingClick(e, heading.id)}
         >
           {heading.title}
