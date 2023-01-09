@@ -11,7 +11,7 @@ interface CommunityCardProps {
 
 export default function CommunityCard({ title, description, href, Icon }: CommunityCardProps) {
   return (
-    <div className='dark:bg-gray-800 shadow-md hover:shadow-2xl rounded-md transition-all duration-200 hover:scale-105 hover:-translate-y-2 border-gray-100 dark:border-gray-700 border flex flex-col flex-grow justify-center items-center w-full p-4'>
+    <div className='cursor-pointer dark:bg-gray-900 shadow-md hover:shadow-2xl rounded-md transition-all hover:-translate-y-1 border-gray-100 dark:border-gray-800 border flex flex-col flex-grow justify-center items-center w-full p-4'>
       <h1 className='flex text-3xl font-bold mt-4'>
         <Icon
           size={36}

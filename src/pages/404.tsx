@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { ArrowRight } from 'tabler-icons-react';
 import Center from '../components/Center';
 import Container from '../components/Container';
-import HomePage from '../components/pages/home';
-import ButtonLinks from '../components/pages/home/ButtonLinks';
 
 export default function Home() {
   return (
@@ -16,11 +14,6 @@ export default function Home() {
           url: 'https://zipline.diced.tech',
           title: 'Zipline - 404',
           description: "Looks like you're lost... Need a hand?",
-          images: [
-            {
-              url: '/img/og-banner.png',
-            },
-          ],
         }}
       />
       <Container>

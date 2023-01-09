@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { existsSync, readFileSync, statSync } from 'fs';
 import { readdir, readFile } from 'fs/promises';
 import matter from 'gray-matter';
@@ -73,6 +74,7 @@ export function convertSidebarToParsable(sidebar) {
 
     res.title = item.title;
     res.path = './' + item.path;
+    res.lastUpdated = getLastUpdated(item.path);
 
     if (item.type === 'd') {
       res.items = convertSidebarToParsable(item.children);
@@ -166,4 +168,18 @@ export function flattenSidebar(parsable) {
   }
 
   return newSidebar;
+}
+
+export function getLastUpdated(path) {
+  // use git
+  const gitOutput = execSync(`git log --format="%ct" -1 -- ${path}`, {
+    encoding: 'utf8',
+  });
+
+  if (gitOutput) {
+    return new Date(Number(gitOutput) * 1000).toISOString();
+  }
+
+  const { mtime } = statSync(path);
+  return mtime.toISOString();
 }

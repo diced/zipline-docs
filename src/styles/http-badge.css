@@ -1,0 +1,22 @@
+.color-GET,
+.color-200 {
+  @apply dark:bg-green-400 bg-green-300;
+}
+
+.color-POST,
+.color-PUT,
+.color-PATCH {
+  @apply dark:bg-yellow-400 bg-yellow-300;
+}
+
+.color-DELETE,
+.color-403,
+.color-401,
+.color-400,
+.color-404 {
+  @apply dark:bg-red-400 bg-red-300;
+}
+
+.color-308 {
+  @apply dark:bg-purple-400 bg-purple-300;
+}

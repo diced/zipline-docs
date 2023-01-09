@@ -18,6 +18,9 @@ export default function Home() {
             },
           ],
         }}
+        twitter={{
+          cardType: 'summary_large_image',
+        }}
       />
       <Container>
         <Center>

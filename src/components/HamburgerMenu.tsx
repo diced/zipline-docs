@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'tabler-icons-react';
+import { randomStr } from '../lib/random';
 import { items } from './Header';
 import { Item } from './sidebar';
 import SidebarItem from './sidebar/SidebarItem';
@@ -48,7 +49,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
           <div className='backdrop-filter border border-gray-200 dark:border-gray-700 backdrop-blur-3xl rounded-lg shadow-md overflow-hidden'>
             <div className='px-5 pt-4 flex items-center justify-between'>
               <div className='flex items-center'>
-                <Link href='/' className='text-3xl font-bold text-blue-300'>
+                <Link href='/' className='text-3xl font-bold'>
                   Zipline
                 </Link>
               </div>
@@ -65,7 +66,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {items.map((item) => (
                 <a
-                  key={item.name}
+                  key={randomStr()}
                   href={item.href}
                   className={`block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40 ${
                     item.active(router.pathname, router.asPath) ? 'text-blue-400' : ''

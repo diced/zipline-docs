@@ -2,9 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { randomStr } from '../lib/random';
 import HamburgerMenu from './HamburgerMenu';
 import GithubIcon from './icons/GithubIcon';
-import ThemeSwitch from './ThemeSwitch';
+import ThemeDropdown from './ThemeDropdown';
+// import ThemeSwitch from './ThemeSwitch';
 
 export const items = [
   {
@@ -56,29 +58,31 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed w-full top-0 z-50  backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
+      className={`fixed w-full h-16 top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
         scrolling
-          ? 'border-gray-100 dark:border-gray-700 bg-white/60 dark:bg-gray-900/70'
-          : 'border-gray-100/0 dark:border-gray-700/0 bg-white/0 dark:bg-gray-900/0'
+          ? 'border-gray-100 dark:border-gray-800 bg-white/40 dark:bg-gray-900/70 border-b'
+          : 'border-gray-100/0 dark:border-gray-800/0 bg-white/0 dark:bg-gray-900/0'
       }`}
     >
-      <div className='mx-auto px-4 sm:px-6 lg:px-8 md:py-4 py-2'>
+      <div className='sm:px-6 lg:px-8 py-2'>
         <div className='flex lg:grid lg:grid-cols-3 flex-wrap justify-between items-center mx-auto max-w-screen-xl'>
           <div className='hidden justify-start items-center text-sm md:flex'>
-            <Link href='/' className='flex flex-row items-center flex-shrink-0 text-white mr-6'>
-              <Image src='/img/zipline.svg' alt='Zipline' width={45} height={45} />
-              <span className='ml-6 text-3xl font-bold text-blue-300'>Zipline</span>
+            <Link
+              href='/'
+              className='flex flex-row items-center flex-shrink-0 mr-6 ml-6 text-3xl font-bold dark:hover:text-blue-400 hover:text-blue-500 transition-colors duration-500'
+            >
+              Zipline
             </Link>
           </div>
           <div className='justify-center items-baseline space-x-4 hidden md:flex'>
             {items.map((item) =>
               router.pathname === '/' && item.name === 'Features' ? (
                 <button
-                  key={item.name}
+                  key={randomStr()}
                   aria-label={item.name}
                   className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
                     item.active(router.pathname, router.asPath)
-                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-200/30'
+                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-50/50'
                       : ''
                   }`}
                   onClick={handleClick}
@@ -87,7 +91,7 @@ export default function Navbar() {
                 </button>
               ) : (
                 <Link
-                  key={item.name}
+                  key={randomStr()}
                   href={item.href}
                   aria-label={item.name}
                   className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
@@ -107,12 +111,12 @@ export default function Navbar() {
             </Link>
 
             <div className='flex flex-row items-center'>
-              <ThemeSwitch />
+              <ThemeDropdown />
               <HamburgerMenu />
             </div>
           </div>
           <div className='hidden md:flex justify-end items-center'>
-            <ThemeSwitch />
+            <ThemeDropdown />
             <Link href='/github' className='text-gray-300 px-3 py-2 rounded-md font-medium text-md'>
               <GithubIcon className='fill-black dark:fill-white hover:fill-gray-200 transition-colors duration-300 ease-in-out w-8 h-8' />
             </Link>
