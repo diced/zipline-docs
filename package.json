@@ -1,6 +1,6 @@
 {
   "name": "zipline-docs",
-  "version": "5.0.0",
+  "version": "3.7.0",
   "private": true,
   "scripts": {
     "dev": "node --experimental-fetch scripts/runAll.mjs && next-remote-watch ./docs",
