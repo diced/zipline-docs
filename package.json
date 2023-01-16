@@ -51,5 +51,5 @@
     "@mdx-js/mdx": "2.1.5",
     "@mdx-js/react": "2.1.5"
   },
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "yarn@1.22.19"
 }
