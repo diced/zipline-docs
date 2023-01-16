@@ -19,13 +19,13 @@ Field names of files should be `file`, if you want to upload multiple files then
 | Field Name    | Type               | Description                                            |
 | ------------- | ------------------ | ------------------------------------------------------ |
 | `files`       | `array of strings` | The URLs of the uploaded files                         |
-| `expires_at`  | `date`             | The date the file will expire                          |
+| `expiresAt`   | `date`             | The date the file will expire                          |
 | `removed_gps` | `boolean`          | Whether or not the GPS data was removed from the image |
 
 ```json
 {
   "files": ["https://example.com/asdfgh.png"],
-  "expires_at": "2021-01-01T00:00:00.000Z",
+  "expiresAt": "2021-01-01T00:00:00.000Z",
   "removed_gps": true
 }
 ```
@@ -33,7 +33,7 @@ Field names of files should be `file`, if you want to upload multiple files then
 ```json
 {
   "files": ["https://example.com/asdfgh.png"],
-  "expires_at": "2021-01-01T00:00:00.000Z"
+  "expiresAt": "2021-01-01T00:00:00.000Z"
 }
 ```
 
@@ -41,6 +41,20 @@ Field names of files should be `file`, if you want to upload multiple files then
 {
   "files": ["https://example.com/asdfgh.png"]
 }
+```
+
+### <APIBadge type="200" /> Ok (Text)
+
+If the `No-JSON` header is present, it will return a text response. This is useful if you want to skip the JSON parsing, which can be slow in the case of [jq](https://stedolan.github.io/jq/).
+
+```
+https://example.com/asdfgh.png
+```
+
+Or with multiple files, it will be comma separated.
+
+```
+https://example.com/asdfgh.png,https://example.com/qwerty.png
 ```
 
 ### <APIBadge type="400" /> Bad Request (JSON)
@@ -55,6 +69,7 @@ Field names of files should be `file`, if you want to upload multiple files then
 - `file[i]: size too big` - The file at index `i` is too big.
 - `file[i]: no filename` - The file at index `i` has no filename.
 - `file[i]: disabled extension recieved: ext` - The file at index `i` has a disabled extension.
+- `file[i]: filename already exists: filename` - The file at index `i` has a filename that already exists. This is only possible if the `X-Zipline-Filename` header is set.
 
 ### <APIBadge type="401" /> Forbidden (JSON)
 

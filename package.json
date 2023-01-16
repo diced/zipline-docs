@@ -3,12 +3,12 @@
   "version": "5.0.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/runAll.mjs && next dev",
-    "build": "node scripts/runAll.mjs && next build",
+    "dev": "node --experimental-fetch scripts/runAll.mjs && next-remote-watch ./docs",
+    "build": "node --experimental-fetch scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
-    "scripts": "node scripts/runAll.mjs"
+    "scripts": "node --experimental-fetch scripts/runAll.mjs"
   },
   "dependencies": {
     "@docsearch/react": "3",
@@ -41,6 +41,7 @@
     "autoprefixer": "^10.4.13",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "next-remote-watch": "^2.0.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "tailwindcss": "^3.2.4",
@@ -49,5 +50,6 @@
   "resolutions": {
     "@mdx-js/mdx": "2.1.5",
     "@mdx-js/react": "2.1.5"
-  }
+  },
+  "packageManager": "yarn@3.3.1"
 }

@@ -46,36 +46,6 @@ const tailwindConfig = {
             'code::after': {
               content: 'none',
             },
-            // th: {
-            //   color: theme('colors.black'),
-            // },
-            // td: {
-            //   color: theme('colors.black'),
-            // },
-            // strong: {
-            //   color: theme('colors.black'),
-            // },
-            // h1: {
-            //   color: theme('colors.black'),
-            // },
-            // h2: {
-            //   color: theme('colors.black'),
-            // },
-            // h3: {
-            //   color: theme('colors.black'),
-            // },
-            // h4: {
-            //   color: theme('colors.black'),
-            // },
-            // h5: {
-            //   color: theme('colors.black'),
-            // },
-            // h6: {
-            //   color: theme('colors.black'),
-            // },
-            // p: {
-            //   color: theme('colors.black'),
-            // },
           },
         },
         invert: {
@@ -86,7 +56,6 @@ const tailwindConfig = {
               color: theme('colors.white'),
               textDecorationColor: theme('colors.blue.400'),
               '&:hover': {
-                // color: theme('colors.blue.400'),
                 textDecorationThickness: '2px',
               },
             },

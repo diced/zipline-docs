@@ -8,10 +8,10 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { join } from 'path';
 import Highlight, { Prism } from 'prism-react-renderer';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { ChevronLeft, ChevronRight, Home } from 'tabler-icons-react';
+import { ChevronLeft, ChevronRight, Home, X } from 'tabler-icons-react';
 import Alert from '../../components/Alert';
 import APIBadge from '../../components/APIBadge';
 import ExternalLinksBuilder from '../../components/ExternalLinksBuilder';
@@ -48,7 +48,52 @@ const components = {
     return <Link href={href} {...props} />;
   },
   img: (props: any) => {
-    return <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />;
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+      if (open) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }, [open]);
+
+    return (
+      <>
+        <div
+          className='relative cursor-pointer'
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />
+          <div className='absolute rounded-md inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all' />
+        </div>
+
+        {/* when open */}
+        <div
+          className={`fixed inset-0 z-50 transition-all flex items-center h-screen justify-center bg-black bg-opacity-70 ${
+            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          <div className='relative'>
+            <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />
+            <div
+              className='absolute top-0 right-0 z-50 p-2 -m-6 cursor-pointer'
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+            >
+              <X size={24} />
+            </div>
+          </div>
+        </div>
+      </>
+    );
   },
   APIBadge: (props: any) => {
     return <APIBadge {...props} />;
@@ -151,7 +196,7 @@ export default function DocsPage({
         }}
       />
       <Sidebar items={sidebar}>
-        <article className='prose dark:prose-invert dark:text-white text-black max-w-full min-w-0 pt-6 px-8 md:px-20 w-full'>
+        <article className='prose dark:prose-invert dark:text-white text-black max-w-4xl min-w-0 pt-6 px-8 md:px-20 w-full'>
           <div className='flex items-center cursor-default select-none mb-6'>
             <Link href='/docs/get-started' className='flex items-center'>
               <Home className='w-5 h-5 text-gray-500 dark:text-gray-400' />

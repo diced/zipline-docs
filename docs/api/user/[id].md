@@ -29,9 +29,7 @@ Returns a [user object](/docs/api/models/user).
   "administrator": true,
   "superAdmin": true,
   "systemTheme": "system",
-  "embedTitle": null,
-  "embedColor": "#34394a",
-  "embedSiteName": "{image.file} • {user.name}",
+  "embed": {},
   "ratelimit": null,
   "totpSecret": null,
   "domains": []

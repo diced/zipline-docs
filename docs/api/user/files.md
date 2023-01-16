@@ -8,9 +8,9 @@
 
 ### Query
 
-| Field Name | Type       | Description                                                                                                             |
-| ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `favorite` | `boolean?` | Only get favorite files                                                                                                 |
+| Field Name | Type       | Description                                                                                                                  |
+| ---------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `favorite` | `boolean?` | Only get favorite files                                                                                                      |
 | `filter`   | `string?`  | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image/text`/\* |
 
 ### <APIBadge type="200" /> Ok (JSON)
@@ -21,8 +21,8 @@ Returns a array of [files](/docs/api/models/file)
 [
   ...,
   {
-    "created_at": "2022-12-01T17:41:48.887Z",
-    "expires_at": null,
+    "createdAt": "2022-12-01T17:41:48.887Z",
+    "expiresAt": null,
     "file": "jO2DMR.png",
     "mimetype": "image/png",
     "id": 529,
@@ -31,8 +31,8 @@ Returns a array of [files](/docs/api/models/file)
     "url": "/u/jO2DMR.png"
   },
   {
-    "created_at": "2022-12-01T17:41:19.582Z",
-    "expires_at": "2022-12-02T17:41:19.578Z",
+    "createdAt": "2022-12-01T17:41:19.582Z",
+    "expiresAt": "2022-12-02T17:41:19.578Z",
     "file": "w48LRo.png",
     "mimetype": "image/png",
     "id": 528,
@@ -41,8 +41,8 @@ Returns a array of [files](/docs/api/models/file)
     "url": "/u/w48LRo.png"
   },
   {
-    "created_at": "2022-11-28T04:44:14.703Z",
-    "expires_at": null,
+    "createdAt": "2022-11-28T04:44:14.703Z",
+    "expiresAt": null,
     "file": "2RCTta.txt",
     "mimetype": "text/plain",
     "id": 520,
@@ -51,8 +51,8 @@ Returns a array of [files](/docs/api/models/file)
     "url": "/u/2RCTta.txt"
   },
   {
-    "created_at": "2022-11-28T04:42:34.821Z",
-    "expires_at": null,
+    "createdAt": "2022-11-28T04:42:34.821Z",
+    "expiresAt": null,
     "file": "17qFqL.zip",
     "mimetype": "application/zip",
     "id": 519,
@@ -83,8 +83,8 @@ Returns a [file](/docs/api/models/file) when `all` is false.
 
 ```json
 {
-  "created_at": "2022-12-01T17:41:48.887Z",
-  "expires_at": null,
+  "createdAt": "2022-12-01T17:41:48.887Z",
+  "expiresAt": null,
   "file": "jO2DMR.png",
   "mimetype": "image/png",
   "id": 529,
@@ -121,8 +121,8 @@ Returns a [file](/docs/api/models/file)
 
 ```json
 {
-  "created_at": "2022-12-01T17:41:48.887Z",
-  "expires_at": null,
+  "createdAt": "2022-12-01T17:41:48.887Z",
+  "expiresAt": null,
   "file": "jO2DMR.png",
   "mimetype": "image/png",
   "id": 529,

@@ -8,19 +8,26 @@ When uploading files you have a few options to choose from in the form of header
 
 | Header Name                 | Type                                                                     | Description                                                                                                                                                                                                                        |
 | --------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Format`                    | must be `UUID`, `DATE`, `RANDOM`, `NAME`                                 | See [Image Format](#image-format)                                                                                                                                                                                                  |
+| `Format`                    | must be `UUID`, `DATE`, `RANDOM`, `NAME`                                 | See [File Format](#file-format)                                                                                                                                                                                                    |
 | `Image-Compression-Percent` | `number`                                                                 | The quality of the image, leave blank if no compression. See [Image Compression](#image-compression) for more                                                                                                                      |
-| `Expires-At`                | must be a Javascript resolvable `Date` or something like `"1d"` or `30m` | Set a date for the image to exipre at. See [Image Expiry](#image-expiration) for more.                                                                                                                                             |
+| `Expires-At`                | must be a Javascript resolvable `Date` or something like `"1d"` or `30m` | Set a date for the file to exipre at. See [Image Expiry](#image-expiration) for more.                                                                                                                                              |
 | `Password`                  | `string`                                                                 | Create a password locked image                                                                                                                                                                                                     |
 | `Zws`                       | `boolean`                                                                | If this header is present it will create a zero-width-space url                                                                                                                                                                    |
 | `Embed`                     | `boolean`                                                                | If this header is present, the image will have additional `OG` metadata (mostly used on Discord)                                                                                                                                   |
 | `Max-Views`                 | `number`                                                                 | The maximum amount of views before the file is deleted                                                                                                                                                                             |
 | `UploadText`                | `boolean`                                                                | If this header is present, it will override the mimetype to `text/plain` and when the file is accessed will render with PrismJS, with syntax highlighting (limited). This option is primarily used by the server for text uploads. |
 | `Authorization`             | `string`                                                                 | A required field, your users auth token                                                                                                                                                                                            |
+| `No-JSON`                   | `boolean`                                                                | If this header is present, it will not return a JSON response, instead it will return the file url in plain text. See [/api/upload text](/docs/api/upload#-ok-text)                                                                |
+| `X-Zipline-Filename`        | `string`                                                                 | The name of the file, this will override the name of the file.                                                                                                                                                                     |
+| `Original-Name`             | `string`                                                                 | To preserve the original name, while also using a file name format. See [Original Name](#original-name)                                                                                                                            |
 
-## Image Format
+## File Format
 
 The `Format` header dictates the format of a file name. Here is a list of what each format does.
+
+<Alert type="note">
+  This will not work if the `X-Zipline-Filename` header is present.
+</Alert>
 
 | Name     | Description                                                                                                                               | Example                                    |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
@@ -66,3 +73,11 @@ The expression is `{number}{optional space}{unit}`. The space between the number
 ## Ratelimit
 
 If your user is ratelimited, you can see how long (seconds) you have to wait with the `X-Ratelimit-Remaining` header.
+
+## Original Name
+
+When using the `Original-Name` header, this will keep the original name in the `Content-Disposition` header, while also using a file name format. This is useful if you want the original name to show up when you save the file, but also want to use a file name format to display in the url.
+
+![](/guides/original-name-1.png)
+
+As you can see, the original name is `t.png`, but the file name format is `AuLOs1.png`. This is useful if you want to keep the original name, but also want to use a file name format.

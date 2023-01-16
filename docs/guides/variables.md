@@ -16,27 +16,25 @@ Here is a list of all the variables you can use.
 | `{user.administrator}` | `bool`   | Whether the user is an administrator                                      |
 | `{user.superAdmin}`    | `bool`   | Whether the user is a super administrator                                 |
 | `{user.systemTheme}`   | `string` | The user's system theme                                                   |
-| `{user.embedTitle}`    | `string` | The user's embed title                                                    |
-| `{user.embedColor}`    | `string` | The user's embed color                                                    |
-| `{user.embedSiteName}` | `string` | The user's embed site name                                                |
 | `{user.ratelimit}`     | `date`   | The user's ratelimit, will return `{unknown_property}` if not ratelimited |
 | `{user.totpSecret}`    | `string` | The user's TOTP secret, will return `{unknown_property}` if none set      |
 
 ### File Variables
 
-| Notation            | Type     | Description                       |
-| ------------------- | -------- | --------------------------------- |
-| `{file.id}`         | `int`    | The file's ID                     |
-| `{file.filename}`   | `string` | The file's filename               |
-| `{file.mimetype}`   | `string` | The file's mimetype               |
-| `{file.created_at}` | `date`   | The file's creation date          |
-| `{file.expires_at}` | `date`   | The file's expiration date        |
-| `{file.maxViews}`   | `int`    | The file's maximum views          |
-| `{file.views}`      | `int`    | The file's current views          |
-| `{file.favorite}`   | `bool`   | Whether the file is favorited     |
-| `{file.embed}`      | `bool`   | Whether the file will be embedded |
-| `{file.format}`     | `string` | The file's format (RANDOM, etc)   |
-| `{file.userId}`     | `int`    | The file's owner's ID             |
+| Notation              | Type      | Description                       |
+| --------------------- | --------- | --------------------------------- |
+| `{file.id}`           | `int`     | The file's ID                     |
+| `{file.name}`         | `string`  | The file's name                   |
+| `{file.originalName}` | `string?` | The file's original name          |
+| `{file.mimetype}`     | `string`  | The file's mimetype               |
+| `{file.createdAt}`    | `date`    | The file's creation date          |
+| `{file.expiresAt}`    | `date`    | The file's expiration date        |
+| `{file.maxViews}`     | `int`     | The file's maximum views          |
+| `{file.views}`        | `int`     | The file's current views          |
+| `{file.favorite}`     | `bool`    | Whether the file is favorited     |
+| `{file.embed}`        | `bool`    | Whether the file will be embedded |
+| `{file.format}`       | `string`  | The file's format (RANDOM, etc)   |
+| `{file.userId}`       | `int`     | The file's owner's ID             |
 
 ### Url Variables
 
@@ -44,7 +42,7 @@ Here is a list of all the variables you can use.
 | ------------------- | -------- | ----------------------- |
 | `{url.id}`          | `int`    | The URL's ID            |
 | `{url.destination}` | `string` | The URL's destination   |
-| `{url.created_at}`  | `date`   | The URL's creation date |
+| `{url.createdAt}`   | `date`   | The URL's creation date |
 | `{url.vanity}`      | `string` | The URL's vanity        |
 | `{url.maxViews}`    | `int`    | The URL's maximum views |
 | `{url.views}`       | `int`    | The URL's current views |
@@ -103,6 +101,12 @@ Modifiers do not work on `{link}` and `{raw_link}`
 | `yesno`     | Converts the bool to yes/no     | `yes`          |
 | `onoff`     | Converts the bool to on/off     | `on`           |
 | `truefalse` | Converts the bool to true/false | `true`         |
+
+## Limitations
+
+### Embedded Images
+
+The user object only contains the `username`, `id`, and `embed` properties.
 
 ## Playground
 
