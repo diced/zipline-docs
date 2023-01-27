@@ -8,16 +8,16 @@ Here is a list of all the variables you can use.
 
 ### User Variables
 
-| Notation               | Type     | Description                                                               |
-| ---------------------- | -------- | ------------------------------------------------------------------------- |
-| `{user.id}`            | `int`    | The user's ID                                                             |
-| `{user.username}`      | `string` | The user's username                                                       |
-| `{user.token}`         | `string` | The user's token                                                          |
-| `{user.administrator}` | `bool`   | Whether the user is an administrator                                      |
-| `{user.superAdmin}`    | `bool`   | Whether the user is a super administrator                                 |
-| `{user.systemTheme}`   | `string` | The user's system theme                                                   |
-| `{user.ratelimit}`     | `date`   | The user's ratelimit, will return `{unknown_property}` if not ratelimited |
-| `{user.totpSecret}`    | `string` | The user's TOTP secret, will return `{unknown_property}` if none set      |
+| Notation               | Type     | Description                                                                                               |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------- |
+| `{user.id}`            | `int`    | The user's ID                                                                                             |
+| `{user.username}`      | `string` | The user's username                                                                                       |
+| `{user.token}`         | `string` | The user's token                                                                                          |
+| `{user.administrator}` | `bool`   | Whether the user is an administrator                                                                      |
+| `{user.superAdmin}`    | `bool`   | Whether the user is a super administrator                                                                 |
+| `{user.systemTheme}`   | `string` | The user's system theme                                                                                   |
+| `{user.ratelimit}`     | `date`   | The user's ratelimit, will return `{unknown_property}` if not ratelimited                                 |
+| `{user.totpSecret}`    | `string` | The user's TOTP secret, will return `{unknown_property}` if none set. Unavailable in certain cirumstances |
 
 ### File Variables
 
@@ -101,12 +101,6 @@ Modifiers do not work on `{link}` and `{raw_link}`
 | `yesno`     | Converts the bool to yes/no     | `yes`          |
 | `onoff`     | Converts the bool to on/off     | `on`           |
 | `truefalse` | Converts the bool to true/false | `true`         |
-
-## Limitations
-
-### Embedded Images
-
-The user object only contains the `username`, `id`, and `embed` properties.
 
 ## Playground
 
