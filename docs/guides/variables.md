@@ -21,20 +21,20 @@ Here is a list of all the variables you can use.
 
 ### File Variables
 
-| Notation              | Type      | Description                       |
-| --------------------- | --------- | --------------------------------- |
-| `{file.id}`           | `int`     | The file's ID                     |
-| `{file.name}`         | `string`  | The file's name                   |
-| `{file.originalName}` | `string?` | The file's original name          |
-| `{file.mimetype}`     | `string`  | The file's mimetype               |
-| `{file.createdAt}`    | `date`    | The file's creation date          |
-| `{file.expiresAt}`    | `date`    | The file's expiration date        |
-| `{file.maxViews}`     | `int`     | The file's maximum views          |
-| `{file.views}`        | `int`     | The file's current views          |
-| `{file.favorite}`     | `bool`    | Whether the file is favorited     |
-| `{file.embed}`        | `bool`    | Whether the file will be embedded |
-| `{file.format}`       | `string`  | The file's format (RANDOM, etc)   |
-| `{file.userId}`       | `int`     | The file's owner's ID             |
+| Notation              | Type      | Description                                                                                      |
+| --------------------- | --------- | ------------------------------------------------------------------------------------------------ |
+| `{file.id}`           | `int`     | The file's ID                                                                                    |
+| `{file.name}`         | `string`  | The file's name                                                                                  |
+| `{file.originalName}` | `string?` | The file's original name. Returns `{unknown_property}` if no original name exists for this file. |
+| `{file.mimetype}`     | `string`  | The file's mimetype                                                                              |
+| `{file.createdAt}`    | `date`    | The file's creation date                                                                         |
+| `{file.expiresAt}`    | `date`    | The file's expiration date                                                                       |
+| `{file.maxViews}`     | `int`     | The file's maximum views                                                                         |
+| `{file.views}`        | `int`     | The file's current views                                                                         |
+| `{file.favorite}`     | `bool`    | Whether the file is favorited                                                                    |
+| `{file.embed}`        | `bool`    | Whether the file will be embedded                                                                |
+| `{file.format}`       | `string`  | The file's format (RANDOM, etc)                                                                  |
+| `{file.userId}`       | `int`     | The file's owner's ID                                                                            |
 
 ### Url Variables
 
