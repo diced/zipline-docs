@@ -6,6 +6,10 @@ Variables can be used to customize the text used in embeds and discord webhook t
 
 Here is a list of all the variables you can use.
 
+<Alert type="info">
+Some variables may not work in some cases
+</Alert>
+
 ### User Variables
 
 | Notation               | Type     | Description                                                                                               |
