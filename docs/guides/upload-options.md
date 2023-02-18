@@ -20,6 +20,7 @@ When uploading files you have a few options to choose from in the form of header
 | `No-JSON`                   | `boolean`                                                                | If this header is present, it will not return a JSON response, instead it will return the file url in plain text. See [/api/upload text](/docs/api/upload#-ok-text)                                                                |
 | `X-Zipline-Filename`        | `string`                                                                 | The name of the file, this will override the name of the file.                                                                                                                                                                     |
 | `Original-Name`             | `string`                                                                 | To preserve the original name, while also using a file name format. See [Original Name](#original-name)                                                                                                                            |
+| `Override-Domain`           | `string`                                                                 | If this header is present, it will override the domain used in the response. For more information see [Override Domain](#override-domain)                                                                                          |
 
 ## File Format
 
@@ -81,3 +82,31 @@ When using the `Original-Name` header, this will keep the original name in the `
 ![](/guides/original-name-1.png)
 
 As you can see, the original name is `t.png`, but the file name format is `AuLOs1.png`. This is useful if you want to keep the original name, but also want to use a file name format.
+
+## Override Domain
+
+Overriding the domain may be useful if you would like your files to have a different "appearance", for example, having one domain for files and one domain for shortened URLs.
+
+<Alert type="note">
+  The dashboard provides a way to override the domain when uploading files through it.
+
+  You can also set the override domain property within the ShareX and Flameshot generators.
+</Alert>
+
+### Example
+
+If using two seperate domains, you will want to make sure they point to the same Zipline instance within your domain DNS settings.
+
+
+| Type | Name    | Content   |
+| ---- | ------- | --------- |
+| A    | `files` | `1.1.1.1` |
+| A    | `short` | `1.1.1.1` |
+
+<Alert type="danger">
+  Make sure the domains are pointing to the same IP address.
+</Alert>
+
+Then for your files, make sure the `Override-Domain` header is set to `files.example.com`, and for your shortened URLs, make sure the `Override-Domain` header is set to `short.example.com`.
+
+You will be able to access your files at `http(s)://files.example.com/AuLOs1.png` and your shortened URLs at `http(s)://short.example.com/AuLOs1`.

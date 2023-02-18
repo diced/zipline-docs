@@ -3,7 +3,7 @@
   "version": "3.7.0",
   "private": true,
   "scripts": {
-    "dev": "node --experimental-fetch scripts/runAll.mjs && next-remote-watch ./docs",
+    "dev": "node --experimental-fetch scripts/runAll.mjs && next dev",
     "build": "node --experimental-fetch scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
@@ -41,7 +41,6 @@
     "autoprefixer": "^10.4.13",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "next-remote-watch": "^2.0.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "tailwindcss": "^3.2.4",
