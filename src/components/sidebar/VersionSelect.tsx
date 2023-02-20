@@ -12,7 +12,7 @@ export default function VersionSelect() {
   useEffect(() => {
     setPath(router.asPath);
 
-    if (window.location.hostname === 'localhost' || window.location.hostname === 'zipline-trunk.diced.tech') {
+    if (window.location.hostname === 'localhost' || window.location.hostname === 'trunk.zipline.diced.tech') {
       setUpstream(true);
     } else {
       setUpstream(false);
@@ -33,7 +33,7 @@ export default function VersionSelect() {
         </Link>
 
         <Link
-          href={`${isLocalhost ? 'http://localhost:3000' : 'https://zipline-trunk.diced.tech'}${path}`}
+          href={`${isLocalhost ? 'http://localhost:3000' : 'https://trunk.zipline.diced.tech'}${path}`}
           className={`ml-2 text-xs bg-gray-200 dark:bg-gray-800 rounded-md px-2 py-1 font-semibold ${
             upstream ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500'
           }`}
