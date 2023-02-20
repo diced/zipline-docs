@@ -5,6 +5,7 @@ import { randomStr } from '../../lib/random';
 import Headings from '../Headings';
 import SearchBar from '../search/SearchBar';
 import SidebarItem from './SidebarItem';
+import VersionSelect from './VersionSelect';
 
 export interface SidebarProps {
   items: Item[];
@@ -57,6 +58,8 @@ export default function Sidebar({ items, children }: SidebarProps) {
       <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
         <div className='mx-2'>
           <SearchBar />
+
+          <VersionSelect />
         </div>
         {items.map((item) => (
           <SidebarItem key={randomStr()} item={item} />
@@ -87,6 +90,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             className='md:hidden block absolute top-12 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
           >
             <SearchBar />
+            <VersionSelect />
 
             {items.map((item) => (
               <SidebarItem key={randomStr()} item={item} />
