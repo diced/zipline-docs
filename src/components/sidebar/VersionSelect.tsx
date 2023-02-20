@@ -24,7 +24,7 @@ export default function VersionSelect() {
       <div className='font-semibold text-sm w-full ml-1'>Version</div>
       <div className='flex items-center'>
         <Link
-          href={`https://zipline.diced.tech/${path}`}
+          href={`https://zipline.diced.tech${path}`}
           className={`text-xs bg-gray-200 dark:bg-gray-800 rounded-md px-2 py-1 font-semibold ${
             upstream ? 'text-gray-500' : 'text-gray-900 dark:text-gray-100'
           }`}
@@ -33,7 +33,7 @@ export default function VersionSelect() {
         </Link>
 
         <Link
-          href={`${isLocalhost ? 'http://localhost:3000' : 'https://zipline-trunk.diced.tech'}/${path}`}
+          href={`${isLocalhost ? 'http://localhost:3000' : 'https://zipline-trunk.diced.tech'}${path}`}
           className={`ml-2 text-xs bg-gray-200 dark:bg-gray-800 rounded-md px-2 py-1 font-semibold ${
             upstream ? 'text-gray-900 dark:text-gray-100' : 'text-gray-500'
           }`}
