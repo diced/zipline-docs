@@ -15,6 +15,7 @@
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@next/font": "13.0.7",
     "@tailwindcss/typography": "^0.5.8",
+    "@types/semver": "^7.3.13",
     "@vercel/analytics": "^0.1.10",
     "clsx": "^1.2.1",
     "eslint": "8.30.0",
@@ -32,6 +33,7 @@
     "react-parallax-tilt": "^1.7.77",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
+    "semver": "^7.3.8",
     "sharp": "^0.31.2",
     "tabler-icons-react": "^1.56.0"
   },
