@@ -2,6 +2,10 @@
 
 This page documents how Zipline should handle metadata from Exiftool.
 
+<Alert type="info">
+When uploading a file while `EXIF_REMOVE_GPS` is enabled, the response (if JSON), will contain the property `removed_gps` with a value of `true` or `false`. If `true`, the file had GPS data that was removed. If `false`, the file did not have GPS data.
+</Alert>
+
 ## `EXIF_ENABLED`
 
 Whether or not Exiftool metadata is enabled. If set to `false`, Exiftool metadata will not be available. If enabled, you can view metadata for each file by clicking on the image and clicking the "Metadata" button.
