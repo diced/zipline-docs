@@ -228,14 +228,23 @@ export default function DocsPage({
 
           <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
 
-          <div className='flex justify-between my-8 not-prose'>
+          <div className='flex justify-between my-8 not-prose flex-grow space-x-8'>
             {prev ? (
               <Link
                 href={prev.href}
-                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
               >
-                <ChevronLeft className='w-5 h-5 mr-2' />
-                {prev.title}
+                <div className='flex flex-col'>
+                  <div className='flex items-center justify-start'>
+                    <ChevronLeft className='w-5 h-5 mr-2' />
+                    {prev.title}
+                  </div>
+                  <div className='text-xs text-gray-500 dark:text-gray-400 pl-7'>
+                    {prev.description.length > 50
+                      ? prev.description.substring(0, 50).trim() + '...'
+                      : prev.description}
+                  </div>
+                </div>
               </Link>
             ) : (
               <div />
@@ -243,10 +252,19 @@ export default function DocsPage({
             {next ? (
               <Link
                 href={next.href}
-                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
               >
-                {next.title}
-                <ChevronRight className='w-5 h-5 ml-2' />
+                <div className='flex flex-col'>
+                  <div className='flex items-center justify-end'>
+                    {next.title}
+                    <ChevronRight className='w-5 h-5 ml-2' />
+                  </div>
+                  <div className='text-xs pr-7 text-gray-500 dark:text-gray-400'>
+                    {next.description.length > 50
+                      ? next.description.substring(0, 50).trim() + '...'
+                      : next.description}
+                  </div>
+                </div>
               </Link>
             ) : (
               <div />
@@ -258,14 +276,14 @@ export default function DocsPage({
           <div className='not-prose flex justify-between my-8 cursor-default'>
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
-              <span className='hover:text-gray-800 dark:hover:text-gray-100 transition-colors ml-1'>
+              <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>
                 {lastUpdated.toLocaleDateString()}
               </span>
             </div>
 
             <Link
               href={`https://github.com/diced/zipline-docs/tree/trunk/${path}`}
-              className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+              className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500 hover:text-blue-600'
             >
               Edit this page on GitHub
             </Link>
