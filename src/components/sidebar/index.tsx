@@ -1,6 +1,6 @@
+import { IconMenu, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'tabler-icons-react';
 import { randomStr } from '../../lib/random';
 import Headings from '../Headings';
 import SearchBar from '../search/SearchBar';
@@ -72,7 +72,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             onClick={() => setOpen(!open)}
           >
             <span className='ml-4 text-gray-400'>Menu</span>
-            <Menu className='mx-2 text-gray-400' />
+            <IconMenu className='mx-2 text-gray-400' />
           </button>
 
           <button
@@ -80,7 +80,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             onClick={() => setOnThisPageOpen(!onThisPageOpen)}
           >
             <span className='ml-4 text-gray-400'>On this page</span>
-            <Menu className='mx-2 text-gray-400' />
+            <IconMenu className='mx-2 text-gray-400' />
           </button>
         </div>
 
@@ -101,7 +101,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             >
               <div className='flex text-center'>Close Menu</div>
               <div>
-                <X className='mr-2' />
+                <IconX className='mr-2' />
               </div>
             </button>
           </div>
@@ -120,7 +120,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             >
               <div className='flex text-center'>Close Menu</div>
               <div>
-                <X className='mr-2' />
+                <IconX className='mr-2' />
               </div>
             </button>
           </div>

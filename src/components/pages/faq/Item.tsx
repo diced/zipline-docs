@@ -1,7 +1,7 @@
+import { IconChevronRight } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ReactNode, useEffect, useState } from 'react';
-import { ChevronRight } from 'tabler-icons-react';
 
 interface ItemProps {
   title: any;
@@ -35,11 +35,11 @@ export default function Item({ title, children, id }: ItemProps) {
         >
           {open ? (
             <motion.div animate={{ rotate: 90 }}>
-              <ChevronRight size={24} />
+              <IconChevronRight size={24} />
             </motion.div>
           ) : (
             <motion.div animate={{ rotate: 0 }}>
-              <ChevronRight size={24} />
+              <IconChevronRight size={24} />
             </motion.div>
           )}
         </div>

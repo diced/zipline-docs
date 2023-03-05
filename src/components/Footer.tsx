@@ -1,6 +1,6 @@
+import { IconArrowRight } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight } from 'tabler-icons-react';
 import { randomStr } from '../lib/random';
 import Container from './Container';
 import DiscordIcon from './icons/DiscordIcon';
@@ -81,7 +81,7 @@ export default function Footer() {
                           className='group flex transition-colors ease-in-out text-gray-300 hover:text-gray-400 py-2 rounded-md font-normal text-md'
                         >
                           {subItem.title}
-                          <ArrowRight className='group-hover:opacity-100 opacity-0 transition-all ease-in-out group-hover:translate-x-2' />
+                          <IconArrowRight className='group-hover:opacity-100 opacity-0 transition-all ease-in-out group-hover:translate-x-2' />
                         </Link>
                       ))}
                     </div>

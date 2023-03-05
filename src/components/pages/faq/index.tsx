@@ -57,8 +57,19 @@ const items = [
     title: 'How long do releases take?',
     content: (
       <>
-        Usually major releases come out every month or so, and patches are pretty frequent. However, this is
-        not a strict rule, and releases can take longer than expected.
+        Major releases, like <Code>v3.6.4</Code> to <Code>v3.7.0</Code>, take a while to come out, since they
+        under many variations of release candidates (RC&quot;s).
+        <br />
+        Typically release will have many <Code>beta</Code> versions before any single <Code>rc</Code> version.
+        <br />
+        The <Code>beta</Code> versions are beta versions, and are NOT considered stable enough to be used in
+        production. The upside to using a <Code>beta</Code> version is that it is more likely to have the
+        latest features, and you will get a new <Code>beta</Code> version very frequently.
+        <br />
+        The <Code>rc</Code> versions are release candidates, and are considered stable enough to be used in
+        production, but be aware that there may be small bugs that were not squashed. The upside to using an{' '}
+        <Code>rc</Code> version is that it is more likely to have the latest features, and you will get a new{' '}
+        <Code>rc</Code> version every week or so during the release timeline
       </>
     ),
     id: 'how-long-do-releases-take',

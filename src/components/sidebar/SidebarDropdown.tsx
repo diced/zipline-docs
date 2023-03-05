@@ -1,8 +1,8 @@
+import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ChevronDown, ChevronRight } from 'tabler-icons-react';
 import { randomStr } from '../../lib/random';
 import SidebarItem, { SidebarItemProps } from './SidebarItem';
 
@@ -41,7 +41,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
             className='mr-2 transition-colors ease-in-out text-gray-400 hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md cursor-pointer'
             onClick={() => setOpen(!open)}
           >
-            {open ? <ChevronDown size={24} /> : <ChevronRight size={24} />}
+            {open ? <IconChevronDown size={24} /> : <IconChevronRight size={24} />}
           </div>
         </button>
       ) : (
@@ -56,7 +56,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
             className='transition-colors ease-in-out hover:bg-gray-100/60 dark:hover:bg-gray-800 rounded-md cursor-pointer'
             onClick={() => setOpen(!open)}
           >
-            {open ? <ChevronDown size={24} /> : <ChevronRight size={24} />}
+            {open ? <IconChevronDown size={24} /> : <IconChevronRight size={24} />}
           </div>
         </button>
       )}
