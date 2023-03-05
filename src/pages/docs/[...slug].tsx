@@ -135,7 +135,7 @@ export default function DocsPage({
                 <div className='flex flex-col'>
                   <div className='flex items-center justify-end'>
                     {next.title}
-                    <ChevronRight className='w-5 h-5 ml-2' />
+                    <IconChevronRight className='w-5 h-5 ml-2' />
                   </div>
                   <div className='text-xs pr-7 text-gray-500 dark:text-gray-400'>
                     {next.description.length > 50
