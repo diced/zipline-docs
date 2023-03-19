@@ -171,7 +171,6 @@ export function flattenSidebar(parsable) {
 }
 
 export function getLastUpdated(path) {
-  // use git
   const gitOutput = execSync(`git log --format="%ct" -1 -- ${path}`, {
     encoding: 'utf8',
   });

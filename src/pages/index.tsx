@@ -9,7 +9,6 @@ import HomePage from '../components/pages/home';
 import ButtonLinks from '../components/pages/home/ButtonLinks';
 
 import Image from 'next/image';
-import { File, Graph, LayoutDashboard, Link, Terminal } from 'tabler-icons-react';
 import homePageScreenshotLight from '../../public/img/screenshot-1-light.png';
 import homePageScreenshot from '../../public/img/screenshot-1.png';
 import statsPageScreenshotLight from '../../public/img/screenshot-2-light.png';
@@ -20,13 +19,14 @@ import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
 import urlsPageScreenshot from '../../public/img/screenshot-4.png';
 import MacTerminal from '../components/MacTerminal';
 import { Fragment } from 'react';
+import { IconFiles, IconGraph, IconLayoutDashboard, IconLink, IconTerminal2 } from '@tabler/icons-react';
 
 const screenshotWindows = [
   {
     darkImage: homePageScreenshot,
     lightImage: homePageScreenshotLight,
     alt: 'Home page screenshot',
-    Icon: LayoutDashboard,
+    Icon: IconLayoutDashboard,
     title: (
       <>
         Zipline has an <EmphasizeText>amazing</EmphasizeText> dashboard
@@ -38,7 +38,7 @@ const screenshotWindows = [
     darkImage: statsPageScreenshot,
     lightImage: statsPageScreenshotLight,
     alt: 'Stats page screenshot',
-    Icon: Graph,
+    Icon: IconGraph,
     title: (
       <>
         View your <EmphasizeText>stats</EmphasizeText>
@@ -50,7 +50,7 @@ const screenshotWindows = [
     darkImage: galleryPageScreenshot,
     lightImage: galleryPageScreenshotLight,
     alt: 'Gallery page screenshot',
-    Icon: File,
+    Icon: IconFiles,
     title: (
       <>
         View your files in a <EmphasizeText>gallery</EmphasizeText>
@@ -62,7 +62,7 @@ const screenshotWindows = [
     darkImage: urlsPageScreenshot,
     lightImage: urlsPageScreenshotLight,
     alt: 'URLs page screenshot',
-    Icon: Link,
+    Icon: IconLink,
     title: (
       <>
         View your <EmphasizeText>shortened URLs</EmphasizeText>
@@ -189,7 +189,7 @@ export default function Home({ stars }: { stars: number }) {
                 />
 
                 <div className='flex flex-col justify-center'>
-                  <Terminal className='my-2 w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg p-2 text-gray-400' />
+                  <IconTerminal2 className='my-2 w-10 h-10 bg-gray-100 dark:bg-gray-800 rounded-lg p-2 text-gray-400' />
                   <div className='text-3xl font-bold my-2'>
                     Setup in <EmphasizeText>seconds</EmphasizeText>
                   </div>

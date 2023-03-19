@@ -1,5 +1,11 @@
+import {
+  IconAlertCircleFilled,
+  IconAlertTriangleFilled,
+  IconExclamationCircle,
+  IconHelp,
+  IconInfoCircleFilled,
+} from '@tabler/icons-react';
 import { ReactNode } from 'react';
-import { AlertTriangle, Bulb, ExclamationMark, Flame } from 'tabler-icons-react';
 
 interface AlertProps {
   children: ReactNode;
@@ -41,11 +47,11 @@ export default function Alert({ children, type }: AlertProps) {
   }[type];
 
   const Icon = {
-    danger: Flame,
-    info: ExclamationMark,
-    note: ExclamationMark,
-    tip: Bulb,
-    warning: AlertTriangle,
+    danger: IconAlertCircleFilled,
+    info: IconInfoCircleFilled,
+    note: IconExclamationCircle,
+    tip: IconHelp,
+    warning: IconAlertTriangleFilled,
   }[type];
 
   const name = {

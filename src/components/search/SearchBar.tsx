@@ -1,5 +1,5 @@
+import { IconSearch } from '@tabler/icons-react';
 import { useContext } from 'react';
-import { Search } from 'tabler-icons-react';
 import { SearchContext } from './SearchProvider';
 
 export default function SearchBar({ big }: { big?: boolean }) {
@@ -12,7 +12,7 @@ export default function SearchBar({ big }: { big?: boolean }) {
       }`}
       onClick={() => setIsOpen(!isOpen)}
     >
-      <Search size={20} />
+      <IconSearch size={20} />
       <span className='flex-auto text-left'>Quick search...</span>
       <span className='text-gray-400 text-xs font-semibold'>Ctrl K</span>
     </button>

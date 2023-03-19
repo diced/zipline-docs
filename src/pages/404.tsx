@@ -1,6 +1,6 @@
+import { IconArrowRight } from '@tabler/icons-react';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
-import { ArrowRight } from 'tabler-icons-react';
 import Center from '../components/Center';
 import Container from '../components/Container';
 
@@ -29,7 +29,7 @@ export default function Home() {
               href='/'
               className='text-center mt-6 transition-all shadow-lg duration-500 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-600 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-3xl flex'
             >
-              Go back! <ArrowRight className='my-auto ml-6 hidden md:block' />
+              Go back! <IconArrowRight className='my-auto ml-6 hidden md:block' />
             </Link>
           </div>
         </Center>

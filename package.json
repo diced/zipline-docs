@@ -14,10 +14,13 @@
     "@docsearch/react": "3",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@next/font": "13.0.7",
+    "@octokit/types": "^9.0.0",
+    "@tabler/icons-react": "^2.7.0",
     "@tailwindcss/typography": "^0.5.8",
     "@types/semver": "^7.3.13",
     "@vercel/analytics": "^0.1.10",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "framer-motion": "^7.10.2",
@@ -30,12 +33,12 @@
     "prismjs": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.5",
     "react-parallax-tilt": "^1.7.77",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
     "semver": "^7.3.8",
-    "sharp": "^0.31.2",
-    "tabler-icons-react": "^1.56.0"
+    "sharp": "^0.31.2"
   },
   "devDependencies": {
     "@types/node": "^18.11.17",

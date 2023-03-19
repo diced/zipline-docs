@@ -1,12 +1,12 @@
+import { Icon } from '@tabler/icons-react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Icon as TablerIcon } from 'tabler-icons-react';
 
 interface CommunityCardProps {
   title: string;
   description: string;
   href?: string;
-  Icon: TablerIcon;
+  Icon: Icon;
 }
 
 export default function CommunityCard({ title, description, href, Icon }: CommunityCardProps) {

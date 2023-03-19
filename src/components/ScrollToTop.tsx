@@ -1,5 +1,5 @@
+import { IconArrowUp } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import { ArrowUp } from 'tabler-icons-react';
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(true);
@@ -25,7 +25,7 @@ export default function ScrollToTop() {
       }`}
       onClick={handleClick}
     >
-      <ArrowUp className='m-2' />
+      <IconArrowUp className='m-2' />
     </button>
   );
 }
