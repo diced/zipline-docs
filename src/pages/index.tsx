@@ -163,7 +163,7 @@ export default function Home({ stars }: { stars: number }) {
 
               <div className='my-32 grid grid-cols-1 md:grid-cols-2 space-y-12 md:space-y-0 md:space-x-12'>
                 <MacTerminal
-                  text='docker-compose up -d'
+                  text='docker compose up -d'
                   outputLines={[
                     {
                       text: <>Creating network &quot;zipline_default&quot; with the default driver</>,

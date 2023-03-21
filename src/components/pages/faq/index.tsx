@@ -148,7 +148,7 @@ const items = [
         </Code>
         <br />
         <span className='text-xs'>
-          <Code>...</Code> = yarn/npm/docker-compose exec zipline yarn
+          <Code>...</Code> = yarn/npm/docker compose exec zipline yarn
         </span>
       </>
     ),

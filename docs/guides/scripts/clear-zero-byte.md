@@ -8,7 +8,7 @@ This script will try to find and delete any files that are 0 bytes in size.
   <TabItem value="docker" label="Docker" default>
 
 ```bash
-docker-compose exec zipline yarn scripts:clear-zero-byte
+docker compose exec zipline yarn scripts:clear-zero-byte
 ```
 
   </TabItem>

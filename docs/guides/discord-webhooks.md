@@ -27,7 +27,7 @@ After this click "Copy Webhook URL" and keep it until the next step.
 If you do not use Docker, head over [here](#envlocal).
 
 ### Docker
-If you are using docker-compose, then inside of the `docker-compose.yml` file, you will need to add a few environment variables.
+If you are using Docker Compose, then inside of the `docker-compose.yml` file, you will need to add a few environment variables.
 
 Make sure when adding the variables, that the spacing is correct as the yml format requires it to be that way.
 

@@ -75,7 +75,7 @@ export default function ExternalLinksBuilder() {
         </tbody>
       </table>
       <pre className='language-bash'>WEBSITE_EXTERNAL_LINKS=&apos;{JSON.stringify(links)}&apos;</pre>
-      Or if using docker-compose, you need to remove the single quotes surrounding them:
+      Or if using Docker Compose, you need to remove the single quotes surrounding them:
       <pre className='language-bash'>WEBSITE_EXTERNAL_LINKS={JSON.stringify(links)}</pre>
     </div>
   );
