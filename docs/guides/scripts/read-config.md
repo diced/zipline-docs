@@ -8,7 +8,7 @@ This script will read the configuration file and print the values that it has pa
   <TabItem value="docker" label="Docker" default>
 
 ```bash
-docker-compose exec zipline yarn scripts:read-config
+docker compose exec zipline yarn scripts:read-config
 ```
 
   </TabItem>

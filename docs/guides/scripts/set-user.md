@@ -28,7 +28,7 @@ This script allows you to modify any user in the database.
   <TabItem value="docker" label="Docker" default>
 
 ```bash
-docker-compose exec zipline yarn scripts:set-user <user_id> <property> <value>
+docker compose exec zipline yarn scripts:set-user <user_id> <property> <value>
 ```
 
   </TabItem>

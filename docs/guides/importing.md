@@ -18,7 +18,7 @@ volumes:
 Then you can run the following command to import the data:
 
 ```bash
-docker-compose exec zipline yarn scripts:import-dir /zipline/import
+docker compose exec zipline yarn scripts:import-dir /zipline/import
 ```
 
 By default this will import all files into the currently configured datasource, whether its Local, S3 or Swift, this will also try to guess each files mimetype and set the correct content-type header. 
@@ -38,7 +38,7 @@ If you don't want files to be imported into the default `administrator` account,
   <TabItem value="docker" label="Docker" default>
 
 ```bash
-docker-compose exec zipline yarn scripts:import-dir /zipline/import 2
+docker compose exec zipline yarn scripts:import-dir /zipline/import 2
 # 2 = the user id
 ```
   </TabItem>

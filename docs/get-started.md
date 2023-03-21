@@ -6,13 +6,13 @@ sidebar_position: 1
 
 ## Install & run with Docker
 
-This section requires [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/).
+This section requires [Docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/).
 
 ```shell
 git clone https://github.com/diced/zipline
 cd zipline
 
-docker-compose up -d
+docker compose up -d
 ```
 
 <Alert type="danger">
@@ -65,13 +65,13 @@ Remember to change this password in the manage user page.
 To update with docker you can simply run:
 
 ```bash
-docker-compose pull
+docker compose pull
 ```
 
 then run
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 to restart.
