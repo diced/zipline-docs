@@ -4,7 +4,7 @@ This page documents features that can be disabled or enabled in Zipline.
 
 ## `FEATURES_INVITES`
 
-Disable or enable invites. If disabled, users will not be able to invite other users to Zipline. Defaults to being enabled.
+Disable or enable invites. If disabled, users will not be able to invite other users to Zipline. Defaults to being disabled.
 
 ```bash
 FEATURES_INVITES=true
