@@ -20,6 +20,11 @@ export const items = [
     active: (pathname: string) => pathname.startsWith('/docs'),
   },
   {
+    name: 'Releases',
+    href: '/releases',
+    active: (pathname: string) => pathname === '/releases',
+  },
+  {
     name: 'FAQ',
     href: '/faq',
     active: (pathname: string) => pathname === '/faq',

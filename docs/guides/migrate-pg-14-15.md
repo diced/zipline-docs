@@ -1,6 +1,6 @@
 # Docker: Migrate from PostgreSQL 14 to 15
 
-This guide describes how to migrate from PostgreSQL 14 to 15, since migrating through docker is a bit of a chore. This guide also assumes that you are using docker and the provided docker-compose file's defaults for postgres. If you don't use `docker-compose` figure it out yourself
+This guide describes how to migrate from PostgreSQL 14 to 15, since migrating through docker is a bit of a chore. This guide also assumes that you are using docker and the provided `docker-compose.yml` files defaults for postgres. If you don't use Docker Compose figure it out yourself
 
 ## Is this needed?
 
@@ -19,7 +19,7 @@ Make sure the container is running before you do this!
 Make sure to make a backup, using the `pg_dumpall` command!
 
 ```bash
-docker-compose exec postgres pg_dumpall -U postgres > backup
+docker compose exec postgres pg_dumpall -U postgres > backup
 ```
 
 ## Delete Existing Volumes
@@ -32,7 +32,7 @@ This will delete all data in the database, so make sure you have a backup from t
 Make sure to stop the container before you do this, or you will receieve an error.
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 </Alert>
@@ -65,10 +65,10 @@ services:
 
 ### Pull the New Image
 
-Once you have changed the version, you need to pull the new image. This step is optional as docker-compose will pull the image automatically when you start the container, but it is recommended to do this step to make sure you have the latest version if you have pulled the image before.
+Once you have changed the version, you need to pull the new image. This step is optional as Docker Compose will pull the image automatically when you start the container, but it is recommended to do this step to make sure you have the latest version if you have pulled the image before.
 
 ```bash
-docker-compose pull
+docker compose pull
 ```
 
 ## Start the Postgres container
@@ -80,7 +80,7 @@ You will have to restart this entire process if you start the Zipline container 
 </Alert>
 
 ```bash
-docker-compose up -d postgres
+docker compose up -d postgres
 ```
 
 ## Restore Backup
@@ -88,7 +88,7 @@ docker-compose up -d postgres
 Before doing anything, make sure to restore the backup! This will restore all the data from the previous version, from your [stored backup dump file](#backup).
 
 ```bash
-docker-compose exec -T postgres psql -U postgres < backup
+docker compose exec -T postgres psql -U postgres < backup
 ```
 
 ## Start Zipline
@@ -96,5 +96,5 @@ docker-compose exec -T postgres psql -U postgres < backup
 Now you can start the Zipline container, and it will run the migrations for you.
 
 ```bash
-docker-compose up -d zipline
+docker compose up -d zipline
 ```

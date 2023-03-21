@@ -1,5 +1,5 @@
+import { IconArrowRight, IconStarFilled } from '@tabler/icons-react';
 import Link from 'next/link';
-import { ArrowRight, BrandGithub, Star } from 'tabler-icons-react';
 import GithubIcon from '../../icons/GithubIcon';
 import SearchBar from '../../search/SearchBar';
 import Tooltip from '../../Tooltip';
@@ -11,7 +11,7 @@ export default function ButtonLinks({ stars, first: first }: { stars: number; fi
         href='/docs/get-started'
         className='w-full md:w-auto justify-between items-center transition-all shadow-lg duration-500 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-600 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-2xl flex'
       >
-        Get Started <ArrowRight className='md:ml-6' />
+        Get Started <IconArrowRight className='md:ml-6' />
       </Link>
 
       {first ? (
@@ -23,7 +23,7 @@ export default function ButtonLinks({ stars, first: first }: { stars: number; fi
               "Couldn't fetch stars :("
             ) : (
               <div className='flex items-center'>
-                <Star className='mr-2' /> {stars?.toLocaleString()} stars!
+                <IconStarFilled className='mr-2' /> {stars?.toLocaleString()} stars!
               </div>
             )
           }

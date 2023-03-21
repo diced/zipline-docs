@@ -14,7 +14,7 @@ This script will list the users, with any additional properties you specify.
   <TabItem value="docker" label="Docker" default>
 
 ```bash
-docker-compose exec zipline yarn scripts:list-users [extras (comma delimited)] [specific_id]
+docker compose exec zipline yarn scripts:list-users [extras (comma delimited)] [specific_id]
 ```
 
   </TabItem>

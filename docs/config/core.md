@@ -53,3 +53,27 @@ The number of seconds to wait until refreshing statistics of Zipline. This is us
 ```bash
 CORE_STATS_INTERVAL=1800
 ```
+
+## `CORE_COMPRESSION_ENABLED`
+
+Whether to have compression enabled. This is used to save on bandwidth by enabling the `?compress` query in the `/r/:id` and the `/u/:id` endpoints. Currently, this is experimental and could end up compressing contents that should\'t be compressed. This is disabled by default.
+
+```bash
+CORE_COMPRESSION_ENABLED=true
+```
+
+## `CORE_COMPRESSION_THRESHOLD`
+
+The amount of bytes a file size can be before it can be compressed. For more info on what values are accepted, see [here](/docs/guides/byte-format). The default, if enabled, is 2048 bytes.
+
+```bash
+CORE_COMPRESSION_THRESHOLD=1gb
+```
+
+## `CORE_COMPRESSION_ON_DASHBOARD`
+
+Whether to have compression be used on the dashboard. This will have all images on the dashboard, excluding built in, be served with compression in mind.
+
+```bash
+CORE_COMPRESSION_ON_DASHBOARD=true
+```

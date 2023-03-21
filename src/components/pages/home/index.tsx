@@ -1,4 +1,15 @@
-import { Alien, File, FileArrowRight, FileZip, Link, Lock, Rocket, Share, Users } from 'tabler-icons-react';
+import {
+  Icon2fa,
+  IconAlienFilled,
+  IconFileSettings,
+  IconFileUpload,
+  IconFileZip,
+  IconKey,
+  IconLink,
+  IconRocket,
+  IconShare2,
+  IconUsers,
+} from '@tabler/icons-react';
 import DiscordIcon from '../../icons/DiscordIcon';
 import HomeCard from './HomeCard';
 
@@ -7,25 +18,25 @@ const items = [
     title: 'Setup Quickly',
     description: 'Setup your own Zipline instance in minutes.',
     href: '/docs/get-started',
-    Icon: Rocket,
+    Icon: IconRocket,
   },
   {
     title: 'Configure',
     description: 'Configure Zipline to your needs.',
     href: '/docs/config',
-    Icon: File,
+    Icon: IconFileSettings,
   },
   {
     title: 'Upload any file',
     description: 'Upload images and text to Zipline, with support for syntax highlighting in text files.',
     href: '/docs/guides/upload-options',
-    Icon: FileArrowRight,
+    Icon: IconFileUpload,
   },
   {
     title: 'URL Shortening',
     description: 'Shorten URLs with Zipline with vanities and maximum views.',
     href: '/docs/api/shorten',
-    Icon: Link,
+    Icon: IconLink,
   },
   {
     title: 'Embeds',
@@ -43,33 +54,33 @@ const items = [
     title: 'OAuth2 Registration',
     description: 'Allow users to link and/or register with selected OAuth2 providers.',
     href: '/docs/guides/oauth',
-    Icon: Users,
+    Icon: IconUsers,
   },
   {
     title: '2FA',
     description: 'Enable 2FA for your users.',
     href: '/docs/guides/totp',
-    Icon: Lock,
+    Icon: Icon2fa,
   },
   {
     title: 'Invites',
     description: 'Invite your friends to your instance!',
-    Icon: Share,
+    Icon: IconShare2,
   },
   {
     title: 'Password Protection',
     description: 'Protect your uploads with a password.',
-    Icon: Lock,
+    Icon: IconKey,
   },
   {
     title: 'Image Compression',
     description: 'Compress your images to save space.',
-    Icon: FileZip,
+    Icon: IconFileZip,
   },
   {
     title: 'Theres more!',
     description: "I didn't feel like listing everything here, so go check out the docs!",
-    Icon: Alien,
+    Icon: IconAlienFilled,
   },
 ];
 

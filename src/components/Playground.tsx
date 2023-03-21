@@ -1,7 +1,7 @@
+import { IconChevronDown } from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import React, { useState } from 'react';
-import { ChevronDown } from 'tabler-icons-react';
 import ayuDark from '../lib/themes/ayuDark';
 import ayuLight from '../lib/themes/ayuLight';
 
@@ -230,7 +230,9 @@ export default function Playground() {
         <button className='flex items-center space-x-2 p-1 rounded-md' onClick={() => setDataOpen(!dataOpen)}>
           <span className='text-gray-200 dark:text-gray-500'>View Sample Data</span>
 
-          <ChevronDown className={`w-5 h-5 transition-transform transform ${dataOpen ? 'rotate-180' : ''}`} />
+          <IconChevronDown
+            className={`w-5 h-5 transition-transform transform ${dataOpen ? 'rotate-180' : ''}`}
+          />
         </button>
 
         <div className={`overflow-auto transition-all ${dataOpen ? 'max-h-[100rem]' : 'max-h-0'}`}>
