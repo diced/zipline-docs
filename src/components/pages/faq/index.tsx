@@ -58,7 +58,7 @@ const items = [
     content: (
       <>
         Major releases, like <Code>v3.6.4</Code> to <Code>v3.7.0</Code>, take a while to come out, since they
-        under many variations of release candidates (RC&quot;s).
+        under many variations of release candidates (RC&apos;s).
         <br />
         Typically release will have many <Code>beta</Code> versions before any single <Code>rc</Code> version.
         <br />
