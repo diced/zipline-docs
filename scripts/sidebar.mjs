@@ -10,7 +10,7 @@ export default async function genSidebar(dir) {
   const files = await readdir(dir);
 
   for (const file of files) {
-    const filePath = join(dir, file);
+    const filePath = join(dir, file).replace(/\\/g, '/');
     const stat = statSync(filePath);
 
     if (stat.isDirectory()) {
@@ -97,7 +97,7 @@ export function checkIfDirectoryFile(sidebar) {
   for (const item of sidebar) {
     if (item.type === 'd') {
       const filename = item.path.split('/').pop() + '.md';
-      const filepath = join(item.path, filename);
+      const filepath = join(item.path, filename).replace(/\\/g, '/');
 
       if (existsSync(filepath)) {
         const fm = matter(readFileSync(filepath, 'utf8'));
