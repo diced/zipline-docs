@@ -25,9 +25,7 @@ Returns an array of [users](/docs/api/models/user)
     "administrator": false,
     "superAdmin": false,
     "systemTheme": "system",
-    "embedTitle": null,
-    "embedColor": "#2f3136",
-    "embedSiteName": "{image.file} • {user.name}",
+    "embed": {},
     "ratelimit": null,
     "totpSecret": null,
     "domains": []
@@ -40,9 +38,7 @@ Returns an array of [users](/docs/api/models/user)
     "administrator": false,
     "superAdmin": false,
     "systemTheme": "system",
-    "embedTitle": null,
-    "embedColor": "#2f3136",
-    "embedSiteName": "{image.file} • {user.name}",
+    "embed": {},
     "ratelimit": null,
     "totpSecret": null,
     "domains": []

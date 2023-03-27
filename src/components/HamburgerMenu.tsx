@@ -1,7 +1,7 @@
+import { IconMenu, IconX } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'tabler-icons-react';
 import { randomStr } from '../lib/random';
 import { items } from './Header';
 import { Item } from './sidebar';
@@ -38,7 +38,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
         onClick={() => setOpen(!open)}
       >
         <span className='sr-only'>Open main menu</span>
-        <Menu />
+        <IconMenu />
       </button>
 
       {open && (
@@ -59,7 +59,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
                   onClick={() => setOpen(!open)}
                 >
                   <span className='sr-only'>Close main menu</span>
-                  <X />
+                  <IconX />
                 </button>
               </div>
             </div>

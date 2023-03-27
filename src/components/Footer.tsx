@@ -1,10 +1,8 @@
+import { IconArrowRight, IconBrandDiscordFilled, IconBrandGithubFilled } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight } from 'tabler-icons-react';
 import { randomStr } from '../lib/random';
 import Container from './Container';
-import DiscordIcon from './icons/DiscordIcon';
-import GithubIcon from './icons/GithubIcon';
 import ThemeDropdown from './ThemeDropdown';
 
 const items = [
@@ -54,10 +52,10 @@ export default function Footer() {
                 <p className='text-4xl font-bold mx-6'>Zipline</p>
                 <div className='flex flex-row space-x-4'>
                   <Link href='/github' aria-label='github'>
-                    <GithubIcon className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out hover:fill-gray-200' />
+                    <IconBrandGithubFilled className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out hover:fill-gray-200' />
                   </Link>
                   <Link href='/discord' aria-label='discord'>
-                    <DiscordIcon className='fill-[#5865F2] hover:fill-[#4750b5] h-6 w-6 transition-colors ease-in-out' />
+                    <IconBrandDiscordFilled className='fill-[#5865F2] hover:fill-[#4750b5] h-6 w-6 transition-colors ease-in-out' />
                   </Link>
                 </div>
               </div>
@@ -81,7 +79,7 @@ export default function Footer() {
                           className='group flex transition-colors ease-in-out text-gray-300 hover:text-gray-400 py-2 rounded-md font-normal text-md'
                         >
                           {subItem.title}
-                          <ArrowRight className='group-hover:opacity-100 opacity-0 transition-all ease-in-out group-hover:translate-x-2' />
+                          <IconArrowRight className='group-hover:opacity-100 opacity-0 transition-all ease-in-out group-hover:translate-x-2' />
                         </Link>
                       ))}
                     </div>

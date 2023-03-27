@@ -1,5 +1,4 @@
-import DiscordIcon from '../../icons/DiscordIcon';
-import GithubIcon from '../../icons/GithubIcon';
+import { IconBrandDiscordFilled, IconBrandGithubFilled } from '@tabler/icons-react';
 import CommunityCard from './CommunityCard';
 
 const communities = [
@@ -7,13 +6,13 @@ const communities = [
     name: 'GitHub',
     description: 'The official GitHub repository for the project.',
     href: '/github',
-    icon: GithubIcon,
+    icon: IconBrandGithubFilled,
   },
   {
     name: 'Discord',
     description: 'The official Discord server for the project. Receive help, or just chat around with us!',
     href: '/discord',
-    icon: DiscordIcon,
+    icon: IconBrandDiscordFilled,
   },
 ];
 

@@ -1,10 +1,11 @@
+import { IconMenu, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'tabler-icons-react';
 import { randomStr } from '../../lib/random';
 import Headings from '../Headings';
 import SearchBar from '../search/SearchBar';
 import SidebarItem from './SidebarItem';
+import VersionSelect from './VersionSelect';
 
 export interface SidebarProps {
   items: Item[];
@@ -57,6 +58,8 @@ export default function Sidebar({ items, children }: SidebarProps) {
       <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
         <div className='mx-2'>
           <SearchBar />
+
+          <VersionSelect />
         </div>
         {items.map((item) => (
           <SidebarItem key={randomStr()} item={item} />
@@ -69,7 +72,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             onClick={() => setOpen(!open)}
           >
             <span className='ml-4 text-gray-400'>Menu</span>
-            <Menu className='mx-2 text-gray-400' />
+            <IconMenu className='mx-2 text-gray-400' />
           </button>
 
           <button
@@ -77,7 +80,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             onClick={() => setOnThisPageOpen(!onThisPageOpen)}
           >
             <span className='ml-4 text-gray-400'>On this page</span>
-            <Menu className='mx-2 text-gray-400' />
+            <IconMenu className='mx-2 text-gray-400' />
           </button>
         </div>
 
@@ -87,6 +90,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             className='md:hidden block absolute top-12 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
           >
             <SearchBar />
+            <VersionSelect />
 
             {items.map((item) => (
               <SidebarItem key={randomStr()} item={item} />
@@ -97,7 +101,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             >
               <div className='flex text-center'>Close Menu</div>
               <div>
-                <X className='mr-2' />
+                <IconX className='mr-2' />
               </div>
             </button>
           </div>
@@ -116,7 +120,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
             >
               <div className='flex text-center'>Close Menu</div>
               <div>
-                <X className='mr-2' />
+                <IconX className='mr-2' />
               </div>
             </button>
           </div>

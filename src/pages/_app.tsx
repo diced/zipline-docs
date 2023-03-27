@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
+import { Analytics } from '@vercel/analytics/react';
 
 // tw
 import '../styles/index.css';
@@ -44,6 +45,8 @@ export default function App({ Component, pageProps }: AppProps) {
           </Layout>
         </SearchProvider>
       </ThemeProvider>
+
+      <Analytics />
     </>
   );
 }

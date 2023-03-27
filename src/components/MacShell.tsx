@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
 import Tilt from 'react-parallax-tilt';
-import { Lock, Refresh } from 'tabler-icons-react';
 
 const DEFAULT_SCALE = 1.05;
 

@@ -1,38 +1,44 @@
 {
   "name": "zipline-docs",
-  "version": "5.0.0",
+  "version": "3.7.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/runAll.mjs && next dev",
-    "build": "node scripts/runAll.mjs && next build",
+    "dev": "node --experimental-fetch scripts/runAll.mjs && next dev",
+    "build": "node --experimental-fetch scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
-    "scripts": "node scripts/runAll.mjs"
+    "scripts": "node --experimental-fetch scripts/runAll.mjs"
   },
   "dependencies": {
     "@docsearch/react": "3",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@next/font": "13.0.7",
+    "@octokit/types": "^9.0.0",
+    "@tabler/icons-react": "^2.11.0",
     "@tailwindcss/typography": "^0.5.8",
+    "@types/semver": "^7.3.13",
+    "@vercel/analytics": "^0.1.10",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "eslint": "8.30.0",
     "eslint-config-next": "13.0.7",
     "framer-motion": "^7.10.2",
     "gray-matter": "^4.0.3",
     "next": "^13.1.0",
-    "next-mdx-remote": "^4.2.0",
+    "next-mdx-remote": "^4.2.1",
     "next-seo": "^5.15.0",
     "next-themes": "^0.2.1",
     "prism-react-renderer": "^1.3.5",
     "prismjs": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-markdown": "^8.0.5",
     "react-parallax-tilt": "^1.7.77",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
-    "sharp": "^0.31.2",
-    "tabler-icons-react": "^1.56.0"
+    "semver": "^7.3.8",
+    "sharp": "^0.31.2"
   },
   "devDependencies": {
     "@types/node": "^18.11.17",
@@ -46,8 +52,5 @@
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
   },
-  "resolutions": {
-    "@mdx-js/mdx": "2.1.5",
-    "@mdx-js/react": "2.1.5"
-  }
+  "packageManager": "yarn@1.22.19"
 }

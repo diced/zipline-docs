@@ -1,11 +1,10 @@
-import releases from './releases.mjs';
-import genSidebar, {
-  convertSidebarToParsable,
-  checkIfDirectoryFile,
-  orderSidebar,
-  flattenSidebar,
-} from './sidebar.mjs';
 import { writeFile } from 'fs/promises';
+import genSidebar, {
+  checkIfDirectoryFile,
+  convertSidebarToParsable,
+  flattenSidebar,
+  orderSidebar,
+} from './sidebar.mjs';
 
 const sidebar = await genSidebar('./docs');
 
@@ -24,7 +23,3 @@ await writeFile(
 );
 
 console.log('Generated sidebar.json');
-
-await releases();
-
-console.log('Generated release changelogs');

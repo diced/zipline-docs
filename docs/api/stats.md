@@ -17,7 +17,7 @@
 | Field Name      | Type     | Description                           |
 | --------------- | -------- | ------------------------------------- |
 | `id`            | `number` | `id` of the stats object              |
-| `created_at`    | `date`   | The date the stats object was created |
+| `createdAt`     | `date`   | The date the stats object was created |
 | `data`          | `object` | [The stats data](#data)               |
 | `max_timestamp` | `date`   | The max timestamp of the stats data   |
 
@@ -51,7 +51,7 @@
 [
   {
     "id": 454,
-    "created_at": "2022-12-02T00:18:31.955Z",
+    "createdAt": "2022-12-02T00:18:31.955Z",
     "data": {
       "size": "318.5 MB",
       "count": 471,
@@ -74,7 +74,7 @@
   },
   {
     "id": 453,
-    "created_at": "2022-12-01T17:41:38.738Z",
+    "createdAt": "2022-12-01T17:41:38.738Z",
     "data": {
       "size": "318.5 MB",
       "count": 470,
@@ -109,4 +109,5 @@
 Same response as [this](#-returns-json-array)
 
 ### <APIBadge type="403" /> Unauthorized (JSON)
+
 `not an administrator` - You are not an administrator, therefore you cannot force a stats update.

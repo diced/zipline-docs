@@ -1,13 +1,13 @@
+import { Icon, IconDevices, IconMoonFilled, IconSunFilled } from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
-import { Sun, Moon, DeviceLaptop, Icon } from 'tabler-icons-react';
 import { randomStr } from '../lib/random';
 
 const ICON_SIZE = 24;
 
 const options = [
-  { value: 'light', label: 'Light', Icon: Sun },
-  { value: 'dark', label: 'Dark', Icon: Moon },
+  { value: 'light', label: 'Light', Icon: IconSunFilled },
+  { value: 'dark', label: 'Dark', Icon: IconMoonFilled },
 ];
 
 export function ThemeDropdownItem({
@@ -93,12 +93,12 @@ export default function ThemeDropdown({ withName = false }) {
         {withName ? (
           <>
             <span className='capitalize'>{resolvedTheme}</span>
-            {resolvedTheme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
+            {resolvedTheme === 'light' ? <IconSunFilled size={16} /> : <IconMoonFilled size={16} />}
           </>
         ) : resolvedTheme === 'light' ? (
-          <Sun size={ICON_SIZE} />
+          <IconSunFilled size={ICON_SIZE} />
         ) : (
-          <Moon size={ICON_SIZE} />
+          <IconMoonFilled size={ICON_SIZE} />
         )}
       </button>
       {open && (
@@ -125,7 +125,7 @@ export default function ThemeDropdown({ withName = false }) {
             key='system'
             value='system'
             label='System'
-            Icon={DeviceLaptop}
+            Icon={IconDevices}
             onClick={() => {
               setTheme('system');
               setOpen(false);

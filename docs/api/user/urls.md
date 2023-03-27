@@ -10,7 +10,7 @@
 
 | Field Name    | Type      | Description                                           |
 | ------------- | --------- | ----------------------------------------------------- |
-| `created_at`  | `date`    | The date the URL was created                          |
+| `createdAt`   | `date`    | The date the URL was created                          |
 | `id`          | `number`  | The ID of the URL                                     |
 | `destination` | `string`  | The destination of the URL                            |
 | `vanity`      | `string?` | The vanity of the URL                                 |
@@ -22,7 +22,7 @@
 [
   ...,
   {
-    "created_at": "2022-08-22T19:11:13.526Z",
+    "createdAt": "2022-08-22T19:11:13.526Z",
     "id": "LeifVu",
     "destination": "https://google.com",
     "vanity": null,
@@ -31,7 +31,7 @@
     "url": "/go/LeifVu"
   },
   {
-    "created_at": "2022-10-28T04:22:28.021Z",
+    "createdAt": "2022-10-28T04:22:28.021Z",
     "id": "67q2JE",
     "destination": "https://google.com",
     "vanity": "adsgsdg",
@@ -61,7 +61,7 @@
 
 | Field Name    | Type      | Description                                           |
 | ------------- | --------- | ----------------------------------------------------- |
-| `created_at`  | `date`    | The date the URL was created                          |
+| `createdAt`   | `date`    | The date the URL was created                          |
 | `id`          | `number`  | The ID of the URL                                     |
 | `destination` | `string`  | The destination of the URL                            |
 | `vanity`      | `string?` | The vanity of the URL                                 |
@@ -71,7 +71,7 @@
 
 ```json
 {
-  "created_at": "2022-08-22T19:11:13.526Z",
+  "createdAt": "2022-08-22T19:11:13.526Z",
   "id": "LeifVu",
   "destination": "https://google.com",
   "vanity": null,

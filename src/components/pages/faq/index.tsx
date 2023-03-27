@@ -57,8 +57,19 @@ const items = [
     title: 'How long do releases take?',
     content: (
       <>
-        Usually major releases come out every month or so, and patches are pretty frequent. However, this is
-        not a strict rule, and releases can take longer than expected.
+        Major releases, like <Code>v3.6.4</Code> to <Code>v3.7.0</Code>, take a while to come out, since they
+        under many variations of release candidates (RC&apos;s).
+        <br />
+        Typically release will have many <Code>beta</Code> versions before any single <Code>rc</Code> version.
+        <br />
+        The <Code>beta</Code> versions are beta versions, and are NOT considered stable enough to be used in
+        production. The upside to using a <Code>beta</Code> version is that it is more likely to have the
+        latest features, and you will get a new <Code>beta</Code> version very frequently.
+        <br />
+        The <Code>rc</Code> versions are release candidates, and are considered stable enough to be used in
+        production, but be aware that there may be small bugs that were not squashed. The upside to using an{' '}
+        <Code>rc</Code> version is that it is more likely to have the latest features, and you will get a new{' '}
+        <Code>rc</Code> version every week or so during the release timeline
       </>
     ),
     id: 'how-long-do-releases-take',
@@ -137,11 +148,30 @@ const items = [
         </Code>
         <br />
         <span className='text-xs'>
-          <Code>...</Code> = yarn/npm/docker-compose exec zipline yarn
+          <Code>...</Code> = yarn/npm/docker compose exec zipline yarn
         </span>
       </>
     ),
     id: 'i-got-locked-out-of-my-account',
+  },
+  {
+    title: 'Why is the stats page not updating?',
+    content: (
+      <>
+        The stats page is updated in an interval to prevent the server from being stressed every time the
+        stats page is loaded. This helps cut down load times significantly. Although it is not recomended, you
+        can change the interval within the{' '}
+        <Ref href='/docs/config/core#core_stats_interval'>
+          <Code>CORE_STATS_INTERVAL</Code>
+        </Ref>{' '}
+        variable.
+        <br />
+        <br />
+        When first installing Zipline, the stats page may be blank for a while, even for a day as most of the
+        data it grabs it filtered &quot;daily&quot;.
+      </>
+    ),
+    id: 'stats-not-updating',
   },
 ];
 

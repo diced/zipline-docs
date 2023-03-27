@@ -1,3 +1,4 @@
+import { IconChevronLeft, IconChevronRight, IconHome, IconX } from '@tabler/icons-react';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -8,12 +9,12 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { join } from 'path';
 import Highlight, { Prism } from 'prism-react-renderer';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { ChevronLeft, ChevronRight, Home } from 'tabler-icons-react';
 import Alert from '../../components/Alert';
 import APIBadge from '../../components/APIBadge';
+import { docsComponents } from '../../components/DocsComponents';
 import ExternalLinksBuilder from '../../components/ExternalLinksBuilder';
 import Playground from '../../components/Playground';
 import ScrollToTop from '../../components/ScrollToTop';
@@ -42,84 +43,6 @@ interface DocsProps {
   breadcrumbs: string[];
   lastUpdated: string;
 }
-
-const components = {
-  a: ({ href, ...props }: any) => {
-    return <Link href={href} {...props} />;
-  },
-  img: (props: any) => {
-    return <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />;
-  },
-  APIBadge: (props: any) => {
-    return <APIBadge {...props} />;
-  },
-  Playground: (props: any) => {
-    return <Playground {...props} />;
-  },
-  ExternalLinksBuilder: (props: any) => {
-    return <ExternalLinksBuilder {...props} />;
-  },
-  pre: (props: any) => {
-    const { theme } = useTheme();
-    const className = props.children.props.className;
-    const match = /language-(\w+)/.exec(className || '');
-    return (
-      <Highlight
-        Prism={Prism}
-        code={props.children.props.children.slice(0, -1)}
-        // @ts-ignore
-        language={match ? match[1] : 'text'}
-        theme={theme === 'light' ? ayuLight : ayuDark}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={`${className} shadow-md`} style={style}>
-            {tokens.map((line, i) => (
-              <div key={i} {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span key={key} {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
-          </pre>
-        )}
-      </Highlight>
-    );
-  },
-  TabItem: (props: any) => {
-    return <TabItem {...props} />;
-  },
-  Tabs: (props: any) => {
-    return <Tabs {...props} />;
-  },
-  Alert: (props: any) => {
-    return <Alert {...props} />;
-  },
-
-  h1: ({ id, children }: any) => {
-    return (
-      <h1 id={id} className='flex items-center group'>
-        {children}
-        <SlugLink id={id} />
-      </h1>
-    );
-  },
-  h2: ({ id, children }: any) => {
-    return (
-      <h2 id={id} className='flex items-center group'>
-        {children}
-        <SlugLink id={id} />
-      </h2>
-    );
-  },
-  h3: ({ id, children }: any) => {
-    return (
-      <h3 id={id} className='flex items-center group'>
-        {children}
-        <SlugLink id={id} />
-      </h3>
-    );
-  },
-};
 
 export default function DocsPage({
   source,
@@ -151,16 +74,16 @@ export default function DocsPage({
         }}
       />
       <Sidebar items={sidebar}>
-        <article className='prose dark:prose-invert dark:text-white text-black max-w-full min-w-0 pt-6 px-8 md:px-20 w-full'>
+        <article className='prose dark:prose-invert dark:text-white text-black max-w-4xl min-w-0 pt-6 px-8 md:px-20 w-full'>
           <div className='flex items-center cursor-default select-none mb-6'>
             <Link href='/docs/get-started' className='flex items-center'>
-              <Home className='w-5 h-5 text-gray-500 dark:text-gray-400' />
+              <IconHome className='w-5 h-5 text-gray-500 dark:text-gray-400' />
             </Link>
             {breadcrumbs.map((breadcrumb, index) =>
               breadcrumbs.length - 1 !== index ? (
                 <Fragment key={index}>
                   <span className='text-gray-300 dark:text-gray-600'>
-                    <ChevronRight />
+                    <IconChevronRight />
                   </span>
                   <span className='text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 transition-colors'>
                     {breadcrumb}
@@ -169,7 +92,7 @@ export default function DocsPage({
               ) : (
                 <Fragment key={index}>
                   <span className='text-gray-300 dark:text-gray-600'>
-                    <ChevronRight />
+                    <IconChevronRight />
                   </span>
                   <span className='text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 transition-colors'>
                     {breadcrumb}
@@ -179,18 +102,27 @@ export default function DocsPage({
             )}
           </div>
 
-          <MDXRemote components={components} {...source} />
+          <MDXRemote components={docsComponents} {...source} />
 
           <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
 
-          <div className='flex justify-between my-8 not-prose'>
+          <div className='flex justify-between my-8 not-prose flex-grow space-x-8'>
             {prev ? (
               <Link
                 href={prev.href}
-                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
               >
-                <ChevronLeft className='w-5 h-5 mr-2' />
-                {prev.title}
+                <div className='flex flex-col'>
+                  <div className='flex items-center justify-start'>
+                    <IconChevronLeft className='w-5 h-5 mr-2' />
+                    {prev.title}
+                  </div>
+                  <div className='text-xs text-gray-500 dark:text-gray-400 pl-7'>
+                    {prev.description.length > 50
+                      ? prev.description.substring(0, 50).trim() + '...'
+                      : prev.description}
+                  </div>
+                </div>
               </Link>
             ) : (
               <div />
@@ -198,10 +130,19 @@ export default function DocsPage({
             {next ? (
               <Link
                 href={next.href}
-                className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
               >
-                {next.title}
-                <ChevronRight className='w-5 h-5 ml-2' />
+                <div className='flex flex-col'>
+                  <div className='flex items-center justify-end'>
+                    {next.title}
+                    <IconChevronRight className='w-5 h-5 ml-2' />
+                  </div>
+                  <div className='text-xs pr-7 text-gray-500 dark:text-gray-400'>
+                    {next.description.length > 50
+                      ? next.description.substring(0, 50).trim() + '...'
+                      : next.description}
+                  </div>
+                </div>
               </Link>
             ) : (
               <div />
@@ -213,14 +154,14 @@ export default function DocsPage({
           <div className='not-prose flex justify-between my-8 cursor-default'>
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
-              <span className='hover:text-gray-800 dark:hover:text-gray-100 transition-colors ml-1'>
+              <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>
                 {lastUpdated.toLocaleDateString()}
               </span>
             </div>
 
             <Link
               href={`https://github.com/diced/zipline-docs/tree/trunk/${path}`}
-              className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500'
+              className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500 hover:text-blue-600'
             >
               Edit this page on GitHub
             </Link>

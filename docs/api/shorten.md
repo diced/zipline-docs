@@ -39,6 +39,14 @@
 }
 ```
 
+### <APIBadge type ="200" /> Ok (Text)
+
+If the `No-JSON` header is present, it will return a text response. This is useful if you want to skip the JSON parsing, which can be slow in the case of [jq](https://stedolan.github.io/jq/).
+
+```
+https://example.com/go/1234
+```
+
 ### <APIBadge type="400" /> Bad Request (JSON)
 
 - `no body` - No JSON body was provided.

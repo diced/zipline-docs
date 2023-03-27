@@ -1,4 +1,9 @@
+import { IconChevronDown } from '@tabler/icons-react';
+import { useTheme } from 'next-themes';
+import Highlight, { defaultProps } from 'prism-react-renderer';
 import React, { useState } from 'react';
+import ayuDark from '../lib/themes/ayuDark';
+import ayuLight from '../lib/themes/ayuLight';
 
 export type ParseValue = {
   file?: any;
@@ -150,8 +155,12 @@ function toHex(str: string): string {
 
 export default function Playground() {
   const [value, setValue] = useState(
-    '{user.username} ({file.id}) uploaded {file.file} at {file.created_at::hour}:{file.created_at::minute} today'
+    '{user.username} ({file.id}) uploaded {file.name} (original name: {file.originalName}) at {file.createdAt::hour}:{file.createdAt::minute} today'
   );
+  const [dataOpen, setDataOpen] = useState(false);
+
+  const { theme } = useTheme();
+
   const sampleData = {
     user: {
       administrator: true,
@@ -160,9 +169,6 @@ export default function Playground() {
       token: 'qwertyuiopasdfghjkzxcvbnm',
       superAdmin: true,
       systemTheme: 'default',
-      embedTitle: 'Example',
-      embedColor: '#000000',
-      embedSiteName: 'Example',
       ratelimit: new Date(),
       totpSecret: '1234567890',
       domains: [],
@@ -170,9 +176,10 @@ export default function Playground() {
     file: {
       id: 1,
       mimetype: 'image/png',
-      file: 'something.png',
-      created_at: new Date(),
-      expires_at: new Date(),
+      name: 'randomstuff.png',
+      originalName: 'originalNameWow.png',
+      createdAt: new Date(),
+      expiresAt: new Date(new Date().getTime() + 20 * 60 * 1000),
       maxViews: 100,
       views: 2,
       favorite: true,
@@ -184,7 +191,7 @@ export default function Playground() {
       id: 2,
       destination: 'https://google.com',
       vanity: 'google',
-      created_at: new Date(),
+      createdAt: new Date(),
       maxViews: 100,
       views: 2,
       userId: 1,
@@ -203,7 +210,7 @@ export default function Playground() {
   return (
     <>
       <input
-        className='focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-2 ring-gray-700 shadow-sm'
+        className='focus:ring-1 focus:ring-blue-500 focus:outline-none appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-1 ring-gray-50 dark:ring-gray-700 shadow-sm'
         type='text'
         aria-label='Type out your string here with variables!'
         placeholder='Type out your string here with variables!'
@@ -212,11 +219,42 @@ export default function Playground() {
       />
 
       <div
-        className={`bg-gray-800 border border-gray-700 rounded-md p-2 my-2 transition-colors ${
-          parsed.trim().length === 0 ? 'text-gray-200' : 'text-white'
+        className={`dark:bg-gray-800 border border-gray-50 dark:border-gray-700 rounded-md p-2 my-2 transition-colors ${
+          parsed.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white'
         }`}
       >
         {parsed.trim().length === 0 ? 'Type something!' : parsed}
+      </div>
+
+      <div className='flex-col items-center justify-between mb-12'>
+        <button className='flex items-center space-x-2 p-1 rounded-md' onClick={() => setDataOpen(!dataOpen)}>
+          <span className='text-gray-200 dark:text-gray-500'>View Sample Data</span>
+
+          <IconChevronDown
+            className={`w-5 h-5 transition-transform transform ${dataOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        <div className={`overflow-auto transition-all ${dataOpen ? 'max-h-[100rem]' : 'max-h-0'}`}>
+          <Highlight
+            {...defaultProps}
+            code={JSON.stringify(sampleData, null, 2)}
+            language='json'
+            theme={theme === 'light' ? ayuLight : ayuDark}
+          >
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre className={`${className} shadow-md`} style={style}>
+                {tokens.map((line, i) => (
+                  <div key={i} {...getLineProps({ line, key: i })}>
+                    {line.map((token, key) => (
+                      <span key={key} {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
+                ))}
+              </pre>
+            )}
+          </Highlight>
+        </div>
       </div>
     </>
   );
