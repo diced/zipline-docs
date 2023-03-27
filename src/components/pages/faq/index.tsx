@@ -154,6 +154,25 @@ const items = [
     ),
     id: 'i-got-locked-out-of-my-account',
   },
+  {
+    title: 'Why is the stats page not updating?',
+    content: (
+      <>
+        The stats page is updated in an interval to prevent the server from being stressed every time the
+        stats page is loaded. This helps cut down load times significantly. Although it is not recomended, you
+        can change the interval within the{' '}
+        <Ref href='/docs/config/core#core_stats_interval'>
+          <Code>CORE_STATS_INTERVAL</Code>
+        </Ref>{' '}
+        variable.
+        <br />
+        <br />
+        When first installing Zipline, the stats page may be blank for a while, even for a day as most of the
+        data it grabs it filtered &quot;daily&quot;.
+      </>
+    ),
+    id: 'stats-not-updating',
+  },
 ];
 
 export default function FAQPage() {

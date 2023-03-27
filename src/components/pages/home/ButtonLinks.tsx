@@ -1,6 +1,5 @@
-import { IconArrowRight, IconStarFilled } from '@tabler/icons-react';
+import { IconArrowRight, IconBrandGithubFilled, IconStarFilled } from '@tabler/icons-react';
 import Link from 'next/link';
-import GithubIcon from '../../icons/GithubIcon';
 import SearchBar from '../../search/SearchBar';
 import Tooltip from '../../Tooltip';
 
@@ -33,7 +32,7 @@ export default function ButtonLinks({ stars, first: first }: { stars: number; fi
             href='/github'
             className='w-full md:w-auto justify-between duration-500 transition-all hover:shadow-lg hover:shadow-gray-600/50 ease-in-out bg-gray-400 dark:bg-gray-800 hover:bg-gray-700 focus:bg-gray-600 text-white font-bold py-2 px-4 rounded text-2xl flex items-center'
           >
-            GitHub <GithubIcon className='w-6 h-6 fill-white md:ml-6' />
+            GitHub <IconBrandGithubFilled className='w-6 h-6 fill-white md:ml-6' />
           </Link>
         </Tooltip>
       )}

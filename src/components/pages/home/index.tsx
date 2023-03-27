@@ -1,6 +1,8 @@
 import {
   Icon2fa,
   IconAlienFilled,
+  IconAppWindowFilled,
+  IconBellRingingFilled,
   IconFileSettings,
   IconFileUpload,
   IconFileZip,
@@ -10,7 +12,6 @@ import {
   IconShare2,
   IconUsers,
 } from '@tabler/icons-react';
-import DiscordIcon from '../../icons/DiscordIcon';
 import HomeCard from './HomeCard';
 
 const items = [
@@ -42,13 +43,13 @@ const items = [
     title: 'Embeds',
     description: 'Have embeds for your uploads in Discord with OG tags.',
     href: '/docs/guides/upload-options',
-    Icon: DiscordIcon,
+    Icon: IconAppWindowFilled,
   },
   {
     title: 'Notifications',
     description: 'Get notified when someone uploads to your instance.',
     href: '/docs/guides/discord-webhooks',
-    Icon: DiscordIcon,
+    Icon: IconBellRingingFilled,
   },
   {
     title: 'OAuth2 Registration',

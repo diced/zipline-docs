@@ -15,7 +15,7 @@
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "@next/font": "13.0.7",
     "@octokit/types": "^9.0.0",
-    "@tabler/icons-react": "^2.7.0",
+    "@tabler/icons-react": "^2.11.0",
     "@tailwindcss/typography": "^0.5.8",
     "@types/semver": "^7.3.13",
     "@vercel/analytics": "^0.1.10",
