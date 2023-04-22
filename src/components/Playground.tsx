@@ -15,7 +15,10 @@ export type ParseValue = {
 };
 
 export function parseString(str: string, value: ParseValue) {
-  str = str.replace(/\{link\}/gi, value.link ?? '').replace(/\{raw_link\}/gi, value.raw_link ?? '');
+  str = str
+    .replace(/\{link\}/gi, value.link ?? '')
+    .replace(/\{raw_link\}/gi, value.raw_link ?? '')
+    .replace(/\\n/g, '\n');
 
   const re = /\{(?<type>file|url|user)\.(?<prop>\w+)(::(?<mod>\w+))?\}/gi;
   let matches: RegExpMatchArray | null;
@@ -222,6 +225,7 @@ export default function Playground() {
         className={`dark:bg-gray-800 border border-gray-50 dark:border-gray-700 rounded-md p-2 my-2 transition-colors ${
           parsed.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white'
         }`}
+        style={{ whiteSpace: 'pre-wrap' }}
       >
         {parsed.trim().length === 0 ? 'Type something!' : parsed}
       </div>
