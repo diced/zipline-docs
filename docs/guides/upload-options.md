@@ -58,6 +58,10 @@ If the header starts with `date=`, the following string must be a Javascript res
 If you would like to use a shorthand expression, you may do the following as the header value: `1d` (expire one day from now).
 If the date couldnt resolve to a date or is in the past, Zipline will return a 400 error.
 
+<Alert type="note">
+Favoriting An Image prevents it from automatically expiring.
+</Alert>
+
 ### Shorthand expressions
 
 The expression is `{number}{optional space}{unit}`. The space between the number and the unit is **not** required. You may only specify one expression per expiry, `1d 6h` (1 day and 6 hours) will not work.
