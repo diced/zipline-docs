@@ -77,3 +77,11 @@ Whether to have compression be used on the dashboard. This will have all images 
 ```bash
 CORE_COMPRESSION_ON_DASHBOARD=true
 ```
+
+## `CORE_TEMP_DIRECTORY`
+
+The location of your zipline temp directory. It will be in `/tmp/zipline` by default. If partial files from chunking an upload were left in the temp directory, Zipline may warn on start about them. To remove the warning for any future (re)starts, clear the temp directory.
+
+```bash
+CORE_TEMP_DIRECTORY=/tmp/zipline-temp
+```

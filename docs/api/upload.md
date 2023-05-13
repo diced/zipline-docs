@@ -16,11 +16,11 @@ Field names of files should be `file`, if you want to upload multiple files then
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-| Field Name    | Type               | Description                                            |
-| ------------- | ------------------ | ------------------------------------------------------ |
-| `files`       | `array of strings` | The URLs of the uploaded files                         |
-| `expiresAt`   | `date`             | The date the file will expire                          |
-| `removed_gps` | `boolean`          | Whether or not the GPS data was removed from the image |
+| Field Name    | Type        | Description                                                                                                               |
+| ------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `files`       | `strings[]` | The URLs of the uploaded files                                                                                            |
+| `expiresAt`   | `date`      | The date the file will expire. For more info, refer to the [upload options](/docs/guides/upload-options#image-expiration) |
+| `removed_gps` | `boolean`   | Whether or not the GPS data was removed from the image                                                                    |
 
 ```json
 {
