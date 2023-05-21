@@ -8,14 +8,15 @@ Instructions can be found to do this [here](https://goauthentik.io/docs/installa
 1. Navigate to the admin interface
 2. Under applications/providers, create a new provider
 3. Select the OAuth/OpenID type, and hit next.
-4. Set the authention flow as default-authentication-flow
-5. Set the authorization flow as default-explicit-authorization-flow
-6. Set the client type as confidential, and note the client ID + Secret, these will be used in the enviroment variables
-
+  ![OAuthType](/guides/zipline-provider-type.png)
+5. Set the authention flow as default-authentication-flow
+6. Set the authorization flow as default-explicit-authorization-flow
+7. Set the client type as confidential, and note the client ID + Secret, these will be used in the enviroment variables
+  ![Provider Config](/guide/provider-config-authentik.png)
 ## Configure Application
 1. Navigate to applications/appliactions
 2. Create new application using the provider you just setup.
-
+  ![Application Config](/guide/authentik-application.png
 ## Configure Zipline
 Using the client ID + Secret from the provider, set those to the respective variables(OAUTH_AUTEHNTIK_CLIENT_ID, OAUTH_AUTHENTIK_CLIENT_SECRET), and replace `authentik.example` with the accessible URL of your authentik install.
 ```bash
