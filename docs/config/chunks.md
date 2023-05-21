@@ -12,3 +12,9 @@ The max size of an upload before it is chunked. If a file is 500mb, it will be c
 ```bash
 CHUNKS_MAX_SIZE=95mb
 ```
+
+## `CHUNKS_ENABLED`
+Whether to enable or disable chunking. The above variables will be ignored if this were to be set to `false`
+```bash
+CHUNKS_ENABLED=true
+```
