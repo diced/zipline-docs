@@ -6,6 +6,7 @@ Zipline now supports user registration via OAuth providers. This guide will walk
 * [Discord](/docs/guides/oauth/discord)
 * [GitHub](/docs/guides/oauth/github)
 * [Google](/docs/guides/oauth/google)
+* [Authentik](/docs/guides/oauth/authentik)
 * Contribute your own OAuth provider to [Zipline](https://github.com/diced/zipline)!
 
 ## Enabling OAuth
@@ -17,3 +18,4 @@ Follow the steps on the provider you selected to setup OAuth for your Zipline in
 * [Discord](/docs/guides/oauth/discord)
 * [GitHub](/docs/guides/oauth/github)
 * [Google](/docs/guides/oauth/google)
+* [Authentik](/docs/guides/oauth/authentik)
