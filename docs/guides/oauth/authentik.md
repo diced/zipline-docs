@@ -16,7 +16,7 @@ Instructions can be found to do this [here](https://goauthentik.io/docs/installa
 ## Configure Application
 1. Navigate to applications/appliactions
 2. Create new application using the provider you just setup.
-  ![Application Config](/guide/authentik-application.png
+  ![Application Config](/guide/authentik-application.png)
 ## Configure Zipline
 Using the client ID + Secret from the provider, set those to the respective variables(OAUTH_AUTEHNTIK_CLIENT_ID, OAUTH_AUTHENTIK_CLIENT_SECRET), and replace `authentik.example` with the accessible URL of your authentik install.
 ```bash
