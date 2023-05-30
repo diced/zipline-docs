@@ -57,7 +57,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
     <div className='flex flex-1 w-full'>
       <aside
         className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'
-        style={{ overflowY: 'scroll', maxHeight: '95%' }}
+        style={{ maxHeight: '95%' }}
       >
         <div className='mx-2'>
           <SearchBar />

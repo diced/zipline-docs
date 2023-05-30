@@ -49,3 +49,9 @@ The default expiration time for files. For more info on what values are accepted
 ```bash
 UPLOADER_DEFAULT_EXPIRATION=1d
 ```
+
+## `UPLOADER_ASSUME_MIMETYPES`
+When uploading a file, if it's mimetype appears to be `application/octet-stream`, Zipline will attempt to make a guess of the mimetype from the file extension. If it fails to do so, it will use the `application/octet-stream` mimetype.
+```bash
+UPLOADER_ASSUME_MIMETYPES=true
+```

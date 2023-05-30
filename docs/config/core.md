@@ -4,10 +4,10 @@ This page documents the core configuration of Zipline.
 
 ## `CORE_RETURN_HTTPS`
 
-Whether or not to return an `https` url.
+Whether or not to return an `https` url in uploads. This may be useful when using cloudflare's SSL and not your own. This option has nothing to do with Zipline's SSL options, do not confuse the two.
 
 <Alert type="danger">
-You will need to set this to true, if using [SSL](/docs/config/ssl).
+You will need to set this to true to make the uploader return https URLs if using [SSL](/docs/config/ssl).
 </Alert>
 
 ```bash
@@ -16,7 +16,7 @@ CORE_HTTPS=true
 
 ## `CORE_SECRET`
 
-The secret key used to sign sensitive data. IF the value remains as `changethis` then Zipline will exit with an error telling you to change it.
+The secret key used to sign sensitive data. If the value remains as `changethis` then Zipline will exit with an error telling you to change it.
 
 ```bash
 CORE_SECRET=changethis
@@ -52,6 +52,22 @@ The number of seconds to wait until refreshing statistics of Zipline. This is us
 
 ```bash
 CORE_STATS_INTERVAL=1800
+```
+
+## `CORE_INVITES_INTERVAL`
+
+The number of seconds to wait until clearing expired or used invites from the database. This is used as invites that are expired are not automatically removed from the database.
+
+```bash
+CORE_INVITES_INTERVAL=1800
+```
+
+## `CORE_THUMBNAILS_INTERVAL`
+
+The number of seconds to wait until generating thumbnails for videos, that **don't** have thumbnails already associated with them. See [Video Thumbnails](/docs/guides/video-thumbnails) for more information.
+
+```bash
+CORE_THUMBNAILS_INTERVAL=600 # every 10 mins
 ```
 
 ## `CORE_COMPRESSION_ENABLED`
