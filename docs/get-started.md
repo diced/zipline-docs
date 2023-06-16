@@ -23,7 +23,7 @@ Ways you could generate the string could be from a password managers generator, 
 
 ## Building & running from source
 
-This section requires [nodejs](https://nodejs.org) (v16 or later), [yarn](https://yarnpkg.com/) or [npm](https://npmjs.com).
+This section requires [nodejs](https://nodejs.org) (v18 (or current LTS) or later), [yarn](https://yarnpkg.com/) or [npm](https://npmjs.com).
 
 ```bash
 git clone https://github.com/diced/zipline
