@@ -15,7 +15,7 @@ The following credentials will need to be added
 | upload    | https://`YOUR_DOMAIN_HERE`/api/upload |
 | shorten   | https://`YOUR_DOMAIN_HERE`/api/shorten |
 
-Once you have added your credentials, tap the "**Add Shortcut button**" and you should be good to go.
+Once you have added your credentials, tap on the "**Add Shortcut**" button and you should be good to go.
 
 ![](/guides/ios-shortcut-1.png)
 
