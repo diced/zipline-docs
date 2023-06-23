@@ -36,9 +36,10 @@ const tailwindConfig = {
               paddingRight: theme('spacing.1'),
               paddingLeft: theme('spacing.1'),
               fontWeight: 'normal',
+              overflow: 'auto',
             },
             pre: {
-              overflow: 'scroll',
+              overflow: 'auto',
             },
             'code::before': {
               content: 'none',
@@ -71,10 +72,11 @@ const tailwindConfig = {
               borderRadius: theme('borderRadius.md'),
               paddingRight: theme('spacing.1'),
               paddingLeft: theme('spacing.1'),
+              overflow: 'auto',
               fontWeight: 'normal',
             },
             pre: {
-              overflow: 'scroll',
+              overflow: 'auto',
             },
             'code::before': {
               content: 'none',

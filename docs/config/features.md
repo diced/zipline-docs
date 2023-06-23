@@ -61,3 +61,11 @@ This is a path to a file, not a URL. If using docker, a relative path will be re
 ```bash
 FEATURES_DEFAULT_AVATAR=./public/zipline.png
 ```
+
+## `FEATURES_ROBOTS_TXT`
+
+If enabled, this will automatically create a /robots.txt route, that will disallow certain routes including upload routes from crawler bots.
+
+```bash
+FEATURES_ROBOTS_TXT=false
+```
