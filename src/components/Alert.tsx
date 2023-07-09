@@ -12,35 +12,37 @@ interface AlertProps {
   type: 'danger' | 'info' | 'warning' | 'tip' | 'note';
 }
 
+// inspired by remix.run docs alerts
+
 export default function Alert({ children, type }: AlertProps) {
   const Element = {
     danger: (props: any) => (
       <div
-        className='dark:bg-red-900/60 bg-red-200 py-2 px-1 rounded-md border border-red-800 my-8'
+        className='px-3 py-1 border-r-2 border-l-2 rounded-md border-red-400 bg-red-200 dark:bg-red-900/40'
         {...props}
       />
     ),
     info: (props: any) => (
       <div
-        className='dark:bg-blue-900 bg-blue-200 py-2 px-1 rounded-md border border-blue-800 my-8'
+        className='px-3 py-1 border-r-2 border-l-2 rounded-md border-blue-400 bg-blue-200 dark:bg-blue-900/40'
         {...props}
       />
     ),
     note: (props: any) => (
       <div
-        className='dark:bg-gray-800/30 bg-gray-100 py-2 px-1 rounded-md border border-gray-800 my-8'
+        className='px-3 py-1 border-r-2 border-l-2 rounded-md border-gray-400 bg-gray-100 dark:bg-gray-800/40'
         {...props}
       />
     ),
     tip: (props: any) => (
       <div
-        className='dark:bg-green-900/50 bg-green-200 py-2 px-1 rounded-md border border-green-800 my-8'
+        className='px-3 py-1 border-r-2 border-l-2 rounded-md border-green-400 bg-green-100 dark:bg-green-900/40'
         {...props}
       />
     ),
     warning: (props: any) => (
       <div
-        className='dark:bg-yellow-900/70 bg-yellow-200 py-2 px-1 rounded-md border border-yellow-800 my-8'
+        className='px-3 py-1 border-r-2 border-l-2 rounded-md border-yellow-400 bg-yellow-100 dark:bg-yellow-900/70'
         {...props}
       />
     ),
@@ -64,13 +66,12 @@ export default function Alert({ children, type }: AlertProps) {
 
   return (
     <Element>
-      <div className='flex dark:text-white text-black items-center mt-1 mx-2'>
-        <Icon size={28} />
+      <div className='flex dark:text-white text-black items-center'>
+        <Icon size={20} />
         <div className='ml-2 font-bold'>{name}</div>
       </div>
-      <div className='ml-3'>
-        <div>{children}</div>
-      </div>
+
+      <div>{children}</div>
     </Element>
   );
 }
