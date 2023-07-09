@@ -17,10 +17,14 @@ import galleryPageScreenshotLight from '../../public/img/screenshot-3-light.png'
 import galleryPageScreenshot from '../../public/img/screenshot-3.png';
 import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
 import urlsPageScreenshot from '../../public/img/screenshot-4.png';
+import foldersPageScreenshot from '../../public/img/screenshot-5.png';
+import foldersPageScreenshotLight from '../../public/img/screenshot-5-light.png';
+
 import MacTerminal from '../components/MacTerminal';
 import { Fragment } from 'react';
 import {
   IconFiles,
+  IconFolder,
   IconGraph,
   IconHeartFilled,
   IconLayoutDashboard,
@@ -29,6 +33,9 @@ import {
   IconTerminal2,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+
+const SS_WIDTH = 2560;
+const SS_HEIGHT = 1268;
 
 const screenshotWindows = [
   {
@@ -79,6 +86,18 @@ const screenshotWindows = [
     ),
     text: 'Create shortened links to websites, set a max amount of uses, and more!',
   },
+  {
+    darkImage: foldersPageScreenshot,
+    lightImage: foldersPageScreenshotLight,
+    alt: 'Folders page screenshot',
+    Icon: IconFolder,
+    title: (
+      <>
+        Organize your files with <EmphasizeText>folders</EmphasizeText>
+      </>
+    ),
+    text: 'Organize your files with folders, and view them with ease with a click of a button.',
+  },
 ];
 
 export default function Home({ stars }: { stars: number }) {
@@ -126,8 +145,8 @@ export default function Home({ stars }: { stars: number }) {
                   <MacWindow>
                     <Image
                       src={window.darkImage}
-                      width={1920}
-                      height={1080}
+                      width={SS_WIDTH}
+                      height={SS_HEIGHT}
                       placeholder='blur'
                       className='dark:block hidden'
                       alt={window.alt}
@@ -137,8 +156,8 @@ export default function Home({ stars }: { stars: number }) {
                     />
                     <Image
                       src={window.lightImage}
-                      width={1920}
-                      height={1080}
+                      width={SS_WIDTH}
+                      height={SS_HEIGHT}
                       placeholder='blur'
                       className='dark:hidden block'
                       alt={window.alt}
