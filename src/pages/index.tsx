@@ -19,7 +19,16 @@ import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
 import urlsPageScreenshot from '../../public/img/screenshot-4.png';
 import MacTerminal from '../components/MacTerminal';
 import { Fragment } from 'react';
-import { IconFiles, IconGraph, IconLayoutDashboard, IconLink, IconTerminal2 } from '@tabler/icons-react';
+import {
+  IconFiles,
+  IconGraph,
+  IconHeartFilled,
+  IconLayoutDashboard,
+  IconLink,
+  IconStarFilled,
+  IconTerminal2,
+} from '@tabler/icons-react';
+import Link from 'next/link';
 
 const screenshotWindows = [
   {
@@ -197,6 +206,50 @@ export default function Home({ stars }: { stars: number }) {
                     Zipline is designed to be easy to setup via Docker, and is ready to go in seconds.
                   </p>
                   <ButtonLinks stars={stars} />
+                </div>
+              </div>
+            </div>
+
+            <div className='my-64'>
+              <div className='text-6xl font-bold text-center'>Support development!</div>
+
+              <div className='flex flex-col justify-center md:mx-32 mx-12'>
+                <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>
+                  <div className='flex flex-col justify-center items-center'>
+                    <IconHeartFilled className='w-10 h-10 text-red-500' />
+                    <div className='text-3xl font-bold my-2'>GitHub Sponsor</div>
+                    <p className='text-xl my-4 text-center'>
+                      Zipline is developed in my free time, and I would love to continue working on it. If you
+                      want to support me, consider sponsoring me on GitHub!
+                    </p>
+                    <Link
+                      href='https://github.com/sponsors/diced'
+                      target='_blank'
+                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
+                    >
+                      <IconHeartFilled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-red-500 group-hover:animate-pulse' />
+                      Sponsor on GitHub
+                    </Link>
+                  </div>
+                </div>
+
+                <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>
+                  <div className='flex flex-col justify-center items-center'>
+                    <IconStarFilled className='w-10 h-10 text-yellow-500' />
+                    <div className='text-3xl font-bold my-2'>Star Zipline</div>
+                    <p className='text-xl my-4 text-center'>
+                      If you don&apos;t want to sponsor me, consider starring Zipline on GitHub! It helps
+                      Zipline get more exposure, and gets more eyes on the project.
+                    </p>
+                    <Link
+                      href='https://github.com/diced/zipline/stargazers'
+                      target='_blank'
+                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
+                    >
+                      <IconStarFilled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-yellow-500 group-hover:animate-pulse' />
+                      Star on GitHub
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
