@@ -52,11 +52,15 @@ Zipline now supports compressing images. When compressing an image Zipline will 
 
 ## Image Expiration
 
-Zipline now supports expiring images.
-When an image is expired it will be deleted from the server.
+Zipline currently supports expiring images.
+When an image expires, it will be deleted from the server.
 If the header starts with `date=`, the following string must be a Javascript resolvable `Date`, an example: `date=2022-08-21T19:26:16.779Z`.
 If you would like to use a shorthand expression, you may do the following as the header value: `1d` (expire one day from now).
 If the date couldnt resolve to a date or is in the past, Zipline will return a 400 error.
+
+<Alert type="note">
+Favoriting An Image prevents it from automatically expiring.
+</Alert>
 
 ### Shorthand expressions
 

@@ -1,16 +1,19 @@
 import {
   Icon2fa,
   IconAlienFilled,
+  IconApi,
   IconAppWindowFilled,
   IconBellRingingFilled,
   IconFileSettings,
   IconFileUpload,
   IconFileZip,
+  IconFolder,
   IconKey,
   IconLink,
   IconRocket,
   IconShare2,
   IconUsers,
+  IconVideo,
 } from '@tabler/icons-react';
 import HomeCard from './HomeCard';
 
@@ -32,6 +35,11 @@ const items = [
     description: 'Upload images and text to Zipline, with support for syntax highlighting in text files.',
     href: '/docs/guides/upload-options',
     Icon: IconFileUpload,
+  },
+  {
+    title: 'Folders',
+    description: 'Organize your uploads with folders.',
+    Icon: IconFolder,
   },
   {
     title: 'URL Shortening',
@@ -77,6 +85,17 @@ const items = [
     title: 'Image Compression',
     description: 'Compress your images to save space.',
     Icon: IconFileZip,
+  },
+  {
+    title: 'Video Thumbnails',
+    description: 'Zipline will automatically generate thumbnails for your videos.',
+    Icon: IconVideo,
+  },
+  {
+    title: 'API',
+    description: 'Zipline offers an extensive API for a more fine-grained control over your instance.',
+    href: '/docs/api',
+    Icon: IconApi,
   },
   {
     title: 'Theres more!',

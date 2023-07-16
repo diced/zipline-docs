@@ -12,6 +12,7 @@ const items = [
       { title: 'Features', href: '/#features' },
       { title: 'Docs', href: '/docs' },
       { title: 'Community', href: '/community' },
+      { title: 'Sponsor', href: 'https://github.com/sponsors/diced' },
     ],
   },
   {
