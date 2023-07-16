@@ -9,8 +9,6 @@ interface MacTerminalProps {
   }[];
 }
 
-const shells = ['bash', 'zsh', 'powershell'];
-
 export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
   const [visibleText, setVisibleText] = useState('');
   const [blinking, setBlinking] = useState(false);
@@ -18,21 +16,6 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
 
   const [visibleOutputLines, setVisibleOutputLines] = useState<ReactNode[]>([]);
   const [visibleIdx, setVisibleIdx] = useState(0);
-
-  const [shell, setShell] = useState(shells[0]);
-
-  useEffect(() => {
-    const userAgent = navigator.userAgent.toLowerCase();
-
-    if (userAgent.includes('mac') || userAgent.includes('linux')) {
-      setShell(shells[Math.floor(Math.random() * 2)]);
-    } else if (userAgent.includes('win')) {
-      // discriminate windows users ig
-      setShell(shells[3]);
-    } else {
-      setShell(shells[Math.floor(Math.random() * 3)]);
-    }
-  }, []);
 
   const divElement = useRef<HTMLDivElement>(null);
 
@@ -86,7 +69,7 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
     <MacShell
       decoration={
         <div className='flex items-center justify-center px-4 border-r dark:border-r-gray-800 border-r-gray-100 text-gray-300 text-sm'>
-          {shell}
+          zsh
         </div>
       }
     >
