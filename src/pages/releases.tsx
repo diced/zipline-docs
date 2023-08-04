@@ -9,7 +9,7 @@ export default function Releases() {
       <NextSeo
         description='All of Ziplines releases'
         openGraph={{
-          url: 'https://zipline.diced.tech/releases',
+          url: 'https://zipline.diced.vercel.app/releases',
           title: 'Zipline - Releases',
           description: 'All of Ziplines releases',
           images: [

@@ -106,7 +106,7 @@ export default function Home({ stars }: { stars: number }) {
       <NextSeo
         description='The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?'
         openGraph={{
-          url: 'https://zipline.diced.tech',
+          url: 'https://zipline.diced.vercel.app',
           title: 'Zipline',
           description:
             'The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?',

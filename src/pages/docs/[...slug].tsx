@@ -52,7 +52,7 @@ export default function DocsPage({
         title={title ?? undefined}
         description={description ?? undefined}
         openGraph={{
-          url: 'https://zipline.diced.tech',
+          url: 'https://zipline.diced.vercel.app',
           title: `${title ? `${title} - ` : ''}Zipline`,
           description: description ?? undefined,
           images: [
