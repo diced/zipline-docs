@@ -42,8 +42,8 @@ export const docsComponents = {
 
         {/* when open */}
         <div
-          className={`fixed inset-0 z-50 transition-all flex items-center h-screen justify-center bg-black bg-opacity-70 ${
-            open ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          className={`fixed inset-0 transition-all flex items-center h-screen justify-center bg-black bg-opacity-70 ${
+            open ? 'opacity-100 z-50' : 'opacity-0 pointer-events-none'
           }`}
           onClick={() => {
             setOpen(false);

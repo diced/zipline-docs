@@ -22,8 +22,23 @@ export default function Sidebar({ items, children }: SidebarProps) {
   const [open, setOpen] = useState(false);
   const [onThisPageOpen, setOnThisPageOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const [scrolling, setScrolling] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setScrolling(true);
+      } else {
+        setScrolling(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -69,7 +84,13 @@ export default function Sidebar({ items, children }: SidebarProps) {
         ))}
       </aside>
       <div className='w-full'>
-        <div className='md:hidden flex justify-between p-1 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 -my-6 mb-2'>
+        <div
+          className={`md:hidden fixed w-full z-50 flex justify-between p-1 dark:bg-gray-900 border-b border-t border-gray-200 dark:border-gray-700 px-6 -my-4 mb-2 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
+            scrolling
+              ? 'border-gray-100 dark:border-gray-800 bg-white/40 dark:bg-gray-900/70 borderb'
+              : 'bg-white/0 dark:bg-gray-900/0'
+          }`}
+        >
           <button
             className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md'
             onClick={() => setOpen(!open)}
@@ -90,7 +111,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
         {open && (
           <div
             ref={ref}
-            className='md:hidden block absolute top-12 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
+            className='md:hidden block absolute top-24 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
           >
             <SearchBar />
             <VersionSelect />
@@ -113,7 +134,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
         {onThisPageOpen && (
           <div
             ref={ref}
-            className='md:hidden block absolute top-12 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl px-4'
+            className='md:hidden block absolute top-24 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl px-4'
           >
             <Headings />
 

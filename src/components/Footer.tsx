@@ -68,19 +68,18 @@ export default function Footer() {
             </div>
 
             <div className='justify-center'>
-              <div className='ml-10 md:flex md:flex-row grid-cols-2 grid items-baseline md:space-x-20'>
+              <div className='md:ml-10 md:flex md:flex-row my-6 md:my-0 flex-col items-baseline md:space-x-20'>
                 {items.map((item) => (
                   <div key={randomStr()} className='py-2 rounded-md font-medium text-md'>
                     <span className='text-lg text-gray-600 dark:text-gray-300'>{item.title}</span>
-                    <div className='flex flex-col text-sm'>
+                    <div className='flex flex-col'>
                       {item.items.map((subItem) => (
                         <Link
                           key={randomStr()}
                           href={subItem.href}
-                          className='group flex transition-colors ease-in-out text-gray-300 hover:text-gray-400 py-2 rounded-md font-normal text-md'
+                          className='flex transition-colors ease-in-out text-gray-300 hover:text-blue-400 py-2 rounded-md font-normal text-md text-center'
                         >
                           {subItem.title}
-                          <IconArrowRight className='group-hover:opacity-100 opacity-0 transition-all ease-in-out group-hover:translate-x-2' />
                         </Link>
                       ))}
                     </div>
