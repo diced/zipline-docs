@@ -1,6 +1,6 @@
 {
   "name": "zipline-docs",
-  "version": "3.7.0",
+  "version": "3.7.3",
   "private": true,
   "scripts": {
     "dev": "node --experimental-fetch scripts/runAll.mjs && next dev",
