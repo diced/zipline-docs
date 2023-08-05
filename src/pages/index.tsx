@@ -120,9 +120,10 @@ export default function Home({ stars }: { stars: number }) {
           cardType: 'summary_large_image',
         }}
       />
+
       <Container>
         <Center>
-          <div className='my-28'>
+          <div className='my-28 w-full mx-6'>
             <div className='sm:text-7xl text-5xl font-extrabold text-center'>
               <div>
                 The{' '}
@@ -133,7 +134,7 @@ export default function Home({ stars }: { stars: number }) {
               <div>ShareX / File upload server</div>
             </div>
 
-            <p className='text-center text-2xl mt-4'>
+            <p className='text-center text-xl md:text-2xl mt-4'>
               Packed with features and a great dashboard. What more could you want?
             </p>
 
@@ -176,7 +177,7 @@ export default function Home({ stars }: { stars: number }) {
               ))}
             </div>
 
-            <div className='text-6xl font-bold text-center mt-64 mb-6' id='features'>
+            <div className='text-4xl md:text-6xl font-bold text-center mt-64 mb-6' id='features'>
               Want a list of features?
             </div>
             <p className='text-center text-2xl mt-4 mb-16'>
@@ -187,7 +188,7 @@ export default function Home({ stars }: { stars: number }) {
             <HomePage />
 
             <div className='my-64'>
-              <div className='text-6xl font-bold text-center'>Ready to get started?</div>
+              <div className='text-4xl md:text-6xl font-bold text-center'>Ready to get started?</div>
 
               <div className='my-32 grid grid-cols-1 md:grid-cols-2 space-y-12 md:space-y-0 md:space-x-12'>
                 <MacTerminal
@@ -230,7 +231,7 @@ export default function Home({ stars }: { stars: number }) {
             </div>
 
             <div className='my-64'>
-              <div className='text-6xl font-bold text-center'>Support development!</div>
+              <div className='text-5xl md:text-6xl font-bold text-center'>Support development!</div>
 
               <div className='flex flex-col justify-center md:mx-32 mx-12'>
                 <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>

@@ -24,7 +24,7 @@ export default function Releases() {
       />
       <Container>
         <Center>
-          <div className='my-28 w-full'>
+          <div className='my-28 w-full mx-6'>
             <h1 className='sm:text-8xl text-6xl font-extrabold text-center'>Releases</h1>
             <p className='text-center text-2xl mt-4'>List of available releases</p>
             <ReleasesPage />
