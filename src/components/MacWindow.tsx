@@ -16,7 +16,7 @@ export default function MacWindow({ children }: { children: ReactNode }) {
       }
       center={true}
     >
-      <div className='w-full mt-1'>{children}</div>
+      <div className='w-full'>{children}</div>
     </MacShell>
   );
 }
