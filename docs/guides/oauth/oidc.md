@@ -23,7 +23,7 @@ This will walk you through the process of setting up OAuth with Authentik, but i
 4. Under UI Settings you can optionally provide the URL of your Zipline instance and additional infos for your users.
 
 ## Configure Zipline
-Set the [`OAUTH_OIDC_*`](/docs/config/oauth#oauthoidcclientid) environment variables to the values you copied earlier.
+Set the [`OAUTH_OIDC_*`](/docs/config/oauth#oauth_oidc_client_id) environment variables to the values you copied earlier.
 
 ```bash
 OAUTH_OIDC_CLIENT_ID=qwertyuiopasdfghjklzxcvbnm
