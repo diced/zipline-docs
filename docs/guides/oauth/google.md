@@ -58,4 +58,4 @@ OAUTH_GOOGLE_CLIENT_SECRET=qwertyuiopasdfghjklzxcvbnm
 
 Make sure you have the [`FEATURES_OAUTH_REGISTRATION`](/docs/config/features#featuresoauthregistration) environment variable set to `true`, or none of the endpoints will work.
 
-If you have set up everything correctly, you can now navigate to the login page and click the "Login with Discord" button.
+If you have set up everything correctly, you can now navigate to the login page and click the "Login with Google" button.
