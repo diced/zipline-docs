@@ -11,7 +11,7 @@ You will need to set this to true to make the uploader return https URLs if usin
 </Alert>
 
 ```bash
-CORE_HTTPS=true
+CORE_RETURN_HTTPS=true
 ```
 
 ## `CORE_SECRET`
