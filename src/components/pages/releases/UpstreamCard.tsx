@@ -14,6 +14,7 @@ import { useState } from 'react';
 import type { CheckRun, Commit } from '../../../pages/api/releases';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import { Code } from '../faq';
 
 dayjs.extend(relativeTime);
 
@@ -36,7 +37,7 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
               target='_blank'
               href={commit.html_url}
             >
-              {commit.commit.message}
+              {commit.commit.message.split('\n')[0]}
             </Link>
             <div className='text-gray-500 dark:text-gray-400'>
               Comitted {dayjs(new Date(commit.commit.committer?.date ?? new Date('1/1/1969'))).fromNow()}
@@ -60,6 +61,11 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
             </Link>
           </div>
 
+          <div className='text-gray-500 dark:text-gray-400 mb-6'>
+            This commit will be available under the <Code>ghcr.io/diced/zipline:trunk</Code> tag for Docker
+            users once the <Code>Push Image to GitHub Packages</Code> action finishes.
+          </div>
+
           <div className='flex flex-row items-center justify-between'>
             <div className='flex flex-row items-center space-x-4'>
               <div className='text-gray-500 dark:text-gray-400'>
@@ -73,7 +79,7 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
                       {run.status.replace('_', ' ')}{' '}
                       {run.status === 'completed' && (
                         <span>
-                          {dayjs(run.completed_at ?? '1/1/1969').from(dayjs(run.started_at ?? '1/1/1969'))}
+                          {dayjs(run.completed_at ?? '1/1/1969').from(dayjs(run.started_at ?? null))}
                         </span>
                       )}
                       {run.status === 'in_progress' && (
@@ -95,13 +101,15 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
                     ) : null}
 
                     <span className='text-gray-400 dark:text-gray-500'>
-                      {dayjs(run.completed_at ?? '1/1/1969').fromNow()}
+                      {run.completed_at ? dayjs(run.completed_at ?? '1/1/1969').fromNow() : ''}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
           </div>
+
+          <div className='my-2' />
 
           <div className='flex flex-row items-center justify-between'>
             <div className='flex flex-row items-center space-x-4'>
