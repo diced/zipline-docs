@@ -1,30 +1,19 @@
-import { IconChevronLeft, IconChevronRight, IconHome, IconX } from '@tabler/icons-react';
+import { IconChevronLeft, IconChevronRight, IconHome } from '@tabler/icons-react';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { join } from 'path';
-import Highlight, { Prism } from 'prism-react-renderer';
-import { Fragment, useEffect, useState } from 'react';
+import { Prism } from 'prism-react-renderer';
+import { Fragment } from 'react';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import Alert from '../../components/Alert';
-import APIBadge from '../../components/APIBadge';
 import { docsComponents } from '../../components/DocsComponents';
-import ExternalLinksBuilder from '../../components/ExternalLinksBuilder';
-import Playground from '../../components/Playground';
 import ScrollToTop from '../../components/ScrollToTop';
 import Sidebar from '../../components/sidebar';
-import SlugLink from '../../components/SlugLink';
-import Tabs from '../../components/tabs';
-import TabItem from '../../components/tabs/TabItem';
-
-import ayuDark from '../../lib/themes/ayuDark';
-import ayuLight from '../../lib/themes/ayuLight';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
@@ -63,7 +52,7 @@ export default function DocsPage({
         title={title ?? undefined}
         description={description ?? undefined}
         openGraph={{
-          url: 'https://zipline.diced.tech',
+          url: 'https://zipline.diced.vercel.app',
           title: `${title ? `${title} - ` : ''}Zipline`,
           description: description ?? undefined,
           images: [
@@ -110,7 +99,7 @@ export default function DocsPage({
             {prev ? (
               <Link
                 href={prev.href}
-                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out hover:dark:border-blue-700 hover:border-gray-300 hover:shadow-md'
               >
                 <div className='flex flex-col'>
                   <div className='flex items-center justify-start'>
@@ -130,7 +119,7 @@ export default function DocsPage({
             {next ? (
               <Link
                 href={next.href}
-                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out dark:hover:border-gray-600 hover:border-gray-300 hover:shadow-md'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out hover:dark:border-blue-700 hover:border-gray-300 hover:shadow-md'
               >
                 <div className='flex flex-col'>
                   <div className='flex items-center justify-end'>
@@ -151,7 +140,7 @@ export default function DocsPage({
 
           <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
 
-          <div className='not-prose flex justify-between my-8 cursor-default'>
+          <div className='not-prose flex justify-between my-8 cursor-default md:flex-row flex-col items-center space-y-10'>
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
               <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>

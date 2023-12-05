@@ -5,6 +5,20 @@ import React, { useState } from 'react';
 import ayuDark from '../lib/themes/ayuDark';
 import ayuLight from '../lib/themes/ayuLight';
 
+function bytesToHuman(value: number): string {
+  if (isNaN(value)) return '0.0 B';
+  if (value === Infinity) return '0.0 B';
+  const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
+  let num = 0;
+
+  while (value > 1024) {
+    value /= 1024;
+    ++num;
+  }
+
+  return `${value.toFixed(1)} ${units[num]}`;
+}
+
 export type ParseValue = {
   file?: any;
   url?: any;
@@ -120,6 +134,8 @@ function modifier(mod: string, value: any): string {
         return value.toString(8);
       case 'binary':
         return value.toString(2);
+      case 'bytes':
+        return bytesToHuman(value);
       default:
         return '{unknown_int_modifier}';
     }
@@ -158,7 +174,7 @@ function toHex(str: string): string {
 
 export default function Playground() {
   const [value, setValue] = useState(
-    '{user.username} ({file.id}) uploaded {file.name} (original name: {file.originalName}) at {file.createdAt::hour}:{file.createdAt::minute} today'
+    '{user.username} ({file.id}) uploaded {file.name} ({file.size::bytes}) (original name: {file.originalName}) at {file.createdAt::hour}:{file.createdAt::minute} today'
   );
   const [dataOpen, setDataOpen] = useState(false);
 
@@ -179,7 +195,7 @@ export default function Playground() {
     file: {
       id: 1,
       mimetype: 'image/png',
-      name: 'randomstuff.png',
+      name: 'test.png',
       originalName: 'originalNameWow.png',
       createdAt: new Date(),
       expiresAt: new Date(new Date().getTime() + 20 * 60 * 1000),
@@ -189,6 +205,7 @@ export default function Playground() {
       embed: true,
       format: 'RANDOM',
       userId: 1,
+      size: 12456789,
     },
     url: {
       id: 2,
@@ -235,7 +252,9 @@ export default function Playground() {
           <span className='text-gray-200 dark:text-gray-500'>View Sample Data</span>
 
           <IconChevronDown
-            className={`w-5 h-5 transition-transform transform ${dataOpen ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-gray-200 dark:text-gray-500 transition-transform transform ${
+              dataOpen ? 'rotate-180' : ''
+            }`}
           />
         </button>
 

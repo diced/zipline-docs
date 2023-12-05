@@ -23,16 +23,22 @@ import foldersPageScreenshotLight from '../../public/img/screenshot-5-light.png'
 import MacTerminal from '../components/MacTerminal';
 import { Fragment } from 'react';
 import {
+  IconBrandGithubFilled,
   IconFiles,
   IconFolder,
+  IconGitBranch,
   IconGraph,
   IconHeartFilled,
   IconLayoutDashboard,
   IconLink,
+  IconMessageCircle2Filled,
+  IconSitemap,
   IconStarFilled,
   IconTerminal2,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import Tooltip from '../components/Tooltip';
+import { Code } from '../components/pages/faq';
 
 const SS_WIDTH = 2560;
 const SS_HEIGHT = 1268;
@@ -106,7 +112,7 @@ export default function Home({ stars }: { stars: number }) {
       <NextSeo
         description='The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?'
         openGraph={{
-          url: 'https://zipline.diced.tech',
+          url: 'https://zipline.diced.vercel.app',
           title: 'Zipline',
           description:
             'The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?',
@@ -120,9 +126,10 @@ export default function Home({ stars }: { stars: number }) {
           cardType: 'summary_large_image',
         }}
       />
+
       <Container>
         <Center>
-          <div className='my-28'>
+          <div className='my-28 w-full mx-6'>
             <div className='sm:text-7xl text-5xl font-extrabold text-center'>
               <div>
                 The{' '}
@@ -133,7 +140,7 @@ export default function Home({ stars }: { stars: number }) {
               <div>ShareX / File upload server</div>
             </div>
 
-            <p className='text-center text-2xl mt-4'>
+            <p className='text-center text-xl md:text-2xl mt-4'>
               Packed with features and a great dashboard. What more could you want?
             </p>
 
@@ -176,7 +183,7 @@ export default function Home({ stars }: { stars: number }) {
               ))}
             </div>
 
-            <div className='text-6xl font-bold text-center mt-64 mb-6' id='features'>
+            <div className='text-4xl md:text-6xl font-bold text-center mt-64 mb-6' id='features'>
               Want a list of features?
             </div>
             <p className='text-center text-2xl mt-4 mb-16'>
@@ -187,7 +194,7 @@ export default function Home({ stars }: { stars: number }) {
             <HomePage />
 
             <div className='my-64'>
-              <div className='text-6xl font-bold text-center'>Ready to get started?</div>
+              <div className='text-4xl md:text-6xl font-bold text-center'>Ready to get started?</div>
 
               <div className='my-32 grid grid-cols-1 md:grid-cols-2 space-y-12 md:space-y-0 md:space-x-12'>
                 <MacTerminal
@@ -230,7 +237,7 @@ export default function Home({ stars }: { stars: number }) {
             </div>
 
             <div className='my-64'>
-              <div className='text-6xl font-bold text-center'>Support development!</div>
+              <div className='text-5xl md:text-6xl font-bold text-center'>Support development!</div>
 
               <div className='flex flex-col justify-center md:mx-32 mx-12'>
                 <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>
@@ -258,7 +265,7 @@ export default function Home({ stars }: { stars: number }) {
                     <div className='text-3xl font-bold my-2'>Star Zipline</div>
                     <p className='text-xl my-4 text-center'>
                       If you don&apos;t want to sponsor me, consider starring Zipline on GitHub! It helps
-                      Zipline get more exposure, and gets more eyes on the project.
+                      Zipline get more exposure on the project :)
                     </p>
                     <Link
                       href='https://github.com/diced/zipline/stargazers'
@@ -269,6 +276,51 @@ export default function Home({ stars }: { stars: number }) {
                       Star on GitHub
                     </Link>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='my-64'>
+              <div className='text-5xl md:text-6xl font-bold text-center'>Zipline v4</div>
+
+              <p className='text-center text-2xl mt-4 mb-16'>
+                Zipline&apos;s next major release, <b>v4</b>, is currently in development. For more
+                information see the links below
+              </p>
+              <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>
+                <div className='flex flex-row space-x-5 justify-center items-center'>
+                  <Tooltip label='View the roadmap and FAQ on notion' placement='top'>
+                    <Link
+                      href='/v4/r'
+                      target='_blank'
+                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
+                    >
+                      <IconSitemap className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
+                      Roadmap & FAQ
+                    </Link>
+                  </Tooltip>
+
+                  <Tooltip label='View the discussion and give ideas on GitHub Discussions' placement='top'>
+                    <Link
+                      href='/v4/d'
+                      target='_blank'
+                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
+                    >
+                      <IconMessageCircle2Filled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
+                      Discussion & Feedback
+                    </Link>
+                  </Tooltip>
+
+                  <Tooltip label='View the v4 branch on GitHub' placement='top'>
+                    <Link
+                      href='/v4/g'
+                      target='_blank'
+                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
+                    >
+                      <IconGitBranch className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
+                      <Code>v4</Code> Branch
+                    </Link>
+                  </Tooltip>
                 </div>
               </div>
             </div>

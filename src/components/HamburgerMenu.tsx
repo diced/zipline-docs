@@ -31,6 +31,14 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
     };
   }, [ref]);
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [open]);
+
   return (
     <>
       <button
@@ -44,45 +52,44 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
       {open && (
         <div
           ref={ref}
-          className='absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden'
+          className='md:hidden top-0 right-0 left-0 bottom-0 absolute w-screen max-w-[100vw] h-screen z-[10000] dark:bg-gray-900 bg-white dark:border-gray-700 shadow-md'
         >
-          <div className='backdrop-filter border border-gray-200 dark:border-gray-700 backdrop-blur-3xl rounded-lg shadow-md overflow-hidden'>
-            <div className='px-5 pt-4 flex items-center justify-between'>
-              <div className='flex items-center'>
-                <Link href='/' className='text-3xl font-bold'>
-                  Zipline
-                </Link>
-              </div>
-              <div className='-mr-2'>
-                <button
-                  className='m-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500'
-                  onClick={() => setOpen(!open)}
-                >
-                  <span className='sr-only'>Close main menu</span>
-                  <IconX />
-                </button>
-              </div>
+          <div className='px-5 pt-4 flex items-center justify-between'>
+            <div className='flex items-center'>
+              <Link href='/' className='text-3xl font-bold'>
+                Zipline
+              </Link>
             </div>
-            <div className='px-2 pt-2 pb-3 space-y-1'>
-              {items.map((item) => (
-                <a
-                  key={randomStr()}
-                  href={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40 ${
-                    item.active(router.pathname, router.asPath) ? 'text-blue-400' : ''
-                  }}`}
-                >
-                  {item.name}
-                </a>
-              ))}
+            <div className='-mr-2'>
+              <button
+                className='m-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500'
+                onClick={() => setOpen(!open)}
+              >
+                <span className='sr-only'>Close main menu</span>
+                <IconX />
+              </button>
             </div>
-
-            {isDocs && item && (
-              <div className='px-2 pt-2 pb-3 space-y-1'>
-                <SidebarItem item={item} />
-              </div>
-            )}
           </div>
+          <div className='px-2 pt-2 pb-3 space-y-1'>
+            {items.map((item) => (
+              <Link
+                key={randomStr()}
+                href={item.href}
+                className={`block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40 ${
+                  item.active(router.pathname, router.asPath) ? 'text-blue-400' : ''
+                }}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+
+          {isDocs && item && (
+            <div className='px-2 pt-2 pb-3 space-y-1'>
+              <SidebarItem item={item} />
+            </div>
+          )}
         </div>
       )}
     </>

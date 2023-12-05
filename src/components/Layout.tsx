@@ -10,10 +10,10 @@ interface LayoutProps {
 
 export default function Layout({ children, inter }: LayoutProps) {
   return (
-    <div className={`${inter.className} flex flex-col h-screen`}>
+    <div className={`${inter.className} flex flex-col`}>
       <Navbar />
 
-      <main className='pt-20 grow'>{children}</main>
+      <main className='pt-20'>{children}</main>
 
       <Footer />
     </div>
