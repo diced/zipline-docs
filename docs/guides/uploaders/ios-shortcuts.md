@@ -5,7 +5,7 @@ sidebar_position: 4
 # iOS Shortcuts
 
 ## Install Shortcut
-To install the shortcut on your iOS device, head over to the [Zipline iCloud](https://www.icloud.com/shortcuts/6814cb233c0445a1b03fe0786bf6eb8c) page and tap "**Get Shortcut**". Your shortcuts app will then open and you will be prompted to set up the shortcut.
+To install the shortcut on your iOS device, head over to the [Zipline iCloud](https://www.icloud.com/shortcuts/948ad54842334c3f91c7ee09f7ff38b9) page and tap "**Get Shortcut**". Your shortcuts app will then open and you will be prompted to set up the shortcut.
 
 The following credentials will need to be added
 
