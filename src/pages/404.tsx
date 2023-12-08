@@ -11,7 +11,7 @@ export default function Home() {
         title='404'
         description="Looks like you're lost... Need a hand?"
         openGraph={{
-          url: 'https://zipline.diced.tech',
+          url: 'https://zipline.diced.vercel.app',
           title: 'Zipline - 404',
           description: "Looks like you're lost... Need a hand?",
         }}

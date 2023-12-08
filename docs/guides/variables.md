@@ -39,6 +39,7 @@ Some variables may not work in some cases
 | `{file.embed}`        | `bool`    | Whether the file will be embedded                                                                |
 | `{file.format}`       | `string`  | The file's format (RANDOM, etc)                                                                  |
 | `{file.userId}`       | `int`     | The file's owner's ID                                                                            |
+| `{file.size}`         | `int`     | The file's size in bytes. It is recommended to use the `bytes` modifier on this variable.        |
 
 ### Url Variables
 
@@ -91,12 +92,13 @@ Modifiers do not work on `{link}` and `{raw_link}`
 
 ### `int` modifiers
 
-| Notation | Description                   | Example Output |
-| -------- | ----------------------------- | -------------- |
-| `comma`  | Adds commas to the number     | `1,000`        |
-| `hex`    | Converts the number to hex    | `3e8`          |
-| `binary` | Converts the number to binary | `1111101000`   |
-| `octal`  | Converts the number to octal  | `1750`         |
+| Notation | Description                                       | Example Output |
+| -------- | ------------------------------------------------- | -------------- |
+| `comma`  | Adds commas to the number                         | `1,000`        |
+| `hex`    | Converts the number to hex                        | `3e8`          |
+| `binary` | Converts the number to binary                     | `1111101000`   |
+| `octal`  | Converts the number to octal                      | `1750`         |
+| `bytes`  | Converts the number to human readable byte format | `1 KB`         |
 
 ### `bool` modifiers
 

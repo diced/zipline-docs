@@ -23,23 +23,31 @@ Ways you could generate the string could be from a password managers generator, 
 
 ## Building & running from source
 
-This section requires [nodejs](https://nodejs.org) (v18 (or current LTS) or later), [yarn](https://yarnpkg.com/) or [npm](https://npmjs.com).
+This section requires [nodejs](https://nodejs.org) (v18 (or current LTS) or later), [yarn](https://yarnpkg.com/).
+
+<Alert type="info">
+NPM is not supported as it produces unintended side effects during the build process.
+</Alert>
 
 ```bash
 git clone https://github.com/diced/zipline
 cd zipline
 ```
 
-```bash npm2yarn
-npm install
+```bash
+yarn install
 ```
 
-```bash npm2yarn
-npm run build
+<Alert type="warning">
+Building from source requires having a valid configuration through environment variables. This does not have to be an exhaustive list of variables, but it does require the following variables to be set: `CORE_SECRET` and `CORE_DATABASE_URL`.
+</Alert>
+
+```bash
+yarn build
 ```
 
-```bash npm2yarn
-npm run start
+```bash
+yarn start
 ```
 
 After this rename the `.env.local.example` file to `.env.local` and feel free to configure as needed.
@@ -86,18 +94,18 @@ git pull
 
 then run
 
-```bash npm2yarn
-npm install
+```bash
+yarn install
 ```
 
-```bash npm2yarn
-npm run build
+```bash
+yarn build
 ```
 
 then run
 
-```bash npm2yarn
-npm run start
+```bash
+yarn start
 ```
 
 to start.
