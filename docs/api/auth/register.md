@@ -4,7 +4,7 @@
 
 <Alert type="info">
   
-  - Having administrator permissions will allow access to this endpoint despite having both [`FEATURES_INVITES`](/docs/config/features#features_invites) and [`FEATURES_USER_REGISTRATION`](/docs/config/features#features_user_registration)
+  - Having administrator permissions will allow access to this endpoint despite having both [`FEATURES_INVITES`](/docs/config/features#features_invites) and [`FEATURES_USER_REGISTRATION`](/docs/config/features#features_user_registration) disabled.
   - Having super administrator permissions will allow the `administrator` field to be used. 
 </Alert>
 
