@@ -24,7 +24,7 @@ Returns a [user object](/docs/api/models/user)
 ### <APIBadge type="400" /> Bad Request (JSON)
 
 - `This endpoint is unavailable due to current configurations` - Both registration and invites are disabled.
-- `Bad invite` - The invite code provided is invalid due to it either being used or having expired.
+- `Bad invite` - The invite code provided is invalid due to it either being used/expired or invalid.
 - `Bad Username/Password` - There are 3 cases where this occurs
 
   - The username already exists
