@@ -37,10 +37,10 @@ Returns an array of [invites](/docs/api/models/invite)
 
 ### Body (JSON)
 
-| Field Name  | Type              | Description                                                                                                                |
-| ----------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Field Name  | Type               | Description                                                                                                                |
+| ----------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
 | `expiresAt` | `date? \| string?` | The date the invite expires at. For more info, refer to the [upload options](/docs/guides/upload-options#image-expiration) |
-| `count`     | `number?`         | The number of invites to create                                                                                            |
+| `count`     | `number?`          | The number of invites to create                                                                                            |
 
 ### <APIBadge type="200" /> Ok (JSON)
 
@@ -75,8 +75,7 @@ Returns an array of [invites](/docs/api/models/invite) or just a singular [invit
 ### <APIBadge type="400" /> Bad Request (JSON)
 
 - `invites are disabled` - Invites are disabled
-- `invalid date` - The date is invalid
-- `date is in the past` - The date is in the past
+- `invalid date` - The date is either invalid or set in the past.
 
 ## <APIBadge type="DELETE" /> Delete an invite
 
@@ -88,7 +87,7 @@ Returns an array of [invites](/docs/api/models/invite) or just a singular [invit
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns an [invite](/docs/api/models/invite)
+Returns the [deleted invite](/docs/api/models/invite)
 
 ```json
 {
