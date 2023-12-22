@@ -39,7 +39,7 @@ Returns an array of [invites](/docs/api/models/invite)
 
 | Field Name  | Type              | Description                                                                                                                |
 | ----------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `expiresAt` | `date? | string?` | The date the invite expires at. For more info, refer to the [upload options](/docs/guides/upload-options#image-expiration) |
+| `expiresAt` | `date? \| string?` | The date the invite expires at. For more info, refer to the [upload options](/docs/guides/upload-options#image-expiration) |
 | `count`     | `number?`         | The number of invites to create                                                                                            |
 
 ### <APIBadge type="200" /> Ok (JSON)
