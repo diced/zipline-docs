@@ -3,7 +3,7 @@ import Center from '../components/Center';
 import Container from '../components/Container';
 import CommunityPage from '../components/pages/community';
 
-export default function Home() {
+export default function Community() {
   return (
     <>
       <NextSeo

@@ -63,20 +63,37 @@ Modifiers do not work on `{link}` and `{raw_link}`
 
 ### `date` modifiers
 
-| Notation | Description                            | Example Output                  |
-| -------- | -------------------------------------- | ------------------------------- |
-| `locale` | Returns the date in the systems locale | `12/11/2022, 3:07:42 PM`        |
-| `time`   | Returns the time in the systems locale | `3:07:42 PM`                    |
-| `date`   | Returns the date in the systems locale | `12/11/2022`                    |
-| `unix`   | Returns the date in unix time          | `1639129662`                    |
-| `iso`    | Returns the date in ISO 8601 format    | `2022-12-11T15:07:42.000Z`      |
-| `utc`    | Returns the date in UTC                | `Sun, 11 Dec 2022 23:08:57 GMT` |
-| `year`   | Returns the year                       | `2022`                          |
-| `month`  | Returns the month                      | `12`                            |
-| `day`    | Returns the day                        | `11`                            |
-| `hour`   | Returns the hour                       | `15`                            |
-| `minute` | Returns the minute                     | `7`                             |
-| `second` | Returns the second                     | `42`                            |
+| Notation | Description                                                                              | Example Output                  |
+| -------- | ---------------------------------------------------------------------------------------- | ------------------------------- |
+| `locale` | Returns the date in the systems locale or [other specified](#date-locales-and-timezones) | `12/11/2022, 3:07:42 PM`        |
+| `time`   | Returns the time in the systems locale or [other specified](#date-locales-and-timezones) | `3:07:42 PM`                    |
+| `date`   | Returns the date in the systems locale or [other specified](#date-locales-and-timezones) | `12/11/2022`                    |
+| `unix`   | Returns the date in unix time                                                            | `1639129662`                    |
+| `iso`    | Returns the date in ISO 8601 format                                                      | `2022-12-11T15:07:42.000Z`      |
+| `utc`    | Returns the date in UTC                                                                  | `Sun, 11 Dec 2022 23:08:57 GMT` |
+| `year`   | Returns the year                                                                         | `2022`                          |
+| `month`  | Returns the month                                                                        | `12`                            |
+| `day`    | Returns the day                                                                          | `11`                            |
+| `hour`   | Returns the hour                                                                         | `15`                            |
+| `minute` | Returns the minute                                                                       | `7`                             |
+| `second` | Returns the second                                                                       | `42`                            |
+
+#### Date Locales and Timezones
+
+A recent update to Zipline finally adds the ability to specify a locale and or a timezone for the `locale`, `time`, and `date` modifiers.
+
+The syntax for the 2nd modifier is `locale,timezone`. If you wanted to only specify a timezone you would use `,timezone` (the comma before the timezone is required to let Zipline know that you don't want to specify a locale).
+
+For example if you wanted to use the `en-UK` locale, but with GMT -8:00 (America/Los_Angeles) you would use `{file.createdAt::locale/time/date::en-UK,America/Los_Angeles}`.
+
+If you wanted to only change the timezone, but use the default (system specified) locale you would use `{file.createdAt::locale/time/date::,America/Los_Angeles}`.
+
+#### Useful Info
+
+A list of locales that may or may not work can be found at [www.unicode.org/cldr/charts/44/supplemental/language_territory_information.html](https://www.unicode.org/cldr/charts/44/supplemental/language_territory_information.html). To use this, you would take the language code (for example `en` for English) then append a territory code (for example `US` for the United States). The final locale should look like `en-US`. More examples, Japan's Japanese: `ja-JP`, New Zealand's English: `en-NZ`.
+
+A list of timezones that may or may not work can be found below:
+<TimezoneCollapse />
 
 ### `string` modifiers
 

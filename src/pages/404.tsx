@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Center from '../components/Center';
 import Container from '../components/Container';
 
-export default function Home() {
+export default function FourohFour() {
   return (
     <>
       <NextSeo

@@ -1,4 +1,4 @@
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
