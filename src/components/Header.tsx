@@ -105,7 +105,7 @@ export default function Navbar() {
                 >
                   {item.name}
                 </Link>
-              )
+              ),
             )}
           </div>
           <div className='flex sm:grid sm:grid-cols-2 justify-between items-center w-full md:hidden'>

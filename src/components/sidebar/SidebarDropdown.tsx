@@ -1,5 +1,4 @@
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -7,21 +6,15 @@ import { randomStr } from '../../lib/random';
 import SidebarItem, { SidebarItemProps } from './SidebarItem';
 
 export default function SidebarDropdown({ item }: SidebarItemProps) {
-  const [open, setOpen] = useState(false);
+  function isActive(item: SidebarItemProps['item']): boolean {
+    if (item.items && !item.href) {
+      return item.items.some((item) => isActive(item));
+    }
+
+    return router.asPath.startsWith(item.href || '');
+  }
   const router = useRouter();
-  useEffect(() => {
-    function isActive(item: SidebarItemProps['item']): boolean {
-      if (item.items && !item.href) {
-        return item.items.some((item) => isActive(item));
-      }
-
-      return router.asPath.startsWith(item.href || '');
-    }
-
-    if (isActive(item)) {
-      setOpen(true);
-    }
-  }, []);
+  const [open, setOpen] = useState<boolean>(isActive(item));
 
   const active = router.asPath === item.href || '';
 
@@ -61,19 +54,9 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
         </button>
       )}
 
-      {open && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0 }}
-          transition={{ duration: 0.2 }}
-          className='ml-1/2'
-        >
-          {item.items?.map((subitem) => (
-            <SidebarItem key={randomStr()} item={subitem} />
-          ))}
-        </motion.div>
-      )}
+      <ul className='ml-1/2' style={{ display: open ? 'block' : 'none' }}>
+        {item.items?.map((subitem) => <SidebarItem key={randomStr()} item={subitem} />)}
+      </ul>
     </div>
   );
 }

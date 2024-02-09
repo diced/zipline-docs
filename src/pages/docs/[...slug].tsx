@@ -87,7 +87,7 @@ export default function DocsPage({
                     {breadcrumb}
                   </span>
                 </Fragment>
-              )
+              ),
             )}
           </div>
 

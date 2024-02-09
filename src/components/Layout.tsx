@@ -1,4 +1,4 @@
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 import Footer from './Footer';
 import Navbar from './Header';

@@ -6,6 +6,8 @@ import Headings from '../Headings';
 import SearchBar from '../search/SearchBar';
 import SidebarItem from './SidebarItem';
 import VersionSelect from './VersionSelect';
+import MobileMenu from './full/MobileMenu';
+import MobileHeadingsMenu from './full/MobileHeadingsMenu';
 
 export interface SidebarProps {
   items: Item[];
@@ -25,20 +27,6 @@ export default function Sidebar({ items, children }: SidebarProps) {
   const [scrolling, setScrolling] = useState(false);
 
   const router = useRouter();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setScrolling(true);
-      } else {
-        setScrolling(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -79,9 +67,12 @@ export default function Sidebar({ items, children }: SidebarProps) {
 
           <VersionSelect />
         </div>
-        {items.map((item) => (
-          <SidebarItem key={randomStr()} item={item} />
-        ))}
+
+        <ul>
+          {items.map((item) => (
+            <SidebarItem key={randomStr()} item={item} />
+          ))}
+        </ul>
       </aside>
       <div className='w-full'>
         <div
@@ -91,71 +82,17 @@ export default function Sidebar({ items, children }: SidebarProps) {
               : 'bg-white/0 dark:bg-gray-900/0'
           }`}
         >
-          <button
-            className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md'
-            onClick={() => setOpen(!open)}
-          >
-            <span className='ml-4 text-gray-400'>Menu</span>
-            <IconMenu className='mx-2 text-gray-400' />
-          </button>
+          <MobileMenu open={open} setOpen={setOpen} items={items} />
 
-          <button
-            className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md'
-            onClick={() => setOnThisPageOpen(!onThisPageOpen)}
-          >
-            <span className='ml-4 text-gray-400'>On this page</span>
-            <IconMenu className='mx-2 text-gray-400' />
-          </button>
+          <MobileHeadingsMenu open={onThisPageOpen} setOpen={setOnThisPageOpen} />
         </div>
-
-        {open && (
-          <div
-            ref={ref}
-            className='md:hidden block absolute top-24 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl'
-          >
-            <SearchBar />
-            <VersionSelect />
-
-            {items.map((item) => (
-              <SidebarItem key={randomStr()} item={item} />
-            ))}
-            <button
-              className='flex mt-6 transition-colors ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-200/50 dark:hover:bg-gray-800 rounded-md px-2 py-1'
-              onClick={() => setOpen(!open)}
-            >
-              <div className='flex text-center'>Close Menu</div>
-              <div>
-                <IconX className='mr-2' />
-              </div>
-            </button>
-          </div>
-        )}
-
-        {onThisPageOpen && (
-          <div
-            ref={ref}
-            className='md:hidden block absolute top-24 rounded-md inset-x-0 m-4 border border-gray-200 dark:border-gray-700 p-2 transition transform origin-top-right dark:bg-gray-900 bg-gray-50 backdrop-blur-3xl px-4'
-          >
-            <Headings />
-
-            <button
-              className='flex mt-6 transition-colors ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-200/50 dark:hover:bg-gray-800 rounded-md px-2 py-1'
-              onClick={() => setOnThisPageOpen(!onThisPageOpen)}
-            >
-              <div className='flex text-center'>Close Menu</div>
-              <div>
-                <IconX className='mr-2' />
-              </div>
-            </button>
-          </div>
-        )}
 
         <div className='grow pb-8 w-full justify-center max-w-full flex min-w-0'>{children}</div>
       </div>
       <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
         <div className='font-semibold text-sm w-full mr-1 mb-4'>On This Page</div>
 
-        <Headings />
+        <Headings close={() => {}} />
       </aside>
     </div>
   );

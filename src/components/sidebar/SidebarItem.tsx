@@ -12,7 +12,7 @@ export default function SidebarItem({ item }: SidebarItemProps) {
   const active = router.asPath.startsWith(item.href || '');
 
   return (
-    <div className='ml-2 my-2'>
+    <li className='ml-2 my-2'>
       {item.items ? (
         <SidebarDropdown item={item} />
       ) : item.href ? (
@@ -29,6 +29,6 @@ export default function SidebarItem({ item }: SidebarItemProps) {
           {item.title}
         </div>
       )}
-    </div>
+    </li>
   );
 }
