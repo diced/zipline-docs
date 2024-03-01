@@ -12,6 +12,7 @@ import Playground from './Playground';
 import SlugLink from './SlugLink';
 import Tabs from './tabs';
 import TabItem from './tabs/TabItem';
+import TimezoneCollapse from './TimezoneCollapse';
 
 export const docsComponents = {
   a: ({ href, ...props }: any) => {
@@ -70,6 +71,9 @@ export const docsComponents = {
   },
   Playground: (props: any) => {
     return <Playground {...props} />;
+  },
+  TimezoneCollapse: (props: any) => {
+    return <TimezoneCollapse {...props} />;
   },
   ExternalLinksBuilder: (props: any) => {
     return <ExternalLinksBuilder {...props} />;

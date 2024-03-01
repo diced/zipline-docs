@@ -40,7 +40,7 @@ export default async function handler(req: NextRequest) {
     const releases: Release[] = await res.json();
 
     response.releases = releases.filter(
-      (release) => release.tag_name.startsWith('v3') || release.tag_name.startsWith('3')
+      (release) => release.tag_name.startsWith('v3') || release.tag_name.startsWith('3'),
     );
   }
 

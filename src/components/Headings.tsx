@@ -12,7 +12,7 @@ interface Headings {
   [id: string]: Heading;
 }
 
-export default function Headings() {
+export default function Headings({ close }: { close: () => void }) {
   const router = useRouter();
   const [headings, setHeadings] = useState<Headings>({});
 
@@ -39,7 +39,7 @@ export default function Headings() {
         {
           rootMargin: '-100px 0% -66%',
           threshold: 1,
-        }
+        },
       );
 
       observer.observe(element);
@@ -77,6 +77,7 @@ export default function Headings() {
 
     const element = document.getElementById(id);
     if (element) {
+      close();
       element.scrollIntoView({ behavior: 'smooth' });
       window.history.pushState({}, '', `#${id}`);
     }

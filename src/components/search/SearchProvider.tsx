@@ -57,7 +57,7 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
               }))
             }
           />,
-          document.body
+          document.body,
         )}
     </>
   );

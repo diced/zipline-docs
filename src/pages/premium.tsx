@@ -2,7 +2,7 @@ import { NextSeo } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-export default function Home() {
+export default function Premium() {
   const router = useRouter();
   useEffect(() => {
     router.push('https://youtube.com/watch?v=dQw4w9WgXcQ'); // lol

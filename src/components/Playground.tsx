@@ -159,7 +159,7 @@ function replaceCharsFromString(
   str: string,
   replace: string,
   start: number | undefined,
-  end: number
+  end: number,
 ): string {
   return str.slice(0, start) + replace + str.slice(end);
 }
@@ -174,7 +174,7 @@ function toHex(str: string): string {
 
 export default function Playground() {
   const [value, setValue] = useState(
-    '{user.username} ({file.id}) uploaded {file.name} ({file.size::bytes}) (original name: {file.originalName}) at {file.createdAt::hour}:{file.createdAt::minute} today'
+    '{user.username} ({file.id}) uploaded {file.name} ({file.size::bytes}) (original name: {file.originalName}) at {file.createdAt::hour}:{file.createdAt::minute} today',
   );
   const [dataOpen, setDataOpen] = useState(false);
 
