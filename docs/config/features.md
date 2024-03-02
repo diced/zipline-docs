@@ -69,3 +69,11 @@ If enabled, this will automatically create a /robots.txt route, that will disall
 ```bash
 FEATURES_ROBOTS_TXT=false
 ```
+
+## `FEATURES_THUMBNAILS`
+
+If enabled, thumbnails will be generated for uploaded videos.
+
+```bash
+FEATURES_THUMBNAILS=true
+```
