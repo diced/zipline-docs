@@ -77,6 +77,8 @@ Modifiers do not work on `{link}` and `{raw_link}`
 | `hour`   | Returns the hour                                                                         | `15`                            |
 | `minute` | Returns the minute                                                                       | `7`                             |
 | `second` | Returns the second                                                                       | `42`                            |
+| `ampm`   | Returns "am" or "pm" based on the time (lowercased)                                      | `pm`                            |
+| `AMPM`   | Returns "AM" or "PM" based on the time (uppercased)                                      | `PM`                            |
 
 #### Date Locales and Timezones
 

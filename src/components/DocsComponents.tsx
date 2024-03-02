@@ -1,4 +1,4 @@
-import { IconX } from '@tabler/icons-react';
+import { IconClipboardCopy, IconX } from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import Highlight, { Prism } from 'prism-react-renderer';
@@ -136,6 +136,14 @@ export const docsComponents = {
         {children}
         <SlugLink id={id} />
       </h3>
+    );
+  },
+  h4: ({ id, children }: any) => {
+    return (
+      <h4 id={id} className='flex items-center group'>
+        {children}
+        <SlugLink id={id} />
+      </h4>
     );
   },
 };

@@ -83,10 +83,10 @@ export default function Navbar() {
                 <button
                   key={randomStr()}
                   aria-label={item.name}
-                  className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
+                  className={`px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
                     item.active(router.pathname, router.asPath)
-                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-50/50'
-                      : ''
+                      ? 'text-blue-500'
+                      : 'dark:text-gray-300 text-gray-600'
                   }`}
                   onClick={handleClick}
                 >
@@ -97,10 +97,10 @@ export default function Navbar() {
                   key={randomStr()}
                   href={item.href}
                   aria-label={item.name}
-                  className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
+                  className={`px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
                     item.active(router.pathname, router.asPath)
-                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-200/30'
-                      : ''
+                      ? 'text-blue-500'
+                      : 'dark:text-gray-300 text-gray-600'
                   }`}
                 >
                   {item.name}

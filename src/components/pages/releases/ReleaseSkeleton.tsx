@@ -6,7 +6,7 @@ export function TextSkeleton() {
 
 export default function ReleaseSkeleton() {
   return (
-    <div className='my-12 border border-gray-200 dark:border-gray-800 rounded-md p-4'>
+    <div className='my-12 border border-gray-100 dark:border-gray-800 rounded-md p-4'>
       <div className='flex flex-row items-center justify-between'>
         <div className='flex flex-row items-center space-x-4'>
           <div className='w-12 h-12 rounded-md bg-gray-200 dark:bg-gray-800 items-center flex justify-center'>
