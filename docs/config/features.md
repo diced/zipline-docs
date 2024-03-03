@@ -77,3 +77,5 @@ If enabled, thumbnails will be generated for uploaded videos.
 ```bash
 FEATURES_THUMBNAILS=true
 ```
+
+

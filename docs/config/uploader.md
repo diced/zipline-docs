@@ -55,3 +55,9 @@ When uploading a file, if it's mimetype appears to be `application/octet-stream`
 ```bash
 UPLOADER_ASSUME_MIMETYPES=true
 ```
+
+## `UPLOADER_RANDOM_WORDS_SEPARATOR`
+The separator to use between the random words when using the `gfycat` file name format.
+```bash
+UPLOADER_RANDOM_WORDS_SEPARATOR=-
+```
