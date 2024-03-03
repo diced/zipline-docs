@@ -76,7 +76,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
       </aside>
       <div className='w-full'>
         <div
-          className={`md:hidden fixed w-full z-[49] flex justify-between p-1 dark:bg-gray-900 border-b border-t border-gray-200 dark:border-gray-700 px-6 -my-4 mb-2 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
+          className={`md:hidden fixed w-full z-[49] flex justify-between p-1 dark:bg-gray-900 border-b border-t border-gray-200 dark:border-gray-700 px-6 -my-8 mb-2 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
             scrolling
               ? 'border-gray-100 dark:border-gray-800 bg-white/40 dark:bg-gray-900/70 borderb'
               : 'bg-white/0 dark:bg-gray-900/0'

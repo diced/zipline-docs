@@ -17,7 +17,7 @@ export default function Headings({ close }: { close: () => void }) {
   const [headings, setHeadings] = useState<Headings>({});
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('h1, h2, h3'));
+    const elements = Array.from(document.querySelectorAll('h2, h3, h4'));
 
     setHeadings({});
 
@@ -65,9 +65,9 @@ export default function Headings({ close }: { close: () => void }) {
   const headingToPadding = (level: number) => {
     return (
       {
-        1: 'pl-0',
-        2: 'pl-4',
-        3: 'pl-8',
+        2: 'pl-0',
+        3: 'pl-4',
+        4: 'pl-8',
       }[level] ?? 'pl-0'
     );
   };

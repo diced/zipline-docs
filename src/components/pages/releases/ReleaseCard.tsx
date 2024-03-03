@@ -15,7 +15,7 @@ export default function ReleaseCard({ release }: { release: Release }) {
 
   return (
     <div
-      className='my-12 border border-gray-200 dark:border-gray-800 rounded-md p-4 transition-all ease-in-out cursor-pointer dark:hover:bg-gray-800/40'
+      className='my-12 border border-gray-100 dark:border-gray-800 rounded-md p-4 transition-all ease-in-out cursor-pointer dark:hover:bg-gray-800/40'
       onClick={() => setOpen(!open)}
     >
       <div className='flex flex-row items-center justify-between'>

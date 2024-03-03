@@ -5,18 +5,18 @@ import React, { useState } from 'react';
 import ayuDark from '../lib/themes/ayuDark';
 import ayuLight from '../lib/themes/ayuLight';
 
-function bytesToHuman(value: number): string {
-  if (isNaN(value)) return '0.0 B';
+function bytesToHuman(value: number | bigint): string {
+  if (typeof value !== 'bigint' && isNaN(value)) return '0.0 B';
   if (value === Infinity) return '0.0 B';
   const units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
   let num = 0;
 
   while (value > 1024) {
-    value /= 1024;
+    value = Number(value) / 1024;
     ++num;
   }
 
-  return `${value.toFixed(1)} ${units[num]}`;
+  return `${Number(value).toFixed(1)} ${units[num] || ''}`;
 }
 
 export type ParseValue = {
@@ -29,25 +29,37 @@ export type ParseValue = {
 };
 
 export function parseString(str: string, value: ParseValue) {
+  if (!str) return null;
   str = str
     .replace(/\{link\}/gi, value.link ?? '')
     .replace(/\{raw_link\}/gi, value.raw_link ?? '')
     .replace(/\\n/g, '\n');
 
-  const re = /\{(?<type>file|url|user)\.(?<prop>\w+)(::(?<mod>\w+))?\}/gi;
+  const re = /\{(?<type>file|url|user)\.(?<prop>\w+)(::(?<mod>\w+))?(::(?<mod_tzlocale>\S+))?\}/gi;
   let matches: RegExpMatchArray | null;
 
   while ((matches = re.exec(str))) {
     // @ts-ignore
-    const getV = value[matches.groups?.type];
+    const getV = value[matches.groups.type];
     if (!getV) {
       str = replaceCharsFromString(str, '{unknown_type}', matches.index, re.lastIndex);
       re.lastIndex = matches.index as number;
       continue;
     }
 
-    if ((matches.groups?.prop ?? '') in ['password', 'avatar']) {
+    if (['password', 'avatar', 'uuid'].includes(matches.groups?.prop ?? '')) {
       str = replaceCharsFromString(str, '{unknown_property}', matches.index, re.lastIndex);
+      re.lastIndex = matches.index as number;
+      continue;
+    }
+
+    if (['originalName', 'name'].includes(matches.groups?.prop ?? '')) {
+      str = replaceCharsFromString(
+        str,
+        decodeURIComponent(escape(getV[matches.groups?.prop ?? ''])),
+        matches.index,
+        re.lastIndex,
+      );
       re.lastIndex = matches.index as number;
       continue;
     }
@@ -61,7 +73,12 @@ export function parseString(str: string, value: ParseValue) {
     }
 
     if (matches.groups?.mod) {
-      str = replaceCharsFromString(str, modifier(matches.groups?.mod ?? '', v), matches.index, re.lastIndex);
+      str = replaceCharsFromString(
+        str,
+        modifier(matches.groups?.mod, v, matches.groups?.mod_tzlocale ?? undefined),
+        matches.index,
+        re.lastIndex,
+      );
       re.lastIndex = matches.index as number;
       continue;
     }
@@ -73,17 +90,40 @@ export function parseString(str: string, value: ParseValue) {
   return str;
 }
 
-function modifier(mod: string, value: any): string {
+function modifier(mod: string, value: unknown, tzlocale?: string): string {
   mod = mod.toLowerCase();
 
   if (value instanceof Date) {
+    const args: [string | undefined, { timeZone: string } | undefined] = [undefined, undefined];
+
+    if (tzlocale) {
+      const [locale, tz] = tzlocale.split(/\s?,\s?/).map((v) => v.trim());
+
+      if (locale) {
+        try {
+          Intl.DateTimeFormat.supportedLocalesOf(locale);
+          args[0] = locale;
+        } catch (e) {
+          args[0] = undefined;
+        }
+      }
+
+      if (tz) {
+        const intlTz = Intl.supportedValuesOf('timeZone').find((v) => v.toLowerCase() === tz.toLowerCase());
+        if (intlTz) args[1] = { timeZone: intlTz };
+        else {
+          args[1] = undefined;
+        }
+      }
+    }
+
     switch (mod) {
       case 'locale':
-        return value.toLocaleString();
+        return value.toLocaleString(...args);
       case 'time':
-        return value.toLocaleTimeString();
+        return value.toLocaleTimeString(...args);
       case 'date':
-        return value.toLocaleDateString();
+        return value.toLocaleDateString(...args);
       case 'unix':
         return Math.floor(value.getTime() / 1000).toString();
       case 'iso':
@@ -102,6 +142,10 @@ function modifier(mod: string, value: any): string {
         return value.getMinutes().toString();
       case 'second':
         return value.getSeconds().toString();
+      case 'ampm':
+        return value.getHours() < 12 ? 'am' : 'pm';
+      case 'AMPM':
+        return value.getHours() < 12 ? 'AM' : 'PM';
       default:
         return '{unknown_date_modifier}';
     }
@@ -124,7 +168,7 @@ function modifier(mod: string, value: any): string {
       default:
         return '{unknown_str_modifier}';
     }
-  } else if (typeof value === 'number') {
+  } else if (typeof value === 'number' || typeof value === 'bigint') {
     switch (mod) {
       case 'comma':
         return value.toLocaleString();
@@ -240,11 +284,11 @@ export default function Playground() {
 
       <div
         className={`dark:bg-gray-800 border border-gray-50 dark:border-gray-700 rounded-md p-2 my-2 transition-colors ${
-          parsed.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white'
+          parsed?.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white'
         }`}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {parsed.trim().length === 0 ? 'Type something!' : parsed}
+        {parsed?.trim().length === 0 ? 'Type something!' : parsed}
       </div>
 
       <div className='flex-col items-center justify-between mb-12'>

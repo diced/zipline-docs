@@ -12,13 +12,13 @@ export default function Tabs({ defaultValue, children }: TabsProps) {
 
   return (
     <div className='prose'>
-      <div className='flex flex-row'>
+      <div className='flex flex-row space-x-2'>
         {children.map((child: any) => (
           <button
             key={child.props.value}
             className={`${
               child.props.value === activeTab ? 'border-blue-400' : 'border-gray-200 dark:border-gray-800'
-            } border-b px-2 py-1 dark:text-white text-black transition-all`}
+            } border rounded-md px-3 py-0.5 dark:text-white text-black transition-all`}
             onClick={() => setActiveTab(child.props.value)}
           >
             {child.props.label ?? child.props.value}

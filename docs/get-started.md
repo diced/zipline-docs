@@ -106,12 +106,6 @@ docker compose up -d
 
 to restart.
 
-### Unraid
-
-The Unraid application automatically updates with the latest released image from [`ghcr.io/diced/zipline:latest`](https://github.com/diced/zipline/pkgs/container/zipline).
-
-You will be notified of future updates that are ready to install by the application center, or visit the **Action Center** to manually install the latest update when available.
-
 ### From Source
 
 To update from source you can simply run:
@@ -137,3 +131,9 @@ yarn start
 ```
 
 to start.
+
+### Unraid
+
+The Unraid application automatically updates with the latest released image from [`ghcr.io/diced/zipline:latest`](https://github.com/diced/zipline/pkgs/container/zipline).
+
+You will be notified of future updates that are ready to install by the application center, or visit the **Action Center** to manually install the latest update when available.

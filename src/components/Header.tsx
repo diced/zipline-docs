@@ -61,18 +61,18 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed w-full h-16 top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
+      className={`fixed w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out ${
         scrolling
           ? 'border-gray-100 dark:border-gray-800 bg-white/40 dark:bg-gray-900/70 border-b'
           : 'border-gray-100/0 dark:border-gray-800/0 bg-white/0 dark:bg-gray-900/0'
       }`}
     >
-      <div className='sm:px-6 lg:px-8 py-2'>
+      <div className='sm:px-6 lg:px-8 py-1'>
         <div className='flex lg:grid lg:grid-cols-3 flex-wrap justify-between items-center mx-auto max-w-screen-xl'>
           <div className='hidden justify-start items-center text-sm md:flex'>
             <Link
               href='/'
-              className='flex flex-row items-center flex-shrink-0 mr-6 ml-6 text-3xl font-bold dark:hover:text-blue-400 hover:text-blue-500 transition-colors duration-500'
+              className='flex flex-row items-center flex-shrink-0 mr-6 ml-6 text-2xl font-bold dark:hover:text-blue-400 hover:text-blue-500 transition-colors duration-300 ease-out'
             >
               Zipline
             </Link>
@@ -83,10 +83,10 @@ export default function Navbar() {
                 <button
                   key={randomStr()}
                   aria-label={item.name}
-                  className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
+                  className={`px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out hover:text-blue-400 ${
                     item.active(router.pathname, router.asPath)
-                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-50/50'
-                      : ''
+                      ? 'text-blue-500'
+                      : 'dark:text-gray-300 text-gray-600'
                   }`}
                   onClick={handleClick}
                 >
@@ -97,10 +97,10 @@ export default function Navbar() {
                   key={randomStr()}
                   href={item.href}
                   aria-label={item.name}
-                  className={`text-gray-300 px-3 py-1 rounded-md font-medium text-lg transition-all ease-in-out hover:text-blue-400 ${
+                  className={`px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out hover:text-blue-400 ${
                     item.active(router.pathname, router.asPath)
-                      ? 'text-blue-400 dark:bg-gray-800/70 bg-gray-200/30'
-                      : ''
+                      ? 'text-blue-500'
+                      : 'dark:text-gray-300 text-gray-600'
                   }`}
                 >
                   {item.name}
