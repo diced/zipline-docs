@@ -21,6 +21,7 @@ When uploading files you have a few options to choose from in the form of header
 | `X-Zipline-Filename`        | `string`                                                                 | The name of the file, this will override the name of the file.                                                                                                                                                                     |
 | `Original-Name`             | `string`                                                                 | To preserve the original name, while also using a file name format. See [Original Name](#original-name)                                                                                                                            |
 | `Override-Domain`           | `string`                                                                 | If this header is present, it will override the domain used in the response. For more information see [Override Domain](#override-domain)                                                                                          |
+| `x-zipline-folder`          | `number`                                                                 | If this header is present, it will add the file that is being uploaded to the folder that matches the given ID.                                                                                                                    |
 
 ## File Format
 
