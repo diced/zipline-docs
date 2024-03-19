@@ -1,4 +1,4 @@
-# /api/auth/login
+# /api/auth/logout
 
 <Alert type="info">
   Requires [authentication](/docs/api#authentication)
