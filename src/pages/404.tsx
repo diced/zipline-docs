@@ -23,13 +23,16 @@ export default function FourohFour() {
               {':('}
             </h1>
 
-            <p className='text-center text-2xl mt-4'>Looks like you&apos;re lost... Need a hand?</p>
+            <p className='text-center text-2xl mt-4'>
+              Looks like you&apos;re lost... Need a hand?
+            </p>
 
             <Link
               href='/'
               className='text-center mt-6 transition-all shadow-lg duration-500 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-600 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-3xl flex'
             >
-              Go back! <IconArrowRight className='my-auto ml-6 hidden md:block' />
+              Go back!{' '}
+              <IconArrowRight className='my-auto ml-6 hidden md:block' />
             </Link>
           </div>
         </Center>

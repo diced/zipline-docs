@@ -22,7 +22,8 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
   const isElementVisible = () => {
     if (divElement.current) {
       const { top, bottom } = divElement.current.getBoundingClientRect();
-      const vHeight = window.innerHeight || document.documentElement.clientHeight;
+      const vHeight =
+        window.innerHeight || document.documentElement.clientHeight;
 
       return top > 0 && bottom < vHeight;
     }
@@ -74,10 +75,13 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
       }
     >
       <div className='w-full mt-1 p-2 font-mono' ref={divElement}>
-        <span className='text-gray-400'>~/zipline/</span> <span>{visibleText}</span>
+        <span className='text-gray-400'>~/zipline/</span>{' '}
+        <span>{visibleText}</span>
         <span
           className={`px-1.5 ml-1 bg-blue-200 dark:bg-blue-800 transition-all ${
-            blinking && visibleText.length !== text.length ? 'opacity-100' : 'opacity-0'
+            blinking && visibleText.length !== text.length
+              ? 'opacity-100'
+              : 'opacity-0'
           }`}
         />
       </div>
@@ -91,7 +95,9 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
           <span className='text-gray-400'>~/zipline/</span>
           <span
             className={`px-1.5 ml-1 bg-blue-200 dark:bg-blue-800 transition-all ${
-              blinking && visibleText.length === text.length ? 'opacity-100' : 'opacity-0'
+              blinking && visibleText.length === text.length
+                ? 'opacity-100'
+                : 'opacity-0'
             }`}
           />
         </div>

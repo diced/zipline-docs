@@ -19,19 +19,26 @@ export const config = {
 };
 
 async function getLatestRelease() {
-  const res = await fetch('https://api.github.com/repos/diced/zipline/releases/latest', {
-    headers: {
-      Accept: 'application/vnd.github.v3+json',
-      ...(process.env.GITHUB_TOKEN ? { Authorization: 'token ' + process.env.GITHUB_TOKEN } : {}),
+  const res = await fetch(
+    'https://api.github.com/repos/diced/zipline/releases/latest',
+    {
+      headers: {
+        Accept: 'application/vnd.github.v3+json',
+        ...(process.env.GITHUB_TOKEN
+          ? { Authorization: 'token ' + process.env.GITHUB_TOKEN }
+          : {}),
+      },
     },
-  });
+  );
 
   return res.json();
 }
 
 async function getLatestUpstreamRelease() {
   // read the package.json
-  const res = await fetch('https://raw.githubusercontent.com/diced/zipline/trunk/package.json');
+  const res = await fetch(
+    'https://raw.githubusercontent.com/diced/zipline/trunk/package.json',
+  );
 
   const { version } = await res.json();
 

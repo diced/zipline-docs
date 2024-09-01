@@ -7,7 +7,10 @@ interface MobileHeadingsMenuProps {
   setOpen: (open: boolean) => void;
 }
 
-export default function MobileHeadingsMenu({ open, setOpen }: MobileHeadingsMenuProps) {
+export default function MobileHeadingsMenu({
+  open,
+  setOpen,
+}: MobileHeadingsMenuProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

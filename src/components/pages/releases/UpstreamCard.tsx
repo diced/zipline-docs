@@ -18,7 +18,13 @@ import { Code } from '../faq';
 
 dayjs.extend(relativeTime);
 
-export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: CheckRun[] }) {
+export default function UpstreamCard({
+  commit,
+  runs,
+}: {
+  commit: Commit;
+  runs: CheckRun[];
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -40,7 +46,10 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
               {commit.commit.message.split('\n')[0]}
             </Link>
             <div className='text-gray-500 dark:text-gray-400'>
-              Comitted {dayjs(new Date(commit.commit.committer?.date ?? new Date('1/1/1969'))).fromNow()}
+              Comitted{' '}
+              {dayjs(
+                new Date(commit.commit.committer?.date ?? new Date('1/1/1969')),
+              ).fromNow()}
             </div>
           </div>
         </div>
@@ -54,24 +63,34 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
           className='mt-4'
         >
           <div className='text-gray-500 dark:text-gray-400 mb-6'>
-            This is the most recent upstream commit, and may not be stable. If you encounter any bugs, make an
-            issue on{' '}
-            <Link href='https://github.com/diced/zipline/issues' className='text-blue-500 dark:text-blue-400'>
+            This is the most recent upstream commit, and may not be stable. If
+            you encounter any bugs, make an issue on{' '}
+            <Link
+              href='https://github.com/diced/zipline/issues'
+              className='text-blue-500 dark:text-blue-400'
+            >
               GitHub
             </Link>
           </div>
 
           <div className='text-gray-500 dark:text-gray-400 mb-6'>
-            This commit will be available under the <Code>ghcr.io/diced/zipline:trunk</Code> tag for Docker
-            users once the <Code>Push Image to GitHub Packages</Code> action finishes.
+            This commit will be available under the{' '}
+            <Code>ghcr.io/diced/zipline:trunk</Code> tag for Docker users once
+            the <Code>Push Image to GitHub Packages</Code> action finishes.
           </div>
 
           <div className='flex flex-row items-center justify-between'>
             <div className='flex flex-row items-center space-x-4'>
               <div className='text-gray-500 dark:text-gray-400'>
                 {(runs ?? []).map((run) => (
-                  <div key={run.id} className='flex flex-col md:flex-row items-center space-x-2'>
-                    <IconPlayerPlayFilled className='text-gray-500 dark:text-gray-400 mx-2' size={16} />
+                  <div
+                    key={run.id}
+                    className='flex flex-col md:flex-row items-center space-x-2'
+                  >
+                    <IconPlayerPlayFilled
+                      className='text-gray-500 dark:text-gray-400 mx-2'
+                      size={16}
+                    />
                     {run.name}
 
                     <span className='text-gray-400 dark:text-gray-500'>
@@ -79,29 +98,45 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
                       {run.status.replace('_', ' ')}{' '}
                       {run.status === 'completed' && (
                         <span>
-                          {dayjs(run.completed_at ?? '1/1/1969').from(dayjs(run.started_at ?? null))}
+                          {dayjs(run.completed_at ?? '1/1/1969').from(
+                            dayjs(run.started_at ?? null),
+                          )}
                         </span>
                       )}
                       {run.status === 'in_progress' && (
-                        <span>for {dayjs(run.started_at ?? '1/1/1969').toNow(true)}</span>
+                        <span>
+                          for {dayjs(run.started_at ?? '1/1/1969').toNow(true)}
+                        </span>
                       )}
                       {')'}
                     </span>
 
                     {run.conclusion === 'success' ? (
-                      <IconCheck className='text-green-500 dark:text-green-400' size={16} />
+                      <IconCheck
+                        className='text-green-500 dark:text-green-400'
+                        size={16}
+                      />
                     ) : run.conclusion === 'failure' ? (
-                      <IconX className='text-red-500 dark:text-red-400' size={16} />
+                      <IconX
+                        className='text-red-500 dark:text-red-400'
+                        size={16}
+                      />
                     ) : null}
 
                     {run.conclusion === 'success' ? (
-                      <span className='text-green-500 dark:text-green-400'>Success </span>
+                      <span className='text-green-500 dark:text-green-400'>
+                        Success{' '}
+                      </span>
                     ) : run.conclusion === 'failure' ? (
-                      <span className='text-red-500 dark:text-red-400'>Failure</span>
+                      <span className='text-red-500 dark:text-red-400'>
+                        Failure
+                      </span>
                     ) : null}
 
                     <span className='text-gray-400 dark:text-gray-500'>
-                      {run.completed_at ? dayjs(run.completed_at ?? '1/1/1969').fromNow() : ''}
+                      {run.completed_at
+                        ? dayjs(run.completed_at ?? '1/1/1969').fromNow()
+                        : ''}
                     </span>
                   </div>
                 ))}
@@ -115,23 +150,34 @@ export default function UpstreamCard({ commit, runs }: { commit: Commit; runs: C
             <div className='flex flex-row items-center space-x-4'>
               <div className='text-gray-500 dark:text-gray-400'>
                 {(commit.files ?? []).map((file) => (
-                  <div key={file.filename} className='flex flex-row items-center space-x-2'>
-                    <IconFile className='text-gray-500 dark:text-gray-400 mx-2' size={16} />
+                  <div
+                    key={file.filename}
+                    className='flex flex-row items-center space-x-2'
+                  >
+                    <IconFile
+                      className='text-gray-500 dark:text-gray-400 mx-2'
+                      size={16}
+                    />
                     {file.filename}
                     {file.previous_filename ? (
                       <span className='flex items-center text-gray-400 dark:text-gray-500'>
                         {' '}
-                        <IconArrowLeft size='1rem' className='mr-2' /> {file.previous_filename}
+                        <IconArrowLeft size='1rem' className='mr-2' />{' '}
+                        {file.previous_filename}
                       </span>
                     ) : null}{' '}
-                    <span className='text-gray-400 dark:text-gray-500'>({file.status})</span>
+                    <span className='text-gray-400 dark:text-gray-500'>
+                      ({file.status})
+                    </span>
                     <span className='text-red-500 dark:text-red-400 flex items-center'>
                       {' '}
-                      <IconPlus size='.8rem' /> {file.deletions.toLocaleString()}
+                      <IconPlus size='.8rem' />{' '}
+                      {file.deletions.toLocaleString()}
                     </span>
                     <span className='text-green-500 dark:text-green-400 flex items-center'>
                       {' '}
-                      <IconMinus size='.8rem' /> {file.additions.toLocaleString()}
+                      <IconMinus size='.8rem' />{' '}
+                      {file.additions.toLocaleString()}
                     </span>
                   </div>
                 ))}

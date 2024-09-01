@@ -11,7 +11,8 @@ export default function Community() {
         openGraph={{
           url: 'https://zipline.diced.vercel.app',
           title: 'Zipline - Community',
-          description: 'Interact with the Zipline community, or receive support!',
+          description:
+            'Interact with the Zipline community, or receive support!',
           images: [
             {
               url: '/img/og-banner.png',
@@ -25,9 +26,13 @@ export default function Community() {
       <Container>
         <Center>
           <div className='my-12 md:my-28'>
-            <h1 className='text-3xl md:text-6xl font-extrabold text-center'>Zipline Community</h1>
+            <h1 className='text-3xl md:text-6xl font-extrabold text-center'>
+              Zipline Community
+            </h1>
 
-            <p className='text-center text-2xl mt-4'>Interact with the community, or receive support!</p>
+            <p className='text-center text-2xl mt-4'>
+              Interact with the community, or receive support!
+            </p>
 
             <CommunityPage />
           </div>

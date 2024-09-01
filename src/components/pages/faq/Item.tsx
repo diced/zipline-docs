@@ -18,7 +18,10 @@ export default function Item({ title, children, id }: ItemProps) {
       onClick={() => setOpen(!open)}
       className='w-full my-12 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:bg-gray-900 shadow-md hover:shadow-lg rounded-md p-4 transition-all ease-in-out cursor-pointer'
     >
-      <button className='flex w-full items-center justify-between' onClick={() => setOpen(!open)}>
+      <button
+        className='flex w-full items-center justify-between'
+        onClick={() => setOpen(!open)}
+      >
         <div className='font-semibold text-2xl group'>
           {title}
 

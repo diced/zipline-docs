@@ -5,7 +5,8 @@ import ReleaseSkeleton from './ReleaseSkeleton';
 import UpstreamCard from './UpstreamCard';
 
 export default function ReleasesPage() {
-  const [releaseResponse, setReleaseResponse] = useState<ReleaseResponse | null>(null);
+  const [releaseResponse, setReleaseResponse] =
+    useState<ReleaseResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +24,10 @@ export default function ReleasesPage() {
       {loading ? (
         <ReleaseSkeleton />
       ) : releaseResponse?.upstream.commit ? (
-        <UpstreamCard commit={releaseResponse.upstream.commit} runs={releaseResponse.upstream.checkRuns} />
+        <UpstreamCard
+          commit={releaseResponse.upstream.commit}
+          runs={releaseResponse.upstream.checkRuns}
+        />
       ) : (
         <ReleaseSkeleton />
       )}
@@ -32,7 +36,9 @@ export default function ReleasesPage() {
         ? Array(10)
             .fill(0)
             .map((_, i) => <ReleaseSkeleton key={i} />)
-        : releaseResponse?.releases.map((release) => <ReleaseCard key={release.id} release={release} />)}
+        : releaseResponse?.releases.map((release) => (
+            <ReleaseCard key={release.id} release={release} />
+          ))}
     </>
   );
 }

@@ -26,11 +26,36 @@ export default function App({ Component, pageProps }: AppProps) {
         defaultTitle='Zipline'
         themeColor='#3498db'
         additionalLinkTags={[
-          { rel: 'icon', type: 'image/png', href: '/favicons/favicon-16x16.png', sizes: '16x16' },
-          { rel: 'icon', type: 'image/png', href: '/favicons/favicon-32x32.png', sizes: '32x32' },
-          { rel: 'icon', type: 'image/png', href: '/favicons/favicon-64x64.png', sizes: '64x64' },
-          { rel: 'icon', type: 'image/png', href: '/favicons/favicon-128x128.png', sizes: '128x128' },
-          { rel: 'icon', type: 'image/png', href: '/favicons/favicon-512x512.png', sizes: '512x512' },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            href: '/favicons/favicon-16x16.png',
+            sizes: '16x16',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            href: '/favicons/favicon-32x32.png',
+            sizes: '32x32',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            href: '/favicons/favicon-64x64.png',
+            sizes: '64x64',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            href: '/favicons/favicon-128x128.png',
+            sizes: '128x128',
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            href: '/favicons/favicon-512x512.png',
+            sizes: '512x512',
+          },
           { rel: 'icon', type: 'image/svg', href: '/favicons/favicon.svg' },
         ]}
         additionalMetaTags={[

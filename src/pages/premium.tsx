@@ -15,7 +15,8 @@ export default function Premium() {
         openGraph={{
           url: 'https://zipline.diced.vercel.app/premium',
           title: 'Zipline - Premium',
-          description: 'Introducing the next generation of Zipline, with premium features!',
+          description:
+            'Introducing the next generation of Zipline, with premium features!',
           images: [
             {
               url: '/img/og-banner-premium.png',
@@ -27,7 +28,9 @@ export default function Premium() {
         }}
       />
       <div className='flex flex-col items-center justify-center h-screen'>
-        <h1 className='text-3xl md:text-6xl font-extrabold text-center'>Zipline Premium</h1>
+        <h1 className='text-3xl md:text-6xl font-extrabold text-center'>
+          Zipline Premium
+        </h1>
       </div>
     </>
   );

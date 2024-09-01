@@ -48,7 +48,9 @@ export default function ExternalLinksBuilder() {
         <button
           className='bg-blue-400 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-blue-500 ease-in-out disabled:bg-gray-300 disabled:dark:bg-gray-600 disabled:text-gray-100 disabled:dark:text-gray-300'
           onClick={handleAdd}
-          disabled={labelValue.trim().length === 0 || linkValue.trim().length === 0}
+          disabled={
+            labelValue.trim().length === 0 || linkValue.trim().length === 0
+          }
         >
           Add
         </button>
@@ -79,9 +81,14 @@ export default function ExternalLinksBuilder() {
           No links added yet
         </div>
       )}
-      <pre className='language-bash'>WEBSITE_EXTERNAL_LINKS=&apos;{JSON.stringify(links)}&apos;</pre>
-      Or if using Docker Compose, you need to remove the single quotes surrounding them:
-      <pre className='language-bash'>WEBSITE_EXTERNAL_LINKS={JSON.stringify(links)}</pre>
+      <pre className='language-bash'>
+        WEBSITE_EXTERNAL_LINKS=&apos;{JSON.stringify(links)}&apos;
+      </pre>
+      Or if using Docker Compose, you need to remove the single quotes
+      surrounding them:
+      <pre className='language-bash'>
+        WEBSITE_EXTERNAL_LINKS={JSON.stringify(links)}
+      </pre>
     </div>
   );
 }

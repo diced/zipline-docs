@@ -109,7 +109,10 @@ export default function Navbar() {
             )}
           </div>
           <div className='flex sm:grid sm:grid-cols-2 justify-between items-center w-full md:hidden'>
-            <Link href='/' className='ml-6 text-2xl font-bold text-blue-300 justify-start'>
+            <Link
+              href='/'
+              className='ml-6 text-2xl font-bold text-blue-300 justify-start'
+            >
               Zipline
             </Link>
 
@@ -120,7 +123,10 @@ export default function Navbar() {
           </div>
           <div className='hidden md:flex justify-end items-center'>
             <ThemeDropdown />
-            <Link href='/github' className='text-gray-300 px-3 py-2 rounded-md font-medium text-md'>
+            <Link
+              href='/github'
+              className='text-gray-300 px-3 py-2 rounded-md font-medium text-md'
+            >
               <IconBrandGithubFilled className='text-black dark:text-white hover:text-gray-200 transition-colors duration-300 ease-in-out w-6 h-6' />
             </Link>
           </div>

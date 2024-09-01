@@ -71,12 +71,16 @@ export default function MacShell({
         <div className='bg-blue-600 justify-center rounded-md border-blue-300 border flex flex-col p-2 transition-all ease-in-out px-5 text-white'>
           <div className='text-8xl font-bold'>{':('}</div>
           <div className='text-xl mt-12'>
-            Your PC ran into a problem and needs to restart. We&apos;re just collecting some error info, and
-            then we&apos;ll restart for you
+            Your PC ran into a problem and needs to restart. We&apos;re just
+            collecting some error info, and then we&apos;ll restart for you
           </div>
 
           <div className='text-xl mt-6 transition-all ease-in-out animate-pulse'>
-            {percent >= 100 ? <div>Just a moment...</div> : <div>{percent}% complete</div>}
+            {percent >= 100 ? (
+              <div>Just a moment...</div>
+            ) : (
+              <div>{percent}% complete</div>
+            )}
           </div>
         </div>
       ) : (
@@ -88,7 +92,9 @@ export default function MacShell({
           >
             <div
               className={`flex items-center space-x-2 p-2 ${
-                !center ? 'border-r dark:border-r-gray-800 border-r-gray-100' : ''
+                !center
+                  ? 'border-r dark:border-r-gray-800 border-r-gray-100'
+                  : ''
               }`}
             >
               <div

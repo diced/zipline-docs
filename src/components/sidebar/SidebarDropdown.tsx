@@ -24,7 +24,9 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
         <button className='flex w-full'>
           <Link
             className={`flex transition-colors text-gray-400 hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-2 py-1 ${
-              active ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold' : ''
+              active
+                ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
+                : ''
             }`}
             href={item.href}
           >
@@ -34,7 +36,11 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
             className='mr-2 transition-colors ease-in-out text-gray-400 hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md cursor-pointer'
             onClick={() => setOpen(!open)}
           >
-            {open ? <IconChevronDown size={24} /> : <IconChevronRight size={24} />}
+            {open ? (
+              <IconChevronDown size={24} />
+            ) : (
+              <IconChevronRight size={24} />
+            )}
           </div>
         </button>
       ) : (
@@ -49,13 +55,19 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
             className='transition-colors ease-in-out hover:bg-gray-100/60 dark:hover:bg-gray-800 rounded-md cursor-pointer'
             onClick={() => setOpen(!open)}
           >
-            {open ? <IconChevronDown size={24} /> : <IconChevronRight size={24} />}
+            {open ? (
+              <IconChevronDown size={24} />
+            ) : (
+              <IconChevronRight size={24} />
+            )}
           </div>
         </button>
       )}
 
       <ul className='ml-1/2' style={{ display: open ? 'block' : 'none' }}>
-        {item.items?.map((subitem) => <SidebarItem key={randomStr()} item={subitem} />)}
+        {item.items?.map((subitem) => (
+          <SidebarItem key={randomStr()} item={subitem} />
+        ))}
       </ul>
     </div>
   );

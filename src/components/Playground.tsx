@@ -35,20 +35,31 @@ export function parseString(str: string, value: ParseValue) {
     .replace(/\{raw_link\}/gi, value.raw_link ?? '')
     .replace(/\\n/g, '\n');
 
-  const re = /\{(?<type>file|url|user)\.(?<prop>\w+)(::(?<mod>\w+))?(::(?<mod_tzlocale>\S+))?\}/gi;
+  const re =
+    /\{(?<type>file|url|user)\.(?<prop>\w+)(::(?<mod>\w+))?(::(?<mod_tzlocale>\S+))?\}/gi;
   let matches: RegExpMatchArray | null;
 
   while ((matches = re.exec(str))) {
     // @ts-ignore
     const getV = value[matches.groups.type];
     if (!getV) {
-      str = replaceCharsFromString(str, '{unknown_type}', matches.index, re.lastIndex);
+      str = replaceCharsFromString(
+        str,
+        '{unknown_type}',
+        matches.index,
+        re.lastIndex,
+      );
       re.lastIndex = matches.index as number;
       continue;
     }
 
     if (['password', 'avatar', 'uuid'].includes(matches.groups?.prop ?? '')) {
-      str = replaceCharsFromString(str, '{unknown_property}', matches.index, re.lastIndex);
+      str = replaceCharsFromString(
+        str,
+        '{unknown_property}',
+        matches.index,
+        re.lastIndex,
+      );
       re.lastIndex = matches.index as number;
       continue;
     }
@@ -67,7 +78,12 @@ export function parseString(str: string, value: ParseValue) {
     const v = getV[matches.groups?.prop ?? ''];
 
     if (v === undefined) {
-      str = replaceCharsFromString(str, '{unknown_property}', matches.index, re.lastIndex);
+      str = replaceCharsFromString(
+        str,
+        '{unknown_property}',
+        matches.index,
+        re.lastIndex,
+      );
       re.lastIndex = matches.index as number;
       continue;
     }
@@ -75,7 +91,11 @@ export function parseString(str: string, value: ParseValue) {
     if (matches.groups?.mod) {
       str = replaceCharsFromString(
         str,
-        modifier(matches.groups?.mod, v, matches.groups?.mod_tzlocale ?? undefined),
+        modifier(
+          matches.groups?.mod,
+          v,
+          matches.groups?.mod_tzlocale ?? undefined,
+        ),
         matches.index,
         re.lastIndex,
       );
@@ -94,7 +114,10 @@ function modifier(mod: string, value: unknown, tzlocale?: string): string {
   mod = mod.toLowerCase();
 
   if (value instanceof Date) {
-    const args: [string | undefined, { timeZone: string } | undefined] = [undefined, undefined];
+    const args: [string | undefined, { timeZone: string } | undefined] = [
+      undefined,
+      undefined,
+    ];
 
     if (tzlocale) {
       const [locale, tz] = tzlocale.split(/\s?,\s?/).map((v) => v.trim());
@@ -109,7 +132,9 @@ function modifier(mod: string, value: unknown, tzlocale?: string): string {
       }
 
       if (tz) {
-        const intlTz = Intl.supportedValuesOf('timeZone').find((v) => v.toLowerCase() === tz.toLowerCase());
+        const intlTz = Intl.supportedValuesOf('timeZone').find(
+          (v) => v.toLowerCase() === tz.toLowerCase(),
+        );
         if (intlTz) args[1] = { timeZone: intlTz };
         else {
           args[1] = undefined;
@@ -284,7 +309,9 @@ export default function Playground() {
 
       <div
         className={`dark:bg-gray-800 border border-gray-50 dark:border-gray-700 rounded-md p-2 my-2 transition-colors ${
-          parsed?.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white'
+          parsed?.trim().length === 0
+            ? 'text-gray-200'
+            : 'text-black dark:text-white'
         }`}
         style={{ whiteSpace: 'pre-wrap' }}
       >
@@ -292,8 +319,13 @@ export default function Playground() {
       </div>
 
       <div className='flex-col items-center justify-between mb-12'>
-        <button className='flex items-center space-x-2 p-1 rounded-md' onClick={() => setDataOpen(!dataOpen)}>
-          <span className='text-gray-200 dark:text-gray-500'>View Sample Data</span>
+        <button
+          className='flex items-center space-x-2 p-1 rounded-md'
+          onClick={() => setDataOpen(!dataOpen)}
+        >
+          <span className='text-gray-200 dark:text-gray-500'>
+            View Sample Data
+          </span>
 
           <IconChevronDown
             className={`w-5 h-5 text-gray-200 dark:text-gray-500 transition-transform transform ${
@@ -302,7 +334,11 @@ export default function Playground() {
           />
         </button>
 
-        <div className={`overflow-auto transition-all ${dataOpen ? 'max-h-[100rem]' : 'max-h-0'}`}>
+        <div
+          className={`overflow-auto transition-all ${
+            dataOpen ? 'max-h-[100rem]' : 'max-h-0'
+          }`}
+        >
           <Highlight
             {...defaultProps}
             code={JSON.stringify(sampleData, null, 2)}

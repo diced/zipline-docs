@@ -1,4 +1,8 @@
-import { IconArrowRight, IconBrandDiscordFilled, IconBrandGithubFilled } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconBrandDiscordFilled,
+  IconBrandGithubFilled,
+} from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { randomStr } from '../lib/random';
@@ -70,8 +74,13 @@ export default function Footer() {
             <div className='justify-center'>
               <div className='md:ml-10 md:flex md:flex-row my-6 md:my-0 flex-col items-baseline md:space-x-20'>
                 {items.map((item) => (
-                  <div key={randomStr()} className='py-2 rounded-md font-medium text-md'>
-                    <span className='text-lg text-gray-600 dark:text-gray-300'>{item.title}</span>
+                  <div
+                    key={randomStr()}
+                    className='py-2 rounded-md font-medium text-md'
+                  >
+                    <span className='text-lg text-gray-600 dark:text-gray-300'>
+                      {item.title}
+                    </span>
                     <div className='flex flex-col'>
                       {item.items.map((subItem) => (
                         <Link

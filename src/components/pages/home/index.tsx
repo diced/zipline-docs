@@ -32,7 +32,8 @@ const items = [
   },
   {
     title: 'Upload any file',
-    description: 'Upload images and text to Zipline, with support for syntax highlighting in text files.',
+    description:
+      'Upload images and text to Zipline, with support for syntax highlighting in text files.',
     href: '/docs/guides/upload-options',
     Icon: IconFileUpload,
   },
@@ -61,7 +62,8 @@ const items = [
   },
   {
     title: 'OAuth2 Registration',
-    description: 'Allow users to link and/or register with selected OAuth2 providers.',
+    description:
+      'Allow users to link and/or register with selected OAuth2 providers.',
     href: '/docs/guides/oauth',
     Icon: IconUsers,
   },
@@ -88,18 +90,21 @@ const items = [
   },
   {
     title: 'Video Thumbnails',
-    description: 'Zipline will automatically generate thumbnails for your videos.',
+    description:
+      'Zipline will automatically generate thumbnails for your videos.',
     Icon: IconVideo,
   },
   {
     title: 'API',
-    description: 'Zipline offers an extensive API for a more fine-grained control over your instance.',
+    description:
+      'Zipline offers an extensive API for a more fine-grained control over your instance.',
     href: '/docs/api',
     Icon: IconApi,
   },
   {
     title: 'Theres more!',
-    description: "I didn't feel like listing everything here, so go check out the docs!",
+    description:
+      "I didn't feel like listing everything here, so go check out the docs!",
     Icon: IconAlienFilled,
   },
 ];

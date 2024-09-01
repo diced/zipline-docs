@@ -1,5 +1,10 @@
 import { ReactNode, useState } from 'react';
-import { useFloating, useInteractions, useHover, Placement } from '@floating-ui/react-dom-interactions';
+import {
+  useFloating,
+  useInteractions,
+  useHover,
+  Placement,
+} from '@floating-ui/react-dom-interactions';
 import { motion } from 'framer-motion';
 
 interface TooltipProps {
@@ -16,7 +21,9 @@ export default function Tooltip({ children, label, placement }: TooltipProps) {
     placement,
   });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([useHover(context)]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    useHover(context),
+  ]);
 
   return (
     <>

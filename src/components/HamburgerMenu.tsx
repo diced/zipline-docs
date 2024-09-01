@@ -76,7 +76,9 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
                 key={randomStr()}
                 href={item.href}
                 className={`block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40 ${
-                  item.active(router.pathname, router.asPath) ? 'text-blue-400' : ''
+                  item.active(router.pathname, router.asPath)
+                    ? 'text-blue-400'
+                    : ''
                 }}`}
                 onClick={() => setOpen(false)}
               >

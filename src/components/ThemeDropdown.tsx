@@ -1,4 +1,9 @@
-import { Icon, IconDevices, IconMoonFilled, IconSunFilled } from '@tabler/icons-react';
+import {
+  Icon,
+  IconDevices,
+  IconMoonFilled,
+  IconSunFilled,
+} from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import { randomStr } from '../lib/random';
@@ -62,7 +67,11 @@ export default function ThemeDropdown({ withName = false }) {
   useEffect(() => setMounted(true), []);
   useEffect(() => {
     if (theme === 'system') {
-      setResolvedTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      setResolvedTheme(
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light',
+      );
     } else {
       setResolvedTheme(theme);
     }
@@ -74,10 +83,14 @@ export default function ThemeDropdown({ withName = false }) {
         setResolvedTheme(e.matches ? 'dark' : 'light');
       };
 
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', listener);
 
       return () => {
-        window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
+        window
+          .matchMedia('(prefers-color-scheme: dark)')
+          .removeEventListener('change', listener);
       };
     }
   }, [theme, mounted]);
@@ -93,7 +106,11 @@ export default function ThemeDropdown({ withName = false }) {
         {withName ? (
           <>
             <span className='capitalize'>{resolvedTheme}</span>
-            {resolvedTheme === 'light' ? <IconSunFilled size={16} /> : <IconMoonFilled size={16} />}
+            {resolvedTheme === 'light' ? (
+              <IconSunFilled size={16} />
+            ) : (
+              <IconMoonFilled size={16} />
+            )}
           </>
         ) : resolvedTheme === 'light' ? (
           <IconSunFilled size={ICON_SIZE} />
