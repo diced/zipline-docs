@@ -1,6 +1,6 @@
-# Discord
+# Discord Notifications
 
-This page documents the discord webhook configuration of Zipline.
+This page documents the Discord webhook configuration of Zipline.
 
 ## `DISCORD_URL`
 

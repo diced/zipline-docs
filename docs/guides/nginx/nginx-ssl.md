@@ -17,10 +17,10 @@ Click create once you have selected the options, and you will be given a certifi
 
 Copy the private key's content and paste it into a file called `/etc/ssl/certs/<your domain>.pem`.
 
-If your domain was `diced.tech` you would have the following 2 files:
+If your domain was `diced.sh` you would have the following 2 files:
 ```
-/etc/ssl/certs/diced.tech.key
-/etc/ssl/certs/diced.tech.pem
+/etc/ssl/certs/diced.sh.key
+/etc/ssl/certs/diced.sh.pem
 ```
 
 Now you can configure the NGINX configuration file to use the SSL certificate.

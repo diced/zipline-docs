@@ -28,7 +28,7 @@ You can also shorten URLs using this simple shell script. You can export the `$T
 #!/bin/bash
 
 arg=$1;
-curl -H "authorization: j42hCgpWGIBxXzT1Uh2cXueC.MTY3MjY5ODA5NDMzNg" -H "Content-Type: application/json" -H "No-JSON: true" -d "{\"url\": \"$arg\"}" $HOST/api/shorten | tr -d '\n' | xsel -ib;
+curl -H "authorization: $TOKEN" -H "Content-Type: application/json" -H "No-JSON: true" -d "{\"url\": \"$arg\"}" $HOST/api/shorten | tr -d '\n' | xsel -ib;
 ```
 
 ```

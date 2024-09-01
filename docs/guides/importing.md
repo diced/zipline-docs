@@ -42,7 +42,7 @@ docker compose exec zipline yarn scripts:import-dir /zipline/import 2
 # 2 = the user id
 ```
   </TabItem>
-  <TabItem value="non-docker" label="Non-Docker">
+  <TabItem value="non-docker" label="Non Docker">
 
 ```bash
 yarn scripts:import-dir /path/to/import 2

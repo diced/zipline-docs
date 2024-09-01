@@ -1,13 +1,11 @@
-import { IconMenu, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { randomStr } from '../../lib/random';
 import Headings from '../Headings';
 import SearchBar from '../search/SearchBar';
 import SidebarItem from './SidebarItem';
-import VersionSelect from './VersionSelect';
-import MobileMenu from './full/MobileMenu';
 import MobileHeadingsMenu from './full/MobileHeadingsMenu';
+import MobileMenu from './full/MobileMenu';
 
 export interface SidebarProps {
   items: Item[];
@@ -64,8 +62,6 @@ export default function Sidebar({ items, children }: SidebarProps) {
       >
         <div className='mx-2'>
           <SearchBar />
-
-          <VersionSelect />
         </div>
 
         <ul>
@@ -84,13 +80,20 @@ export default function Sidebar({ items, children }: SidebarProps) {
         >
           <MobileMenu open={open} setOpen={setOpen} items={items} />
 
-          <MobileHeadingsMenu open={onThisPageOpen} setOpen={setOnThisPageOpen} />
+          <MobileHeadingsMenu
+            open={onThisPageOpen}
+            setOpen={setOnThisPageOpen}
+          />
         </div>
 
-        <div className='grow pb-8 w-full justify-center max-w-full flex min-w-0'>{children}</div>
+        <div className='grow pb-8 w-full justify-center max-w-full flex min-w-0'>
+          {children}
+        </div>
       </div>
       <aside className='select-none text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'>
-        <div className='font-semibold text-sm w-full mr-1 mb-4'>On This Page</div>
+        <div className='font-semibold text-sm w-full mr-1 mb-4'>
+          On This Page
+        </div>
 
         <Headings close={() => {}} />
       </aside>

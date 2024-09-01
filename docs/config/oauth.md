@@ -2,6 +2,14 @@
 
 This page documents OAuth variables that can be set in Zipline.
 
+## `OAUTH_BYPASS_LOCAL_LOGIN`
+
+If set to `true`, when navigating to the login page, the user will be redirected to the OAuth login page instead of the local login page.
+
+```bash
+OAUTH_BYPASS_LOCAL_LOGIN=true
+```
+
 ## `OAUTH_DISCORD_CLIENT_ID`
 
 The Discord client ID for your application. This is used to authenticate with Discord's OAuth API.

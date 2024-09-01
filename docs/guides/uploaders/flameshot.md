@@ -45,7 +45,7 @@ Hit `Apply` and you're done! You can now press `Print` to open the flameshot gui
 
 ## DIY
 
-To upload files using flameshot we will use a script. Replace $TOKEN and $HOST with your own values, you probably know how to do this if you use linux.
+To upload files using flameshot we will use a script. Replace $TOKEN and $HOST with your own values.
 
 ```shell title="ss.sh"
 DATE=$(date '+%h_%Y_%d_%I_%m_%S.png');

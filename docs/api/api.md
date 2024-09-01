@@ -2,6 +2,8 @@
 
 This page attempts to document the entire Zipline API, currently it is a work in progress.
 
+API documentation for Zipline is **outdated and incomplete**. Unfortunately, the more reasonable way to get the most up-to-date information is to look at the source code. If you are having trouble or need help with the API, feel free to ask in the [Discord](/discord).
+
 ## Errors
 
 All errors are returned in the following format:

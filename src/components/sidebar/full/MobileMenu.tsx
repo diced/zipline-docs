@@ -4,7 +4,6 @@ import { Item } from '..';
 import { randomStr } from '../../../lib/random';
 import SearchBar from '../../search/SearchBar';
 import SidebarItem from '../SidebarItem';
-import VersionSelect from '../VersionSelect';
 
 interface MobileMenuProps {
   items: Item[];
@@ -67,7 +66,6 @@ export default function MobileMenu({ items, open, setOpen }: MobileMenuProps) {
           </div>
           <div className='px-5 py-2 pb-3 space-y-1'>
             <SearchBar />
-            <VersionSelect />
 
             <ul>
               {items.map((item) => (

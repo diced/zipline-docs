@@ -1,8 +1,8 @@
-import { IconClipboardCopy, IconX } from '@tabler/icons-react';
+import { IconX } from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import Highlight, { Prism } from 'prism-react-renderer';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ayuDark from '../lib/themes/ayuDark';
 import ayuLight from '../lib/themes/ayuLight';
 import Alert from './Alert';
@@ -37,7 +37,11 @@ export const docsComponents = {
             setOpen(true);
           }}
         >
-          <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />
+          <img
+            loading='lazy'
+            className='block object-contain rounded-md max-w-full h-auto'
+            {...props}
+          />
           <div className='absolute rounded-md inset-0 bg-black bg-opacity-0 hover:bg-opacity-30 transition-all' />
         </div>
 
@@ -51,7 +55,11 @@ export const docsComponents = {
           }}
         >
           <div className='relative'>
-            <img loading='lazy' className='block object-contain rounded-md max-w-full h-auto' {...props} />
+            <img
+              loading='lazy'
+              className='block object-contain rounded-md max-w-full h-auto'
+              {...props}
+            />
             <div
               className='absolute top-0 right-0 z-50 p-2 -m-6 cursor-pointer'
               onClick={(e) => {

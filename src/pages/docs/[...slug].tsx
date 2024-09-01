@@ -1,4 +1,8 @@
-import { IconChevronLeft, IconChevronRight, IconHome } from '@tabler/icons-react';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconHome,
+} from '@tabler/icons-react';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -164,7 +168,10 @@ export default function DocsPage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sidebarUnparsed = await readFile(join(process.cwd(), 'sidebar.json'), 'utf8');
+  const sidebarUnparsed = await readFile(
+    join(process.cwd(), 'sidebar.json'),
+    'utf8',
+  );
   const sidebar = JSON.parse(sidebarUnparsed);
 
   const paths: { params: { slug: string[] } }[] = [];
@@ -234,8 +241,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     parseFrontmatter: true,
   });
 
-  const sidebarf = JSON.parse(await readFile(join(process.cwd(), 'sidebarf.json'), 'utf8'));
-  const sidebar = JSON.parse(await readFile(join(process.cwd(), 'sidebar.json'), 'utf8'));
+  const sidebarf = JSON.parse(
+    await readFile(join(process.cwd(), 'sidebarf.json'), 'utf8'),
+  );
+  const sidebar = JSON.parse(
+    await readFile(join(process.cwd(), 'sidebar.json'), 'utf8'),
+  );
 
   const index = sidebarf.findIndex((i: any) => i.href === '/docs/' + joined);
 

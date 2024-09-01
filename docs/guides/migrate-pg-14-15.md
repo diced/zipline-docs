@@ -1,6 +1,8 @@
 # Docker: Migrate from PostgreSQL 14 to 15
 
-This guide describes how to migrate from PostgreSQL 14 to 15, since migrating through docker is a bit of a chore. This guide also assumes that you are using docker and the provided `docker-compose.yml` files defaults for postgres. If you don't use Docker Compose figure it out yourself
+This guide describes how to migrate from PostgreSQL 14 to 15, since migrating through docker is a bit of a chore. This guide also assumes that you are using docker and the provided `docker-compose.yml` files defaults for postgres.
+
+This guide can also be helpful if you want to migrate your postgres data to a new server. You will have to skip some steps like changing around the `docker-compose.yml` file, and just focus on the backup and restore steps.
 
 ## Is this needed?
 

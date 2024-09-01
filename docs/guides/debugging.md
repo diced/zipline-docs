@@ -15,7 +15,7 @@ It is not recommended to enable `DEBUG` mode in production, as it could cause pe
 You must set the `DEBUG` environment variable to `true`. This can be done in a few different ways:
 
 <Tabs defaultValue="docker">
-  <TabItem value="docker" default>
+  <TabItem value="docker" label="Docker" default>
 
 In your `docker-compose.yml`
 
@@ -25,7 +25,7 @@ environment:
 ```
 
   </TabItem>
-  <TabItem value="non-docker">
+  <TabItem value="non-docker" label="Non Docker">
 
 Add `DEBUG=true` to the `.env` or `.env.local` file. Or `export DEBUG=true` then run `yarn/npm start`
 

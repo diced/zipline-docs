@@ -60,7 +60,7 @@ If you would like to use a shorthand expression, you may do the following as the
 If the date couldnt resolve to a date or is in the past, Zipline will return a 400 error.
 
 <Alert type="note">
-Favoriting An Image prevents it from automatically expiring.
+If you have set an image as a favorite, it will be prevented from expiring.
 </Alert>
 
 ### Shorthand expressions

@@ -15,6 +15,44 @@ cd zipline
 docker compose up -d
 ```
 
+Here is a default `docker-compose.yml` file to get Zipline running instantly:
+
+```yml
+version: '3'
+services:
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DATABASE=postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  zipline:
+    image: ghcr.io/diced/zipline
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - CORE_SECRET=changethis
+      - CORE_DATABASE_URL=postgres://postgres:postgres@postgres/postgres
+    volumes:
+      - './uploads:/zipline/uploads'
+      - './public:/zipline/public'
+    depends_on:
+      - 'postgres'
+
+volumes:
+  pg_data:
+```
+
 <Alert type="danger">
 After installing, please edit the `docker-compose.yml` file and find the line that says `CORE_SECRET=changethis` and replace `changethis` with a random string.
 
@@ -26,7 +64,7 @@ Ways you could generate the string could be from a password managers generator, 
 This section requires [nodejs](https://nodejs.org) (v18 (or current LTS) or later), [yarn](https://yarnpkg.com/).
 
 <Alert type="info">
-NPM is not supported as it produces unintended side effects during the build process.
+NPM is not supported as it produces unintended side effects during the build process. Try at your own risk.
 </Alert>
 
 ```bash
@@ -60,6 +98,10 @@ Ways you could generate the string could be from a password managers generator, 
 
 ## Install on Unraid
 
+<Alert type="info">
+The [Unraid template](https://github.com/ImSkully/unraid-templates/blob/master/zipline/zipline.xml) for Zipline is maintained seperately, for support visit the [Zipline Support topic](https://forums.unraid.net/topic/144184-support-imskully-zipline/) on the Unraid forums. The Zipline Discord server or GitHub issues are not the place to ask for support for the Unraid template, and will be ignored or at best redirected to the Unraid forums.
+</Alert>
+
 This section is specific to [Unraid OS](https://unraid.net) and uses the default [Community Apps](https://forums.unraid.net/topic/38582-plug-in-community-applications/) plugin.
 
 <Alert type="warning">
@@ -75,10 +117,6 @@ Zipline is available on the [Community Application Center](https://unraid.net/co
 3. _(Optional)_ Adjust default configuration as required, see [Configuration](/docs/config) for more variables and their usage
 
 Once created, Zipline should be running at the configured webUI port, by default this is `8092`.
-
-<Alert type="info">
-The [Unraid template](https://github.com/ImSkully/unraid-templates/blob/master/zipline/zipline.xml) for Zipline is maintained seperately, for support visit the [Zipline Support topic](https://forums.unraid.net/topic/144184-support-imskully-zipline/) on the Unraid forums. The Zipline Discord server or GitHub issues are not the place to ask for support for the Unraid template, and will be ignored or at best redirected to the Unraid forums.
-</Alert>
 
 ## Default administrator password
 
