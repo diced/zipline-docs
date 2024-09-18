@@ -18,7 +18,7 @@ export default function ButtonLinks({
     <div className='flex flex-col md:flex-row justify-center mt-8 space-y-4 md:space-y-0 md:space-x-6'>
       <Link
         href='/docs/get-started'
-        className='w-full md:w-auto justify-between items-center transition-all shadow-lg duration-500 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-600 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-2xl flex'
+        className='w-full md:w-auto justify-between items-center transition-all shadow-lg duration-200 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-2xl flex'
       >
         Get Started <IconArrowRight className='md:ml-6' />
       </Link>

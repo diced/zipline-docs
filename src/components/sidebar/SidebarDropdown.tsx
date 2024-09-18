@@ -1,7 +1,7 @@
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { randomStr } from '../../lib/random';
 import SidebarItem, { SidebarItemProps } from './SidebarItem';
 

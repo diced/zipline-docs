@@ -10,38 +10,20 @@ import ButtonLinks from '../components/pages/home/ButtonLinks';
 
 import Image from 'next/image';
 import homePageScreenshotLight from '../../public/img/screenshot-1-light.png';
-import homePageScreenshot from '../../public/img/screenshot-1.png';
-import statsPageScreenshotLight from '../../public/img/screenshot-2-light.png';
-import statsPageScreenshot from '../../public/img/screenshot-2.png';
-import galleryPageScreenshotLight from '../../public/img/screenshot-3-light.png';
-import galleryPageScreenshot from '../../public/img/screenshot-3.png';
-import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
-import urlsPageScreenshot from '../../public/img/screenshot-4.png';
-import foldersPageScreenshot from '../../public/img/screenshot-5.png';
-import foldersPageScreenshotLight from '../../public/img/screenshot-5-light.png';
+import homePageScreenshot from '../../public/img/screenshot-1-dark.png';
 
-import MacTerminal from '../components/MacTerminal';
-import { Fragment } from 'react';
 import {
-  IconBrandGithubFilled,
-  IconFiles,
-  IconFolder,
-  IconGitBranch,
-  IconGraph,
   IconHeartFilled,
   IconLayoutDashboard,
-  IconLink,
-  IconMessageCircle2Filled,
-  IconSitemap,
   IconStarFilled,
   IconTerminal2,
 } from '@tabler/icons-react';
 import Link from 'next/link';
-import Tooltip from '../components/Tooltip';
-import { Code } from '../components/pages/faq';
+import { Fragment } from 'react';
+import MacTerminal from '../components/MacTerminal';
 
 const SS_WIDTH = 2560;
-const SS_HEIGHT = 1268;
+const SS_HEIGHT = 1247;
 
 const screenshotWindows = [
   {
@@ -56,54 +38,6 @@ const screenshotWindows = [
     ),
     text: "Zipline's dashboard is packed with features, and is designed to be easy to use.",
   },
-  {
-    darkImage: statsPageScreenshot,
-    lightImage: statsPageScreenshotLight,
-    alt: 'Stats page screenshot',
-    Icon: IconGraph,
-    title: (
-      <>
-        View your <EmphasizeText>stats</EmphasizeText>
-      </>
-    ),
-    text: 'Via the help of charts, graphs, and tables, you can feel awesome while looking at this page!',
-  },
-  {
-    darkImage: galleryPageScreenshot,
-    lightImage: galleryPageScreenshotLight,
-    alt: 'Gallery page screenshot',
-    Icon: IconFiles,
-    title: (
-      <>
-        View your files in a <EmphasizeText>gallery</EmphasizeText>
-      </>
-    ),
-    text: 'View your files and media in a gallery, and do anything you want with them.',
-  },
-  {
-    darkImage: urlsPageScreenshot,
-    lightImage: urlsPageScreenshotLight,
-    alt: 'URLs page screenshot',
-    Icon: IconLink,
-    title: (
-      <>
-        View your <EmphasizeText>shortened URLs</EmphasizeText>
-      </>
-    ),
-    text: 'Create shortened links to websites, set a max amount of uses, and more!',
-  },
-  {
-    darkImage: foldersPageScreenshot,
-    lightImage: foldersPageScreenshotLight,
-    alt: 'Folders page screenshot',
-    Icon: IconFolder,
-    title: (
-      <>
-        Organize your files with <EmphasizeText>folders</EmphasizeText>
-      </>
-    ),
-    text: 'Organize your files with folders, and view them with ease with a click of a button.',
-  },
 ];
 
 export default function Home({ stars }: { stars: number }) {
@@ -112,7 +46,7 @@ export default function Home({ stars }: { stars: number }) {
       <NextSeo
         description='The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?'
         openGraph={{
-          url: 'https://zipline.diced.vercel.app',
+          url: 'https://zipline.diced.sh',
           title: 'Zipline',
           description:
             'The next generation ShareX / File upload server, packed with tons of features and a great dashboard. What more could you want?',
@@ -130,22 +64,24 @@ export default function Home({ stars }: { stars: number }) {
       <Container>
         <Center>
           <div className='my-28 w-full mx-6'>
-            <div className='sm:text-7xl text-5xl font-extrabold text-center'>
+            <div className='sm:text-7xl text-5xl font-medium text-center'>
               <div>
                 The{' '}
-                <span className='transition-all hover:text-6xl hover:md:text-8xl duration-500 ease-in-out bg-clip-text from-purple-500 via-blue-400 to-purple-500 text-transparent bg-gradient-to-r bg-pos-0 bg-size-200 hover:bg-pos-100'>
+                <span className='bg-clip-text from-purple-500 via-blue-400 to-purple-500 text-transparent bg-gradient-to-r bg-pos-0 bg-size-200'>
                   next generation
                 </span>{' '}
               </div>
               <div>ShareX / File upload server</div>
             </div>
 
-            <p className='text-center text-xl md:text-2xl mt-4'>
+            <p className='text-center text-xl text-black dark:text-gray-100 mt-4'>
               Packed with features and a great dashboard. What more could you
               want?
             </p>
 
             <ButtonLinks stars={stars} first={true} />
+
+            <div className='h-0.5 my-40' />
 
             <div className='grid grid-cols-1 md:grid-cols-2 mt-36 gap-12 gap-y-36'>
               {screenshotWindows.map((window, index) => (
@@ -181,26 +117,29 @@ export default function Home({ stars }: { stars: number }) {
                     </div>
                     <p className='text-xl my-4'>{window.text}</p>
                   </div>
-                  <div className='h-0.5 bg-gray-200 dark:bg-gray-800 col-span-1 md:col-span-2' />
                 </Fragment>
               ))}
             </div>
 
+            <div className='h-0.5 my-96' />
+
             <div
-              className='text-4xl md:text-6xl font-bold text-center mt-64 mb-6'
+              className='text-5xl md:text-6xl font-medium text-center mt-64 mb-6'
               id='features'
             >
-              Want a list of features?
+              What does Zipline offer?
             </div>
-            <p className='text-center text-2xl mt-4 mb-16'>
-              Heres a list of the best features Zipline has to offer. We
-              continue to look for new stuff to add!
+            <p className='text-center text-lg text-black dark:text-gray-100 mt-4 mb-16'>
+              Zipline offers a wide range of features, all designed to make
+              sharing files and links easier.
             </p>
 
             <HomePage />
 
+            <div className='h-0.5 my-64' />
+
             <div className='my-64'>
-              <div className='text-4xl md:text-6xl font-bold text-center'>
+              <div className='text-5xl md:text-6xl font-medium text-center'>
                 Ready to get started?
               </div>
 
@@ -252,8 +191,10 @@ export default function Home({ stars }: { stars: number }) {
               </div>
             </div>
 
+            <div className='h-0.5 my-64' />
+
             <div className='my-64'>
-              <div className='text-5xl md:text-6xl font-bold text-center'>
+              <div className='text-5xl md:text-6xl font-medium text-center'>
                 Support development!
               </div>
 
@@ -302,58 +243,7 @@ export default function Home({ stars }: { stars: number }) {
               </div>
             </div>
 
-            <div className='my-64'>
-              <div className='text-5xl md:text-6xl font-bold text-center'>
-                Zipline v4
-              </div>
-
-              <p className='text-center text-2xl mt-4 mb-16'>
-                Zipline&apos;s next major release, <b>v4</b>, is currently in
-                development. For more information see the links below
-              </p>
-              <div className='flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 my-16'>
-                <div className='flex flex-row space-x-5 justify-center items-center'>
-                  <Tooltip
-                    label='View the roadmap and FAQ on notion'
-                    placement='top'
-                  >
-                    <Link
-                      href='/v4/r'
-                      target='_blank'
-                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
-                    >
-                      <IconSitemap className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
-                      Roadmap & FAQ
-                    </Link>
-                  </Tooltip>
-
-                  <Tooltip
-                    label='View the discussion and give ideas on GitHub Discussions'
-                    placement='top'
-                  >
-                    <Link
-                      href='/v4/d'
-                      target='_blank'
-                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
-                    >
-                      <IconMessageCircle2Filled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
-                      Discussion & Feedback
-                    </Link>
-                  </Tooltip>
-
-                  <Tooltip label='View the v4 branch on GitHub' placement='top'>
-                    <Link
-                      href='/v4/g'
-                      target='_blank'
-                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
-                    >
-                      <IconGitBranch className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-blue-500 group-hover:animate-pulse' />
-                      <Code>v4</Code> Branch
-                    </Link>
-                  </Tooltip>
-                </div>
-              </div>
-            </div>
+            <div className='h-0.5 my-64' />
           </div>
         </Center>
       </Container>

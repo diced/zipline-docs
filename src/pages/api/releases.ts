@@ -11,8 +11,7 @@ export type CheckRun =
 export interface ReleaseResponse {
   releases: Release[];
   upstream: {
-    commit: Commit | null;
-    checkRuns: CheckRun[];
+    commits: (Commit & { checkRuns: CheckRun[] })[];
   };
 }
 
@@ -31,53 +30,51 @@ export default async function handler(req: NextRequest) {
   const response: ReleaseResponse = {
     releases: [],
     upstream: {
-      commit: null,
-      checkRuns: [],
+      commits: [],
     },
   };
 
-  const res = await fetch(
-    'https://api.github.com/repos/diced/zipline/releases',
-    {
-      headers,
-    },
-  );
+  // const res = await fetch(
+  //   'https://api.github.com/repos/diced/zipline/releases',
+  //   {
+  //     headers,
+  //   },
+  // );
 
-  if (res.ok) {
-    const releases: Release[] = await res.json();
+  // if (res.ok) {
+  //   const releases: Release[] = await res.json();
 
-    response.releases = releases.filter(
-      (release) =>
-        release.tag_name.startsWith('v3') || release.tag_name.startsWith('3'),
-    );
-  }
+  //   response.releases = releases.filter(
+  //      (release) =>
+  //        release.tag_name.startsWith('v4'),
+  //   );
+  // }
 
   const upstreamRes = await fetch(
-    'https://api.github.com/repos/diced/zipline/commits/trunk',
+    'https://api.github.com/repos/diced/zipline/commits?sha=v4&per_page=5',
     {
       headers,
     },
   );
 
   if (upstreamRes.ok) {
-    const commit: Commit = await upstreamRes.json();
+    const commit: Commit[] = await upstreamRes.json();
 
-    response.upstream.commit = commit;
-  }
+    for (const c of commit) {
+      const checkRunsRes = await fetch(
+        'https://api.github.com/repos/diced/zipline/commits/v4/check-runs',
+        {
+          headers,
+        },
+      );
+      if (checkRunsRes.ok) {
+        const resp: {
+          check_runs: CheckRun[];
+        } = await checkRunsRes.json();
 
-  const checkRunsRes = await fetch(
-    'https://api.github.com/repos/diced/zipline/commits/trunk/check-runs',
-    {
-      headers,
-    },
-  );
-
-  if (checkRunsRes.ok) {
-    const resp: {
-      check_runs: CheckRun[];
-    } = await checkRunsRes.json();
-
-    response.upstream.checkRuns = resp.check_runs;
+        response.upstream.commits.push({ ...c, checkRuns: resp.check_runs });
+      }
+    }
   }
 
   return new Response(JSON.stringify(response), {

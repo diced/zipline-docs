@@ -1,6 +1,6 @@
-# Zipline Docs v3+
+# Zipline Docs v4
 
-Documentation for [Zipline](https://github.com/diced/zipline)!
+Documentation for [Zipline v4](https://github.com/diced/zipline/treev4)! v4 is currently under development, and so is this documentation.
 
 ## Contributing
 

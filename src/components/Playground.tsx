@@ -1,6 +1,6 @@
 import { IconChevronDown } from '@tabler/icons-react';
 import { useTheme } from 'next-themes';
-import Highlight, { defaultProps } from 'prism-react-renderer';
+import { Highlight } from 'prism-react-renderer';
 import React, { useState } from 'react';
 import ayuDark from '../lib/themes/ayuDark';
 import ayuLight from '../lib/themes/ayuLight';
@@ -340,7 +340,6 @@ export default function Playground() {
           }`}
         >
           <Highlight
-            {...defaultProps}
             code={JSON.stringify(sampleData, null, 2)}
             language='json'
             theme={theme === 'light' ? ayuLight : ayuDark}

@@ -4,7 +4,7 @@ import {
   useInteractions,
   useHover,
   Placement,
-} from '@floating-ui/react-dom-interactions';
+} from '@floating-ui/react';
 import { motion } from 'framer-motion';
 
 interface TooltipProps {
@@ -15,7 +15,7 @@ interface TooltipProps {
 
 export default function Tooltip({ children, label, placement }: TooltipProps) {
   const [open, setOpen] = useState(false);
-  const { x, y, reference, floating, strategy, context } = useFloating({
+  const { x, y, refs, strategy, context } = useFloating({
     open,
     onOpenChange: setOpen,
     placement,
@@ -27,11 +27,15 @@ export default function Tooltip({ children, label, placement }: TooltipProps) {
 
   return (
     <>
-      <div className='inline-flex' ref={reference} {...getReferenceProps()}>
+      <div
+        className='inline-flex'
+        ref={refs.setReference}
+        {...getReferenceProps()}
+      >
         {children}
       </div>
       <motion.div
-        ref={floating}
+        ref={refs.setFloating}
         style={{
           position: strategy,
           left: x ?? 0,

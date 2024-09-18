@@ -9,7 +9,7 @@ export default function Community() {
       <NextSeo
         description='Interact with the Zipline community, or receive support!'
         openGraph={{
-          url: 'https://zipline.diced.vercel.app',
+          url: 'https://zipline.diced.sh/community',
           title: 'Zipline - Community',
           description:
             'Interact with the Zipline community, or receive support!',

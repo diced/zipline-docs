@@ -1,9 +1,7 @@
 import {
-  IconArrowRight,
   IconBrandDiscordFilled,
   IconBrandGithubFilled,
 } from '@tabler/icons-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { randomStr } from '../lib/random';
 import Container from './Container';
@@ -14,27 +12,14 @@ const items = [
     title: 'Zipline',
     items: [
       { title: 'Features', href: '/#features' },
-      { title: 'Docs', href: '/docs' },
+      { title: 'Documentation', href: '/docs' },
       { title: 'Community', href: '/community' },
       { title: 'Sponsor', href: 'https://github.com/sponsors/diced' },
     ],
   },
   {
-    title: 'Docs',
-    items: [
-      { title: 'Get Started', href: '/docs/get-started' },
-      { title: 'API Reference', href: '/docs/api' },
-      { title: 'Config', href: '/docs/config' },
-    ],
-  },
-  {
-    title: 'Guides',
-    items: [
-      { title: 'NGINX Proxy', href: '/docs/guides/nginx/nginx-no-ssl' },
-      { title: 'ShareX', href: '/docs/guides/uploaders/sharex' },
-      { title: 'Discord Webhooks', href: '/docs/guides/discord-webhooks' },
-      { title: 'OAuth2', href: '/docs/guides/oauth' },
-    ],
+    title: 'Documentation',
+    items: [{ title: 'Get Started', href: '/docs/get-started' }],
   },
   {
     title: 'Resources',
@@ -66,25 +51,35 @@ export default function Footer() {
               </div>
 
               <div className='text-gray-300 py-2 rounded-md font-normal text-md'>
-                © {new Date().getFullYear()} diced. All rights reserved.
+                © {new Date().getFullYear()}{' '}
+                <Link
+                  href='https://github.com/diced/'
+                  className='hover:underline'
+                >
+                  diced
+                </Link>
+                .{' '}
+                <Link
+                  href='https://github.com/diced/zipline/tree/trunk/LICENSE'
+                  className='hover:underline'
+                >
+                  All rights reserved.
+                </Link>
               </div>
               <ThemeDropdown withName />
             </div>
 
             <div className='justify-center'>
               <div className='md:ml-10 md:flex md:flex-row my-6 md:my-0 flex-col items-baseline md:space-x-20'>
-                {items.map((item) => (
-                  <div
-                    key={randomStr()}
-                    className='py-2 rounded-md font-medium text-md'
-                  >
+                {items.map((item, i) => (
+                  <div key={i} className='py-2 rounded-md font-medium text-md'>
                     <span className='text-lg text-gray-600 dark:text-gray-300'>
                       {item.title}
                     </span>
                     <div className='flex flex-col'>
-                      {item.items.map((subItem) => (
+                      {item.items.map((subItem, j) => (
                         <Link
-                          key={randomStr()}
+                          key={j}
                           href={subItem.href}
                           className='flex transition-colors ease-in-out text-gray-300 hover:text-blue-400 py-2 rounded-md font-normal text-md text-center'
                         >

@@ -1,7 +1,6 @@
 import {
   IconAlertCircleFilled,
   IconAlertTriangleFilled,
-  IconExclamationCircle,
   IconHelp,
   IconInfoCircleFilled,
 } from '@tabler/icons-react';
@@ -9,40 +8,46 @@ import { ReactNode } from 'react';
 
 interface AlertProps {
   children: ReactNode;
-  type: 'danger' | 'info' | 'warning' | 'tip' | 'note';
+  type: 'danger' | 'info' | 'warning' | 'note';
 }
 
-// inspired by remix.run docs alerts
+function BaseAlert({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`my-2 px-3 border-[1px] rounded-md ${className}`}>
+      {children}
+    </div>
+  );
+}
 
 export default function Alert({ children, type }: AlertProps) {
   const Element = {
     danger: (props: any) => (
-      <div
-        className='my-2 px-3 py-1 border-r-2 border-l-2 rounded-md border-red-400 bg-red-200 dark:bg-red-900/40'
+      <BaseAlert
+        className='border-red-400 bg-red-200 dark:bg-red-900/40'
         {...props}
       />
     ),
     info: (props: any) => (
-      <div
-        className='my-2 px-3 py-1 border-r-2 border-l-2 rounded-md border-blue-400 bg-blue-200 dark:bg-blue-900/40'
+      <BaseAlert
+        className='border-blue-400 bg-blue-200 dark:bg-blue-900/40'
         {...props}
       />
     ),
     note: (props: any) => (
-      <div
-        className='my-2 px-3 py-1 border-r-2 border-l-2 rounded-md border-gray-400 bg-gray-100 dark:bg-gray-800/40'
-        {...props}
-      />
-    ),
-    tip: (props: any) => (
-      <div
-        className='my-2 px-3 py-1 border-r-2 border-l-2 rounded-md border-green-400 bg-green-100 dark:bg-green-900/40'
+      <BaseAlert
+        className='border-gray-400 bg-gray-100 dark:bg-gray-800/40'
         {...props}
       />
     ),
     warning: (props: any) => (
-      <div
-        className='my-2 px-3 py-1 border-r-2 border-l-2 rounded-md border-yellow-400 bg-yellow-100 dark:bg-yellow-900/70'
+      <BaseAlert
+        className='border-yellow-400 bg-yellow-100 dark:bg-yellow-900/70'
         {...props}
       />
     ),
@@ -51,8 +56,7 @@ export default function Alert({ children, type }: AlertProps) {
   const Icon = {
     danger: IconAlertCircleFilled,
     info: IconInfoCircleFilled,
-    note: IconExclamationCircle,
-    tip: IconHelp,
+    note: IconHelp,
     warning: IconAlertTriangleFilled,
   }[type];
 
@@ -60,13 +64,12 @@ export default function Alert({ children, type }: AlertProps) {
     danger: 'Danger',
     info: 'Info',
     note: 'Note',
-    tip: 'Tip',
     warning: 'Warning',
   }[type];
 
   return (
     <Element>
-      <div className='flex dark:text-white text-black items-center'>
+      <div className='flex dark:text-white text-black items-center mt-2'>
         <Icon size={20} />
         <div className='ml-2 font-bold'>{name}</div>
       </div>

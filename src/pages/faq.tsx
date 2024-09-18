@@ -9,7 +9,7 @@ export default function FAQ() {
       <NextSeo
         description='Frequently asked questions about Zipline.'
         openGraph={{
-          url: 'https://zipline.diced.vercel.app',
+          url: 'https://zipline.diced.sh/faq',
           title: 'Zipline - FAQ',
           description: 'Frequently asked questions about Zipline.',
           images: [

@@ -1,12 +1,12 @@
 .color-GET,
 .color-200 {
-  @apply dark:bg-green-400 bg-green-300;
+  @apply dark:bg-green-400 bg-green-300 dark:text-white text-black;
 }
 
 .color-POST,
 .color-PUT,
 .color-PATCH {
-  @apply dark:bg-yellow-400 bg-yellow-300;
+  @apply dark:bg-yellow-500 bg-yellow-300 text-black;
 }
 
 .color-DELETE,
@@ -14,9 +14,9 @@
 .color-401,
 .color-400,
 .color-404 {
-  @apply dark:bg-red-400 bg-red-300;
+  @apply dark:bg-red-400 bg-red-300 dark:text-white text-black;
 }
 
 .color-308 {
-  @apply dark:bg-purple-400 bg-purple-300;
+  @apply dark:bg-purple-400 bg-purple-300 dark:text-white text-black;
 }

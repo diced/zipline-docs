@@ -1,6 +1,7 @@
 import {
   IconChevronLeft,
   IconChevronRight,
+  IconExternalLink,
   IconHome,
 } from '@tabler/icons-react';
 import { existsSync } from 'fs';
@@ -49,7 +50,6 @@ export default function DocsPage({
   lastUpdated: last,
 }: DocsProps) {
   const lastUpdated = new Date(last);
-
   return (
     <div className='max-w-[90rem] w-full mx-auto flex flex-1 items-stretch'>
       <NextSeo
@@ -66,6 +66,7 @@ export default function DocsPage({
           ],
         }}
       />
+
       <Sidebar items={sidebar}>
         <article className='prose dark:prose-invert dark:text-white text-black max-w-4xl min-w-0 pt-6 px-8 md:px-20 w-full'>
           <div className='flex items-center cursor-default select-none mb-6'>
@@ -144,7 +145,7 @@ export default function DocsPage({
 
           <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
 
-          <div className='not-prose flex justify-between my-8 cursor-default md:flex-row flex-col items-center space-y-10'>
+          <div className='not-prose flex justify-between my-8 cursor-default md:flex-row flex-col items-center space-y-10 md:space-y-0'>
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
               <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>
@@ -153,10 +154,11 @@ export default function DocsPage({
             </div>
 
             <Link
-              href={`https://github.com/diced/zipline-docs/tree/trunk/${path}`}
+              href={`https://github.com/diced/zipline-docs/tree/v4/${path.endsWith('.md') ? path : path + '/' + path.split('/').pop() + '.md'}`}
               className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500 hover:text-blue-600'
             >
-              Edit this page on GitHub
+              Edit this page on GitHub{' '}
+              <IconExternalLink className='ml-1' size='1rem' />
             </Link>
           </div>
         </article>
@@ -220,9 +222,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const joined = slug.join('/');
 
-  let path = join(process.cwd(), 'docs', joined + '.md');
+  let path = join(process.cwd(), 'docs', joined + '.mdx');
   if (!existsSync(path)) {
-    path = join(process.cwd(), 'docs', joined, joined.split('/').pop() + '.md');
+    path = join(
+      process.cwd(),
+      'docs',
+      joined,
+      joined.split('/').pop() + '.mdx',
+    );
   }
 
   if (!existsSync(path)) {

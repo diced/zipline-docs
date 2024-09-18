@@ -15,7 +15,7 @@ import Script from 'next/script';
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  display: 'swap',
 });
 
 export default function App({ Component, pageProps }: AppProps) {

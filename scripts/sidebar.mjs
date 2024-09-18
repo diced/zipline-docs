@@ -17,7 +17,9 @@ export default async function genSidebar(dir) {
       const children = await genSidebar(filePath);
 
       if (existsSync(join(filePath, '_category_.json'))) {
-        const category = JSON.parse(await readFile(join(filePath, '_category_.json')));
+        const category = JSON.parse(
+          await readFile(join(filePath, '_category_.json')),
+        );
         sidebar.push({
           title: category.label,
           path: filePath,
@@ -30,7 +32,7 @@ export default async function genSidebar(dir) {
       }
     } else {
       if (file === '_category_.json') continue;
-      if (file === dir.split('/').pop() + '.md') continue;
+      if (file === dir.split('/').pop() + '.mdx') continue;
       const fm = matter(await readFile(filePath, 'utf8'));
       const pos = fm.data['sidebar_position'];
 
@@ -69,7 +71,7 @@ export function convertSidebarToParsable(sidebar) {
   const newSidebar = [];
 
   for (const item of sidebar) {
-    const href = '/' + item.path.replace(/\.md$/, '').replace(/^\/docs/, '');
+    const href = '/' + item.path.replace(/\.mdx$/, '').replace(/^\/docs/, '');
     let res = {};
 
     res.title = item.title;
@@ -96,7 +98,7 @@ export function convertSidebarToParsable(sidebar) {
 export function checkIfDirectoryFile(sidebar) {
   for (const item of sidebar) {
     if (item.type === 'd') {
-      const filename = item.path.split('/').pop() + '.md';
+      const filename = item.path.split('/').pop() + '.mdx';
       const filepath = join(item.path, filename).replace(/\\/g, '/');
 
       if (existsSync(filepath)) {
