@@ -1,0 +1,193 @@
+# Variables
+
+Variables can be used in [Discord Webhook](/docs/guides/discord-webhook) messages and the [view route](/docs/guides/view-route) to customize the message with dynamic content.
+Variables also allow you to use modifiers to format the content in a specific way.
+
+Format: `{variableName.property::modifier::secondModifier?}`
+
+At the bottom of the page there is a [playground](#playground) to test the variables.
+
+## Available Variables
+
+### User
+
+| Access             | Type                          | Description                                                |
+| ------------------ | ----------------------------- | ---------------------------------------------------------- |
+| `{user.id}`        | [`string`](#string-modifiers) | The user's ID                                              |
+| `{user.createdAt}` | [`date`](#date-modifiers)     | The user's creation date                                   |
+| `{user.updatedAt}` | [`date`](#date-modifiers)     | The user's last update date                                |
+| `{user.username}`  | [`string`](#string-modifiers) | The user's username                                        |
+| `{user.role}`      | [`string`](#string-modifiers) | The user's role: `USER` \| `ADMIN` \| `SUPERADMINISTRATOR` |
+
+### File
+
+<Alert type='info'>
+  These variables are only available in the case of anything related to files.
+</Alert>
+
+| Access                | Type                            | Description                 |
+| --------------------- | ------------------------------- | --------------------------- |
+| `{file.id}`           | [`string`](#string-modifiers)   | The file's ID               |
+| `{file.createdAt}`    | [`date`](#date-modifiers)       | The file's creation date    |
+| `{file.updatedAt}`    | [`date`](#date-modifiers)       | The file's last update date |
+| `{file.deletesAt}`    | [`date`](#date-modifiers)       | The file's expiration date  |
+| `{file.favorite}`     | [`boolean`](#boolean-modifiers) | If the file is favorited    |
+| `{file.name}`         | [`string`](#string-modifiers)   | The file's name             |
+| `{file.originalName}` | [`string`](#string-modifiers)   | The file's original name    |
+| `{file.size}`         | [`number`](#number-modifiers)   | The file's size in bytes    |
+| `{file.type}`         | [`string`](#string-modifiers)   | The file's type             |
+| `{file.views}`        | [`number`](#number-modifiers)   | The file's views            |
+| `{file.maxViews}`     | [`number`](#number-modifiers)   | The file's max views        |
+| `{file.folderId}`?    | [`string`](#string-modifiers)   | The file's folder ID        |
+
+### URL
+
+<Alert type='info'>
+  These variables are only available in the case of anything related to URLs.
+</Alert>
+
+| Access              | Type                          | Description                |
+| ------------------- | ----------------------------- | -------------------------- |
+| `{url.id}`          | [`string`](#string-modifiers) | The URL's ID               |
+| `{url.createdAt}`   | [`date`](#date-modifiers)     | The URL's creation date    |
+| `{url.updatedAt}`   | [`date`](#date-modifiers)     | The URL's last update date |
+| `{url.code}`        | [`string`](#string-modifiers) | The URL's code             |
+| `{url.vanity}`      | [`string`](#string-modifiers) | The URL's vanity           |
+| `{url.destination}` | [`string`](#string-modifiers) | The URL's destination      |
+| `{url.views}`       | [`number`](#number-modifiers) | The URL's views            |
+| `{url.maxViews}`    | [`number`](#number-modifiers) | The URL's max views        |
+
+### Link
+
+<Alert type='info'>
+  These variables are only available on the `onUpload` and `onShorten` events.
+</Alert>
+
+| Access             | Type                          | Description                                                            |
+| ------------------ | ----------------------------- | ---------------------------------------------------------------------- |
+| `{link.returned}`? | [`string`](#string-modifiers) | The returned link when a file is uploaded or a URL is shortened        |
+| `{link.raw}`?      | [`string`](#string-modifiers) | Only available on the `onUpload` event, this will be the raw file link |
+
+### User Metrics
+
+These are variables to access user metrics
+
+| Access                    | Type                          | Description                       |
+| ------------------------- | ----------------------------- | --------------------------------- |
+| `{metricsUser.files}`     | [`number`](#number-modifiers) | The user's total files            |
+| `{metricsUser.urls}`      | [`number`](#number-modifiers) | The user's total URLs             |
+| `{metricsUser.storage}`   | [`number`](#number-modifiers) | The user's total storage in bytes |
+| `{metricsUser.fileViews}` | [`number`](#number-modifiers) | The user's total file views       |
+| `{metricsUser.urlViews}`  | [`number`](#number-modifiers) | The user's total URL views        |
+
+### Zipline Metrics
+
+These are variables for the current instance metrics (not limited to the user).
+
+| Access                       | Type                          | Description                |
+| ---------------------------- | ----------------------------- | -------------------------- |
+| `{metricsZipline.files}`     | [`number`](#number-modifiers) | The total files            |
+| `{metricsZipline.urls}`      | [`number`](#number-modifiers) | The total URLs             |
+| `{metricsZipline.storage}`   | [`number`](#number-modifiers) | The total storage in bytes |
+| `{metricsZipline.fileViews}` | [`number`](#number-modifiers) | The total file views       |
+| `{metricsZipline.urlViews}`  | [`number`](#number-modifiers) | The total URL views        |
+
+### Debug
+
+If you are having issues with variables, you can use these debug variables to see the raw data in JSON format.
+
+| Access           | Type                          | Description                                                |
+| ---------------- | ----------------------------- | ---------------------------------------------------------- |
+| `{debug.json}`?  | [`string`](#string-modifiers) | The raw JSON data of the event unformatted                 |
+| `{debug.jsonf}`? | [`string`](#string-modifiers) | The raw JSON data of the event formatted with 2 space tabs |
+
+## Modifiers
+
+To use modifiers, you need to add them after the variable with a double colon `::`. For example to format a date to UTC time you would use `{user.createdAt::utc}`.
+
+### `string` modifiers
+
+| Modifier  | Description                 | Example              |
+| --------- | --------------------------- | -------------------- |
+| `upper`   | Uppercase the string        | `aBcD` -> `ABCD`     |
+| `lower`   | Lowercase the string        | `aBcD` -> `abcd`     |
+| `title`   | Title case the string       | `aBcD` -> `Abcd`     |
+| `length`  | Get the string length       | `aBcD` -> `4`        |
+| `reverse` | Reverse the string          | `aBcD` -> `DcBa`     |
+| `base64`  | Encode the string to base64 | `aBcD` -> `YUJjRA==` |
+| `hex`     | Encode the string to hex    | `aBcD` -> `61426344` |
+| `string`  | Convert the value to string | `aBcD` -> `aBcD`     |
+
+unkown -> `{unknown_str_modifier({mod})}`
+
+### `number` modifiers
+
+| Modifier | Description                 | Example                |
+| -------- | --------------------------- | ---------------------- |
+| `comma`  | Add commas to the number    | `1000` -> `1,000`      |
+| `hex`    | Encode the number to hex    | `1000` -> `3E8`        |
+| `octal`  | Encode the number to octal  | `1000` -> `1750`       |
+| `binary` | Encode the number to binary | `1000` -> `1111101000` |
+| `bytes`  | Convert the number to bytes | `1000` -> `1 KB`       |
+| `string` | Convert the value to string | `1000` -> `1000`       |
+
+unknown -> `{unknown_int_modifier({mod})}`
+
+### `boolean` modifiers
+
+| Modifier    | Description                 | Example                              |
+| ----------- | --------------------------- | ------------------------------------ |
+| `yesno`     | Yes/No                      | `true` -> `Yes`, `false` -> `No`     |
+| `onoff`     | On/Off                      | `true` -> `On`, `false` -> `Off`     |
+| `truefalse` | True/False                  | `true` -> `True`, `false` -> `False` |
+| `string`    | Convert the value to string | `true` -> `true`, `false` -> `false` |
+
+unknown -> `{unknown_bool_modifier({mod})}`
+
+### `date` modifiers
+
+| Modifier | Description                                              | Example                                   |                                                            |
+| -------- | -------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| `locale` | Format the date to the locale provided or system default | `9/22/2024` -> `9/22/2024, 12:00:00 AM`   | [locale/timezone configuration](#localetimezone-modifiers) |
+| `time`   | Format the date to the time provided                     | `9/22/2024` -> `9/22/2024`                | [locale/timezone configuration](#localetimezone-modifiers) |
+| `date`   | Format the date to the date provided                     | `9/22/2024` -> `12:00:00 AM`              | [locale/timezone configuration](#localetimezone-modifiers) |
+| `unix`   | Convert the date to a Unix timestamp                     | `9/22/2024` -> `1692819200000`            |
+| `iso`    | Convert the date to an ISO string                        | `9/22/2024` -> `2024-09-22T00:00:00.000Z` |
+| `utc`    | Convert the date to UTC time                             | `9/22/2024` -> `2024-09-22T00:00:00.000Z` |
+| `year`   | Get the year from the date                               | `9/22/2024` -> `2024`                     |
+| `month`  | Get the month from the date                              | `9/22/2024` -> `9`                        |
+| `day`    | Get the day from the date                                | `9/22/2024` -> `22`                       |
+| `hour`   | Get the hour from the date                               | `9/22/2024` -> `0`                        |
+| `minute` | Get the minute from the date                             | `9/22/2024` -> `0`                        |
+| `second` | Get the second from the date                             | `9/22/2024` -> `0`                        |
+| `string` | Convert the value to string                              | `9/22/2024` -> `9/22/2024`                |
+| `ampm`   | Get the am/pm from the date                              | `9/22/2024 12:00:00 am` -> `am`           |
+| `AMPM`   | Get the AM/PM from the date                              | `9/22/2024 12:00:00 am` -> `AM`           |
+
+#### Locale/Timezone Modifiers
+
+Zipline lets you specify the locale and timezone for the `locale`, `time`, and `date` modifiers. To achieve this you need to specify the 2nd modifier: `{user.createdAt::locale::en-UK,Europe/London}`.
+
+For example using `{user.createdAt::locale::ja-JP,Asia/Tokyo}` will format the date to the Japanese locale and timezone and will yield a result of <code>{(new Date("9/22/2024 11:30 AM").toLocaleString("ja-JP", {timeZone: "Asia/Tokyo"}))}</code> when the system time is `9/22/2024 11:30 AM` in the `America/Los_Angeles` timezone.
+
+It is also possible to continue using the system locale, but specify a different timezone. To do this just specify the timezone: `{user.createdAt::locale::,Europe/London}`. Notice the comma is right after the double colons.
+
+Some specific use cases for this may be if you want to use 24-hour time but continue using an American timezone, you can use `{user.createdAt::locale::en-UK,America/Los_Angeles}`. This will format the date and time to use 24-hour time and `dd/mm/yyyy` format instead of the default `mm/dd/yyyy` format used in the US.
+
+#### Useful Info
+
+If you are looking for a list of possible locales, you can visit https://www.unicode.org/cldr/charts/44/supplemental/language_territory_information.html. To use this table, take the language code ("Code" in the table) and the territory code ("Territory" in the table) and combine them with a hyphen. For example, the code for English in the United Kingdom is `en-UK`, and the code for Japanese in Japan is `ja-JP`.
+
+A list of timezones can be found at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. Use the value under the "TZ identifier" column.
+
+<Alert type='info'>
+  All values are case insensitive, so `en-UK` is the same as `EN-uk` and
+  `en-uk`. The same goes for timezones: `America/Los_Angeles` is the same as
+  `america/los_angeles` and `AMERICA/LOS_ANGELES`.
+</Alert>
+
+## Playground
+
+Try out the variables below to see how they work. For dates, the time is when the page was loaded.
+
+<VariablesPlayground />

@@ -3,7 +3,7 @@ import { Heading } from './Headings';
 
 export const MDXComponents = {
   APIBadge: dynamic(() => import('./APIBadge')),
-  Playground: dynamic(() => import('./Playground')),
+  VariablesPlayground: dynamic(() => import('./VariablesPlayground')),
   TimezoneCollapse: dynamic(() => import('./TimezoneCollapse')),
   ExternalLinksBuilder: dynamic(() => import('./ExternalLinksBuilder')),
   TabItem: dynamic(() => import('./tabs/TabItem')),

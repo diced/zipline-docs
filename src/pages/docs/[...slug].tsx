@@ -6,12 +6,7 @@ import {
 } from '@tabler/icons-react';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
-import {
-  GetStaticPaths,
-  GetStaticProps,
-  InferGetServerSidePropsType,
-  InferGetStaticPropsType,
-} from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
@@ -27,7 +22,6 @@ import { MDXComponents } from '../../components/mdx/MDXComponents';
 import ScrollToTop from '../../components/mdx/ScrollToTop';
 import Sidebar from '../../components/sidebar';
 import {
-  DocSidebarItem,
   flattenSidebar,
   getBreadcrumbs,
   getPaths,

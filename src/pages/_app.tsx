@@ -1,16 +1,21 @@
-import { Inter } from 'next/font/google';
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
+import Script from 'next/script';
 import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
-import Script from 'next/script';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 
-import '../styles/index.css';
+import '../styles/docs.css';
 import '../styles/docsearch.css';
-import '../styles/http-badge.css';
+import '../styles/index.css';
 
 const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
 });
@@ -66,9 +71,20 @@ export default function App({ Component, pageProps }: AppProps) {
         data-website-id='eb6dbb46-aeae-45c5-ae52-a6d8ab6bf43c'
       />
 
+      <style jsx global>{`
+        html {
+          font-family: ${inter.style.fontFamily};
+        }
+
+        code,
+        pre {
+          font-family: ${jetbrainsMono.style.fontFamily};
+        }
+      `}</style>
+
       <ThemeProvider attribute='class' enableSystem={true}>
         <SearchProvider>
-          <Layout inter={inter}>
+          <Layout>
             <Component {...pageProps} />
           </Layout>
         </SearchProvider>

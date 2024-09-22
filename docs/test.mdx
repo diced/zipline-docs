@@ -134,6 +134,16 @@ echo "test"
 
 ![image with caption](/img/screenshot-1-light.png 'caption')
 
+<div className='dark:hidden block'>
+  ![image with caption](/img/screenshot-1-light.png 'will only show in light
+  mode, change the theme to see the image change')
+</div>
+
+<div className='dark:block hidden'>
+  ![image with caption](/img/screenshot-1-dark.png 'will only show in dark mode,
+  change the theme to see the image change')
+</div>
+
 ## <APIBadge type="GET" /> /api/user
 
 Get
@@ -154,7 +164,7 @@ Delete
 
 Patch
 
-## A very long title that will make the "On this page" section overflow
+## `A very long title that will make the "On this page" section overflow`
 
 ### `A very long title that will make the "On this page" section overflow`
 
