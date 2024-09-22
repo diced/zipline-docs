@@ -4,9 +4,9 @@ import {
   IconMoonFilled,
   IconSunFilled,
 } from '@tabler/icons-react';
+import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
-import { randomStr } from '../lib/random';
 
 const ICON_SIZE = 24;
 
@@ -30,7 +30,6 @@ export function ThemeDropdownItem({
 
   return (
     <button
-      key={randomStr()}
       className={`flex flex-row items-center mx-1 my-1 px-2 py-1 text-sm transition-colors text-gray-700 dark:text-gray-200 hover:bg-gray-50/40 dark:hover:bg-gray-800/50 rounded-md ${
         theme === value ? 'font-semibold text-blue-500 dark:text-blue-400' : ''
       }`}
@@ -53,6 +52,15 @@ export default function ThemeDropdown({ withName = false }) {
   const [resolvedTheme, setResolvedTheme] = useState(theme);
   const divEl = useRef<HTMLDivElement>(null);
 
+  const addDataTheme = (theme: string | undefined) => {
+    if (document.documentElement) {
+      document.documentElement.setAttribute(
+        'data-theme',
+        (theme as string) || '',
+      );
+    }
+  };
+
   useEffect(() => {
     const listener = (e: MouseEvent) => {
       if (divEl.current && !divEl.current.contains(e.target as Node)) {
@@ -72,8 +80,14 @@ export default function ThemeDropdown({ withName = false }) {
           ? 'dark'
           : 'light',
       );
+      addDataTheme(
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light',
+      );
     } else {
       setResolvedTheme(theme);
+      addDataTheme(theme);
     }
   }, [theme, mounted]);
 
@@ -121,9 +135,10 @@ export default function ThemeDropdown({ withName = false }) {
       {open && (
         <div
           ref={divEl}
-          className={`absolute z-10 origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none ${
-            withName ? 'bottom-6' : ''
-          }`}
+          className={clsx(
+            'absolute z-10 origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none',
+            withName && 'bottom-6',
+          )}
         >
           {options.map((option) => (
             <ThemeDropdownItem

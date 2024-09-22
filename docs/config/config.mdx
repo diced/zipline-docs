@@ -1,0 +1,53 @@
+# Config
+
+This page will document every configuration option available in Zipline through environment variables, as well as through the settings dashboard.
+
+By default, only the `DATABASE_URL` AND `CORE_SECRET` environment variables are required. The rest are optional, and have default values.
+
+<Alert type='info'>
+  It is important that the `CORE_SECRET` is not easily guessable. This secret is
+  used to sign website cookies, and should be kept private. If the secret is
+  comprimised, it is recommended to change it immediately, as it can be used to
+  gain unauthorized access to the website.
+</Alert>
+
+## Example
+
+```bash copy filename=".env"
+DATABASE_URL=postgresql://user:password@localhost:5432/zipline
+CORE_SECRET="secret"
+CORE_PORT=3000
+CORE_HOSTNAME=0.0.0.0
+
+DATASOURCE_TYPE=local
+DATASOURCE_LOCAL_DIRECTORY=./uploads
+```
+
+---
+
+## Links
+
+<DocLinks
+  links={[
+    {
+      title: '🛞 Core',
+      description: 'Core configuration options',
+      href: '/docs/config/core',
+    },
+    {
+      title: '📂 Datasource',
+      description: 'Local file storage & S3 support',
+      href: '/docs/config/datasource',
+    },
+    {
+      title: '🔐 SSL',
+      description: 'Native SSL',
+      href: '/docs/config/ssl',
+    },
+    {
+      title: '⚙️ Settings Dashboard',
+      description: 'Settings that can be managed through the web dashboard',
+      href: '/docs/config/settings',
+    },
+  ]}
+/>

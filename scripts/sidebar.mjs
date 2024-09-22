@@ -154,24 +154,6 @@ function getDescription(mdSource) {
   }
 }
 
-export function flattenSidebar(parsable) {
-  let newSidebar = [];
-
-  for (const item of parsable) {
-    if (item.items) {
-      if (item.href) {
-        const { items, ...rest } = item;
-        newSidebar.push(rest);
-      }
-      newSidebar = newSidebar.concat(flattenSidebar(item.items));
-    } else {
-      newSidebar.push(item);
-    }
-  }
-
-  return newSidebar;
-}
-
 export function getLastUpdated(path) {
   const gitOutput = execSync(`git log --format="%ct" -1 -- ${path}`, {
     encoding: 'utf8',

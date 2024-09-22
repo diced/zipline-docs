@@ -3,7 +3,6 @@ import {
   IconBrandGithubFilled,
 } from '@tabler/icons-react';
 import Link from 'next/link';
-import { randomStr } from '../lib/random';
 import Container from './Container';
 import ThemeDropdown from './ThemeDropdown';
 
@@ -19,7 +18,18 @@ const items = [
   },
   {
     title: 'Documentation',
-    items: [{ title: 'Get Started', href: '/docs/get-started' }],
+    items: [
+      { title: 'Get Started', href: '/docs/get-started' },
+      { title: 'Config', href: '/docs/config' },
+    ],
+  },
+  {
+    title: 'Guides',
+    items: [
+      { title: 'Docker', href: '/docs/get-started/docker' },
+      { title: 'OAuth', href: '/docs/guides/oauth' },
+      { title: 'Reverse Proxies', href: '/docs/guides/reverse-proxy' },
+    ],
   },
   {
     title: 'Resources',
@@ -35,14 +45,14 @@ export default function Footer() {
   return (
     <div className='dark:bg-gray-900 border-gray-100 dark:border-gray-800 border-t'>
       <Container>
-        <div className='max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8'>
+        <div className='max-w-full px-4 my-20 sm:px-6 lg:px-8'>
           <div className='flex md:flex-row flex-col items-center h-auto justify-between'>
             <div className='flex flex-col items-center'>
               <div className='flex items-center'>
                 <p className='text-4xl font-bold mx-6'>Zipline</p>
                 <div className='flex flex-row space-x-4'>
                   <Link href='/github' aria-label='github'>
-                    <IconBrandGithubFilled className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out hover:fill-gray-200' />
+                    <IconBrandGithubFilled className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out dark:hover:fill-gray-300 hover:fill-gray-700' />
                   </Link>
                   <Link href='/discord' aria-label='discord'>
                     <IconBrandDiscordFilled className='fill-[#5865F2] hover:fill-[#4750b5] h-6 w-6 transition-colors ease-in-out' />
@@ -81,7 +91,7 @@ export default function Footer() {
                         <Link
                           key={j}
                           href={subItem.href}
-                          className='flex transition-colors ease-in-out text-gray-300 hover:text-blue-400 py-2 rounded-md font-normal text-md text-center'
+                          className='flex transition-colors ease-in-out text-gray-300 hover:text-blue-400 py-2 rounded-md font-normal text-sm text-center'
                         >
                           {subItem.title}
                         </Link>

@@ -4,14 +4,11 @@ import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
-
-// tw
-import '../styles/index.css';
-// algolia
-import '../styles/docsearch.css';
-// api docs http badges
-import '../styles/http-badge.css';
 import Script from 'next/script';
+
+import '../styles/index.css';
+import '../styles/docsearch.css';
+import '../styles/http-badge.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -66,7 +63,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script
         async
         src='https://analytics_.diced.sh/script.js'
-        data-website-id='be0a4e59-df5f-4076-a6fb-c2b9a7a03eda'
+        data-website-id='eb6dbb46-aeae-45c5-ae52-a6d8ab6bf43c'
       />
 
       <ThemeProvider attribute='class' enableSystem={true}>

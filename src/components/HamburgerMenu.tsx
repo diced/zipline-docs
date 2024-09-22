@@ -1,8 +1,8 @@
 import { IconMenu, IconX } from '@tabler/icons-react';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { randomStr } from '../lib/random';
 import { items } from './Header';
 import { Item } from './sidebar';
 import SidebarItem from './sidebar/SidebarItem';
@@ -71,15 +71,15 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
             </div>
           </div>
           <div className='px-2 pt-2 pb-3 space-y-1'>
-            {items.map((item) => (
+            {items.map((item, i) => (
               <Link
-                key={randomStr()}
+                key={i}
                 href={item.href}
-                className={`block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40 ${
-                  item.active(router.pathname, router.asPath)
-                    ? 'text-blue-400'
-                    : ''
-                }}`}
+                className={clsx(
+                  'block px-3 py-2 rounded-md text-base font-medium hover:text-gray-600 dark:hover:text-gray-200 dark:hover:bg-gray-900/40',
+                  item.active(router.pathname, router.asPath) &&
+                    'text-blue-400',
+                )}
                 onClick={() => setOpen(false)}
               >
                 {item.name}

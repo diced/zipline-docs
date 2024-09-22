@@ -4,7 +4,7 @@ import { NextSeo } from 'next-seo';
 import Center from '../components/Center';
 import Container from '../components/Container';
 import EmphasizeText from '../components/EmphasizeText';
-import MacWindow from '../components/MacWindow';
+import MacWindow from '../components/mac/MacWindow';
 import HomePage from '../components/pages/home';
 import ButtonLinks from '../components/pages/home/ButtonLinks';
 
@@ -20,7 +20,7 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import { Fragment } from 'react';
-import MacTerminal from '../components/MacTerminal';
+import MacTerminal from '../components/mac/MacTerminal';
 
 const SS_WIDTH = 2560;
 const SS_HEIGHT = 1247;

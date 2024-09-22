@@ -1,8 +1,8 @@
 import { IconBrandGithubFilled } from '@tabler/icons-react';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { randomStr } from '../lib/random';
 import HamburgerMenu from './HamburgerMenu';
 import ThemeDropdown from './ThemeDropdown';
 
@@ -61,11 +61,12 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100  border-b dark:border-gray-800 ${
+      className={clsx(
+        'fixed w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100  border-b dark:border-gray-800',
         scrolling
           ? 'bg-white/85 dark:bg-gray-900/70'
-          : 'bg-white/0 dark:bg-gray-900/0'
-      }`}
+          : 'bg-white/0 dark:bg-gray-900/0',
+      )}
     >
       <div className='sm:px-2 lg:px-6 py-3'>
         <div className='flex lg:grid lg:grid-cols-3 items-center mx-auto max-w-screen-2xl'>
@@ -79,30 +80,32 @@ export default function Navbar() {
           </div>
 
           <div className='items-baseline space-x-4 hidden md:flex'>
-            {items.map((item) =>
+            {items.map((item, i) =>
               router.pathname === '/' && item.name === 'Features' ? (
                 <button
-                  key={randomStr()}
+                  key={i}
                   aria-label={item.name}
-                  className={`px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400 ${
+                  className={clsx(
+                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400',
                     item.active(router.pathname, router.asPath)
                       ? 'text-blue-500'
-                      : 'dark:text-gray-300 text-gray-600'
-                  }`}
+                      : 'dark:text-gray-300 text-gray-600',
+                  )}
                   onClick={handleClick}
                 >
                   {item.name}
                 </button>
               ) : (
                 <Link
-                  key={randomStr()}
+                  key={i}
                   href={item.href}
                   aria-label={item.name}
-                  className={`px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400 ${
+                  className={clsx(
+                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400',
                     item.active(router.pathname, router.asPath)
                       ? 'text-blue-500'
-                      : 'dark:text-gray-300 text-gray-600'
-                  }`}
+                      : 'dark:text-gray-300 text-gray-600',
+                  )}
                 >
                   {item.name}
                 </Link>

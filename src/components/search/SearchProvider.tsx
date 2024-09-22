@@ -59,7 +59,7 @@ export default function SearchProvider({ children }: { children: ReactNode }) {
             transformItems={(items) =>
               items.map((item) => ({
                 ...item,
-                url: item.url.replace('https://zipline.diced.vercel.app', ''),
+                url: item.url.replace('https://zipline.diced.sh', ''),
               }))
             }
           />,

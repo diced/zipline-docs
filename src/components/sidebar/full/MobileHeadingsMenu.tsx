@@ -1,6 +1,6 @@
 import { IconMenu, IconX } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
-import Headings from '../../Headings';
+import Headings from '../SidebarHeadings';
 
 interface MobileHeadingsMenuProps {
   open: boolean;

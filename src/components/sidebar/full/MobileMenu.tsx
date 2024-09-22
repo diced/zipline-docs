@@ -1,7 +1,6 @@
 import { IconMenu, IconX } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
 import { Item } from '..';
-import { randomStr } from '../../../lib/random';
 import SearchBar from '../../search/SearchBar';
 import SidebarItem from '../SidebarItem';
 
@@ -68,8 +67,8 @@ export default function MobileMenu({ items, open, setOpen }: MobileMenuProps) {
             <SearchBar />
 
             <ul>
-              {items.map((item) => (
-                <SidebarItem key={randomStr()} item={item} />
+              {items.map((item, i) => (
+                <SidebarItem key={i} item={item} />
               ))}
             </ul>
           </div>

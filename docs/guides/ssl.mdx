@@ -1,0 +1,22 @@
+# SSL
+
+Zipline supports using SSL natively through the `SSL_CERT` and `SSL_KEY` environment variables.
+
+## Enabling 
+
+To enable SSL, simply provide the following environment variables:
+
+```bash
+SSL_CERT=/path/to/cert.pem
+SSL_KEY=/path/to/key.key
+```
+
+## Using a Reverse Proxy instead
+
+Instead of using Zipline's native SSL support, you can use a reverse proxy like NGINX or Caddy to handle SSL termination.
+
+For more information, visit [Reverse Proxies](/docs/guides/reverse-proxy).
+
+## More information
+
+- [`SSL_*` Environment Variables](/docs/configuration#ssl)

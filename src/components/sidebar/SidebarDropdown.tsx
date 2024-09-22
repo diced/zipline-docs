@@ -1,8 +1,8 @@
 import { IconChevronDown, IconChevronRight } from '@tabler/icons-react';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { randomStr } from '../../lib/random';
 import SidebarItem, { SidebarItemProps } from './SidebarItem';
 
 export default function SidebarDropdown({ item }: SidebarItemProps) {
@@ -21,52 +21,53 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
   return (
     <div>
       {item.href ? (
-        <button className='flex w-full'>
-          <Link
-            className={`flex transition-colors text-gray-400 hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-2 py-1 ${
-              active
-                ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
-                : ''
-            }`}
-            href={item.href}
-          >
-            <div>{item.title}</div>
+        <button
+          className={clsx(
+            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-3 py-2',
+            active
+              ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
+              : 'text-gray-400',
+          )}
+        >
+          <Link href={item.href} className='w-full text-left'>
+            {item.title}
           </Link>
+
           <div
-            className='mr-2 transition-colors ease-in-out text-gray-400 hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md cursor-pointer'
+            className='transition-colors ease-in-out text-gray-400 hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md cursor-pointer'
             onClick={() => setOpen(!open)}
           >
             {open ? (
-              <IconChevronDown size={24} />
+              <IconChevronDown size='1.25rem' />
             ) : (
-              <IconChevronRight size={24} />
+              <IconChevronRight size='1.25rem' />
             )}
           </div>
         </button>
       ) : (
         <button
-          className={`flex w-full transition-colors text-gray-400 hover:text-black dark:hover:text-white ease-in-out items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-2 py-1 ${
-            active ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400' : ''
-          }`}
+          className={clsx(
+            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-3 py-2',
+            active
+              ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
+              : 'text-gray-400',
+          )}
           onClick={() => setOpen(!open)}
         >
           <div>{item.title}</div>
-          <div
-            className='transition-colors ease-in-out hover:bg-gray-100/60 dark:hover:bg-gray-800 rounded-md cursor-pointer'
-            onClick={() => setOpen(!open)}
-          >
+          <div onClick={() => setOpen(!open)}>
             {open ? (
-              <IconChevronDown size={24} />
+              <IconChevronDown size='1.25rem' />
             ) : (
-              <IconChevronRight size={24} />
+              <IconChevronRight size='1.25rem' />
             )}
           </div>
         </button>
       )}
 
       <ul className='ml-1/2' style={{ display: open ? 'block' : 'none' }}>
-        {item.items?.map((subitem) => (
-          <SidebarItem key={randomStr()} item={subitem} />
+        {item.items?.map((subitem, i) => (
+          <SidebarItem key={i} item={subitem} />
         ))}
       </ul>
     </div>

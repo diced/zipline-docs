@@ -1,0 +1,164 @@
+# HTTP Webhooks
+
+If you have enabled [HTTP Webhooks](/docs/config/settings#http-webhooks) within the dashboard settings, Zipline will send a POST request to the URL with the file/url information.
+
+## Events
+
+### `upload`
+
+This event is triggered when a file is uploaded to Zipline.
+
+| Header                   | Value    |
+| ------------------------ | -------- |
+| `x-zipline-webhook`      | `true`   |
+| `x-zipline-webhook-type` | `upload` |
+
+Example Payload (`application/json`):
+
+```json
+{
+  "type": "upload",
+  "data": {
+    "user": {
+      "id": "cm0ahwkkt00025216yi47btrb",
+      "username": "administrator",
+      "createdAt": "2024-08-26T04:25:45.005Z",
+      "updatedAt": "2024-09-17T23:50:24.492Z",
+      "role": "SUPERADMIN",
+      "view": {},
+      "quota": null,
+      "sessions": [
+        "hKb3nyHqCKE6RsHSX4w2KO3zDvjPrsct",
+        "gOARAvpu9hQ7PW6XK6WXoIZ549CKweIf",
+        "XAQf80SaJ8hORk5sgtzwGjV5E8qJ8zjY",
+        "YEk0lvuTl3RB5dYjFNktf9cqnVJ8OIkv",
+        "eSnaw6WVJ5mojRKztpELjvtMpW8nzTZt",
+        "SzH6j84CWBIMhbWZyqFANZ10t6iKUUFd",
+        "pvlJI8w8miXKDfFvQGrsckv4W4F6sP1N"
+      ]
+    },
+    "file": {
+      "createdAt": "2024-09-19T19:14:37.938Z",
+      "updatedAt": "2024-09-19T19:14:37.938Z",
+      "deletesAt": null,
+      "favorite": false,
+      "id": "cm19o84j60008rjuy4ufwlw7d",
+      "originalName": null,
+      "name": "uGILmB.png",
+      "size": 124104,
+      "type": "image/png",
+      "views": 0,
+      "maxViews": null,
+      "folderId": null,
+      "thumbnail": null,
+      "tags": []
+    },
+    "link": {
+      "raw": "http://localhost:3000/raw/uGILmB.png",
+      "returned": "http://localhost:3000/u/uGILmB.png"
+    }
+  }
+}
+```
+
+### `shorten`
+
+This event is triggered when a URL is shortened.
+
+| Header                   | Value     |
+| ------------------------ | --------- |
+| `x-zipline-webhook`      | `true`    |
+| `x-zipline-webhook-type` | `shorten` |
+
+Example Payload (`application/json`):
+
+```json
+{
+  "type": "shorten",
+  "data": {
+    "user": {
+      "id": "cm0ahwkkt00025216yi47btrb",
+      "username": "administrator",
+      "createdAt": "2024-08-26T04:25:45.005Z",
+      "updatedAt": "2024-09-17T23:50:24.492Z",
+      "role": "SUPERADMIN",
+      "view": {},
+      "quota": null,
+      "sessions": [
+        "hKb3nyHqCKE6RsHSX4w2KO3zDvjPrsct",
+        "gOARAvpu9hQ7PW6XK6WXoIZ549CKweIf",
+        "XAQf80SaJ8hORk5sgtzwGjV5E8qJ8zjY",
+        "YEk0lvuTl3RB5dYjFNktf9cqnVJ8OIkv",
+        "eSnaw6WVJ5mojRKztpELjvtMpW8nzTZt",
+        "SzH6j84CWBIMhbWZyqFANZ10t6iKUUFd",
+        "pvlJI8w8miXKDfFvQGrsckv4W4F6sP1N"
+      ]
+    },
+    "url": {
+      "id": "cm19o9at4000arjuyg2n8t7rv",
+      "createdAt": "2024-09-19T19:15:32.728Z",
+      "updatedAt": "2024-09-19T19:15:32.728Z",
+      "code": "AZCYqt",
+      "vanity": "google",
+      "destination": "https://google.com",
+      "views": 0,
+      "maxViews": null,
+      "userId": "cm0ahwkkt00025216yi47btrb"
+    },
+    "link": {
+      "returned": "http://localhost:3333/go/google"
+    }
+  }
+}
+```
+
+## Example Node.js Server
+
+The following code is in TypeScript.
+
+```ts copy filename="webhook.ts"
+import { IncomingHttpHeaders, createServer } from 'http';
+
+function receive(
+  data: Uint8Array,
+  {
+    'x-zipline-webhook': webhook, // will always just be "true"
+    'x-zipline-webhook-type': type,
+  }: IncomingHttpHeaders,
+) {
+  const str = new TextDecoder().decode(data);
+  const parsed = JSON.parse(str);
+
+  // handle data in parsed...
+  // if (type === 'upload') handleUpload(parsed);
+  // if (type === 'shorten') handleShorten(parsed);
+
+  console.log(`recv(${type}) data: `, parsed);
+}
+
+const server = createServer((req, res) => {
+  const data = new Uint8Array(Number(req.headers['content-length']));
+  let offset = 0;
+
+  req.on('data', (chunk) => {
+    data.set(chunk, offset);
+    offset += chunk.length;
+  });
+
+  req.on('end', () => {
+    receive(data, req.headers);
+    res.statusCode = 200;
+    res.end();
+  });
+
+  req.on('error', (err) => {
+    console.error(err);
+    res.statusCode = 500;
+    res.end();
+  });
+});
+
+server.listen(3001, () => {
+  console.log('Server is running on', server.address());
+});
+```

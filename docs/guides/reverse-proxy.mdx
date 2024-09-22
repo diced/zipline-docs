@@ -1,0 +1,112 @@
+# Reverse Proxy
+
+This page will guide you through setting up a reverse proxy for Zipline using various different methods.
+
+## NGINX
+
+```nginx-conf filename="/etc/nginx/sites-available/zipline.conf" copy
+server {
+  listen 80;
+  # Allows Zipline to handle large file uploads, feel free to change this value
+  client_max_body_size 100M;
+
+  # If you have a domain, replace <your domain> with it for DNS resolution
+  server_name <your domain (optional)>;
+
+  location / {
+    # If Zipline is running on a different port or hostname, change the port here
+    proxy_pass http://localhost:3000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}
+```
+
+### NGINX Proxy Manager
+
+You may be using NGINX Proxy Manager, a web interface for managing NGINX reverse proxies. You can follow the guide below to set up Zipline with NGINX Proxy Manager.
+
+First navigate to your NGINX Proxy Manager dashboard, and click on the "Proxy Hosts" tab. Then click "Add Proxy Host".
+![add proxy host](/guides/npm-1.png)
+
+You may change the hostname and port to match your Zipline instance. If you are using a domain, you can enter it in the "Domain Names" field. In this example it is set to `zipline.example.com`.
+
+Setting up SSL through NGINX Proxy Manager is also very simple, you can use the "SSL" tab to generate a certificate for your domain.
+
+![npm ssl](/guides/npm-2.png)
+
+### NGINX with SSL
+
+You will need to have a valid SSL certificate to use this configuration. If you don't have one, you can use [Let's Encrypt](https://letsencrypt.org/), or Cloudflare for example.
+
+```nginx-conf filename="/etc/nginx/sites-available/zipline-ssl.conf" copy
+server {
+  listen 443 ssl;
+  client_max_body_size 100M;
+  server_name <your domain>;
+
+  # these paths can be anywhere, depending on where your keys are stored
+  ssl_certificate /<your domain>.pem;
+  ssl_certificate_key /<your domain>.key;
+
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}
+```
+
+#### Generating Cloudflare Certificates
+
+If you are using cloudflare, you can generate a certificate within the dashboard.
+
+First visit [dash.cloudflare.com](https://dash.cloudflare.com) and select your domain. Then navigate to the SSL/TLS tab, and click "Client Certificates". Then click "Create Certificate".
+
+![cf client certs](/guides/cf-ssl-1.png)
+
+Next, make sure the options are like the following:
+
+![cf client certs 2](/guides/cf-ssl-2.png)
+
+Finally, click "Next" and you will be presented with the public and private keys. Make sure the key format is set to PEM.
+
+![cf client certs 3](/guides/cf-ssl-3.png)
+
+You will have to save the **Certificate** to `<your domain>.pem` and the **Private Key** to `<your domain>.key`. For example if your domain is `zipline.example.com`, you will have the following files:
+
+```
+/zipline.example.com.pem
+/zipline.example.com.key
+```
+
+You can save these keys anywhere, but make sure your reverse proxy configuration points to the correct path.
+
+Then within NGINX, you can use the following configuration:
+
+```nginx-conf filename="/etc/nginx/sites-available/zipline-ssl.conf"
+server {
+  ...
+
+    ssl_certificate /<your domain>.pem;
+    ssl_certificate_key /<your domain>.key;
+
+  ...
+}
+```
+
+---
+
+## Caddy
+
+Setting up Zipline with Caddy is very simple. You can use the following Caddyfile configuration:
+
+```caddyfile filename="Caddyfile" copy
+<your domain> {
+  reverse_proxy localhost:3000
+}
+```

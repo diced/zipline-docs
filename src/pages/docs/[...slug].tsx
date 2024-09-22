@@ -6,7 +6,12 @@ import {
 } from '@tabler/icons-react';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType,
+} from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
@@ -14,29 +19,27 @@ import Link from 'next/link';
 import { join } from 'path';
 import { Prism } from 'prism-react-renderer';
 import { Fragment } from 'react';
+import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import { docsComponents } from '../../components/DocsComponents';
-import ScrollToTop from '../../components/ScrollToTop';
+import remarkUnwrapImages from 'remark-unwrap-images';
+import { MDXComponents } from '../../components/mdx/MDXComponents';
+import ScrollToTop from '../../components/mdx/ScrollToTop';
 import Sidebar from '../../components/sidebar';
+import {
+  DocSidebarItem,
+  flattenSidebar,
+  getBreadcrumbs,
+  getPaths,
+  readSidebar,
+} from '../../lib/docs';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
 
 require('prismjs/components/prism-bash');
 require('prismjs/components/prism-nginx');
-
-interface DocsProps {
-  source: any;
-  sidebar: any;
-  title?: string;
-  description?: string;
-  prev: any;
-  next: any;
-  path: string;
-  breadcrumbs: string[];
-  lastUpdated: string;
-}
+require('prismjs/components/prism-http');
 
 export default function DocsPage({
   source,
@@ -48,15 +51,26 @@ export default function DocsPage({
   path,
   breadcrumbs,
   lastUpdated: last,
-}: DocsProps) {
+}: {
+  source: any;
+  sidebar: any;
+  title?: string;
+  description?: string;
+  prev: any;
+  next: any;
+  path: string;
+  breadcrumbs: string[];
+  lastUpdated: string;
+}) {
   const lastUpdated = new Date(last);
+
   return (
     <div className='max-w-[90rem] w-full mx-auto flex flex-1 items-stretch'>
       <NextSeo
         title={title ?? undefined}
         description={description ?? undefined}
         openGraph={{
-          url: 'https://zipline.diced.vercel.app',
+          url: 'https://zipline.diced.sh',
           title: `${title ? `${title} - ` : ''}Zipline`,
           description: description ?? undefined,
           images: [
@@ -73,6 +87,7 @@ export default function DocsPage({
             <Link href='/docs/get-started' className='flex items-center'>
               <IconHome className='w-5 h-5 text-gray-500 dark:text-gray-400' />
             </Link>
+
             {breadcrumbs.map((breadcrumb, index) =>
               breadcrumbs.length - 1 !== index ? (
                 <Fragment key={index}>
@@ -96,9 +111,11 @@ export default function DocsPage({
             )}
           </div>
 
-          <MDXRemote components={docsComponents} {...source} />
+          <div>
+            <MDXRemote components={MDXComponents} {...source} />
+          </div>
 
-          <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
+          <hr className='not-prose border-[1.35px] rounded-md border-gray-200 dark:border-gray-800' />
 
           <div className='flex justify-between my-8 not-prose flex-grow space-x-8'>
             {prev ? (
@@ -143,7 +160,7 @@ export default function DocsPage({
             )}
           </div>
 
-          <div className='h-0.5 bg-gray-200 dark:bg-gray-800' />
+          <hr className='not-prose border-[1.35px] rounded-md border-gray-200 dark:border-gray-800' />
 
           <div className='not-prose flex justify-between my-8 cursor-default md:flex-row flex-col items-center space-y-10 md:space-y-0'>
             <div className='flex items-center text-sm dark:text-gray-400'>
@@ -170,36 +187,8 @@ export default function DocsPage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const sidebarUnparsed = await readFile(
-    join(process.cwd(), 'sidebar.json'),
-    'utf8',
-  );
-  const sidebar = JSON.parse(sidebarUnparsed);
-
-  const paths: { params: { slug: string[] } }[] = [];
-
-  const getPaths = (items: any[]) => {
-    for (let i = 0; i !== items.length; ++i) {
-      const item = items[i];
-
-      if (item.href) {
-        const slug = item.href.split('/').filter((i: string) => i !== '');
-        slug.shift();
-
-        paths.push({
-          params: {
-            slug,
-          },
-        });
-      }
-
-      if (item.items) {
-        getPaths(item.items);
-      }
-    }
-  };
-
-  getPaths(sidebar);
+  const sidebar = flattenSidebar(await readSidebar());
+  const paths: { params: { slug: string[] } }[] = getPaths(sidebar);
 
   return {
     paths,
@@ -207,7 +196,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = (async ({ params }) => {
   const { slug } = params as { slug: string[] };
 
   if (!slug || slug.length === 0) {
@@ -242,60 +231,28 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      rehypePlugins: [rehypeSlug],
-      remarkPlugins: [remarkGfm],
+      rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
+      remarkPlugins: [remarkGfm, remarkUnwrapImages],
+      development: process.env.NODE_ENV === 'development',
     },
     parseFrontmatter: true,
   });
 
-  const sidebarf = JSON.parse(
-    await readFile(join(process.cwd(), 'sidebarf.json'), 'utf8'),
-  );
-  const sidebar = JSON.parse(
-    await readFile(join(process.cwd(), 'sidebar.json'), 'utf8'),
-  );
+  const sidebar = await readSidebar();
+  const sidebarf = flattenSidebar(sidebar);
 
   const index = sidebarf.findIndex((i: any) => i.href === '/docs/' + joined);
 
-  if (index === -1) {
+  if (index === -1)
     return {
       notFound: true,
     };
-  }
 
   const page = sidebarf[index];
   const prev = sidebarf[index - 1];
   const next = sidebarf[index + 1];
 
-  const getBreadcrumbs = (sidebar: any[]) => {
-    const breadcrumbs: string[] = [];
-
-    for (let i = 0; i !== sidebar.length; ++i) {
-      const item = sidebar[i];
-
-      if (item.href === '/docs/' + joined) {
-        breadcrumbs.push(item.title);
-        break;
-      }
-
-      if (item.items) {
-        const subbreadcrumbs = getBreadcrumbs(item.items);
-        if (subbreadcrumbs.length !== 0) {
-          breadcrumbs.push(item.title);
-          breadcrumbs.push(...subbreadcrumbs);
-          break;
-        }
-      }
-    }
-
-    if (breadcrumbs.length === 0) {
-      return [];
-    }
-
-    return breadcrumbs;
-  };
-
-  const breadcrumbs = getBreadcrumbs(sidebar);
+  const breadcrumbs = getBreadcrumbs(sidebar, joined);
 
   return {
     props: {
@@ -310,4 +267,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       lastUpdated: page.lastUpdated,
     },
   };
-};
+}) satisfies GetStaticProps;

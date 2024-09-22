@@ -1,0 +1,86 @@
+# Upload Options
+
+Upload options are HTTP headers that can be used to change various settings for file uploads.
+
+## Headers
+
+| Header                                | Description                                                                                                                                                   |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x-zipline-deletes-at`                | A [relative time](/docs/guides/ms) or [JavaScript resolvable date string](#javascript-resolvable-date-string) that specifies when the file should be deleted. |
+| `x-zipline-format`                    | One of `random`, `date`, `uuid`, `name`, `gfycat`. This will change the format of the file name. See [here](#file-format) for more.                           |
+| `x-zipline-image-compression-percent` | A number between 0 and 100 that specifies the image compression percentage.                                                                                   |
+| `x-zipline-password`                  | If set, the file will have a password protected dialog upon viewing.                                                                                          |
+| `x-zipline-max-views`                 | The maximum number of views before the file is deleted.                                                                                                       |
+| `x-zipline-no-json`                   | Returns file urls seperated by a newline instead of JSON. See [here](#response-output) for more.                                                              |
+| `x-zipline-original-name`             | Must be `true` to have the original file name saved. See [here](#original-name) for more.                                                                     |
+| `x-zipline-folder`                    | A folder ID to automatically upload the file to.                                                                                                              |
+| `x-zipline-filename`                  | This header will override the filename of the file, it supercedes the `x-zipline-format`                                                                      |
+| `x-zipline-domain`                    | Instead of using the domain of the request, use this domain for the file URL. See [here](#override-domain) for more.                                          |
+| `x-zipline-file-extension`            | This header will override the file extension of the file.                                                                                                     |
+
+All headers are optional, except `authorization`, which is your token.
+
+---
+
+## File Format
+
+| Format | Example                                    |                                                  |
+| ------ | ------------------------------------------ | ------------------------------------------------ |
+| random | `Dh39ck.png`                               |                                                  |
+| date   | `2021-01-01.png`                           | Uses the `Files Default Date Format` in settings |
+| uuid   | `b79c332b-306e-47ff-b564-2514075122fe.png` |                                                  |
+| name   | `filesOriginalNameWhenUploaded.png`        |                                                  |
+| gfycat |                                            |                                                  |
+
+## File Expiration
+
+The `x-zipline-deletes-at` header can be used to specify when the file should be deleted. This can be a relative time or a JavaScript resolvable date string.
+
+If using a relative time, feel free to use the [ms guide](/docs/guides/ms) to help you calculate the time.
+
+```http
+X-Zipline-Deletes-At: 1d
+```
+
+This will delete the file in 1 day from the time of upload.
+
+### JavaScript Resolvable Date String
+
+A JavaScript resolvable date string is a string that can be resolved to a date object in JavaScript. This can be used to set a specific date and time for the file to be deleted.
+
+When using this, the header's value **must** be prefixed with `date=`
+
+```http
+X-Zipline-Deletes-At: date=2025-01-01T00:00:00Z
+```
+
+This will delete the file on January 1st, 2025 at midnight UTC.
+
+## Image Compression
+
+The `x-zipline-image-compression-percent` header can be used to specify the image compression percentage. This will only work for images.
+
+![no compression](/guides/compression-100.png 'No compression')
+
+![compression](/guides/compression-20.png 'Compression at 20%')
+
+## Original Name
+
+When using the `x-zipline-original-name` header, the original file name will be saved. This does not affect the file name when it is saved, only when downloading the file.
+
+![original name](/guides/original-name-1.png "The file's original name can be seen in the title, while the URL has the random name.")
+
+## Override Domain
+
+If specified, the domain in the file URL will be replaced with the domain specified in the `x-zipline-domain` header.
+
+```http
+POST https://zipline.otherdomain.com/api/upload
+
+X-Zipline-Domain: zipline.example.com
+```
+
+-> `https://zipline.example.com/abc123.png` instead of `https://zipline.otherdomain.com/abc123.png`
+
+The domain must point towards the Zipline instance in DNS, obviously.
+

@@ -1,0 +1,86 @@
+---
+sidebar_position: 1
+---
+
+# Building from source
+
+## Installation
+
+This method is not recommended for most users. To build Zipline from source, you will need to have the following dependencies installed:
+
+- [nodejs@20](https://nodejs.org/)
+- [pnpm@9.10.0](https://pnpm.io/installation)
+
+First, clone the repository:
+
+```bash copy
+git clone https://github.com/diced/zipline
+cd zipline
+```
+
+Next, install the dependencies:
+
+```bash copy
+pnpm install
+```
+
+Before building Zipline, you will have to create a `.env` file, as well as have a PostgreSQL database running. An example .env looks like this:
+
+```bash copy
+DATABASE_URL=postgresql://username:password@localhost:5432/zipline
+CORE_HOSTNAME=0.0.0.0
+CORE_PORT=3000
+```
+
+You will also need to generate a secret for zipline, to do this you can use the command below to append it to your `.env` file:
+
+```bash copy
+echo "CORE_SECRET=$(openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n')" >> .env
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash
+openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n'
+```
+
+- `openssl rand -base64 42`: Generate 42 random bytes in base64 encoding.
+- `tr -dc A-Za-z0-9`: Remove all characters except for letters and numbers.
+- `cut -c -32`: Cut the string to 32 characters.
+- `tr -d '\n'`: Remove the newline character.
+
+</Alert>
+
+Then build Zipline:
+
+```bash copy
+pnpm build
+```
+
+Finally, start the server:
+
+```bash copy
+pnpm start
+```
+
+## Updating
+
+To update Zipline, simply run the following command:
+
+```bash copy
+git pull
+```
+
+Then update dependencies and build Zipline:
+
+```bash copy
+pnpm install
+pnpm build
+```
+
+Then start the server:
+
+```bash copy
+pnpm start
+```

@@ -1,0 +1,39 @@
+# Discord
+
+This page guides you through setting up Discord OAuth for Zipline.
+
+## Create a Discord application
+
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications).
+2. Click on "New Application".
+3. Enter a name for your application.
+4. Click on "Create", then click on "OAuth2" in the sidebar.
+5. Click on "Add Redirect" and enter your redirect URL. The redirect URL should be `http(s)://<your domain>/api/auth/oauth/discord`.
+
+![discord oauth redirect url](/guides/oauth-discord-1.png)
+![discord oauth redirect url with url](/guides/oauth-discord-2.png)
+
+<Alert type='info'>
+  When clicking the "Login with Discord" button, or linking your Discord
+  account, the host that Zipline uses for the redirect URL will be the same as
+  the host that you accessed Zipline from. If you access Zipline from
+  `http://localhost:3000`, the redirect URL will be
+  `http://localhost:3000/api/auth/oauth/discord`. If you are encountering issues
+  with the redirect URL, you can set a custom redirect URL in the settings
+  dashboard. This **MUST** have the `/api/auth/oauth/discord` path at the end.
+</Alert>
+
+6. Copy the "Client ID" and "Client Secret" from the "Client information" section at the top of the page.
+
+![discord oauth client id and secret](/guides/oauth-discord-3.png 'You may have to reset the secret if you forgot to copy it beforehand.')
+
+## Configure Zipline
+
+7. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
+8. Paste the "Client ID" and "Client Secret" into the respective fields.
+
+![zipline settings oauth discord](/guides/oauth-discord-4.png)
+
+9. Click "Save" at the bottom of the section.
+
+Once these two fields are filled out, you should see a "Login with Discord" button on the login page, as well as the option to link your Discord account in the manage account page.

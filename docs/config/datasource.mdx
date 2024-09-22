@@ -1,0 +1,69 @@
+---
+sidebar_position: 2
+---
+
+# Datasource
+
+This page will document the configuration options available for the datasource.
+
+## `DATASOURCE_TYPE`
+
+Must be one of the following values:
+
+- `local` - Local file storage through a directory
+- `s3` - S3 compatible storage (AWS, Cloudflare R2, Minio, etc.)
+
+```bash
+DATASOURCE_TYPE=local
+DATASOURCE_TYPE=s3
+```
+
+---
+
+## Local Datasource
+
+### `DATASOURCE_LOCAL_DIRECTORY`
+
+The directory where files will be stored. This directory must be writable by the Zipline server.
+If no value is provided, the default value is `./uploads` which will map to the `uploads` directory in the Zipline root directory.
+
+Paths are resolved relative to the Zipline root directory, so you can use `./` to specify the root directory, or even `../` to specify a directory outside of the Zipline root directory.
+It also supports absolute paths, such as `/uploads`.
+
+```bash copy
+DATASOURCE_LOCAL_DIRECTORY=./uploads
+```
+
+## S3 Datasource
+
+### `DATASOURCE_S3_ACCESS_KEY_ID`
+
+The access key ID for the S3 bucket.
+
+```bash copy
+DATASOURCE_S3_ACCESS_KEY_ID=access_key_id
+```
+
+### `DATASOURCE_S3_SECRET_ACCESS_KEY`
+
+The secret access key for the S3 bucket.
+
+```bash copy
+DATASOURCE_S3_SECRET_ACCESS_KEY=secret
+```
+
+### `DATASOURCE_S3_BUCKET`
+
+The name of the S3 bucket. The bucket must have read/write access with the credentials provided. The bucket does not have to be public for Zipline to access it.
+
+```bash copy
+DATASOURCE_S3_BUCKET=zipline
+```
+
+### `DATASOURCE_S3_REGION`
+
+If your S3 provider requires a specific region, you can specify it here. AWS, for example, requires a region to be specified.
+
+```bash copy
+DATASOURCE_S3_REGION=us-west-2
+```

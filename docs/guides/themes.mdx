@@ -1,0 +1,176 @@
+# Themes
+
+You can create custom themes for Zipline by adding JSON files within the `themes/` directory (relative to the root of Zipline).
+
+## Structure
+
+Zipline uses [Mantine](https://mantine.dev) for the UI components, so the `theme_name.theme.json` can have any properties that Mantine supports (see [this](https://mantine.dev/theming/theme-object/) for available properties and documentation).
+This is recommended for advanced users.
+
+<Alert type="info">
+
+There are a few requirements when creating custom themes:
+
+- The file name must end with `.theme.json`.
+- The file must be a valid JSON file.
+- The file must be placed in the `themes/` directory.
+
+</Alert>
+
+However, for most users just changing the colors are the most common use case. Below is a example of a theme file.
+
+```json filename="blue_dark.theme.json" copy
+{
+  "name": "Dark Blue",
+  "colorScheme": "dark",
+  "colors": {
+    "blue": [
+      "#FFFFFF",
+      "#7C7DC2",
+      "#7778C0",
+      "#6C6FBC",
+      "#575DB5",
+      "#4D54B2",
+      "#424BAE",
+      "#3742AA",
+      "#323EA8",
+      "#2C39A6"
+    ],
+    "dark": [
+      "#FFFFFF",
+      "#293747",
+      "#6C7A8D",
+      "#2d3e5a",
+      "#222c47",
+      "#171F35",
+      "#181c28",
+      "#0c101c",
+      "#060824",
+      "#00001E"
+    ]
+  },
+  "primaryColor": "blue",
+  "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-dark-9), black 45%)"
+}
+```
+
+### Main Properties
+
+| Property              | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| `name`                | The name of the theme, which will show up for users in the dashboard.                          |
+| `colors`              | The colors of the theme. See [this](#colors) for more.                                         |
+| `primaryColor`        | The primary color of the theme. This is used for buttons and such.                             |
+| `colorScheme`         | The color scheme of the theme. Can be `light` or `dark`.                                       |
+| `mainBackgroundColor` | The main background color of the theme. This is used for the main background of the dashboard. |
+
+### `colors`
+
+Colors must be an array of 10 elements. The first element should be the lightest color, and the last element should be the darkest color. The colors are used for various parts of the dashboard.
+
+For example the for the example theme above, the blue colors look like these:
+
+<Colors
+  colors={[
+    '#FFFFFF',
+    '#293747',
+    '#6C7A8D',
+    '#2d3e5a',
+    '#222c47',
+    '#171F35',
+    '#181c28',
+    '#0c101c',
+    '#060824',
+    '#00001E',
+  ]}
+/>
+
+<Alert type='info'>
+  The `dark` colors are used for the dark theme only. If you are making a light
+  theme, the `dark` colors will not be used.
+</Alert>
+
+### `primaryColor`
+
+This is the primary color of the theme. This is used for buttons and such. The value should be the key of the color in the `colors` object.
+
+![themes primaryColor outlined](/guides/themes-primaryColor.png 'The button is using the primary color of the provided dark_blue theme.')
+
+### `mainBackgroundColor`
+
+This is the background color behind the content.
+
+![themes mainBackgroundColor outlined](/guides/themes-mainBackgroundColor.png 'The areas outlined in red are the mainBackgroundColor')
+
+The default themes use a css function called `color-mix` to make the darkest color (9th index) 45% darker. For example the below:
+
+```css
+color-mix(in srgb, var(--mantine-color-dark-9), black 45%)
+```
+
+makes the `dark[9]` color 45% darker.
+
+In theory any value can be used here, any valid CSS function or variables will work here.
+
+## Developing
+
+When creating themes, you can test them out instantly by just reloading the page. The theme will be reloaded and applied so you may see the changes instantly after changing the `.theme.json` file.
+
+## Built In themes
+
+To avoid having no theme, Zipline will always have 2 built in themes. The default theme is `system` which will choose either `dark_gray` or `light_gray` based on the system preference.
+
+### `builtin:dark_gray`
+
+This is the default dark theme.
+
+```json filename="src/lib/theme/builtins/dark_gray.theme.json"
+{
+  "name": "Dark Gray",
+  "id": "builtin:dark_gray",
+  "colorScheme": "dark",
+  "primaryColor": "gray",
+  "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-gray-9), black 45%)"
+}
+```
+
+### `builtin:light_gray`
+
+This is the default light theme.
+
+```json filename="src/lib/theme/builtins/light_gray.theme.json"
+{
+  "name": "Light Gray",
+  "id": "builtin:light_gray",
+  "colorScheme": "light",
+  "primaryColor": "gray",
+  "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-white), black 3%)"
+}
+```
+
+## Applying a theme
+
+Head to the Manage Account page, then scroll down to Dashboard Settings.
+
+If you select "System", two more options will appear. You can select the light or dark theme to use that will be used depending on the system preference.
+![dashboard settings](/guides/themes-dashboard-system.png)
+
+If you select anything other than "System", it will use the selected theme regardless of the system preference.
+![dashboard settings](/guides/themes-dashboard-nosystem.png)
+
+## Docker
+
+If using Docker, you can mount the `themes/` directory to `/zipline/themes/` to add custom themes.
+
+```yml filename="docker-compose.yml" copy
+volumes:
+  - ./themes:/zipline/themes
+```
+
+## Extra Resources
+
+- [Zipline Discord](/discord): Feel free to ask for help regarding anything!
+- [Mantine Theme Object](https://mantine.dev/theming/theme-object/): The Mantine documentation for the theme object.
+  - [Mantine Colors](https://mantine.dev/theming/colors/) for more information on colors.
+  - [Color Generator](https://mantine.dev/colors-generator/) generate an array of 10 colors based on a single color.
+- [`<color value>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) for more information on CSS color values.

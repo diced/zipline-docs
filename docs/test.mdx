@@ -18,17 +18,46 @@ test
 
 This links to [Google](https://www.google.com) and this links to [another page](/docs/guides).
 
+## Collapse
+
+<details>
+  <summary>click to open</summary>
+
+inside
+
+hi
+
+</details>
+
 ## Code
 
 Inline code `console.log('test')`
 
-```json
+```json copy
 {
-  "test": "test"
+  "copy button": "to the right"
 }
 ```
 
-```javascript
+```json copy
+{
+  "long": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}
+```
+
+```json filename="test.json"
+{
+  "filename": "above this"
+}
+```
+
+```json copy filename="test.json"
+{
+  "filename": "above this with copy"
+}
+```
+
+```js
 console.log('test');
 ```
 
@@ -41,7 +70,7 @@ server {
 ```
 
 ```bash
-$ echo "test"
+echo "test"
 ```
 
 ## Tabs
@@ -49,13 +78,13 @@ $ echo "test"
 <Tabs defaultValue="docker">
   <TabItem value="docker" label="Docker">
     ```bash
-    $ docker compose up -d
+    docker compose up -d
     ```
   </TabItem>
 
   <TabItem value="Manual" label="Manual">
     ```bash
-    $ node index.js
+    node index.js
     ```
   </TabItem>
 </Tabs>
@@ -66,6 +95,19 @@ $ echo "test"
   info info info info info info info info info info info info info info info
   info info info info info info info info info info info info info info info
   info info info info info info info info info info info info
+
+<Alert type='warning'>
+  warning warning warning warning warning warning warning warning warning
+  warning warning warning warning warning warning warning warning warning
+  warning warning warning warning warning warning warning warning
+
+  <Alert type='danger'>
+    danger danger danger danger danger danger danger danger danger danger danger
+    danger danger danger danger danger danger danger danger danger danger danger
+    danger danger danger danger danger danger danger danger
+  </Alert>
+</Alert>
+
 </Alert>
 
 <Alert type='warning'>
@@ -90,6 +132,8 @@ $ echo "test"
 
 ![image](/img/screenshot-1-dark.png)
 
+![image with caption](/img/screenshot-1-light.png 'caption')
+
 ## <APIBadge type="GET" /> /api/user
 
 Get
@@ -109,3 +153,9 @@ Delete
 ## <APIBadge type="PATCH" /> /api/user
 
 Patch
+
+## A very long title that will make the "On this page" section overflow
+
+### `A very long title that will make the "On this page" section overflow`
+
+#### `A very long title that will make the "On this page" section overflow`
