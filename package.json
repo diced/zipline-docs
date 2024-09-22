@@ -1,6 +1,6 @@
 {
   "name": "zipline-docs",
-  "version": "3.7.3",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/watch.mjs & next dev --turbo",
