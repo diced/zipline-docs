@@ -23,7 +23,7 @@ export default function ExternalLinksBuilder() {
     try {
       new URL(newLink.link);
     } catch (e) {
-      return;
+      return alert(`"${newLink.link}" is not a valid link`);
     }
 
     // @ts-ignore
