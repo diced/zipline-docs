@@ -73,7 +73,7 @@ export default function Pre({
         </Highlight>
         {copy && (
           <button
-            className='transition-all duration-200 ease-in-out absolute top-2 right-2 border-[1px] bg-white dark:bg-[#1e1e1e] border-gray-100 dark:border-gray-800 rounded-md p-1 shadow-md opacity-0 group-hover:opacity-100'
+            className='transition-all duration-200 ease-in-out absolute top-2 right-2 border-[1px] bg-white dark:bg-[#1e1e1e] border-gray-100 dark:border-gray-800 rounded-md p-1 shadow-md opacity-0 group-hover:opacity-25 hover:!opacity-100'
             onClick={() => {
               navigator.clipboard.writeText(
                 code ?? children.props.children.slice(0, -1),

@@ -25,10 +25,12 @@ export function Heading({
       >
         {children}
 
-        <IconLink
-          className='opacity-0 group-hover:opacity-100 ml-2 text-blue-400'
-          size='1.25rem'
-        />
+        {level !== 1 && (
+          <IconLink
+            className='opacity-0 group-hover:opacity-100 ml-2 text-blue-400'
+            size='1.25rem'
+          />
+        )}
       </HeadingTag>
     </Link>
   );

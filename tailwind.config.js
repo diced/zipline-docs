@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+  ],
   darkMode: 'class',
   theme: {
     extend: {
@@ -128,16 +131,17 @@ const tailwindConfig = {
           900: '#121317',
         },
         blue: {
-          50: '#E9F4FB',
-          100: '#D8EBF8',
-          200: '#ADD5F0',
-          300: '#86C2EA',
-          400: '#5AACE2',
-          500: '#3498DB',
-          600: '#207AB6',
-          700: '#195D8B',
-          800: '#103D5B',
-          900: '#082030',
+          50: '#f2f6fd',
+          100: '#e5ebf9',
+          200: '#c4d5f3',
+          300: '#90b2e9',
+          400: '#558adb',
+          500: '#2f6cc8',
+          600: '#2052a9',
+          700: '#1b4189',
+          800: '#1a3972',
+          900: '#1b325f',
+          950: '#091020',
         },
         yellow: {
           50: '#FEFBEC',

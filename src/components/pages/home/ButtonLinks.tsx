@@ -1,11 +1,7 @@
-import {
-  IconArrowRight,
-  IconBrandGithubFilled,
-  IconStarFilled,
-} from '@tabler/icons-react';
+import clsx from 'clsx';
 import Link from 'next/link';
+import GithubStarsButton from '../../GithubStarsButton';
 import SearchBar from '../../search/SearchBar';
-import Tooltip from '../../Tooltip';
 
 export default function ButtonLinks({
   stars,
@@ -16,38 +12,20 @@ export default function ButtonLinks({
 }) {
   return (
     <div className='flex flex-col md:flex-row justify-center mt-8 space-y-4 md:space-y-0 md:space-x-6'>
-      <Link
-        href='/docs/get-started'
-        className='w-full md:w-auto justify-between items-center transition-all shadow-lg duration-200 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-2xl flex'
-      >
-        Get Started <IconArrowRight className='md:ml-6' />
+      <Link href='/docs/get-started'>
+        <button
+          className={clsx(
+            'transition-all duration-300 ease-in-out hover:scale-105 group w-full md:w-auto',
+            'bg-blue-600 hover:bg-blue-500 focus:bg-blue-500',
+            'text-white font-bold py-2 px-4 rounded text-xl',
+            'hover:ring-2 hover:ring-blue-800 dark:hover:ring-blue-300 hover:ring-offset-white dark:hover:ring-offset-gray-900 hover:ring-offset-2',
+          )}
+        >
+          Get started
+        </button>
       </Link>
 
-      {first ? (
-        <SearchBar big />
-      ) : (
-        <Tooltip
-          label={
-            stars === 0 ? (
-              "Couldn't fetch stars :("
-            ) : (
-              <div className='flex items-center'>
-                <IconStarFilled className='mr-2' /> {stars?.toLocaleString()}{' '}
-                stars!
-              </div>
-            )
-          }
-          placement='top-start'
-        >
-          <Link
-            href='/github'
-            className='w-full md:w-auto justify-between duration-500 transition-all hover:shadow-lg hover:shadow-gray-600/50 ease-in-out bg-gray-400 dark:bg-gray-800 hover:bg-gray-700 focus:bg-gray-600 text-white font-bold py-2 px-4 rounded text-2xl flex items-center'
-          >
-            GitHub{' '}
-            <IconBrandGithubFilled className='w-6 h-6 fill-white md:ml-6' />
-          </Link>
-        </Tooltip>
-      )}
+      {first ? <SearchBar big /> : <GithubStarsButton stars={stars} />}
     </div>
   );
 }

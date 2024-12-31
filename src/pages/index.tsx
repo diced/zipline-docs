@@ -8,26 +8,47 @@ import MacWindow from '../components/mac/MacWindow';
 import HomePage from '../components/pages/home';
 import ButtonLinks from '../components/pages/home/ButtonLinks';
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import homePageScreenshotDark from '../../public/img/screenshot-1-dark.png';
 import homePageScreenshotLight from '../../public/img/screenshot-1-light.png';
-import homePageScreenshot from '../../public/img/screenshot-1-dark.png';
+import metricsPageScreenshotDark from '../../public/img/screenshot-2-dark.png';
+import metricsPageScreenshotLight from '../../public/img/screenshot-2-light.png';
+import galleryPageScreenshotDark from '../../public/img/screenshot-3-dark.png';
+import galleryPageScreenshotLight from '../../public/img/screenshot-3-light.png';
+import urlsPageScreenshotDark from '../../public/img/screenshot-4-dark.png';
+import urlsPageScreenshotLight from '../../public/img/screenshot-4-light.png';
+import foldersPageScreenshotDark from '../../public/img/screenshot-5-dark.png';
+import foldersPageScreenshotLight from '../../public/img/screenshot-5-light.png';
+import settingsPageScreenshotDark from '../../public/img/screenshot-6-dark.png';
+import settingsPageScreenshotLight from '../../public/img/screenshot-6-light.png';
 
 import {
+  IconFiles,
+  IconGraphFilled,
   IconHeartFilled,
   IconLayoutDashboard,
+  IconLink,
   IconStarFilled,
   IconTerminal2,
 } from '@tabler/icons-react';
-import Link from 'next/link';
 import { Fragment } from 'react';
+import GithubStarsButton from '../components/GithubStarsButton';
 import MacTerminal from '../components/mac/MacTerminal';
+import SponsorButton from '../components/SponsorButton';
 
 const SS_WIDTH = 2560;
 const SS_HEIGHT = 1247;
 
-const screenshotWindows = [
+const screenshotWindows: {
+  darkImage: StaticImageData;
+  lightImage: StaticImageData;
+  alt: string;
+  Icon: React.ComponentType<any>;
+  title: React.ReactNode;
+  text: string;
+}[] = [
   {
-    darkImage: homePageScreenshot,
+    darkImage: homePageScreenshotDark,
     lightImage: homePageScreenshotLight,
     alt: 'Home page screenshot',
     Icon: IconLayoutDashboard,
@@ -37,6 +58,66 @@ const screenshotWindows = [
       </>
     ),
     text: "Zipline's dashboard is packed with features, and is designed to be easy to use.",
+  },
+  {
+    darkImage: galleryPageScreenshotDark,
+    lightImage: galleryPageScreenshotLight,
+    alt: 'Gallery page screenshot',
+    Icon: IconFiles,
+    title: (
+      <>
+        Gallery to view all your <EmphasizeText>uploads</EmphasizeText>
+      </>
+    ),
+    text: 'View all your uploads in one place, and easily manage them.',
+  },
+  {
+    darkImage: metricsPageScreenshotDark,
+    lightImage: metricsPageScreenshotLight,
+    alt: 'Metrics page screenshot',
+    Icon: IconGraphFilled,
+    title: (
+      <>
+        <EmphasizeText>Metrics</EmphasizeText> to track your uploads and more
+      </>
+    ),
+    text: 'Track your uploads with historical data, and all stats related to your Zipline instance.',
+  },
+  {
+    darkImage: urlsPageScreenshotDark,
+    lightImage: urlsPageScreenshotLight,
+    alt: 'URLs page screenshot',
+    Icon: IconLink,
+    title: (
+      <>
+        View your <EmphasizeText>shortened URLs</EmphasizeText>
+      </>
+    ),
+    text: 'View all your shortened URLs in one place, and easily manage them.',
+  },
+  {
+    darkImage: foldersPageScreenshotDark,
+    lightImage: foldersPageScreenshotLight,
+    alt: 'Folders page screenshot',
+    Icon: IconFiles,
+    title: (
+      <>
+        Organize your files with <EmphasizeText>folders</EmphasizeText>
+      </>
+    ),
+    text: 'Organize your files with folders, and easily manage them.',
+  },
+  {
+    darkImage: settingsPageScreenshotDark,
+    lightImage: settingsPageScreenshotLight,
+    alt: 'Settings page screenshot',
+    Icon: IconLayoutDashboard,
+    title: (
+      <>
+        <EmphasizeText>Customize</EmphasizeText> Zipline to your liking
+      </>
+    ),
+    text: 'Customize Zipline to your liking with a wide range of settings.',
   },
 ];
 
@@ -146,7 +227,7 @@ export default function Home({ stars }: { stars: number }) {
               <div className='my-32 grid grid-cols-1 md:grid-cols-2 space-y-12 md:space-y-0 md:space-x-12'>
                 <MacTerminal
                   text='docker compose up -d'
-                  outputLines={[
+                  lines={[
                     {
                       text: (
                         <>
@@ -163,7 +244,7 @@ export default function Home({ stars }: { stars: number }) {
                           <span className='text-green-500'>done</span>
                         </>
                       ),
-                      showAfter: 1000,
+                      showAfter: 2000,
                     },
                     {
                       text: (
@@ -172,7 +253,7 @@ export default function Home({ stars }: { stars: number }) {
                           <span className='text-green-500'>done</span>
                         </>
                       ),
-                      showAfter: 1000,
+                      showAfter: 2000,
                     },
                   ]}
                 />
@@ -210,14 +291,8 @@ export default function Home({ stars }: { stars: number }) {
                       continue working on it. If you want to support me,
                       consider sponsoring me on GitHub!
                     </p>
-                    <Link
-                      href='https://github.com/sponsors/diced'
-                      target='_blank'
-                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
-                    >
-                      <IconHeartFilled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-red-500 group-hover:animate-pulse' />
-                      Sponsor on GitHub
-                    </Link>
+
+                    <SponsorButton />
                   </div>
                 </div>
 
@@ -230,14 +305,7 @@ export default function Home({ stars }: { stars: number }) {
                       Zipline on GitHub! It helps Zipline get more exposure on
                       the project :)
                     </p>
-                    <Link
-                      href='https://github.com/diced/zipline/stargazers'
-                      target='_blank'
-                      className='bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out px-4 py-2 rounded-lg group'
-                    >
-                      <IconStarFilled className='w-6 h-6 inline-block mr-2 ease-in-out transition-all duration-200 group-hover:text-yellow-500 group-hover:animate-pulse' />
-                      Star on GitHub
-                    </Link>
+                    <GithubStarsButton stars={stars} />
                   </div>
                 </div>
               </div>

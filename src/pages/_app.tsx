@@ -1,14 +1,16 @@
 import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
-import { Inter, JetBrains_Mono } from 'next/font/google';
 
+import AnnouncementBar from '../components/AnnouncementBar';
 import '../styles/docs.css';
 import '../styles/docsearch.css';
 import '../styles/index.css';
+import Link from 'next/link';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <DefaultSeo
         titleTemplate='Zipline - %s'
         defaultTitle='Zipline'
-        themeColor='#3498db'
+        themeColor='#2052a9'
         additionalLinkTags={[
           {
             rel: 'icon',
@@ -70,7 +72,6 @@ export default function App({ Component, pageProps }: AppProps) {
         src='https://analytics_.diced.sh/script.js'
         data-website-id='eb6dbb46-aeae-45c5-ae52-a6d8ab6bf43c'
       />
-
       <style jsx global>{`
         html {
           font-family: ${inter.style.fontFamily};
@@ -81,6 +82,14 @@ export default function App({ Component, pageProps }: AppProps) {
           font-family: ${jetbrainsMono.style.fontFamily};
         }
       `}</style>
+
+      <AnnouncementBar id='v4-1'>
+        🎉 v4 is out! Learn how to migrate{' '}
+        <Link href='/docs/migrate' className='hover:underline'>
+          here
+        </Link>
+        . 🎊
+      </AnnouncementBar>
 
       <ThemeProvider attribute='class' enableSystem={true}>
         <SearchProvider>

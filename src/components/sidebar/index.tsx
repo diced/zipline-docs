@@ -24,6 +24,8 @@ export default function Sidebar({ items, children }: SidebarProps) {
 
   const router = useRouter();
 
+  const firstLevelItems = items.map((item) => item.title);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
@@ -46,16 +48,18 @@ export default function Sidebar({ items, children }: SidebarProps) {
   return (
     <div className='flex flex-1 w-full'>
       <aside
-        className='scroll-styled select-none scroll-area text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] md:block'
+        className='scroll-styled select-none scroll-area text-sm flex-shrink-0 w-64 hidden md:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-150px)] md:block'
         style={{ maxHeight: '95%' }}
       >
-        <div className='mx-2'>
-          <SearchBar />
-        </div>
+        <SearchBar />
 
         <ul>
           {items.map((item, i) => (
-            <SidebarItem key={i} item={item} />
+            <SidebarItem
+              key={i}
+              item={item}
+              firstLevelItems={firstLevelItems}
+            />
           ))}
         </ul>
       </aside>

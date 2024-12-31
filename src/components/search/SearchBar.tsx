@@ -9,8 +9,8 @@ export default function SearchBar({ big }: { big?: boolean }) {
   return (
     <button
       className={clsx(
-        'transition-all flex items-center space-x-3 rounded-md text-gray-400 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 dark:hover:bg-gray-700/80 hover:bg-gray-100',
-        big ? 'p-3 sm:w-full md:w-72' : 'p-2 mb-4 w-full',
+        'transition-all flex items-center space-x-3 p-2 rounded-md text-gray-400 bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-700 dark:hover:bg-gray-800/80 hover:bg-gray-100',
+        big ? 'sm:w-full md:w-72' : 'mb-4 w-full',
       )}
       onClick={() => setIsOpen(!isOpen)}
     >

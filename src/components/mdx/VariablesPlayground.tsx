@@ -6,7 +6,7 @@ import sampleData from '../../lib/parser/sampleData';
 import Pre from './Pre';
 
 export default function Playground() {
-  const [date, setDate] = useState(new Date('9/22/2024 11:30 am'));
+  const [date, setDate] = useState(new Date('1/1/2025 11:30 am'));
   const data = sampleData(date);
 
   const [value, setValue] = useState(
@@ -67,7 +67,7 @@ export default function Playground() {
         <div
           className={clsx(
             'overflow-auto transition-all max-h-0',
-            dataOpen ? 'max-h-[100rem]' : '',
+            dataOpen && 'max-h-[100rem]',
           )}
         >
           <Pre

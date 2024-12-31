@@ -13,6 +13,7 @@
   "dependencies": {
     "@docsearch/react": "3.6.1",
     "@floating-ui/react": "^0.26.24",
+    "@headlessui/react": "^2.1.8",
     "@octokit/types": "^13.5.0",
     "@tabler/icons-react": "^3.17.0",
     "@tailwindcss/typography": "^0.5.10",

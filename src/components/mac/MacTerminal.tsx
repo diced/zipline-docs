@@ -4,18 +4,23 @@ import clsx from 'clsx';
 
 interface MacTerminalProps {
   text: string;
-  outputLines: {
+  lines: {
     text: ReactNode;
     showAfter: number;
   }[];
 }
 
-export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
+export default function MacTerminal({ text, lines }: MacTerminalProps) {
   const [visibleText, setVisibleText] = useState('');
   const [blinking, setBlinking] = useState(false);
   const [typingInterval, setTypingInterval] = useState(600);
 
-  const [visibleOutputLines, setVisibleOutputLines] = useState<ReactNode[]>([]);
+  const [outputLines, setOutputLines] = useState<
+    {
+      visible: boolean;
+      children: ReactNode;
+    }[]
+  >(lines.map((line) => ({ visible: false, children: line.text })));
   const [visibleIdx, setVisibleIdx] = useState(0);
 
   const divElement = useRef<HTMLDivElement>(null);
@@ -48,11 +53,18 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
     if (isElementVisible()) {
       interval = setInterval(() => {
         if (visibleText.length === text.length) {
-          if (visibleIdx !== outputLines.length) {
-            const { text, showAfter } = outputLines[visibleIdx];
+          if (visibleIdx !== lines.length) {
+            const { text, showAfter } = lines[visibleIdx];
 
             setTypingInterval(showAfter);
-            setVisibleOutputLines((prev) => [...prev, text]);
+            // setOutputLines((prev) => [...prev, text]);
+            setOutputLines((prev) =>
+              prev.map((line, index) =>
+                index === visibleIdx
+                  ? { visible: true, children: line.children }
+                  : line,
+              ),
+            );
             setVisibleIdx((prev) => prev + 1);
           }
         }
@@ -65,7 +77,7 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
     }
 
     return () => clearInterval(interval);
-  }, [visibleText, typingInterval, visibleOutputLines, visibleIdx, divVisible]);
+  }, [visibleText, typingInterval, lines, visibleIdx, divVisible]);
 
   return (
     <MacShell
@@ -79,11 +91,6 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
         <span className='text-gray-400'>~/zipline/</span>{' '}
         <span>{visibleText}</span>
         <span
-          // className={`px-1.5 ml-1 bg-blue-200 dark:bg-blue-800 transition-all ${
-          //   blinking && visibleText.length !== text.length
-          //     ? 'opacity-100'
-          //     : 'opacity-0'
-          // }`}
           className={clsx(
             'px-1.5 ml-1 bg-blue-200 dark:bg-blue-800 transition-all',
             blinking && visibleText.length !== text.length
@@ -93,11 +100,19 @@ export default function MacTerminal({ text, outputLines }: MacTerminalProps) {
         />
       </div>
       <div className='w-full -mt-2 p-2 font-mono'>
-        {visibleOutputLines.map((line, index) => (
-          <div key={index}>{line}</div>
+        {outputLines.map((line, idx) => (
+          <div
+            key={idx}
+            className={clsx(
+              'transition-all duration-200 ease-in-out',
+              line.visible ? 'opacity-100' : 'opacity-0',
+            )}
+          >
+            {line.children}
+          </div>
         ))}
       </div>
-      {visibleIdx === outputLines.length && (
+      {visibleIdx === lines.length && (
         <div className='w-full mt-1 p-2 font-mono'>
           <span className='text-gray-400'>~/zipline/</span>
           <span

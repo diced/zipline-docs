@@ -6,14 +6,23 @@ import clsx from 'clsx';
 
 export interface SidebarItemProps {
   item: Item;
+  firstLevelItems?: string[];
 }
 
-export default function SidebarItem({ item }: SidebarItemProps) {
+export default function SidebarItem({
+  item,
+  firstLevelItems,
+}: SidebarItemProps) {
   const router = useRouter();
   const active = router.asPath.startsWith(item.href || '');
 
   return (
-    <li className='ml-2 my-0.5'>
+    <li
+      className={clsx(
+        'my-0.5',
+        !(firstLevelItems ?? []).includes(item.title) && 'ml-2',
+      )}
+    >
       {item.items ? (
         <SidebarDropdown item={item} />
       ) : item.href ? (

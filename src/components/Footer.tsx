@@ -4,7 +4,6 @@ import {
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import Container from './Container';
-import ThemeDropdown from './ThemeDropdown';
 
 const items = [
   {
@@ -76,7 +75,6 @@ export default function Footer() {
                   All rights reserved.
                 </Link>
               </div>
-              <ThemeDropdown withName />
             </div>
 
             <div className='justify-center'>
@@ -91,7 +89,7 @@ export default function Footer() {
                         <Link
                           key={j}
                           href={subItem.href}
-                          className='flex transition-colors ease-in-out text-gray-300 hover:text-blue-400 py-2 rounded-md font-normal text-sm text-center'
+                          className='flex transition-colors ease-in-out text-gray-300 dark:hover:text-blue-500 hover:text-blue-400 py-2 rounded-md font-normal text-sm text-center'
                         >
                           {subItem.title}
                         </Link>

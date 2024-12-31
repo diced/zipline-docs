@@ -62,7 +62,7 @@ export default function Navbar() {
   return (
     <header
       className={clsx(
-        'fixed w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100  border-b dark:border-gray-800',
+        'sticky w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100  border-b dark:border-gray-800',
         scrolling
           ? 'bg-white/85 dark:bg-gray-900/70'
           : 'bg-white/0 dark:bg-gray-900/0',
@@ -86,7 +86,7 @@ export default function Navbar() {
                   key={i}
                   aria-label={item.name}
                   className={clsx(
-                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400',
+                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-500 hover:text-blue-400',
                     item.active(router.pathname, router.asPath)
                       ? 'text-blue-500'
                       : 'dark:text-gray-300 text-gray-600',
@@ -101,7 +101,7 @@ export default function Navbar() {
                   href={item.href}
                   aria-label={item.name}
                   className={clsx(
-                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-300 hover:text-blue-400',
+                    'px-3 py-1 rounded-md font-medium text-md transition-all ease-in-out dark:hover:text-blue-500 hover:text-blue-400',
                     item.active(router.pathname, router.asPath)
                       ? 'text-blue-500'
                       : 'dark:text-gray-300 text-gray-600',
@@ -134,7 +134,7 @@ export default function Navbar() {
               href='/github'
               className='text-gray-300 px-3 py-2 rounded-md font-medium text-md'
             >
-              <IconBrandGithubFilled className='text-black dark:text-white hover:text-gray-200 transition-colors duration-300 ease-in-out w-6 h-6' />
+              <IconBrandGithubFilled className='text-gray-400 bg-none hover:text-blue-500 transition-colors duration-300 ease-in-out w-6 h-6' />
             </Link>
           </div>
         </div>

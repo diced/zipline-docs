@@ -1,3 +1,4 @@
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
   Icon,
   IconDevices,
@@ -6,13 +7,14 @@ import {
 } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ICON_SIZE = 24;
 
 const options = [
   { value: 'light', label: 'Light', Icon: IconSunFilled },
   { value: 'dark', label: 'Dark', Icon: IconMoonFilled },
+  { value: 'system', label: 'System', Icon: IconDevices },
 ];
 
 export function ThemeDropdownItem({
@@ -29,28 +31,27 @@ export function ThemeDropdownItem({
   const { theme } = useTheme();
 
   return (
-    <button
-      className={`flex flex-row items-center mx-1 my-1 px-2 py-1 text-sm transition-colors text-gray-700 dark:text-gray-200 hover:bg-gray-50/40 dark:hover:bg-gray-800/50 rounded-md ${
-        theme === value ? 'font-semibold text-blue-500 dark:text-blue-400' : ''
-      }`}
-      role='menuitem'
+    <MenuItem
+      as='button'
+      className={clsx(
+        'flex flex-row items-center mx-1 my-1 px-2 py-1 text-sm transition-colors text-gray-700 dark:text-gray-200 hover:bg-gray-50/40 dark:hover:bg-gray-800/50 rounded-md',
+        theme === value && 'font-semibold text-blue-500 dark:text-blue-400',
+      )}
       onClick={onClick}
     >
       <span className='p-1 border border-gray-100 dark:border-gray-800 rounded-md shadow-sm'>
         <Icon size={16} />
       </span>
       <span className='ml-2 font-semibold'>{label}</span>
-    </button>
+    </MenuItem>
   );
 }
 
-export default function ThemeDropdown({ withName = false }) {
+export default function ThemeDropdown() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const [open, setOpen] = useState(false);
   const [resolvedTheme, setResolvedTheme] = useState(theme);
-  const divEl = useRef<HTMLDivElement>(null);
 
   const addDataTheme = (theme: string | undefined) => {
     if (document.documentElement) {
@@ -60,17 +61,6 @@ export default function ThemeDropdown({ withName = false }) {
       );
     }
   };
-
-  useEffect(() => {
-    const listener = (e: MouseEvent) => {
-      if (divEl.current && !divEl.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', listener);
-    return () => document.removeEventListener('mousedown', listener);
-  }, [divEl]);
 
   useEffect(() => setMounted(true), []);
   useEffect(() => {
@@ -112,59 +102,31 @@ export default function ThemeDropdown({ withName = false }) {
   if (!mounted) return null;
 
   return (
-    <div className='relative'>
-      <button
-        className='mx-2 transition-all text-sm space-x-2 flex items-center justify-center px-2 text-gray-400 bg-none hover:text-blue-500'
-        onClick={() => setOpen((o) => !o)}
-      >
-        {withName ? (
-          <>
-            <span className='capitalize'>{resolvedTheme}</span>
-            {resolvedTheme === 'light' ? (
-              <IconSunFilled size={16} />
-            ) : (
-              <IconMoonFilled size={16} />
-            )}
-          </>
-        ) : resolvedTheme === 'light' ? (
+    <Menu>
+      <MenuButton className='mx-2 transition-all text-sm space-x-2 flex items-center justify-center px-2 text-gray-400 bg-none hover:text-blue-500'>
+        {resolvedTheme === 'light' ? (
           <IconSunFilled size={ICON_SIZE} />
         ) : (
           <IconMoonFilled size={ICON_SIZE} />
         )}
-      </button>
-      {open && (
-        <div
-          ref={divEl}
-          className={clsx(
-            'absolute z-10 origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none',
-            withName && 'bottom-6',
-          )}
-        >
-          {options.map((option) => (
-            <ThemeDropdownItem
-              key={option.value}
-              value={option.value}
-              label={option.label}
-              Icon={option.Icon}
-              onClick={() => {
-                setTheme(option.value);
-                setOpen(false);
-              }}
-            />
-          ))}
+      </MenuButton>
 
+      <MenuItems
+        anchor='bottom end'
+        className='absolute z-[400] origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none'
+      >
+        {options.map((option) => (
           <ThemeDropdownItem
-            key='system'
-            value='system'
-            label='System'
-            Icon={IconDevices}
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            Icon={option.Icon}
             onClick={() => {
-              setTheme('system');
-              setOpen(false);
+              setTheme(option.value);
             }}
           />
-        </div>
-      )}
-    </div>
+        ))}
+      </MenuItems>
+    </Menu>
   );
 }
