@@ -13,24 +13,24 @@ This will guide you through setting up an application and provider.
 1. Head over to your Authentik Admin Dashboard, and click on "Applications" in the sidebar.
 2. Click "Create with Wizard" to create a new application as well as a new provider. If this option is not available, you can create a new application and provider separately. The guide will assume you are using the wizard.
 
-![authentik create application](/guides/oauth-authentik-1.png)
+![authentik create application](/img/docs/oauth-authentik-1.png)
 
 3. Enter a name for your application, and click "Next".
 
-![authentik application name](/guides/oauth-authentik-2.png)
+![authentik application name](/img/docs/oauth-authentik-2.png)
 
 4. Select the "OAuth2/OIDC (Open Authorization/OpenID Connect)" option, and click "Next".
 
-![authentik application type](/guides/oauth-authentik-3.png)
+![authentik application type](/img/docs/oauth-authentik-3.png)
 
 5. Give the provider a name like "Zipline", and then select a Authorization Flow. You can select "default-provider-authorization-explicit-consent" for the default flow.
 
-![authentik provider name](/guides/oauth-authentik-4.png)
+![authentik provider name](/img/docs/oauth-authentik-4.png)
 
 6. Copy the "Client ID" and "Client Secret" from the "Protocol Settings" section, and save them for later.
 7. Fill out the "Redirect URIs" with the following URI: `http(s)://<your domain>/api/auth/oauth/oidc`.
 
-![authentik redirect uri](/guides/oauth-authentik-5.png)
+![authentik redirect uri](/img/docs/oauth-authentik-5.png)
 
 <Alert type='info'>
   When clicking the "Login with OIDC" button, or linking your OIDC account, the
@@ -45,7 +45,7 @@ This will guide you through setting up an application and provider.
 8. Next, scroll down further and click on the "Advanced Protocol Settings" collapsible to expand it.
 9. Next to scopes enable the `offline_access` scope. In order to do this you may have to hold control and click on the `offline_access` scope. The `email`, `openid`, and `profile` scopes are also required.
 
-![authentik scopes](/guides/oauth-authentik-6.png)
+![authentik scopes](/img/docs/oauth-authentik-6.png)
 
 10. Click "Submit", and close out of the modal.
 
@@ -60,7 +60,7 @@ For the OIDC Token URL: `https://<authentik domain>/application/o/token/`
 
 For the OIDC User Info URL: `https://<authentik domain>/application/o/userinfo/`
 
-![zipline settings oauth oidc](/guides/oauth-authentik-7.png)
+![zipline settings oauth oidc](/img/docs/oauth-authentik-7.png)
 
 After these fields are filled out (click Save to save your changes), you should see a "Login with OIDC" button on the login page, as well as the option to link your OIDC account in the manage account page.
 

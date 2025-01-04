@@ -1,0 +1,43 @@
+# Server Actions
+
+These are small "maintenance" actions that can be performed on the server. This section is found under the "Settings" button when clicking your user icon in the top right corner.
+
+![Server Actions](/img/docs/server-actions-1.png)
+
+## Clear Zero-Byte Files
+
+This button does what it says, it will remove any files that have 0 bytes.
+
+After clicking the button, it will tell you how many files it will remove and ask you to confirm.
+
+## Clear Temp Files
+
+This button will clear any files within the temporary directory configured.
+
+## Requery Size of Files
+
+This will requery the size of all files in the database. This is useful if you have moved files around, or they no longer exist and you want to clean up your instance.
+
+![Requery Size of Files](/img/docs/server-actions-2.png)
+
+### Force Update
+
+This will update every file regardless of the size has changed or not. This may take a while depending on the number of files you have.
+
+### Force Delete
+
+This will delete files that are in the database but no longer exist on the server. It will also clear files that are in the database but tagged with 0 bytes.
+
+## Generate Thumbnails
+
+Usually, thumbnails are generated on a scheduled interval, but this button will allow you to generate thumbnails for video files that don't have them yet.
+
+![Generate Thumbnails](/img/docs/server-actions-3.png)
+
+### Re-run
+
+This will generate thumbnails for all video files, even if they have been generated before.
+
+## Import Data
+
+This will allow you to import data from a V3 export JSON file. For more information on how this is used, visit [migrations](/docs/migrate).

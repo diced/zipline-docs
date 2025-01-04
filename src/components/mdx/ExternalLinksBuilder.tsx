@@ -13,18 +13,15 @@ export default function ExternalLinksBuilder() {
 
   const handleAdd = () => {
     const newLink = {
-      label: labelValue.trim(),
-      link: linkValue.trim(),
+      name: labelValue.trim(),
+      url: linkValue.trim(),
     };
 
-    if (newLink.label.length === 0) return;
-    if (newLink.link.length === 0) return;
+    if (newLink.name.length === 0) return;
+    if (newLink.url.length === 0) return;
 
-    try {
-      new URL(newLink.link);
-    } catch (e) {
-      return alert(`"${newLink.link}" is not a valid link`);
-    }
+    if (!URL.canParse(newLink.url))
+      return alert(`"${newLink.url}" is not a valid link`);
 
     // @ts-ignore
     setLinks([...links, newLink]);
@@ -60,22 +57,29 @@ export default function ExternalLinksBuilder() {
         >
           Add
         </button>
+        <button
+          className='bg-red-500 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-red-400 ease-in-out disabled:bg-gray-300 disabled:dark:bg-gray-600 disabled:text-gray-100 disabled:dark:text-gray-300'
+          onClick={() => setLinks([])}
+          disabled={links.length === 0}
+        >
+          Clear
+        </button>
       </div>
       {links.length ? (
         <table>
           <thead>
             <tr>
-              <th className='w-full'>Label</th>
-              <th className='w-full'>Link</th>
+              <th className='w-full'>Name</th>
+              <th className='w-full'>URL</th>
             </tr>
           </thead>
           <tbody>
             {links.map((link: any, index) => (
               <tr key={index}>
-                <td>{link.label}</td>
+                <td>{link.name}</td>
                 <td>
                   <a target='_blank' rel='noreferrer' href={link.link}>
-                    {link.link}
+                    {link.url}
                   </a>
                 </td>
               </tr>
@@ -94,7 +98,7 @@ export default function ExternalLinksBuilder() {
           copy
         />
 
-        <figcaption className='text-sm text-gray-500 dark:text-gray-400 mb-2'>
+        <figcaption className='text-sm -mt-4 text-gray-500 dark:text-gray-400 mb-2'>
           Copy the above JSON and paste it into the External Links text box.
         </figcaption>
       </figure>

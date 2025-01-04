@@ -36,7 +36,7 @@ export default function Pre({
   return (
     <>
       {filename && (
-        <div className='flex items-center justify-between bg-white shadow-md dark:bg-gray-900 border-b-[0px] border-[1px] border-gray-100 dark:border-gray-800 rounded-t-md px-4 py-1'>
+        <div className='flex items-center justify-between bg-white shadow-md dark:bg-gray-900 border-b-[0px] border border-gray-100 dark:border-gray-800 rounded-t-md px-4 py-1'>
           <span className='text-gray-500 dark:text-gray-300 font-mono'>
             {filename}
           </span>
@@ -52,7 +52,7 @@ export default function Pre({
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre
               className={clsx(
-                'shadow-md scroll-styled bg-white dark:bg-gray-900 border-[1px] border-gray-100 dark:border-gray-800',
+                'shadow-md scroll-styled bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800',
                 filename && 'rounded-t-none mt-0',
                 className,
               )}
@@ -73,7 +73,7 @@ export default function Pre({
         </Highlight>
         {copy && (
           <button
-            className='transition-all duration-200 ease-in-out absolute top-2 right-2 border-[1px] bg-white dark:bg-[#1e1e1e] border-gray-100 dark:border-gray-800 rounded-md p-1 shadow-md opacity-0 group-hover:opacity-25 hover:!opacity-100'
+            className='transition-all duration-200 ease-in-out absolute top-2 right-2 border bg-white dark:bg-[#1e1e1e] border-gray-100 dark:border-gray-800 rounded-md p-1 shadow-md opacity-0 group-hover:opacity-25 hover:!opacity-100'
             onClick={() => {
               navigator.clipboard.writeText(
                 code ?? children.props.children.slice(0, -1),

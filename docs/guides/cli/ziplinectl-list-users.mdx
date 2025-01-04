@@ -1,0 +1,57 @@
+---
+sidebar_position: 3
+---
+
+# ziplinectl import-dir
+
+Output the current configuration as JSON.
+
+## Usage
+
+```bash
+ziplinectl import-dir [options] <directory>
+```
+
+## Options
+
+| Option           | Description                                                                                                                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-i`, `--id`     | If no user ID is specified, the files will be imported to a user named "administrator." If the "administrator" user does not exist, the files will be imported to the first available `SUPERADMIN` user. |
+| `-f`, `--folder` | An ID to a folder where you want files to be automatically added to. This is optional.                                                                                                                   |
+| `-h`, `--help`   | Display options and arguments for this command.                                                                                                                                                          |
+
+## Arguments
+
+| Argument      | Description                                                                                |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| `<directory>` | The directory to import files from. This directory must be readable by the Zipline server. |
+
+## Example Usage
+
+Importing without an existing user:
+
+```bash
+ziplinectl import-dir /path/to/directory
+```
+
+Importing with an existing user:
+
+```bash
+ziplinectl import-dir -i cm5caqtmc0002hp06k4sjwdg0 /path/to/directory
+```
+
+Importing with an existing user and folder:
+
+```bash
+ziplinectl import-dir -i cm5caqtmc0002hp06k4sjwdg0 -f cm5cb80hg0005hp06k6khttfp /path/to/directory
+```
+
+Importing into a folder
+
+```bash
+ziplinectl import-dir -f cm5cb80hg0005hp06k6khttfp /path/to/directory
+```
+
+## Extra
+
+This can be used to move your files from `local` to `s3` storage. This can't be used to move files from `s3` to `local` storage though.

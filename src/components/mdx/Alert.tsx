@@ -20,12 +20,7 @@ function BaseAlert({
   className?: string;
 }) {
   return (
-    <div
-      className={clsx(
-        'my-2 px-3 py-0.5 border-r-2 border-l-2 rounded-md',
-        className,
-      )}
-    >
+    <div className={clsx('my-2 px-3 py-0.5 border rounded-md', className)}>
       {children}
     </div>
   );
@@ -35,25 +30,25 @@ export default function Alert({ children, type }: AlertProps) {
   const Element = {
     danger: (props: any) => (
       <BaseAlert
-        className='border-red-400 bg-red-200 dark:bg-red-900/40'
+        className='border-red-700 bg-red-200 dark:bg-red-950/60'
         {...props}
       />
     ),
     info: (props: any) => (
       <BaseAlert
-        className='border-blue-400 bg-blue-200 dark:bg-blue-900/40'
+        className='border-blue-600 bg-blue-100 dark:bg-blue-950'
         {...props}
       />
     ),
     note: (props: any) => (
       <BaseAlert
-        className='border-gray-400 bg-gray-100 dark:bg-gray-800/40'
+        className='bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-700'
         {...props}
       />
     ),
     warning: (props: any) => (
       <BaseAlert
-        className='border-yellow-400 bg-yellow-100 dark:bg-yellow-900/70'
+        className='border-yellow-700 bg-yellow-100 dark:bg-yellow-900/60'
         {...props}
       />
     ),

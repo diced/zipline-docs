@@ -8,11 +8,11 @@ Before you start, navigate to your v3 instance's manage account page.
 
 1. Click the "Export all Server Data (JSON)" button to start preparing a JSON file that contains all your server data.
 
-![Manage Account](/img/migrate-1.png)
+![Manage Account](/img/docs/migrate-1.png)
 
 2. You will have to click "Yes" to confirm the export.
 
-![Export Data](/img/migrate-2.png 'The modal shows what data is collected in the export file and asks for confirmation.')
+![Export Data](/img/docs/migrate-2.png 'The modal shows what data is collected in the export file and asks for confirmation.')
 
 <Alert type='warning'>
   The export contains sensitive information, such as passwords, API keys, 2fa
@@ -22,7 +22,7 @@ Before you start, navigate to your v3 instance's manage account page.
 
 3. After clicking "Yes", the server may take a few seconds to a few minutes to prepare the export file. Once it's ready, your browser will prompt you to download the file.
 
-![Download Data](/img/migrate-3.png)
+![Download Data](/img/docs/migrate-3.png)
 
 ## Setting up v4
 
@@ -132,27 +132,27 @@ docker compose logs -f
 
 6. Naviagate to your instance. Zipline will now prompt you to create a user.
 
-![Create User](/img/migrate-4.png)
+![Create User](/img/docs/migrate-4.png)
 
 Enter a username and password, then click "Continue", then "Finish".
 
 7. After creating the user, you will be redirected to the dashboard. Click your username in the top right corner, then click "Settings".
 
-![Settings](/img/migrate-5.png)
+![Settings](/img/docs/migrate-5.png)
 
 8. Scroll down to "Server Actions", and you should see a button called "Import Data"
 
-![Upload Export File](/img/migrate-6.png)
+![Upload Export File](/img/docs/migrate-6.png)
 
 9. Click on "Upload Export (JSON)", and select the JSON file you downloaded earlier from your v3 instance.
 
 10. Once the file is selected, you can now view the data that will be imported.
 
-![Export Data Viewer](/img/migrate-7.png)
+![Export Data Viewer](/img/docs/migrate-7.png)
 
 11. Scrolling down within the modal should reveal "Import Settings?" and "Select a user to import data from into the current user."
 
-![Import Settings](/img/migrate-8.png)
+![Import Settings](/img/docs/migrate-8.png)
 
 ### Import Settings
 
@@ -224,13 +224,13 @@ Users that were a super-admin on v3 will also be labelled in red.
 
 You will be prompted to confirm the import. Read the alert, then click "Import Data" to start the import.
 
-![Confirm Import](/img/migrate-9.png)
+![Confirm Import](/img/docs/migrate-9.png)
 
 13. The server will now start importing the data. This may take a few minutes, depending on the size of the export.
 
 14. After the export finishes, you will see a success modal with a summary of the import.
 
-![Import Success](/img/migrate-10.png)
+![Import Success](/img/docs/migrate-10.png)
 
 15. Click "Okay" to close the modal.
 

@@ -11,12 +11,12 @@ This page guides you through setting up Google OAuth for Zipline.
 3. Fill in the required fields like App name, User support email, Developer contact information, etc.
 4. Under Authorized domains, add your Zipline domain without the protocol (e.g. example.com instead of https://example.com).
 
-![google oauth consent screen](/guides/oauth-google-4.png)
+![google oauth consent screen](/img/docs/oauth-google-4.png)
 
 5. Click "Save and Continue".
 6. Click the "Add or Remove Scopes" button.
 
-![google oauth scopes](/guides/oauth-google-5.png)
+![google oauth scopes](/img/docs/oauth-google-5.png)
 
 7. Under "Manually add scopes" add the following scopes:
    - `https://www.googleapis.com/auth/userinfo.profile`
@@ -25,7 +25,7 @@ Then click the "Add to table button" button.
 
 8. Click "Update" at the bottom of the page.
 
-![google oauth scopes added](/guides/oauth-google-6.png)
+![google oauth scopes added](/img/docs/oauth-google-6.png)
 
 9. Click "Save and Continue".
 10. Feel free to add test users if you would like, then click "Save and Continue" again.
@@ -38,7 +38,7 @@ Then click the "Add to table button" button.
 3. Under "Authorized redirect URIs", add the following URI: `http(s)://<your domain>/api/auth/oauth/google`
 4. Under "Authorized JavaScript origins", add the following URI: `http(s)://<your domain>`
 
-![google oauth redirect url](/guides/oauth-google-1.png)
+![google oauth redirect url](/img/docs/oauth-google-1.png)
 
 <Alert type='info'>
   When clicking the "Login with Google" button, or linking your Google account,
@@ -52,20 +52,20 @@ Then click the "Add to table button" button.
 
 5. Click "Create" and copy the "Client ID" and "Client Secret" for later.
 
-![google oauth client id and secret](/guides/oauth-google-2.png)
+![google oauth client id and secret](/img/docs/oauth-google-2.png)
 
 6. Click ["Library"](https://console.cloud.google.com/apis/library) in the sidebar.
 7. Search for "Google People API" (or click [here](https://console.cloud.google.com/apis/library/people.googleapis.com)) and click on it.
 8. Click "Enable" at the top of the page.
 
-![google people api enable](/guides/oauth-google-3.png)
+![google people api enable](/img/docs/oauth-google-3.png)
 
 ## Configure Zipline
 
 5. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
 6. Paste the "Client ID" and "Client Secret" into the respective fields.
 
-![zipline settings oauth google](/guides/oauth-google-7.png)
+![zipline settings oauth google](/img/docs/oauth-google-7.png)
 
 7. Click "Save" at the bottom of the section.
 

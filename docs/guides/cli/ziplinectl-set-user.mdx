@@ -1,0 +1,48 @@
+---
+sidebar_position: 4
+---
+
+# ziplinectl set-user
+
+Modify a user's properties.
+
+## Usage
+
+```bash
+ziplinectl set-user [options] <property> <value>
+```
+
+## Options
+
+| Option         | Description                                     |
+| -------------- | ----------------------------------------------- |
+| `-i`, `--id`   | The ID of the user you want to modify           |
+| `-h`, `--help` | Display options and arguments for this command. |
+
+## Arguments
+
+| Argument     | Description                                                                                                         |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| `<property>` | The property you want to modify. This can be one of `username`, `password`, `role`, `avatar`, `token`, `totpSecret` |
+| `<value>`    | The value you want to set the property to.                                                                          |
+
+## Example Usage
+
+Setting a user's password:
+
+```bash
+ziplinectl set-user -i cm5caqtmc0002hp06k4sjwdg0 password changeme
+```
+
+Setting a user's role, this can be one of `SUPERADMIN`, `ADMIN`, or `USER`:
+
+```bash
+ziplinectl set-user -i cm5caqtmc0002hp06k4sjwdg0 role SUPERADMIN
+zplinectl set-user -i cm5caqtmc0002hp06k4sjwdg0 role ADMIN
+zplinectl set-user -i cm5caqtmc0002hp06k4sjwdg0 role USER
+```
+
+## Extra
+
+- Setting a user's avatar is almost never needed, but it should be a base64 encoded image string.
+- Setting a user's token is almost never needed, it will break the methods used to verify the user through the API.

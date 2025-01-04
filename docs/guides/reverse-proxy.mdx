@@ -29,13 +29,13 @@ server {
 You may be using NGINX Proxy Manager, a web interface for managing NGINX reverse proxies. You can follow the guide below to set up Zipline with NGINX Proxy Manager.
 
 First navigate to your NGINX Proxy Manager dashboard, and click on the "Proxy Hosts" tab. Then click "Add Proxy Host".
-![add proxy host](/guides/npm-1.png)
+![add proxy host](/img/docs/npm-1.png)
 
 You may change the hostname and port to match your Zipline instance. If you are using a domain, you can enter it in the "Domain Names" field. In this example it is set to `zipline.example.com`.
 
 Setting up SSL through NGINX Proxy Manager is also very simple, you can use the "SSL" tab to generate a certificate for your domain.
 
-![npm ssl](/guides/npm-2.png)
+![npm ssl](/img/docs/npm-2.png)
 
 ### NGINX with SSL
 
@@ -67,15 +67,15 @@ If you are using cloudflare, you can generate a certificate within the dashboard
 
 First visit [dash.cloudflare.com](https://dash.cloudflare.com) and select your domain. Then navigate to the SSL/TLS tab, and click "Client Certificates". Then click "Create Certificate".
 
-![cf client certs](/guides/cf-ssl-1.png)
+![cf client certs](/img/docs/cf-ssl-1.png)
 
 Next, make sure the options are like the following:
 
-![cf client certs 2](/guides/cf-ssl-2.png)
+![cf client certs 2](/img/docs/cf-ssl-2.png)
 
 Finally, click "Next" and you will be presented with the public and private keys. Make sure the key format is set to PEM.
 
-![cf client certs 3](/guides/cf-ssl-3.png)
+![cf client certs 3](/img/docs/cf-ssl-3.png)
 
 You will have to save the **Certificate** to `<your domain>.pem` and the **Private Key** to `<your domain>.key`. For example if your domain is `zipline.example.com`, you will have the following files:
 

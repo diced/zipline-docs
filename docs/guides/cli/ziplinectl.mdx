@@ -1,0 +1,90 @@
+---
+sidebar_position: 1
+---
+
+# ziplinectl
+
+Zipline provides a command line utility called `ziplinectl` to manage specific parts of your Zipline instance.
+
+## Accessing `ziplinectl`
+
+In the documentation, this value will be referred to as `ziplinectl`.
+
+<Tabs defaultValue="docker">
+  <TabItem value="docker" label="Docker">
+    ```bash
+    docker compose exec zipline node build/ctl <...>
+    ```
+    or
+
+    ```bash
+    docker compose exec zipline pnpm ctl <...>
+    ```
+
+  </TabItem>
+
+  <TabItem value="Manual" label="Manual">
+    ```bash
+    pnpm ctl <...>
+    ```
+  </TabItem>
+</Tabs>
+
+## Help Screen (-h, --help)
+
+Output the help screen for `ziplinectl`
+
+```bash
+~/zipline $ ziplinectl -h
+
+Usage: ziplinectl [options] [command]
+
+control utility for zipline
+
+Options:
+  -V, --version                          output the version number
+  -h, --help                             display help for command
+
+Commands:
+  read-config [options]                  output the configuration as json, exactly how Zipline sees it
+  list-users [options]                   list all users
+  set-user [options] <property> <value>
+  import-dir [options] <directory>
+  help [command]                         display help for command
+```
+
+## Version (-V, --version)
+
+Output the version of `zipline`
+
+```bash
+ziplinectl -V
+```
+
+## Commands
+
+<DocLinks
+  links={[
+    {
+      title: '📖 Read Config',
+      description:
+        'Output the configuration as JSON, exactly how Zipline sees it',
+      href: '/docs/guides/cli/read-config',
+    },
+    {
+      title: '👥 List Users',
+      description: 'List all users',
+      href: '/docs/guides/cli/list-users',
+    },
+    {
+      title: '✏️ Set User',
+      description: 'Set a property in a user, like their password',
+      href: '/docs/guides/cli/set-user',
+    },
+    {
+      title: '📩 Import Directory',
+      description: 'Import a directory of files',
+      href: '/docs/guides/cli/import-dir',
+    },
+  ]}
+/>

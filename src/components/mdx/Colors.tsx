@@ -23,11 +23,11 @@ export default function Colors({
   }
 
   return (
-    <div className='flex flex-row space-x-2 relative w-full px-10 my-2'>
+    <div className='flex flex-row space-x-2 relative w-full my-2 mb-8'>
       {colors.map((color, index) => (
         <div
           key={index}
-          className='flex items-center grow justify-center px-6 py-4 rounded-md border-[1px] dark:border-gray-600 text-white'
+          className='flex items-center grow justify-center aspect-square rounded-md shadow-inner text-white'
           style={{ backgroundColor: color }}
         />
       ))}

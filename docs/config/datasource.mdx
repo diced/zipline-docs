@@ -62,8 +62,28 @@ DATASOURCE_S3_BUCKET=zipline
 
 ### `DATASOURCE_S3_REGION`
 
-If your S3 provider requires a specific region, you can specify it here. AWS, for example, requires a region to be specified.
+If your S3 provider requires a specific region, you can specify it here (it will default to `us-east-1`). AWS, for example, requires a region to be specified.
+
+- **Cloudflare R2**: Must be `us-east-1` or `auto` - cloudflare R2 doesn't use regions since they are automatically determined, `us-east-1` is an alias for `auto`.
+- **Backblaze B2**: Region provided when creating your account and bucket, it may look like `us-west-004`.
+- **Hetzner Object Storage**: One of `fs1`, `nbg1`, `hel1`.
 
 ```bash copy
 DATASOURCE_S3_REGION=us-west-2
+```
+
+### `DATASOURCE_S3_ENDPOINT`
+
+This option can be used if you are using a different provider other than Amazon AWS S3.
+
+- **Cloudflare R2**: `https://<account_id>.r2.cloudflarestorage.com`
+- **Backblaze B2**: `https://s3.<region>.backblazeb2.com`
+- **Hetzner Object Storage**: `https://<region>.your-objectstorage.com/`
+
+```bash copy
+DATASOURCE_S3_ENDPOINT=https://123abc.r2.cloudflarestorage.com # Cloudflare R2
+DATASOURCE_S3_ENDPOINT=https://s3.us-west-004.backblazeb2.com # Backblaze B2
+DATASOURCE_S3_ENDPOINT=https://fs1.your-objectstorage.com # Hetzner Object Storage
+DATASOURCE_S3_ENDPOINT=https://s3.us-west-2.amazonaws.com # AWS S3
+DATASOURCE_S3_ENDPOINT=http://localhost:9000 # something like a locally hosted minio server
 ```

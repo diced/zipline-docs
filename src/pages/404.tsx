@@ -1,10 +1,10 @@
-import { IconArrowRight } from '@tabler/icons-react';
+import clsx from 'clsx';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import Center from '../components/Center';
 import Container from '../components/Container';
 
-export default function FourohFour() {
+export default function FourOhFour() {
   return (
     <>
       <NextSeo
@@ -27,12 +27,17 @@ export default function FourohFour() {
               Looks like you&apos;re lost... Need a hand?
             </p>
 
-            <Link
-              href='/'
-              className='text-center mt-6 transition-all shadow-lg duration-500 shadow-blue-500/30 hover:shadow-blue-600/50 ease-in-out bg-blue-500 hover:bg-blue-600 focus:bg-blue-400 text-white font-bold py-2 px-4 rounded text-3xl flex'
-            >
-              Go back!{' '}
-              <IconArrowRight className='my-auto ml-6 hidden md:block' />
+            <Link href='/'>
+              <button
+                className={clsx(
+                  'transition-all duration-300 ease-in-out hover:scale-105 group w-full my-6',
+                  'bg-blue-600 hover:bg-blue-500 focus:bg-blue-500',
+                  'text-white font-bold py-2 px-4 rounded text-xl',
+                  'hover:ring-2 hover:ring-blue-800 dark:hover:ring-blue-300 hover:ring-offset-white dark:hover:ring-offset-gray-900 hover:ring-offset-2',
+                )}
+              >
+                Go back
+              </button>
             </Link>
           </div>
         </Center>

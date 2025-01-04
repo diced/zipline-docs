@@ -23,6 +23,7 @@ import settingsPageScreenshotDark from '../../public/img/screenshot-6-dark.png';
 import settingsPageScreenshotLight from '../../public/img/screenshot-6-light.png';
 
 import {
+  IconArrowDown,
   IconFiles,
   IconGraphFilled,
   IconHeartFilled,
@@ -202,7 +203,9 @@ export default function Home({ stars }: { stars: number }) {
               ))}
             </div>
 
-            <div className='h-0.5 my-96' />
+            <div className='h-0.5 my-96'>
+              <IconArrowDown size='2.5rem' className='mx-auto animate-bounce' />
+            </div>
 
             <div
               className='text-5xl md:text-6xl font-medium text-center mt-64 mb-6'

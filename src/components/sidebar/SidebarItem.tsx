@@ -14,13 +14,13 @@ export default function SidebarItem({
   firstLevelItems,
 }: SidebarItemProps) {
   const router = useRouter();
-  const active = router.asPath.startsWith(item.href || '');
+  const active = router.asPath === item.href || '';
 
   return (
     <li
       className={clsx(
-        'my-0.5',
-        !(firstLevelItems ?? []).includes(item.title) && 'ml-2',
+        'my-1',
+        !(firstLevelItems ?? []).includes(item.title) && 'ml-4',
       )}
     >
       {item.items ? (

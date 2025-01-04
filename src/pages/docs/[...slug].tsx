@@ -164,9 +164,11 @@ export default function DocsPage({
               </span>
             </div>
 
+            {/* TODO: change branch */}
             <Link
-              href={`https://github.com/diced/zipline-docs/tree/v4/${path.endsWith('.md') ? path : path + '/' + path.split('/').pop() + '.md'}`}
+              href={`https://github.com/diced/zipline-docs/edit/v4/${path.endsWith('.mdx') ? path : path + '/' + path.split('/').pop()}`}
               className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500 hover:text-blue-600'
+              target='_blank'
             >
               Edit this page on GitHub{' '}
               <IconExternalLink className='ml-1' size='1rem' />
