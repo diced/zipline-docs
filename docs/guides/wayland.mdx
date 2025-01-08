@@ -1,0 +1,333 @@
+# Wayland Guide
+
+Having trouble taking screenshots or recording on Wayland (Linux)? Here are a bunch of different ways to do both of those things. Most problems arise when using a wlroots based compositor, it's easier when using GNOME or KDE with Flameshot.
+
+## Screenshot
+
+You will need to install `grim` let apps like `flameshot` take screenshots.
+
+### Flameshot
+
+If you are using Flameshot on GNOME, KDE or Sway, you can use the normal [Flameshot generator](/docs/guides/uploaders/flameshot) to generate a script that will take a screenshot, upload it to a server, and copy the URL to your clipboard.
+
+### Flameshot (wlroots)
+
+Using the generated script on the Account Settings page, will work for Gnome and KDE on Wayland. However, if you are using a different compositor, like [Hyprland](https://hyprland.org), or [river](https://isaacfreund.com/software/river/), you will need add the `XDG_CURRENT_DESKTOP=sway` environment variable to the script.
+
+Your milage may vary, since there are many different issues/workarounds for different compositors.
+
+```bash copy
+export XDG_CURRENT_DESKTOP=sway
+
+flameshot gui # will most likely work now on wlroots based compositors and others if they implement the needed protocols
+```
+
+Heres a simple script that will take a screenshot, upload it to a server, and copy the URL to your clipboard.
+
+```bash
+#!/bin/bash
+export XDG_CURRENT_DESKTOP=sway
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+flameshot gui -r > /tmp/screenshot.png
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot.png \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+Setting the `XDG_CURRENT_DESKTOP` variable to `sway` is a workaround to make Flameshot work on compositors other than GNOME, KDE and Sway.
+
+### Grim + Slurp
+
+This is a more stripped down way to take screenshots, but it should work on all wlroots compositors.
+
+Here is a simple region capture script using `grim`, `slurp`, and `wl-copy`.
+
+```bash copy
+grim -g "$(slurp)" - | wl-copy
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+grim -g "$(slurp)" - | wl-copy
+```
+
+- `grim -g`: capture a region of the screen given a geometry string.
+- `slurp`: interactively select a region of the screen, then return a geometry string.
+- `wl-copy`: copy the output to the clipboard.
+
+</Alert>
+
+We can take this and extend it to upload the screenshot to a server and copy the URL to the clipboard.
+
+```bash
+#!/bin/bash
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+grim -g "$(slurp)" - > /tmp/screenshot.png
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot.png \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+### Satty + Grim + Slurp
+
+[Satty](https://github.com/gabm/Satty) is a modern screenshot annotation tool, inspired by Flameshot and Swappy. You can try to use `satty` with `grim` and `slurp` to take screenshots if Flameshot doesn't work for you.
+
+A simple script to take a screenshot with `grim` and `slurp`, then annotate it with `satty` which will then copy/save it to a file depending on the options you choose.
+
+```bash copy
+grim -g "$(slurp -c '#ff0000ff')" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+```
+
+<figcaption>Taken from the examples in the satty repository.</figcaption>
+
+- `grim -g`: capture a region of the screen given a geometry string.
+- `slurp`: interactively select a region of the screen, then return a geometry string.
+- `satty`: the tool to annotate the screenshot.
+- `--filename -`: the filename of the screenshot to annotate, in this case its reading from stdin.
+- `--fullscreen`: open the screenshot in fullscreen mode.
+- `--output-filename`: the filename of the annotated screenshot.
+
+</Alert>
+
+We can take this script now and extend it to upload the screenshot to a server and copy the URL to the clipboard.
+
+```bash
+#!/bin/bash
+
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+grim -g "$(slurp)" -t ppm - > /tmp/screenshot.png
+
+satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot-annotated.png \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+### Hyprshot
+
+[hyprshot](https://github.com/Gustash/Hyprshot/blob/main/hyprshot) is a screenshot tool made specifically to work well in Hyprland
+
+```bash copy
+hyprshot -m region -r > /tmp/screenshot.png
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+hyprshot -m region -r > /tmp/screenshot.png
+```
+
+- `hyprshot -m region`: capture a region of the screen.
+- `-r`: output the screenshot to stdout.
+- `> /tmp/screenshot.png`: save the screenshot to a file.
+
+</Alert>
+
+We can take this script now and extend it to upload the screenshot to a server and copy the URL to the clipboard.
+
+```bash
+#!/bin/bash
+
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+hyprshot -m region -r > /tmp/screenshot
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot.png \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+### Spectacle (KDE)
+
+Spectacle is a screenshot/recording tool for KDE, it works on both Wayland and X11.
+
+Take a screenshot of a region then save it to `/tmp/screenshot.png`:
+
+```bash copy
+spectacle -o /tmp/screenshot.png -ribn
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+spectacle -o /tmp/screenshot.png -ribn
+```
+
+- `-o /tmp/screenshot.png`: save the screenshot to a file.
+- `-r`: capture a region of the screen.
+- `-i`: launch a new instance instead of using an existing one.
+- `-b`: launch in background mode (will not open a GUI after selecting region)
+- `-n`: will not send a notification after taking the screenshot (if this was enabled, the script will hang until the notification receives an interaction or times out)
+
+</Alert>
+
+Take a screenshot of a region then upload it to a server and copy the URL to the clipboard:
+
+```bash
+#!/bin/bash
+
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+spectacle -o /tmp/screenshot.png -ribn
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/screenshot.png \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+## Screen Recording
+
+### wf-recorder
+
+You will need to install `wf-recorder` to record your screen on Wayland (wlroots).
+
+A simple script to record your entire screen using `wf-recorder`, which is saved to `/tmp/recording.mp4`.:
+
+```bash copy
+wf-recorder -f /tmp/recording.mp4
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+wf-recorder -f /tmp/recording.mp4
+```
+
+- `-f /tmp/recording.mp4`: save the recording to a file.
+
+</Alert>
+
+Record a region:
+
+```bash copy
+wf-recorder -g "$(slurp)" -f /tmp/recording.mp4
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+wf-recorder -g "$(slurp)" -f /tmp/recording.mp4
+```
+
+- `-g "$(slurp)"`: record a region of the screen given a geometry string.
+- `-f /tmp/recording.mp4`: save the recording to a file.
+
+</Alert>
+
+Record a region and upload it to a server:
+
+```bash
+#!/bin/bash
+
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+wf-recorder -g "$(slurp)" -f /tmp/recording.mp4 -y
+# -y: Overwrite the file if it already exists
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/recording.mp4 \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```
+
+<Alert type='info'>
+When running this command, you will have to stop the recording by either pressing `Ctrl+C` or sending `sigint` to the `wf-recorder` process.
+  
+```bash
+killall -s SIGINT wf-recorder
+```
+
+You can bind this command to a key (however you do it on your compositor) to make it easier to stop recording.
+
+</Alert>
+
+### Spectacle (KDE)
+
+Spectacle is a screenshot/recording tool for KDE, it works on both Wayland and X11.
+
+Record a region and save it to `/tmp/recording.mp4`:
+
+```bash copy
+spectacle -R region -ibn -o /tmp/recording.mp4
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash copy
+spectacle -R region -ibn -o /tmp/recording.mp4
+```
+
+- `-R region`: record a region of the screen.
+- `-i`: launch a new instance instead of using an existing one.
+- `-b`: launch in background mode (will not open a GUI after selecting region)
+- `-n`: will not send a notification after taking the screenshot (if this was enabled, the script will hang until the notification receives an interaction or times out)
+
+</Alert>
+
+Record a region and upload it to a server:
+
+```bash
+#!/bin/bash
+
+TOKEN="token"
+URL="https://example.com/api/upload"
+
+spectacle -R region -ibn -o /tmp/recording.mp4
+
+curl \
+  -H "authorization: $TOKEN" $URL \
+  -F file=@/tmp/recording.mp4 \
+  -H 'content-type: multipart/form-data' |
+  jq -r .files[0].url |
+  tr -d '\n' |
+  wl-copy
+```

@@ -6,9 +6,7 @@ sidebar_position: 2
 
 This section requires [Flameshot](https://www.flameshot.org/), [jq](https://stedolan.github.io/jq/), and [xsel](https://github.com/kfish/xsel).
 
-## Generate from Zipline
-
-Zipline now supports generating a script that will upload files to Zipline using flameshot.
+## Downloading
 
 1. Head over to your Settings page (click your user icon in the top right corner)
 2. Scroll down to **Generate Uploaders**
@@ -24,13 +22,13 @@ Once you download one save it to your computer, remember the path, and make the 
 ### Through the terminal
 
 ```bash
-chmod +x ~/Downloads/zipline.sh
+chmod +x /path/to/zipline-script.sh
 ```
 
 ### Through the file manager
 
-![Gnome Files (nautilus)](/img/docs/flameshot-3.png)
-![KDE (dolphin)](/img/docs/flameshot-4.png)
+![Gnome Files (nautilus)](/img/docs/flameshot-3.png 'Make a file executable on GNOME Files')
+![KDE (dolphin)](/img/docs/flameshot-4.png 'Make a file executable on KDE (Dolphin)')
 
 ### Extra: Set up a keyboard shortcut with KDE
 
@@ -54,5 +52,9 @@ To upload files using Flameshot we will use a script. Replace $TOKEN and $HOST w
 DATE=$(date '+%h_%Y_%d_%I_%m_%S.png');
 flameshot gui -r > ~/Pictures/$DATE;
 
-curl -H "Content-Type: multipart/form-data" -H "authorization: $TOKEN" -F file=@$1 $HOST/api/upload | jq -r .files[0].url | xsel -ib
+curl -H "Content-Type: multipart/form-data" -H "authorization: $TOKEN" -F file=@~/Pictures/$DATE $HOST/api/upload | jq -r .files[0].url | xsel -ib
 ```
+
+## More Information
+
+- [Wayland Guide](/docs/guides/wayland): An extensive guide on the many different ways to take screenshots and upload them to Zipline when using a Wayland compositor.
