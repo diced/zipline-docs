@@ -7,6 +7,7 @@ export default function Community() {
   return (
     <>
       <NextSeo
+        title='Community'
         description='Interact with the Zipline community, or receive support!'
         openGraph={{
           url: 'https://zipline.diced.sh/community',

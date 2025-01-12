@@ -42,7 +42,7 @@ export default function Alert({ children, type }: AlertProps) {
     ),
     note: (props: any) => (
       <BaseAlert
-        className='bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-700'
+        className='bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-800'
         {...props}
       />
     ),

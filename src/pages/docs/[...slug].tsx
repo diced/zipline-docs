@@ -12,7 +12,6 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { join } from 'path';
-import { Prism } from 'prism-react-renderer';
 import { Fragment } from 'react';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
@@ -27,6 +26,7 @@ import {
   getPaths,
   readSidebar,
 } from '../../lib/docs';
+import { Prism } from 'prism-react-renderer';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
@@ -61,11 +61,12 @@ export default function DocsPage({
   return (
     <div className='max-w-[90rem] w-full mx-auto flex flex-1 items-stretch'>
       <NextSeo
-        title={title ?? undefined}
+        title={title ?? 'Docs – Zipline'}
+        titleTemplate='%s – Docs – Zipline'
         description={description ?? undefined}
         openGraph={{
           url: 'https://zipline.diced.sh',
-          title: `${title ? `${title} - ` : ''}Zipline`,
+          title: `${title ? `${title} – Docs – ` : ''}Zipline`,
           description: description ?? undefined,
           images: [
             {
@@ -111,7 +112,7 @@ export default function DocsPage({
 
           <hr className='not-prose border-[1.35px] rounded-md border-gray-200 dark:border-gray-800' />
 
-          <div className='flex justify-between my-8 not-prose flex-grow space-x-8'>
+          <div className='flex justify-between my-8 not-prose flex-grow gap-8'>
             {prev ? (
               <Link
                 href={prev.href}
@@ -123,8 +124,8 @@ export default function DocsPage({
                     {prev.title}
                   </div>
                   <div className='text-xs text-gray-500 dark:text-gray-400 pl-7'>
-                    {prev.description.length > 50
-                      ? prev.description.substring(0, 50).trim() + '...'
+                    {prev.description.length > 70
+                      ? prev.description.substring(0, 70).trim() + '...'
                       : prev.description}
                   </div>
                 </div>
@@ -143,8 +144,8 @@ export default function DocsPage({
                     <IconChevronRight className='w-5 h-5 ml-2' />
                   </div>
                   <div className='text-xs pr-7 text-gray-500 dark:text-gray-400'>
-                    {next.description.length > 50
-                      ? next.description.substring(0, 50).trim() + '...'
+                    {next.description.length > 70
+                      ? next.description.substring(0, 70).trim() + '...'
                       : next.description}
                   </div>
                 </div>

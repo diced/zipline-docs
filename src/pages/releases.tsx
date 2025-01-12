@@ -7,6 +7,7 @@ export default function Releases() {
   return (
     <>
       <NextSeo
+        title='Releases'
         description="View all of Zipline's releases"
         openGraph={{
           url: 'https://zipline.diced.sh/releases',

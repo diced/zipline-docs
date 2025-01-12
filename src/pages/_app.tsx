@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo
-        titleTemplate='Zipline - %s'
+        titleTemplate='%s – Zipline'
         defaultTitle='Zipline'
         themeColor='#2052a9'
         additionalLinkTags={[

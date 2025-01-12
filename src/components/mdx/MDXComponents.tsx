@@ -1,20 +1,29 @@
 import dynamic from 'next/dynamic';
 import { Heading } from './Headings';
+import Image from './Image';
+import APIBadge from './APIBadge';
+import TabItem from './tabs/TabItem';
+import Tabs from './tabs';
+import Alert from './Alert';
+import DocLinks from './DocLinks';
+
+import Pre from './Pre';
+import Link from 'next/link';
 
 export const MDXComponents = {
-  APIBadge: dynamic(() => import('./APIBadge')),
+  APIBadge: APIBadge,
   VariablesPlayground: dynamic(() => import('./VariablesPlayground')),
   TimezoneCollapse: dynamic(() => import('./TimezoneCollapse')),
   ExternalLinksBuilder: dynamic(() => import('./ExternalLinksBuilder')),
-  TabItem: dynamic(() => import('./tabs/TabItem')),
-  Tabs: dynamic(() => import('./tabs')),
-  Alert: dynamic(() => import('./Alert')),
-  DocLinks: dynamic(() => import('./DocLinks')),
+  TabItem: TabItem,
+  Tabs: Tabs,
+  Alert: Alert,
+  DocLinks: DocLinks,
   Colors: dynamic(() => import('./Colors')),
 
-  img: dynamic(() => import('./Image')),
-  pre: dynamic(() => import('./Pre')),
-  a: dynamic(() => import('next/link')),
+  img: Image,
+  pre: Pre,
+  a: Link,
 
   h1: (props: any) => <Heading level={1} {...props} />,
   h2: (props: any) => <Heading level={2} {...props} />,

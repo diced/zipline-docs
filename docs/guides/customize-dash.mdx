@@ -1,0 +1,72 @@
+# Customizing the Dashboard
+
+Zipline offers a couple of settings that let you customize the dashboard to your liking. This guide will walk you through the available options.
+
+## Favicons
+
+Changing the favicon is as simple as replacing the `favicon.ico` file in the `public` directory.
+
+The favicon is the small icon that appears in the browser tab next to the page title. It is also used when a user bookmarks the page.
+
+![Favicon](/img/docs/customize-1.png)
+
+## Title
+
+If you want to change the title of the dashboard, you can do so by changing the title by heading over to the **Server Settings**
+
+1. Scroll down to the **Website** section
+2. Change the **Title** field to your liking
+
+![Title](/img/docs/customize-2.png)
+
+This will change the title that appears in the browser tab, as well as the title that appears in the navigation bar.
+
+![Title](/img/docs/customize-3.png)
+
+## Title Logo
+
+If you want to change the logo that appears in the navigation bar, you can do so by changing the **Title Logo** by heading over to the **Server Settings**
+
+1. Scroll down to the **Website** section
+2. Change the **Title Logo** field to the URL of the image you want to use
+
+![Title Logo](/img/docs/customize-4.png)
+
+## External Links
+
+External Links are links that are found at the bottom of the sidebar. To learn more about how to add external links, check out the [External Links](/docs/guides/external-links) guide.
+
+If you want to change the external links, you can do so by heading over to the **Server Settings**
+
+1. Scroll down to the **Website** section
+2. Change the **External Links** field to your liking. This field must be a valid JSON array, with each object containing a `name` and `url` field.
+
+![External Links](/img/docs/customize-5.png)
+
+If you want help making the JSON array, you can use the [External Links Builder](/docs/guides/external-links#builder) tool.
+
+## Terms of Service
+
+Zipline allows you to add a Terms of Service link. The file provided must be a Markdown file, and it is accessible at `/auth/tos` when configured.
+
+If you want to change the Terms of Service, you can do so by heading over to the **Server Settings**
+
+1. Scroll down to the **Website** section
+2. Change the **Terms of Service** field to the the **path** of the Markdown file you want to use.
+
+Now, when users sign up they will see a checkbox requiring them to agree to the Terms of Service.
+
+![Terms of Service](/img/docs/customize-6.png)
+
+## Login Background
+
+If you want to change from the default solid color background on the login page, you can do so by changing the **Login Background** by heading over to the **Server Settings**.
+
+1. Scroll down to the **Website** section
+2. Change the **Login Background** field to the URL of the image you want to use
+
+![Login Background](/img/docs/customize-7.png)
+
+### Login Background Blur
+
+Configures whether the login background should be blurred or not.

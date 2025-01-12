@@ -10,8 +10,8 @@ This page will document the configuration options available for the datasource.
 
 Must be one of the following values:
 
-- `local` - Local file storage through a directory
-- `s3` - S3 compatible storage (AWS, Cloudflare R2, Minio, etc.)
+- [`local`](#local-datasource) - Local file storage through a directory
+- [`s3`](#s3-datasource) - S3 compatible storage (AWS, Cloudflare R2, Minio, etc.)
 
 ```bash
 DATASOURCE_TYPE=local
@@ -86,4 +86,12 @@ DATASOURCE_S3_ENDPOINT=https://s3.us-west-004.backblazeb2.com # Backblaze B2
 DATASOURCE_S3_ENDPOINT=https://fs1.your-objectstorage.com # Hetzner Object Storage
 DATASOURCE_S3_ENDPOINT=https://s3.us-west-2.amazonaws.com # AWS S3
 DATASOURCE_S3_ENDPOINT=http://localhost:9000 # something like a locally hosted minio server
+```
+
+### `DATASOURCE_S3_FORCE_PATH_STYLE`
+
+This option can be used if your S3 provider requires path-style requests. This isn't needed for any of the example providers you may see above, but it might be needed for something like a locally hosted minio server.
+
+```bash copy
+DATASOURCE_S3_FORCE_PATH_STYLE=true
 ```

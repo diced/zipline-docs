@@ -1,5 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-const tailwindConfig = {
+import type { Config } from 'tailwindcss';
+import tailwindTypography from '@tailwindcss/typography';
+
+type themeFn = (key: string) => string;
+
+export default {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
@@ -14,7 +18,7 @@ const tailwindConfig = {
         'pos-0': '0% 0%',
         'pos-100': '100% 100%',
       },
-      typography: (theme) => ({
+      typography: (theme: themeFn) => ({
         DEFAULT: {
           // light mode
           css: {
@@ -72,7 +76,7 @@ const tailwindConfig = {
             code: {
               color: theme('colors.white'),
               backgroundColor: theme('colors.gray.800'),
-              borderRadius: theme('borderRadius.md'),
+              borderRadius: theme('borderRadius.sm'),
               paddingRight: theme('spacing.1'),
               paddingLeft: theme('spacing.1'),
               overflow: 'auto',
@@ -158,7 +162,5 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
-};
-
-module.exports = tailwindConfig;
+  plugins: [tailwindTypography],
+} satisfies Config;

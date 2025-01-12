@@ -7,6 +7,7 @@ export default function FAQ() {
   return (
     <>
       <NextSeo
+        title='FAQ'
         description='Frequently asked questions about Zipline.'
         openGraph={{
           url: 'https://zipline.diced.sh/faq',

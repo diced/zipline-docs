@@ -23,7 +23,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
       {item.href ? (
         <button
           className={clsx(
-            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-3 py-2',
+            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-2 py-1.5',
             active
               ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
               : 'text-gray-400',
@@ -47,7 +47,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
       ) : (
         <button
           className={clsx(
-            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-3 py-2',
+            'flex transition-colors hover:text-black dark:hover:text-white ease-in-out w-full mr-1 items-center justify-between hover:bg-gray-100/60 dark:hover:bg-gray-800/40 rounded-md px-2 py-1.5',
             active
               ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
               : 'text-gray-400',
@@ -65,7 +65,10 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
         </button>
       )}
 
-      <ul className='ml-1/2' style={{ display: open ? 'block' : 'none' }}>
+      <ul
+        className='border-l border-l-gray-800 ms-2 ps-4'
+        style={{ display: open ? 'block' : 'none' }}
+      >
         {item.items?.map((subitem, i) => (
           <SidebarItem key={i} item={subitem} />
         ))}
