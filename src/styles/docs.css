@@ -1,3 +1,7 @@
+:root {
+  @apply [font-variant-ligatures:none];
+}
+
 .color-GET,
 .color-200 {
   @apply dark:bg-green-400 bg-green-300 dark:text-white text-black;

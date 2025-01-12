@@ -31,7 +31,7 @@ At the bottom of the page there is a [playground](#playground) to test the varia
 | `{file.createdAt}`    | [`date`](#date-modifiers)       | The file's creation date    |
 | `{file.updatedAt}`    | [`date`](#date-modifiers)       | The file's last update date |
 | `{file.deletesAt}`    | [`date`](#date-modifiers)       | The file's expiration date  |
-| `{file.favorite}`     | [`boolean`](#boolean-modifiers) | If the file is favorited    |
+| `{file.favorite}`     | `boolean`                       | If the file is favorited    |
 | `{file.name}`         | [`string`](#string-modifiers)   | The file's name             |
 | `{file.originalName}` | [`string`](#string-modifiers)   | The file's original name    |
 | `{file.size}`         | [`number`](#number-modifiers)   | The file's size in bytes    |
@@ -133,17 +133,6 @@ unkown -> `{unknown_str_modifier({mod})}`
 
 unknown -> `{unknown_int_modifier({mod})}`
 
-### `boolean` modifiers
-
-| Modifier    | Description                 | Example                              |
-| ----------- | --------------------------- | ------------------------------------ |
-| `yesno`     | Yes/No                      | `true` -> `Yes`, `false` -> `No`     |
-| `onoff`     | On/Off                      | `true` -> `On`, `false` -> `Off`     |
-| `truefalse` | True/False                  | `true` -> `True`, `false` -> `False` |
-| `string`    | Convert the value to string | `true` -> `true`, `false` -> `false` |
-
-unknown -> `{unknown_bool_modifier({mod})}`
-
 ### `date` modifiers
 
 | Modifier | Description                                              | Example                                   |                                                            |
@@ -185,6 +174,25 @@ A list of timezones can be found at https://en.wikipedia.org/wiki/List_of_tz_dat
   `en-uk`. The same goes for timezones: `America/Los_Angeles` is the same as
   `america/los_angeles` and `AMERICA/LOS_ANGELES`.
 </Alert>
+
+### Conditional modifiers
+
+<Alert type='info'>
+  Conditional modifiers follow this format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}`
+</Alert>
+
+| Modifier | Description                            | Types              | Variables                  |
+| -------- | -------------------------------------- | ------------------ | -------------------------- |
+| `istrue` | If the boolean is true                 | `boolean`          | None                       |
+| `exists` | Whether the element exists             | `string`           | None                       |
+| `$X`     | If the string starts with X            | `string`           | `X` = `string`             |
+| `^X`     | If the string ends with X              | `string`           | `X` = `string`             |
+| `~X`     | If the string includes X               | `string`           | `X` = `string`             |
+| `=X`     | If the value equals to X               | `string`, `number` | `X` = `string` or `number` |
+| `>=X`    | If the number is greater or equal to X | `number`           | `X` = `number`             |
+| `>X`     | If the number is greater than X        | `number`           | `X` = `number`             |
+| `<=X`    | If the number is lesser or equal to X  | `number`           | `X` = `number`             |
+| `<X`     | If the number is lesser than X         | `number`           | `X` = `number`             |
 
 ## Playground
 
