@@ -178,8 +178,11 @@ A list of timezones can be found at https://en.wikipedia.org/wiki/List_of_tz_dat
 ### Conditional modifiers
 
 <Alert type='info'>
-  Conditional modifiers follow this format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}`
+  Conditional modifiers follow this format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}` (true and false string can also be empty strings (`""`)).
 </Alert>
+
+**Example**: `{file.maxViews::>0["{file.views}/{file.maxViews}"||"No max views"]}`.
+<br />Using this example, when `file.maxViews` is greater than `0`, it'll show `{file.views}/{file.maxViews}` otherwise (when it's `0` or `null`) it'll show `No max views`.
 
 | Modifier | Description                              | Types              | Variables                  |
 | -------- | ---------------------------------------- | ------------------ | -------------------------- |
