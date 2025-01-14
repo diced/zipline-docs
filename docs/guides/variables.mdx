@@ -25,20 +25,20 @@ At the bottom of the page there is a [playground](#playground) to test the varia
   These variables are only available in the case of anything related to files.
 </Alert>
 
-| Access                | Type                            | Description                 |
-| --------------------- | ------------------------------- | --------------------------- |
-| `{file.id}`           | [`string`](#string-modifiers)   | The file's ID               |
-| `{file.createdAt}`    | [`date`](#date-modifiers)       | The file's creation date    |
-| `{file.updatedAt}`    | [`date`](#date-modifiers)       | The file's last update date |
-| `{file.deletesAt}`    | [`date`](#date-modifiers)       | The file's expiration date  |
-| `{file.favorite}`     | `boolean`                       | If the file is favorited    |
-| `{file.name}`         | [`string`](#string-modifiers)   | The file's name             |
-| `{file.originalName}` | [`string`](#string-modifiers)   | The file's original name    |
-| `{file.size}`         | [`number`](#number-modifiers)   | The file's size in bytes    |
-| `{file.type}`         | [`string`](#string-modifiers)   | The file's type             |
-| `{file.views}`        | [`number`](#number-modifiers)   | The file's views            |
-| `{file.maxViews}`     | [`number`](#number-modifiers)   | The file's max views        |
-| `{file.folderId}`?    | [`string`](#string-modifiers)   | The file's folder ID        |
+| Access                 | Type                            | Description                 |
+| ---------------------- | ------------------------------- | --------------------------- |
+| `{file.id}`            | [`string`](#string-modifiers)   | The file's ID               |
+| `{file.createdAt}`     | [`date`](#date-modifiers)       | The file's creation date    |
+| `{file.updatedAt}`     | [`date`](#date-modifiers)       | The file's last update date |
+| `{file.deletesAt}`?    | [`date`](#date-modifiers)       | The file's expiration date  |
+| `{file.favorite}`      | `boolean`                       | If the file is favorited    |
+| `{file.name}`          | [`string`](#string-modifiers)   | The file's name             |
+| `{file.originalName}`? | [`string`](#string-modifiers)   | The file's original name    |
+| `{file.size}`          | [`number`](#number-modifiers)   | The file's size in bytes    |
+| `{file.type}`          | [`string`](#string-modifiers)   | The file's type             |
+| `{file.views}`         | [`number`](#number-modifiers)   | The file's views            |
+| `{file.maxViews}`?     | [`number`](#number-modifiers)   | The file's max views        |
+| `{file.folderId}`?     | [`string`](#string-modifiers)   | The file's folder ID        |
 
 ### URL
 
@@ -52,10 +52,10 @@ At the bottom of the page there is a [playground](#playground) to test the varia
 | `{url.createdAt}`   | [`date`](#date-modifiers)     | The URL's creation date    |
 | `{url.updatedAt}`   | [`date`](#date-modifiers)     | The URL's last update date |
 | `{url.code}`        | [`string`](#string-modifiers) | The URL's code             |
-| `{url.vanity}`      | [`string`](#string-modifiers) | The URL's vanity           |
+| `{url.vanity}`?     | [`string`](#string-modifiers) | The URL's vanity           |
 | `{url.destination}` | [`string`](#string-modifiers) | The URL's destination      |
 | `{url.views}`       | [`number`](#number-modifiers) | The URL's views            |
-| `{url.maxViews}`    | [`number`](#number-modifiers) | The URL's max views        |
+| `{url.maxViews}`?   | [`number`](#number-modifiers) | The URL's max views        |
 
 ### Link
 
@@ -184,7 +184,7 @@ Conditional modifiers follow this format: `{variableName.property::conditionalMo
 | Modifier | Description                              | Types              | Variables                  |
 | -------- | ---------------------------------------- | ------------------ | -------------------------- |
 | `istrue` | If the boolean is true                   | `boolean`          | None                       |
-| `exists` | Whether the element exists               | `string`           | None                       |
+| `exists` | Whether the element exists               | `string`, `date`   | None                       |
 | `$X`     | If the string starts with `X`            | `string`           | `X` = `string`             |
 | `^X`     | If the string ends with `X`              | `string`           | `X` = `string`             |
 | `~X`     | If the string includes `X`               | `string`           | `X` = `string`             |
