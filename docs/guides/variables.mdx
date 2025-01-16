@@ -1,6 +1,6 @@
 # Variables
 
-Variables can be used in [Discord Webhook](/docs/guides/discord-webhook) messages and the [view route](/docs/guides/view-route) to customize the message with dynamic content.
+Variables can be used in [Discord Webhook](/docs/guides/discord-webhooks) messages and the [view route](/docs/guides/view-routes) to customize the message with dynamic content.
 Variables also allow you to use modifiers to format the content in a specific way.
 
 Format: `{variableName.property::modifier::secondModifier?}`
@@ -25,20 +25,20 @@ At the bottom of the page there is a [playground](#playground) to test the varia
   These variables are only available in the case of anything related to files.
 </Alert>
 
-| Access                 | Type                            | Description                 |
-| ---------------------- | ------------------------------- | --------------------------- |
-| `{file.id}`            | [`string`](#string-modifiers)   | The file's ID               |
-| `{file.createdAt}`     | [`date`](#date-modifiers)       | The file's creation date    |
-| `{file.updatedAt}`     | [`date`](#date-modifiers)       | The file's last update date |
-| `{file.deletesAt}`?    | [`date`](#date-modifiers)       | The file's expiration date  |
-| `{file.favorite}`      | `boolean`                       | If the file is favorited    |
-| `{file.name}`          | [`string`](#string-modifiers)   | The file's name             |
-| `{file.originalName}`? | [`string`](#string-modifiers)   | The file's original name    |
-| `{file.size}`          | [`number`](#number-modifiers)   | The file's size in bytes    |
-| `{file.type}`          | [`string`](#string-modifiers)   | The file's type             |
-| `{file.views}`         | [`number`](#number-modifiers)   | The file's views            |
-| `{file.maxViews}`?     | [`number`](#number-modifiers)   | The file's max views        |
-| `{file.folderId}`?     | [`string`](#string-modifiers)   | The file's folder ID        |
+| Access                 | Type                          | Description                 |
+| ---------------------- | ----------------------------- | --------------------------- |
+| `{file.id}`            | [`string`](#string-modifiers) | The file's ID               |
+| `{file.createdAt}`     | [`date`](#date-modifiers)     | The file's creation date    |
+| `{file.updatedAt}`     | [`date`](#date-modifiers)     | The file's last update date |
+| `{file.deletesAt}`?    | [`date`](#date-modifiers)     | The file's expiration date  |
+| `{file.favorite}`      | `boolean`                     | If the file is favorited    |
+| `{file.name}`          | [`string`](#string-modifiers) | The file's name             |
+| `{file.originalName}`? | [`string`](#string-modifiers) | The file's original name    |
+| `{file.size}`          | [`number`](#number-modifiers) | The file's size in bytes    |
+| `{file.type}`          | [`string`](#string-modifiers) | The file's type             |
+| `{file.views}`         | [`number`](#number-modifiers) | The file's views            |
+| `{file.maxViews}`?     | [`number`](#number-modifiers) | The file's max views        |
+| `{file.folderId}`?     | [`string`](#string-modifiers) | The file's folder ID        |
 
 ### URL
 
@@ -177,9 +177,9 @@ A list of timezones can be found at https://en.wikipedia.org/wiki/List_of_tz_dat
 
 ### Conditional modifiers
 
-Conditional modifiers follow this format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}` (true and false string can also be empty strings (`""`)).
-<br /><br />**Example**: `{file.maxViews::>0["{file.views}/{file.maxViews}"||"No max views"]}`.
-<br />Using this example, when `file.maxViews` is greater than `0`, it'll show `{file.views}/{file.maxViews}` otherwise (when it's `0` or `null`) it'll show `No max views`.
+To use conditional modifiers, you need to add them after the variable with a double colon `::`, like normal modifiers but with a different format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}`.
+
+For example, to show the file's views if it has max views, you would use `{file.maxViews::>0["{file.views}/{file.maxViews}"||"No max views"]}`. This will show the views and max views if the max views are greater than 0, otherwise it will show "No max views".
 
 | Modifier | Description                              | Types              | Variables                  |
 | -------- | ---------------------------------------- | ------------------ | -------------------------- |

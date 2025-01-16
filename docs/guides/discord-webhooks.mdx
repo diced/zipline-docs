@@ -1,0 +1,75 @@
+# Discord Webhooks
+
+Discord webhooks are a simple way to get "notifications" sent to a text channel in your Discord server. Zipline offers a way to send notifications to a Discord webhook whenever a file is uploaded or a URL is shortened.
+
+## Creating a Webhook in Discord
+
+1. Open the channel settings of the channel you want to send notifications to.
+
+![Channel Settings](/img/docs/discord-webhooks-1.png)
+
+2. Click on the `Integrations` tab.
+3. Click on the `Create Webhook` button.
+
+![Create Webhook](/img/docs/discord-webhooks-2.png)
+
+4. After creating the webhook, the new webhook will appear in the list of webhooks for that channel. If you already have previous webhooks in this channel, it should appear at the bottom of the list with the name of "Captain Hook".
+
+![Webhook List](/img/docs/discord-webhooks-3.png)
+
+5. Click on the webhook, and copy the webhook URL. Save this for later as you will need it to configure Zipline's Discord webhook notifications.
+
+![Webhook URL](/img/docs/discord-webhooks-4.png)
+
+## Configuring Zipline
+
+1. Go to your Zipline dashboard, and head over to the **Server Settings** page.
+2. Scroll down to the **Discord Webhook** section.
+3. Copy the webhook URL you saved earlier into the **Webhook URL** field.
+
+![Webhook URL Field](/img/docs/discord-webhooks-5.png)
+
+<Alert type='note'>
+  Additionally, you can configure a username and avatar URL for the webhook.
+  This will change the name and avatar of the webhook in the Discord channel,
+  and is optional.
+</Alert>
+
+4. Click on the `Save Changes` button to save the webhook URL and any other changes you made.
+
+## Customizing the Webhook
+
+Upon scrolling down a bit more, you will see two sections: **On Upload** and **On Shorten**. These sections allow you to customize the messages that are sent to the Discord channel when a file is uploaded or a URL is shortened.
+
+<Alert type='note'>
+  Each section has its own webhook URL, username, and avatar URL fields. This
+  allows you to have different webhooks for the different actions, but if the
+  webhook URL is left blank the default webhook URL will be used. These only
+  serve as "overrides" for the defaults in the above section.
+</Alert>
+
+![Customizing the Webhook](/img/docs/discord-webhooks-6.png)
+
+Here is what it looks like on Discord:
+
+![Discord Message](/img/docs/discord-webhooks-7.png)
+
+### Embeds
+
+Additionally, you can fruther customize the messages by using Discord embeds. To enable this just toggle the `Embed` option, and a new section will appear where you can customize the embed.
+
+![Embeds](/img/docs/discord-webhooks-8.png)
+
+Here is what it looks like on Discord:
+
+![Discord Embed](/img/docs/discord-webhooks-9.png)
+
+## Variables
+
+In the previous screenshots, you may have noticed the use of variables such as `{file.name}` and `{debug.jsonf}`. These are placeholders that will be replaced with the actual values when the message is sent to Discord. For more information, visit the [Variables](/docs/guides/variables) guide. If you would like to test out the variables, you can use the [Playground](/docs/guides/variables#playground) in the Variables guide.
+
+## Other Resources
+
+- [Discord Webhooks Documentation](https://discord.com/developers/docs/resources/webhook)
+- [HTTP Webhooks](/docs/guides/http-webhooks)
+- [Variables](/docs/guides/variables)
