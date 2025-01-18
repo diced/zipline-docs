@@ -57,7 +57,6 @@ export type ParseValue = {
 
 export function parseString(str: string, value: ParseValue) {
   if (!str) return null;
-  str = str.replace(/\\n/g, '\n');
 
   const replacer = (key: string, value: unknown) => {
     if (
@@ -134,7 +133,14 @@ export function parseString(str: string, value: ParseValue) {
       );
       str = replaceCharsFromString(
         str,
-        modifier(matches.groups.mod || 'string', decoded),
+        modifier(
+          matches.groups.mod || 'string',
+          decoded,
+          matches.groups.mod_tzlocale ?? undefined,
+          matches.groups.mod_check_true ?? undefined,
+          matches.groups.mod_check_false ?? undefined,
+          value
+        ),
         index,
         re.lastIndex,
       );
@@ -183,7 +189,7 @@ export function parseString(str: string, value: ParseValue) {
     re.lastIndex = index;
   }
 
-  return str;
+  return str.replace(/\\n/g, '\n');
 }
 
 function modifier(
@@ -295,12 +301,12 @@ function modifier(
           return `{unknown_str_modifier(${mod})}`;
 
         if (_value) {
-          return value
+          return value != 'null' && value
             ? parseString(check_true, _value) || check_true
             : parseString(check_false, _value) || check_false;
         }
 
-        return value ? check_true : check_false;
+        return value != 'null' && value ? check_true : check_false;
       }
       case mod.startsWith('='): {
         if (typeof check_true !== 'string' || typeof check_false !== 'string')
@@ -487,13 +493,11 @@ function modifier(
 
   if (
     typeof check_false == 'string' &&
-    ['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) => mod.startsWith(modif))
+    (
+      ['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) => mod.startsWith(modif)) ||
+      ['istrue', 'isfalse', 'exists'].includes(mod)
+    )
   ) {
-    if (_value) return parseString(check_false, _value) || check_false;
-    return check_false;
-  }
-
-  if (typeof check_false == 'string' && ['istrue', 'isfalse', 'exists'].includes(mod)) {
     if (_value) return parseString(check_false, _value) || check_false;
     return check_false;
   }
