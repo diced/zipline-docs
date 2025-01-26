@@ -33,6 +33,8 @@ export default function CommunityProject({ project }: { project: Project }) {
         <Link
           href={project.href}
           className='text-3xl font-bold hover:underline decoration-blue-400 hover:decoration-[2px]'
+          data-umami-event={`community_project_${project.name.replace(' ', '-')}`}
+          data-umami-event-action='link'
         >
           {project.name}
         </Link>
@@ -42,12 +44,14 @@ export default function CommunityProject({ project }: { project: Project }) {
         {project.author && (
           <span className='text-gray-500 dark:text-gray-400 '>
             by{' '}
-            <a
-              href={project.authorHref}
+            <Link
+              href={project.authorHref || '#'}
               className='text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-100 transition-colors'
+              data-umami-event={`community_project_${project.name.replace(' ', '-')}`}
+              data-umami-event-action='author'
             >
               {project.author}
-            </a>
+            </Link>
           </span>
         )}
       </div>

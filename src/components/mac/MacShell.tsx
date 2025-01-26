@@ -101,14 +101,17 @@ export default function MacShell({
               <div
                 className='bg-red-500 hover:bg-red-600 transition-colors ease-in-out shadow-lg rounded-full h-3 w-3 cursor-pointer'
                 onClick={() => setClosed(!closed)}
+                data-umami-event='mac_close'
               />
               <div
                 className='bg-yellow-500 hover:bg-yellow-600 transition-colors ease-in-out shadow-lg rounded-full h-3 w-3 cursor-pointer'
                 onClick={() => setMinimized(!minimized)}
+                data-umami-event='mac_minimize'
               />
               <div
                 className='bg-green-500 hover:bg-green-600 transition-colors ease-in-out shadow-lg rounded-full h-3 w-3 cursor-pointer'
                 onClick={() => setScale(2)}
+                data-umami-event='mac_maximize'
               />
             </div>
 

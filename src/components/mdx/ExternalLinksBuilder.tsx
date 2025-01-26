@@ -54,6 +54,7 @@ export default function ExternalLinksBuilder() {
           disabled={
             labelValue.trim().length === 0 || linkValue.trim().length === 0
           }
+          data-umami-event='external_links_builder_add'
         >
           Add
         </button>
@@ -61,6 +62,7 @@ export default function ExternalLinksBuilder() {
           className='bg-red-500 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-red-400 ease-in-out disabled:bg-gray-300 disabled:dark:bg-gray-600 disabled:text-gray-100 disabled:dark:text-gray-300'
           onClick={() => setLinks([])}
           disabled={links.length === 0}
+          data-umami-event='external_links_builder_clear'
         >
           Clear
         </button>

@@ -13,6 +13,7 @@ export default function SearchBar({ big }: { big?: boolean }) {
         big ? 'sm:w-full md:w-72' : 'mb-4 w-full',
       )}
       onClick={() => setIsOpen(!isOpen)}
+      data-umami-event='search_button'
     >
       <IconSearch size={20} />
       <span className='flex-auto text-left'>Quick search...</span>

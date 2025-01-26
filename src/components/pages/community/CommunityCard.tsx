@@ -25,6 +25,7 @@ export default function CommunityCard({ link }: { link: Link }) {
         <Link
           href={link.href}
           className='underline decoration-blue-400 hover:decoration-[2px] font-bold py-2 px-4 rounded mt-4'
+          data-umami-event={`community_card_${link.name}`}
         >
           Visit
         </Link>

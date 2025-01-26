@@ -15,6 +15,8 @@ export default function Item({ title, children, id }: ItemProps) {
   return (
     <div
       id={`faq-${id}`}
+      data-umami-event='faq_click'
+      data-umami-event-id={id}
       onClick={() => setOpen(!open)}
       className='w-full my-12 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 dark:bg-gray-900 shadow-md hover:shadow-lg rounded-md p-4 transition-all ease-in-out cursor-pointer'
     >

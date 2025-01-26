@@ -12,6 +12,7 @@ export default function SponsorButton() {
           'text-white font-bold py-2 px-4 rounded text-xl',
           'hover:ring-2 hover:ring-gray-800 dark:hover:ring-blue-300 hover:ring-offset-white dark:hover:ring-offset-gray-900 hover:ring-offset-2',
         )}
+        data-umami-event='sponsor_button'
       >
         Sponsor on GitHub{' '}
         <IconHeartFilled className='w-4 h-4 transition-colors group-hover:fill-red-400 ml-4' />

@@ -20,6 +20,7 @@ export default function ButtonLinks({
             'text-white font-bold py-2 px-4 rounded text-xl',
             'hover:ring-2 hover:ring-blue-800 dark:hover:ring-blue-300 hover:ring-offset-white dark:hover:ring-offset-gray-900 hover:ring-offset-2',
           )}
+          data-umami-event='home_get_started'
         >
           Get started
         </button>

@@ -26,8 +26,9 @@ export default function ScrollToTop() {
         visible ? 'opacity-100' : 'opacity-0',
       )}
       onClick={handleClick}
+      data-umami-event='scroll_to_top'
     >
-      <IconArrowUp />
+      <IconArrowUp className='pointer-events-none' />
     </button>
   );
 }

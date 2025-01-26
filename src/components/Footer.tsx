@@ -50,10 +50,18 @@ export default function Footer() {
               <div className='flex items-center'>
                 <p className='text-4xl font-bold mx-6'>Zipline</p>
                 <div className='flex flex-row space-x-4'>
-                  <Link href='/github' aria-label='github'>
+                  <Link
+                    href='/github'
+                    aria-label='github'
+                    data-umami-event='footer_link_github'
+                  >
                     <IconBrandGithubFilled className='fill-black dark:fill-white h-6 w-6 transition-colors ease-in-out dark:hover:fill-gray-300 hover:fill-gray-700' />
                   </Link>
-                  <Link href='/discord' aria-label='discord'>
+                  <Link
+                    href='/discord'
+                    aria-label='discord'
+                    data-umami-event='footer_link_discord'
+                  >
                     <IconBrandDiscordFilled className='fill-[#5865F2] hover:fill-[#4750b5] h-6 w-6 transition-colors ease-in-out' />
                   </Link>
                 </div>
@@ -64,6 +72,7 @@ export default function Footer() {
                 <Link
                   href='https://github.com/diced/'
                   className='hover:underline'
+                  data-umami-event='footer_link_github_com_diced'
                 >
                   diced
                 </Link>
@@ -71,6 +80,7 @@ export default function Footer() {
                 <Link
                   href='https://github.com/diced/zipline/tree/trunk/LICENSE'
                   className='hover:underline'
+                  data-umami-event='footer_link_license'
                 >
                   All rights reserved.
                 </Link>
@@ -89,7 +99,7 @@ export default function Footer() {
                         <Link
                           key={j}
                           href={subItem.href}
-                          className='flex transition-colors ease-in-out text-gray-300 dark:hover:text-blue-500 hover:text-blue-400 py-2 rounded-md font-normal text-sm text-center'
+                          className='flex transition-colors ease-in-out text-gray-300 dark:hover:text-blue-500 hover:text-blue-400 rounded-md py-1 font-normal text-sm text-center'
                         >
                           {subItem.title}
                         </Link>

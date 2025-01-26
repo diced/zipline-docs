@@ -38,6 +38,8 @@ export function ThemeDropdownItem({
         theme === value && 'font-semibold text-blue-500 dark:text-blue-400',
       )}
       onClick={onClick}
+      data-umami-event='theme_dropdown'
+      data-umami-event-theme={value}
     >
       <span className='p-1 border border-gray-100 dark:border-gray-800 rounded-md shadow-sm'>
         <Icon size={16} />

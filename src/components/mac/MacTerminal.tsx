@@ -57,7 +57,7 @@ export default function MacTerminal({ text, lines }: MacTerminalProps) {
             const { text, showAfter } = lines[visibleIdx];
 
             setTypingInterval(showAfter);
-            // setOutputLines((prev) => [...prev, text]);
+
             setOutputLines((prev) =>
               prev.map((line, index) =>
                 index === visibleIdx

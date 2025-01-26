@@ -133,6 +133,7 @@ export default function Navbar() {
             <Link
               href='/github'
               className='text-gray-300 px-3 py-2 rounded-md font-medium text-md'
+              data-umami-event='header_link_github'
             >
               <IconBrandGithubFilled className='text-gray-400 bg-none hover:text-blue-500 transition-colors duration-300 ease-in-out w-6 h-6' />
             </Link>
