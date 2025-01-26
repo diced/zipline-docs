@@ -45,7 +45,7 @@ export default function Footer() {
     <div className='dark:bg-gray-900 border-gray-100 dark:border-gray-800 border-t'>
       <Container>
         <div className='max-w-full px-4 my-20 sm:px-6 lg:px-8'>
-          <div className='flex md:flex-row flex-col items-center h-auto justify-between'>
+          <div className='flex xl:flex-row flex-col items-center h-auto justify-between'>
             <div className='flex flex-col items-center'>
               <div className='flex items-center'>
                 <p className='text-4xl font-bold mx-6'>Zipline</p>
@@ -78,7 +78,7 @@ export default function Footer() {
             </div>
 
             <div className='justify-center'>
-              <div className='md:ml-10 md:flex md:flex-row my-6 md:my-0 flex-col items-baseline md:space-x-20'>
+              <div className='xl:ml-10 xl:flex xl:flex-row my-6 xl:my-0 flex-col items-baseline xl:space-x-20'>
                 {items.map((item, i) => (
                   <div key={i} className='py-2 rounded-md font-medium text-md'>
                     <span className='text-lg text-gray-600 dark:text-gray-300'>

@@ -2,6 +2,7 @@ import { DefaultSeo } from 'next-seo';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import { Inter, JetBrains_Mono } from 'next/font/google';
+import Link from 'next/link';
 import Script from 'next/script';
 import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
@@ -10,7 +11,6 @@ import AnnouncementBar from '../components/AnnouncementBar';
 import '../styles/docs.css';
 import '../styles/docsearch.css';
 import '../styles/index.css';
-import Link from 'next/link';
 
 const inter = Inter({
   subsets: ['latin'],

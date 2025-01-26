@@ -1,26 +1,44 @@
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { useState } from 'react';
+import NextImage from 'next/image';
 
 export default function Image({
   title,
   alt,
   src,
+  width,
+  height,
 }: {
   title?: string;
   alt?: string;
   src: string;
+  width?: number;
+  height?: number;
 }) {
   const [open, setOpen] = useState(false);
 
-  const imageComponent = (
-    <img
-      src={src}
-      alt={alt}
-      loading='lazy'
-      className='rounded-md max-w-full h-auto cursor-pointer'
-      onClick={() => setOpen(true)}
-    />
-  );
+  const local = !src.startsWith('http');
+
+  const imageComponent =
+    local && width && height ? (
+      <NextImage
+        src={src}
+        alt={alt ?? src}
+        width={width}
+        height={height}
+        className='rounded-md cursor-pointer'
+        onClick={() => setOpen(true)}
+        loading='lazy'
+      />
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        loading='lazy'
+        className='rounded-md max-w-full h-auto cursor-pointer'
+        onClick={() => setOpen(true)}
+      />
+    );
 
   return (
     <>

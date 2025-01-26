@@ -11,7 +11,7 @@ export default function Layout({ children }: LayoutProps) {
     <div className='flex flex-col'>
       <Navbar />
 
-      <main className='my-6'>{children}</main>
+      <main className='my-0 xl:my-6'>{children}</main>
 
       <Footer />
     </div>

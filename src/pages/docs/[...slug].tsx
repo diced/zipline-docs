@@ -12,6 +12,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { join } from 'path';
+import { Prism } from 'prism-react-renderer';
 import { Fragment } from 'react';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
@@ -26,7 +27,7 @@ import {
   getPaths,
   readSidebar,
 } from '../../lib/docs';
-import { Prism } from 'prism-react-renderer';
+import rehypeImageSize from '../../lib/rehypeImageSize';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
@@ -78,7 +79,7 @@ export default function DocsPage({
 
       <Sidebar items={sidebar}>
         <article className='prose dark:prose-invert dark:text-white text-black max-w-4xl min-w-0 pt-6 px-8 md:px-20 w-full'>
-          <div className='flex items-center cursor-default select-none mb-6'>
+          <div className='items-center cursor-default select-none mb-6 hidden md:flex'>
             <Link href='/docs/get-started' className='flex items-center'>
               <IconHome className='w-5 h-5 text-gray-500 dark:text-gray-400' />
             </Link>
@@ -228,7 +229,11 @@ export const getStaticProps = (async ({ params }) => {
 
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      rehypePlugins: [rehypeSlug, rehypeMdxCodeProps],
+      rehypePlugins: [
+        rehypeSlug,
+        rehypeMdxCodeProps,
+        [rehypeImageSize, { root: join(process.cwd(), 'public') }],
+      ],
       remarkPlugins: [remarkGfm, remarkUnwrapImages],
       development: process.env.NODE_ENV === 'development',
     },

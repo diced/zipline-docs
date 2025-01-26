@@ -24,15 +24,17 @@ export default function Community() {
           cardType: 'summary_large_image',
         }}
       />
+
       <Container>
         <Center>
           <div className='my-12 md:my-28'>
-            <h1 className='text-3xl md:text-6xl font-extrabold text-center'>
+            <h1 className='text-4xl md:text-6xl font-extrabold text-center'>
               Zipline Community
             </h1>
 
-            <p className='text-center text-2xl mt-4'>
-              Interact with the community, or receive support!
+            <p className='text-center text-xl mt-4'>
+              Interact with the Zipline community, or check out these
+              Zipline-related projects!
             </p>
 
             <CommunityPage />
