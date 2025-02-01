@@ -1,6 +1,6 @@
 # Migrate
 
-This guide will help you migrate from v3.7.11 to v4.
+This guide will help you migrate from v3.7.12 to v4.
 
 ## Preparation
 
@@ -42,6 +42,11 @@ docker pull ghcr.io/diced/zipline:latest
 docker compose exec postgres psql -U postgres # or whatever your postgres user is configured as
 ```
 
+<Alert type='info'>
+  You may run into an error that says "ERROR: template database "template1" has a collation version mismatch",
+  go ahead and follow the directions it provides and rebuild all of the objects in the template database using the new version, and you should be good to go going forward.
+</Alert>
+
 3. Create a new database for v4.
 
 ```sql
@@ -56,14 +61,14 @@ exit;
 
 ### Environment Variables
 
-Almost all environment variables supported in v3 are no longer supported in v4. This is because v4 has a new configuration system that is hanlded entirely through the dashboard. Only a handful of environment variables are needed to get v4 running.
+Almost all environment variables supported in v3 are no longer supported in v4. This is because v4 has a new configuration system that is handled entirely through the dashboard. Only a handful of environment variables are needed to get v4 running.
 
 Here are some variables that you will need to keep/rename:
 
-- `CORE_DATABASE_URL` -> `DATABASE_URL` (change the database at the end, to the new database you created)
+- `CORE_DATABASE_URL` -> `DATABASE_URL` (change the database at the end, to the new database you created in the above steps)
 - `CORE_HOST` -> is now `CORE_HOSTNAME`
 - `CORE_PORT`
-- `CORE_SECRET` -> this must be a string greater than 32 characters, or it will be rejected. It is recommended to just generate a new secret.
+- `CORE_SECRET` -> this must be a string greater than 32 characters, or it will be rejected. It is recommended to just generate a new secret. (you may want to close this in single quotes)
 - `DATASOURCE_TYPE` -> only supports `s3` or `local`
   - `DATASOURCE_LOCAL_DIRECTORY`
   - `DATASOURCE_S3_ACCESS_KEY_ID`
@@ -130,7 +135,7 @@ If you would like you can view the logs to make sure everything is running corre
 docker compose logs -f
 ```
 
-6. Naviagate to your instance. Zipline will now prompt you to create a user.
+6. Navigate to your instance. Zipline will now prompt you to create a user.
 
 ![Create User](/img/docs/migrate-4.png)
 
