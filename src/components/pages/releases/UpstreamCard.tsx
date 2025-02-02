@@ -60,7 +60,6 @@ export default function UpstreamCard({
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.1 }}
-          className='mt-4'
         >
           <div className='text-gray-500 dark:text-gray-400 mb-6'>
             This is the most recent upstream commit, and may not be stable. If

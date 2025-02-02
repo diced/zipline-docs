@@ -7,7 +7,7 @@ interface TabsProps {
 }
 
 export default function Tabs({ defaultValue, children }: TabsProps) {
-  const defaultTab = children.find(
+  const defaultTab: any = children.find(
     (child: any) => child.props.default || child.props.value === defaultValue,
   );
 

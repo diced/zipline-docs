@@ -139,7 +139,7 @@ export function parseString(str: string, value: ParseValue) {
           matches.groups.mod_tzlocale ?? undefined,
           matches.groups.mod_check_true ?? undefined,
           matches.groups.mod_check_false ?? undefined,
-          value
+          value,
         ),
         index,
         re.lastIndex,
@@ -176,7 +176,7 @@ export function parseString(str: string, value: ParseValue) {
           matches.groups.mod_tzlocale ?? undefined,
           matches.groups.mod_check_true ?? undefined,
           matches.groups.mod_check_false ?? undefined,
-          value
+          value,
         ),
         index,
         re.lastIndex,
@@ -493,10 +493,10 @@ function modifier(
 
   if (
     typeof check_false == 'string' &&
-    (
-      ['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) => mod.startsWith(modif)) ||
-      ['istrue', 'isfalse', 'exists'].includes(mod)
-    )
+    (['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) =>
+      mod.startsWith(modif),
+    ) ||
+      ['istrue', 'isfalse', 'exists'].includes(mod))
   ) {
     if (_value) return parseString(check_false, _value) || check_false;
     return check_false;

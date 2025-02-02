@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   distDir: 'build',
-  redirects: async () => {
+  redirects: () => {
     return [
       {
         source: '/docs',

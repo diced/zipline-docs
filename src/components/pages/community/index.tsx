@@ -43,9 +43,7 @@ export default function CommunityPage() {
         ))}
       </div>
 
-      <h2 className='text-4xl font-extrabold text-center'>
-        Showcase
-      </h2>
+      <h2 className='text-4xl font-extrabold text-center'>Showcase</h2>
       <p className='text-center text-xl mt-4'>
         Check out these Zipline-related projects!
       </p>

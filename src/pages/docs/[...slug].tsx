@@ -17,7 +17,7 @@ import { Fragment } from 'react';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import remarkUnwrapImages from 'remark-unwrap-images';
+import rehypeUnwrapImages from 'rehype-unwrap-images';
 import { MDXComponents } from '../../components/mdx/MDXComponents';
 import ScrollToTop from '../../components/mdx/ScrollToTop';
 import Sidebar from '../../components/sidebar';
@@ -234,9 +234,10 @@ export const getStaticProps = (async ({ params }) => {
       rehypePlugins: [
         rehypeSlug,
         rehypeMdxCodeProps,
+        rehypeUnwrapImages,
         [rehypeImageSize, { root: join(process.cwd(), 'public') }],
       ],
-      remarkPlugins: [remarkGfm, remarkUnwrapImages],
+      remarkPlugins: [remarkGfm],
       development: process.env.NODE_ENV === 'development',
     },
     parseFrontmatter: true,

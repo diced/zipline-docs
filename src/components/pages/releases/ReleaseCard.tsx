@@ -43,7 +43,6 @@ export default function ReleaseCard({ release }: { release: Release }) {
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.1 }}
-          className='mt-4'
         >
           <div className='prose dark:prose-invert dark:prose-li:text-white max-w-full'>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
