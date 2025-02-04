@@ -30,7 +30,7 @@ const items = [
   {
     title: 'Guides',
     items: [
-      { title: 'NGINX Proxy', href: '/docs/guides/nginx/nginx-no-ssl' },
+      { title: 'NGINX Proxy', href: '/docs/guides/reverse-proxy/nginx/nginx-no-ssl' },
       { title: 'ShareX', href: '/docs/guides/uploaders/sharex' },
       { title: 'Discord Webhooks', href: '/docs/guides/discord-webhooks' },
       { title: 'OAuth2', href: '/docs/guides/oauth' },
