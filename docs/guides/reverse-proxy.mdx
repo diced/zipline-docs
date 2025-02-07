@@ -99,7 +99,17 @@ server {
 }
 ```
 
----
+#### Generating Certificates with Tailscale
+
+If you are using Tailscale, and want to create a certificate pair for your domain (e.g. `hostname.tails-scales.ts.net`) to use with NGINX, you can use the following commands:
+
+```bash
+tailscale cert <domain>
+```
+
+This will output a `<domain>.key` and `<domain>.crt` file. You can then use these files in your NGINX configuration.
+
+Additionally, visit [this page](hhttps://tailscale.com/kb/1080/cli#cert) for more information on how to use the certificates.
 
 ## Caddy
 

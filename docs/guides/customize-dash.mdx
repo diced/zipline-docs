@@ -54,6 +54,22 @@ If you want to change the Terms of Service, you can do so by heading over to the
 1. Scroll down to the **Website** section
 2. Change the **Terms of Service** field to the the **path** of the Markdown file you want to use.
 
+<Alert type="info">
+If you are using docker, make sure to mount the file to the container. For example, when using docker-compose:
+```yaml
+...
+services:
+  zipline:
+    ...
+    volumes:
+      - ./path/to/tos.md:/zipline/tos.md
+...
+```
+
+Then you can set the path to `/zipline/tos.md` in the **Terms of Service** field.
+
+</Alert>
+
 Now, when users sign up they will see a checkbox requiring them to agree to the Terms of Service.
 
 ![Terms of Service](/img/docs/customize-6.png)

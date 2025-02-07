@@ -162,3 +162,97 @@ server.listen(3001, () => {
   console.log('Server is running on', server.address());
 });
 ```
+
+## Example Python Server
+
+This example uses [`http.server`](https://docs.python.org/3/library/http.server.html), but is not recommended to be used in production.
+
+```python copy filename="webhook.py"
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import json
+
+class WebhookHandler(BaseHTTPRequestHandler):
+  def do_POST(self):
+    content_length = int(self.headers.get('Content-Length', 0))
+    data = self.rfile.read(content_length)
+
+    webhook = self.headers.get('x-zipline-webhook')  # Should always be "true"
+    type = self.headers.get('x-zipline-webhook-type')
+
+    try:
+      parsed = json.loads(data.decode('utf-8'))
+      print(f"recv({type}) data:", parsed)
+      # handle data in parsed...
+      # if type == 'upload': handle_upload(parsed)
+      # if type == 'shorten': handle_shorten(parsed)
+    except json.JSONDecodeError:
+      self.send_response(400)
+      self.end_headers()
+      self.wfile.write(b'Invalid JSON')
+      return
+
+    self.send_response(200)
+    self.end_headers()
+
+
+def run(server_class=HTTPServer, handler_class=WebhookHandler, port=3002):
+  server_address = ('', port)
+  httpd = server_class(server_address, handler_class)
+  print(f'Server is running on port {port}')
+  httpd.serve_forever()
+
+
+if __name__ == '__main__':
+  run()
+```
+
+## Exmaple Go Server
+
+```go copy filename="webhook.go"
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+)
+
+func receive(data []byte, headers http.Header) {
+	// var webhook = headers.Get("x-zipline-webhook") // will always just be "true"
+	var type_ = headers.Get("x-zipline-webhook-type")
+	var parsed map[string]interface{}
+	if err := json.Unmarshal(data, &parsed); err != nil {
+		log.Println("Invalid JSON:", err)
+		return
+	}
+
+	// handle data in parsed...
+	// if type_ == "upload" { handleUpload(parsed) }
+	// if type_ == "shorten" { handleShorten(parsed) }
+
+	fmt.Printf("recv(%s): %+v\n", type_, parsed)
+}
+
+func main() {
+	http.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Failed to read request body", http.StatusInternalServerError)
+			return
+		}
+		defer r.Body.Close()
+
+		receive(body, r.Header)
+		w.WriteHeader(http.StatusOK)
+	})
+
+	port := 3002
+	fmt.Printf("Server is running on :%d\n", port)
+
+	if err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil); err != nil {
+		log.Fatal("Server failed:", err)
+	}
+}
+```
