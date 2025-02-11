@@ -9,7 +9,7 @@ sidebar_position: 1
 First, download the `docker-compose.yml` file using `curl` or `wget` with the following command:
 
 ```bash
-curl -O https://zipline.diced.sh/api/docker-compose.yml
+curl -O https://v4.zipline.diced.sh/docker-compose.yml
 ```
 
 If you don't already have a `.env` file with a database password and zipline secret, you can generate one with the following command:
@@ -36,6 +36,14 @@ openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n'
 <Alert type='danger'>
   Zipline will fail to start without the `POSTGRESQL_PASSWORD` and `CORE_SECRET`
   variables.
+</Alert>
+
+<Alert type='info'>
+  You will also want to setup a [datasource](/docs/config/datasource) for your
+  instance. By default, Zipline will use `./uploads` (the docker-compose.yml
+  also includes a volume for this) for local file storage. You can configure a
+  different datasource (e.g. S3) by setting the appropriate environment
+  variables in the `.env` file.
 </Alert>
 
 Finally, run the following command to start the Zipline server:

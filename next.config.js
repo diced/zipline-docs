@@ -25,6 +25,11 @@ const nextConfig = {
         destination: 'https://discord.gg/EAhCRfGxCF',
         permanent: true,
       },
+      {
+        source: '/docker-compose.yml',
+        destination: '/api/docker-compose.yml',
+        permanent: true,
+      },
     ];
   },
   transpilePackages: ['next-mdx-remote'],

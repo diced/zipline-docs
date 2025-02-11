@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # Building from source
@@ -36,10 +36,20 @@ pnpm install
 Before building Zipline, you will have to create a `.env` file, as well as have a PostgreSQL database running. An example .env looks like this:
 
 ```bash copy
+# Replace username and password with your PostgreSQL credentials
 DATABASE_URL=postgresql://username:password@localhost:5432/zipline
+
+# These two are optional, but you can set them to change the hostname and port
 CORE_HOSTNAME=0.0.0.0
 CORE_PORT=3000
 ```
+
+<Alert type='info'>
+  You will also want to setup a [datasource](/docs/config/datasource) for your
+  instance. By default, Zipline will use `./uploads` for local file storage. You
+  can configure a different datasource (e.g. S3) by setting the appropriate
+  environment variables in the `.env` file.
+</Alert>
 
 You will also need to generate a secret for zipline, to do this you can use the command below to append it to your `.env` file:
 

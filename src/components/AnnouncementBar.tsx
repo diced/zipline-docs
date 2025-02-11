@@ -1,12 +1,15 @@
 import { IconX } from '@tabler/icons-react';
+import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 
 export default function AnnouncementBar({
   id,
   children,
+  className,
 }: {
   id: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   const lsKey = `announcement-${id}`;
 
@@ -31,7 +34,12 @@ export default function AnnouncementBar({
   }
 
   return (
-    <div className='z-50 text-white bg-blue-600 font-bold text-center py-1 flex justify-between items-center'>
+    <div
+      className={clsx(
+        'z-50 text-white bg-blue-600 font-bold text-center py-1 flex justify-between items-center',
+        className,
+      )}
+    >
       <div></div>
 
       <div>{children}</div>
