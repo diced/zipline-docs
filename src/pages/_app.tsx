@@ -91,14 +91,6 @@ export default function App({ Component, pageProps }: AppProps) {
         . 🎊
       </AnnouncementBar>
 
-      <AnnouncementBar id='v4-wip-docs' className='bg-gray-600'>
-        🚧 v4 docs are a work in progress. If you find any issues, please{' '}
-        <Link href='/github-docs' target='_blank' className='hover:underline'>
-          report them
-        </Link>
-        . 🚧
-      </AnnouncementBar>
-
       <ThemeProvider attribute='class' enableSystem={true}>
         <SearchProvider>
           <Layout>

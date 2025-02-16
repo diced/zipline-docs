@@ -1,0 +1,140 @@
+---
+sidebar_position: 5
+---
+
+# Contributing
+
+Contributions of any kind are welcome, whether they are bug reports, pull requests, or feature requests.
+
+## Bug Reports
+
+[Create an issue on GitHub](https://github.com/diced/zipline/issues/new?template=bug.yml), please include the following (if one of them is not applicable to the issue then it's not needed):
+
+- The steps to reproduce the bug
+- Logs of Zipline
+  - Try to enable [debug logging](/docs/guides/debug) to provide more detailed logs
+- The version of Zipline, and whether or not you are using Docker (include the image digest/tag if possible)
+- Your OS & Browser including server OS
+- What you were expecting to see
+- How it can be fixed (if you know)
+
+## Feature Requests
+
+[Create a discussion on GitHub](https://github.com/diced/zipline/discussions/new?category=ideas), and please include the following:
+
+- Brief explanation of your feature in the title (very brief)
+- How it would work (be detailed)
+
+## Pull Requests
+
+Create a pull request on GitHub. If your PR does not pass the action checks, then please fix the errors. If your PR was submitted before a release, and I have pushed a new release, please make sure to update your PR to reflect any changes, usually this is handled by GitHub.
+
+### Development
+
+Here's how to setup Zipline for development
+
+#### Prerequisites
+
+- [nodejs@22](https://nodejs.org/)
+- [pnpm@10.2.0](https://pnpm.io/installation)
+- [ffmpeg](https://ffmpeg.org/download.html) (for generating thumbnails, optional)
+- a [postgresql](https://psotgresql.org) server
+
+#### Setup
+
+You should probably use a `.env` file to manage your environment variables, here is an example .env file with every available environment variable:
+
+```bash copy filename=".env"
+DEBUG=zipline
+
+# required
+CORE_SECRET="a secret that is 32 characters long"
+
+# required
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/zipline?schema=public"
+
+# these are optional
+CORE_PORT=3000
+CORE_HOSTNAME=0.0.0.0
+
+# one of these is required
+DATASOURCE_TYPE="local"
+# DATASOURCE_TYPE="s3"
+
+# if DATASOURCE_TYPE=local
+DATASOURCE_LOCAL_DIRECTORY="/path/to/your/local/files"
+
+# if DATASOURCE_TYPE=s3
+# DATASOURCE_S3_ACCESS_KEY_ID="your-access-key-id"
+# DATASOURCE_S3_SECRET_ACCESS_KEY="your-secret-access-key"
+# DATASOURCE_S3_REGION="your-region"
+# DATASOURCE_S3_BUCKET="your-bucket"
+# DATASOURCE_S3_ENDPOINT="your-endpoint"
+# ^ if using a custom endpoint other than aws s3
+
+# optional but both are required if using ssl
+# SSL_KEY="/path/to/your/ssl/key"
+# SSL_CERT="/path/to/your/ssl/cert"
+```
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+Finally you may start the development server:
+
+```bash
+pnpm dev
+```
+
+If you wish to build the production version of Zipline, you can run the following command:
+
+```bash
+pnpm build
+```
+
+And to run the production version of Zipline:
+
+```bash
+pnpm start
+```
+
+#### Making changes to the database schema
+
+Zipline uses [prisma](https://www.prisma.io/) as its ORM, and as such, you will need to use the prisma CLI to facilitate any changes to the database schema.
+
+Once you have made a change to `prisma.schema`, you can run the script `db:migrate` to generate a migration file. This script doesn't apply the migration, as Zipline handles applying migrations itself on startup.
+
+```bash
+pnpm db:migrate
+```
+
+If you wish to push changes to the database without generating a migration file, you can run the script `db:prototype`. This is only recommended for testing purposes, and should not be used in production.
+
+```bash
+pnpm db:prototype
+```
+
+#### Linting and Formatting
+
+Zipline will fail to build unless the code is properly formatted and linted. To format the code, you can run the following command:
+
+```bash
+pnpm validate
+```
+
+#### Testing `zipline-ctl`
+
+To build the ctl, you can run the following command:
+
+```bash
+pnpm build:server
+```
+
+then run any command you want
+
+```bash
+pnpm ctl help
+```

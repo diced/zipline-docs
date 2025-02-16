@@ -45,6 +45,7 @@ export default async function genSidebar(dir) {
         type: 'f',
         description,
         position: pos ?? undefined,
+        hidden: fm.data['sidebar_hidden'] ?? file.startsWith('.') ?? undefined,
       });
     }
   }
@@ -77,6 +78,10 @@ export function convertSidebarToParsable(sidebar) {
     res.title = item.title;
     res.path = './' + item.path;
     res.lastUpdated = getLastUpdated(item.path);
+
+    if (item.hidden) {
+      res.hidden = true;
+    }
 
     if (item.type === 'd') {
       res.items = convertSidebarToParsable(item.children);

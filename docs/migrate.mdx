@@ -1,6 +1,14 @@
-# Migrate
+---
+sidebar_position: 4
+---
 
-This guide will help you migrate from v3.7.12 to v4.
+# Migrate From v3
+
+This guide will help you migrate from v3 to v4
+
+<Alert type='info'>
+  You must be on `v3.7.12` or higher to use the export feature.
+</Alert>
 
 ## Preparation
 
@@ -49,8 +57,11 @@ CREATE DATABASE zipline_v4; -- you may name this anything
 ```
 
 <Alert type='info'>
-  You may run into an error that says `ERROR: template database "template1" has a collation version mismatch`,
-  run `ALTER DATABASE template1 REFRESH COLLATION VERSION` in the postgres CLI to rebuild all of the objects in the template database using the new version, and you should be able to proceed with creating the database.
+  You may run into an error that says `ERROR: template database "template1" has
+  a collation version mismatch`, run `ALTER DATABASE template1 REFRESH COLLATION
+  VERSION` in the postgres CLI to rebuild all of the objects in the template
+  database using the new version, and you should be able to proceed with
+  creating the database.
 </Alert>
 
 4. Exit the postgres shell.

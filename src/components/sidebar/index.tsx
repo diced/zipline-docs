@@ -13,6 +13,7 @@ export interface SidebarProps {
 export interface Item {
   title: string;
   href?: string;
+  hidden?: boolean;
   items?: Item[];
 }
 
