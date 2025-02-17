@@ -1,57 +1,53 @@
 ---
-sidebar_position: 3
+sidebar_position: 5
 ---
 
-# ziplinectl import-dir
+# ziplinectl list-users
 
-Output the current configuration as JSON.
+Lists all users in Zipline in a JSON format.
 
 ## Usage
 
 ```bash
-ziplinectl import-dir [options] <directory>
+ziplinectl list-users [options]
 ```
 
 ## Options
 
-| Option           | Description                                                                                                                                                                                              |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-i`, `--id`     | If no user ID is specified, the files will be imported to a user named "administrator." If the "administrator" user does not exist, the files will be imported to the first available `SUPERADMIN` user. |
-| `-f`, `--folder` | An ID to a folder where you want files to be automatically added to. This is optional.                                                                                                                   |
-| `-h`, `--help`   | Display options and arguments for this command.                                                                                                                                                          |
+| Option                      | Description                                                           |
+| --------------------------- | --------------------------------------------------------------------- |
+| `-f`, `--format`            | Format the JSON output for easier reading.                            |
+| `-e [key]`, `--extra [key]` | Displays an extra property. See [Extra](#extra) for more information. |
+| `--id`                      | Find a specific user by ID.                                           |
+| `-h`, `--help`              | Display options and arguments for this command.                       |
 
-## Arguments
+### Extra
 
-| Argument      | Description                                                                                |
-| ------------- | ------------------------------------------------------------------------------------------ |
-| `<directory>` | The directory to import files from. This directory must be readable by the Zipline server. |
+A list of available properties:
+
+- `view`
+- `oauthProviders`
+- `totpSecret`
+- `passkeys`
+- `quota`
+- `sessions`
 
 ## Example Usage
 
-Importing without an existing user:
+List all users:
 
 ```bash
-ziplinectl import-dir /path/to/directory
+ziplinectl list-users
 ```
 
-Importing with an existing user:
+List all users and include oauth providers:
 
 ```bash
-ziplinectl import-dir -i cm5caqtmc0002hp06k4sjwdg0 /path/to/directory
+ziplinectl list-users -e oauthProviders
 ```
 
-Importing with an existing user and folder:
+List all users and include both `oauthProviders` and `quota`:
 
 ```bash
-ziplinectl import-dir -i cm5caqtmc0002hp06k4sjwdg0 -f cm5cb80hg0005hp06k6khttfp /path/to/directory
+ziplinectl list-users -e oauthProviders -e quota
 ```
-
-Importing into a folder
-
-```bash
-ziplinectl import-dir -f cm5cb80hg0005hp06k6khttfp /path/to/directory
-```
-
-## Extra
-
-This can be used to move your files from `local` to `s3` storage. This can't be used to move files from `s3` to `local` storage though.

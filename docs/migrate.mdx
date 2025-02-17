@@ -59,7 +59,7 @@ CREATE DATABASE zipline_v4; -- you may name this anything
 <Alert type='info'>
   You may run into an error that says `ERROR: template database "template1" has
   a collation version mismatch`, run `ALTER DATABASE template1 REFRESH COLLATION
-  VERSION` in the postgres CLI to rebuild all of the objects in the template
+  VERSION;` in the postgres CLI to rebuild all of the objects in the template
   database using the new version, and you should be able to proceed with
   creating the database.
 </Alert>
@@ -88,8 +88,8 @@ Here are some variables that you will need to keep/rename:
   - `DATASOURCE_S3_REGION`
   - `DATASOURCE_S3_ENDPOINT`
   - `DATASOURCE_S3_REGION`
-  - `DATASOURCE_S3_PORT` -> no longer supported
-  - `DATASOURCE_S3_FORCE_S3_PATH` -> no longer supported
+  - `DATASOURCE_S3_PORT` -> no longer supported, include the port in the endpoint
+  - `DATASOURCE_S3_FORCE_S3_PATH` -> `DATASOURCE_S3_FORCE_PATH_STYLE`
   - `DATASOURCE_S3_USE_SSL` -> no longer supported
 - `SSL_CERT`
 - `SSL_KEY`
@@ -99,7 +99,7 @@ After these changes, your environment section in your docker-compose file may lo
 
 ```yaml copy filename="docker-compose.yml"
 environment:
-  - DATABASE_URL=postgres://postgres@postgres:5432/zipline_v4
+  - DATABASE_URL=postgres://postgres:postgres@postgres:5432/zipline_v4
   - CORE_HOSTNAME=0.0.0.0
   - CORE_PORT=3000
   - CORE_SECRET=supersecret234567890qwertyuiopasdfghjklzxcvbnm
@@ -111,7 +111,7 @@ or...
 
 ```yaml copy filename="docker-compose.yml"
 environment:
-  - DATABASE_URL=postgres://postgres@postgres:5432/zipline_v4
+  - DATABASE_URL=postgres://postgres:postgres@postgres:5432/zipline_v4
   - CORE_HOSTNAME=0.0.0.0
   - CORE_PORT=3000
   - CORE_SECRET=supersecret234567890qwertyuiopasdfghjklzxcvbnm
@@ -273,3 +273,11 @@ Other than that, if nothing was changed in the S3 settings, your files should st
 If you are having issues with the migration, please check the browser logs during the entire process, then check the server logs after the import has finished.
 
 If you are still having issues, feel free to join our [Discord server](/discord) and ask for help, or open an issue on [GitHub](/github).
+
+## Other Changes
+
+A lot of other changes have been made in v4, here are some notable ones:
+
+- The API has been completely overhauled, most of it will not be compatible with v3's API.
+- Old upload configurations will not be compatible with v4. To see what headers and options have changed, refer to [Upload Options](/docs/guides/upload-options).
+- The old `/r/{file}` route has been remamed to `/raw/{file}`. Zipline currently does redirect `/r/{file}` to `/raw/{file}`, but it is recommended to update any links you may have to the new route.
