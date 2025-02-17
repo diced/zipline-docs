@@ -1,7 +1,7 @@
 # Zipline Docs v4
 
-Documentation for [Zipline v4](https://github.com/diced/zipline/tree/v4)! v4 is currently under development, and so is this documentation.
+Documentation for [Zipline v4](https://github.com/diced/zipline/tree/v4)!
 
 ## Contributing
 
-Feel free to make a PR to the `trunk` branch with any changes you'd like to see!
+Feel free to make a PR to the `v4` branch if you find any issues or have suggestions for improvement.
