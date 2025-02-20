@@ -36,6 +36,7 @@ const items = [
       { title: 'GitHub', href: '/github' },
       { title: 'GitHub Docs', href: '/github-docs' },
       { title: 'Discord', href: '/discord' },
+      { title: 'v3 Docs', href: 'https://v3.zipline.diced.sh' },
     ],
   },
 ];

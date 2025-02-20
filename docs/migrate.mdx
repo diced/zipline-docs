@@ -7,7 +7,10 @@ sidebar_position: 4
 This guide will help you migrate from v3 to v4
 
 <Alert type='info'>
-  You must be on `v3.7.12` or higher to use the export feature.
+  You must be on `v3.7.12` or higher to use the export feature. Additionally, to see the `Export all Server Data (JSON)` button, you must be logged in as a super-admin.
+
+If you have lost access to your super-admin account, you can utilize the [set-user](https://v3.zipline.diced.sh/docs/guides/scripts/set-user) while still running v3.
+
 </Alert>
 
 ## Preparation
@@ -104,7 +107,7 @@ environment:
   - CORE_PORT=3000
   - CORE_SECRET=supersecret234567890qwertyuiopasdfghjklzxcvbnm
   - DATASOURCE_TYPE=local
-  - DATASOURCE_LOCAL_DIRECTORY=/data
+  - DATASOURCE_LOCAL_DIRECTORY=./uploads
 ```
 
 or...

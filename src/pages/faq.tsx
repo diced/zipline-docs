@@ -27,7 +27,7 @@ export default function FAQ() {
               FAQ
             </h1>
             <p className='text-center text-2xl mt-4'>
-              Frequently asked questions about Zipline
+              Frequently asked questions about Zipline. Coming soon.
             </p>
             <FAQPage />
           </div>
