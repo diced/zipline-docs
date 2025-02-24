@@ -6,17 +6,9 @@
 
 ## <APIBadge type="GET" /> Get all URLs
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
-| Field Name    | Type      | Description                                           |
-| ------------- | --------- | ----------------------------------------------------- |
-| `createdAt`   | `date`    | The date the URL was created                          |
-| `id`          | `number`  | The ID of the URL                                     |
-| `destination` | `string`  | The destination of the URL                            |
-| `vanity`      | `string?` | The vanity of the URL                                 |
-| `views`       | `number`  | The number of vists the URL has                       |
-| `maxViews`    | `number?` | The maximum number of views the URL has until deleted |
-| `url`         | `string`  | Route to view                                         |
+Returns a array of [urls](/docs/api/models/url)
 
 ```json
 [
@@ -59,14 +51,7 @@
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-| Field Name    | Type      | Description                                           |
-| ------------- | --------- | ----------------------------------------------------- |
-| `createdAt`   | `date`    | The date the URL was created                          |
-| `id`          | `string`  | The ID of the URL                                     |
-| `destination` | `string`  | The destination of the URL                            |
-| `vanity`      | `string?` | The vanity of the URL                                 |
-| `views`       | `number`  | The number of vists the URL has                       |
-| `maxViews`    | `number?` | The maximum number of views the URL has until deleted |
+Returns a [url](/docs/api/models/url).
 
 ```json
 {
