@@ -5,7 +5,7 @@
 </Alert>
 
 <Alert type="info">
-  If your user has an oauth account linked, Zipline will attempt to check if the user's access_token's are still valid. If they are invalid, they will return a <APIBadge type="200" />, tough there is an error message in the response. Only `discord` and `google` support refresh tokens, so their token checking is seamless and will not cause a refresh unless it fails.
+  If your user has an oauth account linked, Zipline will attempt to check if the user's access_token's are still valid. If they are invalid, they will return a <APIBadge type="200" />, though there is an error message in the response. Only `discord` and `google` support refresh tokens, so their token checking is seamless and will not cause a refresh unless it fails.
 
 #### Responses
 
