@@ -18,7 +18,7 @@
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user).
+Returns a [user](/docs/api/models/user). If the authorizer has a permission higher than the user, then the result will include an array of [files](/docs/api/models/file).
 
 ```json
 {
@@ -58,7 +58,7 @@ Returns a [user object](/docs/api/models/user).
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user).
+Returns a [user](/docs/api/models/user).
 
 ### <APIBadge type="400" /> Bad Request (JSON)
 

@@ -12,9 +12,9 @@
 | ---------- | --------- | --------------------------------------------- |
 | `files`    | `boolean` | Whether to include the files in the response. |
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
-Returns an array of folders
+Returns an array of [folders](/docs/api/models/folder)
 
 ```json
 [

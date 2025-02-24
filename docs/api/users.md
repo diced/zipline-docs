@@ -10,7 +10,7 @@
 
 ## <APIBadge type="GET" /> Get all users
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 Returns an array of [users](/docs/api/models/user)
 

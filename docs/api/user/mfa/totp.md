@@ -47,7 +47,7 @@ If the user doesn't have a totpSecret already set then it will create one, and a
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/user#user-object)
+Returns a [user](/docs/api/models/user)
 
 ### <APIBadge type="400" /> Bad Request (JSON)
 

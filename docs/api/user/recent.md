@@ -13,7 +13,7 @@
 | `take`     | `number?` | How many files to take, defaults to `4`                                                                                 |
 | `filter`   | `string?` | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image`/\* |
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 Returns a array of [files](/docs/api/models/file)
 

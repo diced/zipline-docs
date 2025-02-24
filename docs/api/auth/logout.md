@@ -6,6 +6,8 @@
 
 ## <APIBadge type="GET" /> Logout
 
+Logout will clear the `user` cookie.
+
 ### <APIBadge type="200" /> Ok (JSON)
 
 | Field Name | Type      | Description                                           |

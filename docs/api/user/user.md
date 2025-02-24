@@ -22,7 +22,7 @@
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user).
+Returns a [user](/docs/api/models/user).
 
 ## <APIBadge type="PATCH" /> Edit user information
 
@@ -43,7 +43,7 @@ Each field is optional, and only the fields you specify will be updated.
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user).
+Returns a [user](/docs/api/models/user).
 
 ### <APIBadge type="400" /> Bad Request (JSON)
 

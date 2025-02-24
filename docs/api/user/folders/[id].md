@@ -20,7 +20,7 @@
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a folder
+Returns a [folder](/docs/api/models/folder)
 
 ```json
 {
@@ -87,7 +87,7 @@ If `?files=true`:
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns same as [Get a folder](#get-a-folder)
+Returns the now modified [folder](/docs/api/models/folder).
 
 ### <APIBadge type="400" /> Bad Request
 
@@ -122,7 +122,7 @@ Returns same as [Get a folder](#get-a-folder)
 
 ### <APIBadge type="200" /> Ok (JSON) (deleting a file)
 
-Returns same as [Get a folder](#get-a-folder)
+Returns the now modified [folder](/docs/api/models/folder).
 
 ### <APIBadge type="200" /> Ok (JSON) (deleting a folder)
 

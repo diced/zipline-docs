@@ -15,7 +15,7 @@
 | `page`     | `number`   | The page to get, required if no `type`                                                                                  |
 | `count`    | `boolean?` | If `count` is provided, this will retrieve the number of pages needed                                                   |
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 Returns a array of [files](/docs/api/models/file)
 

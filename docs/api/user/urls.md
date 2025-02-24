@@ -75,7 +75,7 @@
   "destination": "https://google.com",
   "vanity": null,
   "views": 53,
-  "maxViews": null,
+  "maxViews": null
 }
 ```
 
