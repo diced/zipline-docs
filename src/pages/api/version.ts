@@ -128,7 +128,8 @@ export default async function handler(req: NextRequest) {
   }
 
   const isUpstream =
-    tags.findIndex((t) => t.commit.sha === instnceCom?.sha) === -1;
+    !instanceVer ||
+    tags.findIndex((t) => t.commit.sha === instnceCom?.sha) !== -1;
 
   const response: VersionResponse = {
     git: {
