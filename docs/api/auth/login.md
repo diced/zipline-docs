@@ -2,6 +2,8 @@
 
 ## <APIBadge type="POST" /> Login
 
+Login will set the `user` cookie.
+
 ### Body (JSON)
 
 | Field Name | Type      | Description                |

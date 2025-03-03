@@ -13,3 +13,4 @@ The file model is used to represent a file in the database.
 | `url`          | `string?` | The URL of the file (/u/test.png)                      |
 | `name`         | `string`  | The name of the file (123.png)                         |
 | `originalName` | `string?` | The original name of the file (test.png)               |
+| `password`     | `boolean` | Whether the file has a password on it.                 |

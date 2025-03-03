@@ -3,6 +3,7 @@
 <Alert type="info">
   Requires [authentication](/docs/api#authentication)
 </Alert>
+
 ## <APIBadge type="POST" /> Shorten a URL
 
 ### Headers

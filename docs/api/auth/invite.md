@@ -10,7 +10,7 @@
 
 ## <APIBadge type="GET" /> Get all invites
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 Returns an array of [invites](/docs/api/models/invite)
 
@@ -37,12 +37,12 @@ Returns an array of [invites](/docs/api/models/invite)
 
 ### Body (JSON)
 
-| Field Name  | Type               | Description                                                                                                                |
-| ----------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `expiresAt` | `date? \| string?` | The date the invite expires at. For more info, refer to the [upload options](/docs/guides/upload-options#image-expiration) |
-| `count`     | `number?`          | The number of invites to create                                                                                            |
+| Field Name  | Type               | Description                                                                                                                                         |
+| ----------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `expiresAt` | `date? \| string?` | The date the invite expires at. For more info, refer to one of the upload options, [image expiration](/docs/guides/upload-options#image-expiration) |
+| `count`     | `number?`          | The number of invites to create                                                                                                                     |
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON or JSON Array)
 
 Returns an array of [invites](/docs/api/models/invite) or just a singular [invite](/docs/api/models/invite)
 

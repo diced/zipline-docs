@@ -13,7 +13,7 @@
 | `favorite` | `boolean?` | Only get favorite files                                                                                                      |
 | `filter`   | `string?`  | Filter by file type, defaults to `all`, but the other accepted value is `media` which checks for `video/audio/image/text`/\* |
 
-### <APIBadge type="200" /> Ok (JSON)
+### <APIBadge type="200" /> Ok (JSON Array)
 
 Returns a array of [files](/docs/api/models/file)
 

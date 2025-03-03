@@ -10,16 +10,16 @@
 
 ### Body (JSON)
 
-| Field Name | Type      | Description     |
-| ---------- | --------- | --------------- |
-| `code`     | `string` | The invite code |
-| `username` | `string`  | The username    |
-| `password` | `string`  | The password    |
+| Field Name      | Type      | Description            |
+| --------------- | --------- | ---------------------- |
+| `code`          | `string`  | The invite code        |
+| `username`      | `string`  | The username           |
+| `password`      | `string`  | The password           |
 | `administrator` | `boolean` | Whether to grant admin |
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user)
+Returns a [user](/docs/api/models/user)
 
 ### <APIBadge type="400" /> Bad Request (JSON)
 
@@ -52,6 +52,6 @@ Returns a [user object](/docs/api/models/user)
 
 ### <APIBadge type="200" /> Ok (JSON)
 
-Returns a [user object](/docs/api/models/user)
+Returns a [user](/docs/api/models/user)
 
 ### <APIBadge type="400" /> Bad Request (JSON)
