@@ -49,7 +49,7 @@ export default function AnnouncementBar({
         className='text-blue-200 hover:text-blue-300 pr-5'
         data-umami-event='dismiss_announcement'
         data-umami-event-id={id}
-        aria-label="dismiss announcement"
+        aria-label='dismiss announcement'
       >
         <IconX size='1.2rem' stroke={4} className='pointer-events-none' />
       </button>
