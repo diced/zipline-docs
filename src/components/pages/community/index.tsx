@@ -1,6 +1,8 @@
 import {
+  IconBrandAndroid,
   IconBrandDiscordFilled,
   IconBrandGithubFilled,
+  IconBrandPython,
   IconCirclePlusFilled,
 } from '@tabler/icons-react';
 import CommunityCard, { Link as CommunityLink } from './CommunityCard';
@@ -31,6 +33,33 @@ const projects: Project[] = [
     authorHref: '/discord',
     author: 'you',
     Icon: IconCirclePlusFilled,
+  },
+  {
+    name: 'Zipline Upload Extension',
+    description:
+      'Zipline Uploads allow you to upload your right clicked files or shorten your right clicked URLs to your selfhosted instance of Zipline without having to download the file to your PC and upload it manually.',
+    href: 'https://github.com/Stef-00012/Zipline-Upload-Extension',
+    authorHref: 'https://github.com/Stef-00012',
+    author: 'Stef-00012',
+    image:
+      'https://raw.githubusercontent.com/Stef-00012/Zipline-Upload-Extension/refs/heads/main/src/icons/128.png',
+  },
+  {
+    name: 'Zipline Android App',
+    description:
+      'An Android app to manage your self-hosted zipline V4 instance.',
+    href: 'https://github.com/Stef-00012/Zipline-Android-App',
+    authorHref: 'https://github.com/Stef-00012',
+    author: 'Stef-00012',
+    Icon: IconBrandAndroid,
+  },
+  {
+    name: 'zipline.py',
+    description: 'An asynchronous wrapper for the Zipline v4 API in Python',
+    href: 'https://github.com/fretgfr/zipline.py',
+    authorHref: 'https://github.com/fretgfr',
+    author: 'fretgfr',
+    Icon: IconBrandPython,
   },
 ];
 

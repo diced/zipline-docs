@@ -29,8 +29,7 @@ export default function Releases() {
             <h1 className='sm:text-8xl text-6xl font-extrabold text-center'>
               Releases
             </h1>
-            <p className='text-center text-2xl mt-4'>coming soon...</p>
-            {/* <ReleasesPage /> */}
+            <ReleasesPage />
           </div>
         </Center>
       </Container>

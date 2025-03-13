@@ -23,18 +23,8 @@ export default function ReleasesPage() {
     <>
       {loading ? (
         <ReleaseSkeleton />
-      ) : releaseResponse?.upstream.commits ? (
-        // <UpstreamCard
-        //   commit={releaseResponse.upstream.commit}
-        //   runs={releaseResponse.upstream.checkRuns}
-        // />
-        releaseResponse.upstream.commits.map((commit) => (
-          <UpstreamCard
-            key={commit.sha}
-            commit={commit}
-            runs={commit.checkRuns}
-          />
-        ))
+      ) : releaseResponse?.upstream.commit ? (
+        <UpstreamCard commit={releaseResponse.upstream.commit} />
       ) : (
         <ReleaseSkeleton />
       )}
@@ -43,8 +33,8 @@ export default function ReleasesPage() {
         ? Array(10)
             .fill(0)
             .map((_, i) => <ReleaseSkeleton key={i} />)
-        : releaseResponse?.releases.map((release) => (
-            <ReleaseCard key={release.id} release={release} />
+        : releaseResponse?.releases.map((release, i) => (
+            <ReleaseCard key={release.id} release={release} latest={i === 0} />
           ))}
     </>
   );

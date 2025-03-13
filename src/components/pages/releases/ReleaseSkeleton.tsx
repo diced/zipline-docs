@@ -18,7 +18,7 @@ export default function ReleaseSkeleton() {
             />
           </div>
           <div>
-            <div className='font-semibold text-xl w-96'>
+            <div className='font-semibold text-xl w-20'>
               <TextSkeleton />
             </div>
             <div className='text-gray-500 dark:text-gray-400 w-72'>

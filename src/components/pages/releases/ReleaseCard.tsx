@@ -7,10 +7,17 @@ import type { Release } from '../../../pages/api/releases';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Link from 'next/link';
+import { Code } from '../faq';
 
 dayjs.extend(relativeTime);
 
-export default function ReleaseCard({ release }: { release: Release }) {
+export default function ReleaseCard({
+  release,
+  latest,
+}: {
+  release: Release;
+  latest?: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -44,7 +51,22 @@ export default function ReleaseCard({ release }: { release: Release }) {
           exit={{ opacity: 0, height: 0 }}
           transition={{ duration: 0.1 }}
         >
-          <div className='prose dark:prose-invert dark:prose-li:text-white max-w-full'>
+          <div className='text-gray-500 dark:text-gray-400 my-4'>
+            This release is available under the{' '}
+            {latest ? (
+              <>
+                <Code>ghcr.io/diced/zipline:latest</Code> and{' '}
+                <Code>
+                  ghcr.io/diced/zipline:{release.tag_name.replace('v', '')}
+                </Code>
+              </>
+            ) : (
+              <Code>ghcr.io/diced/zipline:{release.tag_name.replace('v', '')}</Code>
+            )}{' '}
+            tag{latest ? 's' : ''}.
+          </div>
+
+          <div className='prose dark:prose-invert dark:prose-li:text-white max-w-full my-4'>
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {release.body ?? ''}
             </ReactMarkdown>

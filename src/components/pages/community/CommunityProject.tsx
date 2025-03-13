@@ -21,12 +21,12 @@ export default function CommunityProject({ project }: { project: Project }) {
         <img
           src={project.image}
           alt={project.name}
-          className='rounded-md w-20 h-20 object-cover'
+          className='rounded-md w-20 h-20 object-cover grow-1'
         />
       ) : project.Icon ? (
-        <project.Icon className='w-20 h-20' />
+        <project.Icon className='w-20 h-20 grow-1' />
       ) : (
-        <IconFile className='w-20 h-20' />
+        <IconFile className='w-20 h-20 grow-1' />
       )}
 
       <div className='flex flex-col ml-4'>
