@@ -61,7 +61,9 @@ export default function ReleaseCard({
                 </Code>
               </>
             ) : (
-              <Code>ghcr.io/diced/zipline:{release.tag_name.replace('v', '')}</Code>
+              <Code>
+                ghcr.io/diced/zipline:{release.tag_name.replace('v', '')}
+              </Code>
             )}{' '}
             tag{latest ? 's' : ''}.
           </div>
