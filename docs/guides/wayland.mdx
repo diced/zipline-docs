@@ -138,18 +138,19 @@ curl \
 [hyprshot](https://github.com/Gustash/Hyprshot/blob/main/hyprshot) is a screenshot tool made specifically to work well in Hyprland
 
 ```bash copy
-hyprshot -m region -r > /tmp/screenshot.png
+hyprshot -m region --freeze --raw > /tmp/screenshot.png
 ```
 
 <Alert type="note">
 What does this command do?
 
 ```bash copy
-hyprshot -m region -r > /tmp/screenshot.png
+hyprshot -m region --freeze --raw > /tmp/screenshot.png
 ```
 
 - `hyprshot -m region`: capture a region of the screen.
-- `-r`: output the screenshot to stdout.
+- `--freeze`: freeze current screen content.
+- `--raw`: output the screenshot to stdout.
 - `> /tmp/screenshot.png`: save the screenshot to a file.
 
 </Alert>
@@ -162,7 +163,7 @@ We can take this script now and extend it to upload the screenshot to a server a
 TOKEN="token"
 URL="https://example.com/api/upload"
 
-hyprshot -m region -r > /tmp/screenshot
+hyprshot -m region --freeze --raw > /tmp/screenshot.png
 
 curl \
   -H "authorization: $TOKEN" $URL \
