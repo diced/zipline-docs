@@ -1,8 +1,6 @@
-# Open ID Connect (OIDC)
+# OIDC
 
-This page documents and guides you through setting up Open ID Connect (OIDC) for Zipline.
-For now the only documented OIDC provider is Authentik, but you can use any OIDC provider that supports the OIDC standard.
-Zipline has only been tested with Authentik, so if you encounter any issues with other providers, please open an issue.
+This page documents and guides you through setting up Open ID Connect (OIDC) for Zipline. If you are having trouble configuring a different OIDC provider that is not listed here, feel free to join the [Discord](/discord) and ask for help.
 
 {/* credit to 0xEmma's pr https://github.com/diced/zipline-docs/pull/55 */}
 
@@ -64,6 +62,32 @@ For the OIDC User Info URL: `https://<authentik domain>/application/o/userinfo/`
 
 After these fields are filled out (click Save to save your changes), you should see a "Login with OIDC" button on the login page, as well as the option to link your OIDC account in the manage account page.
 
+## Pocket-ID
+
+Pocket-ID is a simple self-hosted OIDC provider that utilizes passkeys for authentication.
+
+1. Create an OIDC client
+   ![pocket-id create client](/img/docs/oauth-pocketid-1.png)
+
+For the Redirect URIs: add `http(s)://<your domain>/api/auth/oauth/oidc`
+
+2. Copy over these 5 values and urls to their respective fields in the OIDC section of the OAuth settings
+   ![pocket-id copy values](/img/docs/oauth-pocketid-2.png)
+
+## Microsoft Entra
+
+Microsoft Entra ID is a cloud-based identity and access management service. It also offers OIDC support and endpoints.
+
+For the OIDC Client ID: your azure tenant ID
+
+For the OIDC Client Secret: your azure application secret
+
+For the OIDC Authorize URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize`
+
+For the OIDC Token URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`
+
+For the OIDC User Info URL: `https://graph.microsoft.com/oidc/userinfo`
+
 ## Other OIDC Providers
 
 The guide above is specific to Authentik and may require modifications for other OIDC providers. While the overall steps and URL names will be similar, some details may differ.
@@ -71,7 +95,9 @@ The guide above is specific to Authentik and may require modifications for other
 If you're using a different OIDC provider, refer to their documentation to obtain the necessary details for configuring the Zipline settings dashboard.
 
 ### Common OIDC Providers
+
 - [Authentik](https://goauthentik.io/) (open-source)
 - [Authelia](https://authelia.com/) (open-source)
 - [Keycloak](https://keycloak.org/) (open-source)
+- [Pocket-ID](https://pocket-id.org/) (open-source)
 - [Okta](https://okta.com/)

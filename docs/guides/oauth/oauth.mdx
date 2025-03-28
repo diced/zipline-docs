@@ -2,6 +2,27 @@
 
 This page documents and guides you through setting up OAuth for Zipline.
 
+## Configuring OAuth
+
+To enable OAuth, you will need to enable the **OAuth Registration** setting under "Features" in the settings dashboard. This will allow the login buttons to show up on the login page.
+
+### Bypass Local Login
+
+To skip the local username-password authentication process, enable this option in the "OAuth" section of the settings dashboard. Users will then be automatically redirected to the first available OAuth provider, which is particularly useful when only one provider is fully configured.
+
+<Alert type='note'>
+  The **Bypass Local Login** setting is client-side and can be overridden using
+  the built-in `?local=true` query parameter. This can be helpful if your
+  settings are misconfigured — simply append `?local=true` to the `/auth/login`
+  URL to bypass the automatic redirection.
+</Alert>
+
+### Login only
+
+To prevent users from creating accounts through an OAuth provider, enable this option in the "OAuth" section of the settings dashboard. This will restrict access to OAuth logins only, and any attempt to create a new account will result in an error message.
+
+## Providers
+
 <DocLinks
   links={[
     {
@@ -28,3 +49,8 @@ This page documents and guides you through setting up OAuth for Zipline.
 
 ]}
 />
+
+<sup>
+  There are no plans to support other OAuth providers. If you want to add one
+  in, please make a pull-request.
+</sup>
