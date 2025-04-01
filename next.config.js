@@ -30,6 +30,12 @@ const nextConfig = {
         destination: '/api/docker-compose.yml',
         permanent: true,
       },
+      {
+        source: '/roadmap',
+        destination:
+          'https://diced.notion.site/Zipline-v4-Roadmap-058aceb8a35140e7af4c726560aa3db1?pvs=74',
+        permanent: true,
+      },
     ];
   },
   transpilePackages: ['next-mdx-remote'],
