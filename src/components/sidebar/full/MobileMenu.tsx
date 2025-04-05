@@ -51,14 +51,12 @@ export default function MobileMenu({ items, open, setOpen }: MobileMenuProps) {
   return (
     <div className='xl:hidden w-full z-50 flex justify-between dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 bg-white/85 dark:bg-gray-900/70'>
       <button
-        className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md px-6 py-2'
+        className='flex items-center text-white transition-colors ease-in-out hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md mx-6 my-2 py-0.5 pr-2'
         onClick={() => setOpen(!open)}
       >
         <IconMenu className='mx-2 text-gray-400' />
 
-        <span className='ml-4 text-gray-400 font-semibold'>
-          {currentDocItem ? currentDocItem.title : 'Menu'}
-        </span>
+        <span className='ml-4 text-gray-400 font-semibold'>Menu</span>
       </button>
 
       {open && (

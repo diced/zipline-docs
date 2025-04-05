@@ -11,7 +11,6 @@ export interface SidebarItemProps {
 
 export default function SidebarItem({ item }: SidebarItemProps) {
   const router = useRouter();
-  const active = router.asPath === item.href || '';
 
   if (item.hidden) return null;
 

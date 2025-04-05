@@ -13,6 +13,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
 
     return router.asPath.startsWith(item.href || '');
   }
+
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(isActive(item));
 
