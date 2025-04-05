@@ -1,0 +1,58 @@
+# Releases
+
+Zipline is currently being maintained by me ([@diced](https://github.com/diced)) and only me. New releases can come out frequently or take a while depending on my schedule. If a new minor/patch release (4.x.x) is not out, you can build from source or use the `trunk` tag on docker for the latest commit version.
+
+## `latest`
+
+Updated every once in a while, the most frequent updates will be under `4.x.[number]` where `[number]` increments. These may come out every few weeks or so. This is the **most stable** version of Zipline and is recommended for production use.
+
+<Tabs defaultValue="docker">
+  <TabItem value="docker" label="Docker">
+  If you are using docker, just pull the latest image:
+
+```bash
+docker pull ghcr.io/diced/zipline:latest
+```
+
+  </TabItem>
+  <TabItem value="source" label="From Source">
+  If you are building from source, first switch to the latest tag, for example if the latest tag is `4.0.0`, run:
+
+```bash
+git checkout v4.0.0
+```
+
+Then follow the [update steps](/docs/get-started/source#updating)
+
+  </TabItem>
+</Tabs>
+
+## `trunk`
+
+Update every time a commit is pushed to the [`trunk` branch](https://github.com/diced/zipline/tree/trunk). This is the **least stable** version of Zipline and is not recommended for production use, but is useful if a bug is fixed in the latest commit and you want to use it right away without waiting for the next release.
+
+<Tabs defaultValue="docker">
+  <TabItem value="docker" label="Docker">
+  If you are using docker, just pull the latest image:
+
+```bash
+docker pull ghcr.io/diced/zipline:trunk
+```
+
+Then switch to the `trunk` tag in your docker-compose file:
+
+```yaml
+image: ghcr.io/diced/zipline:trunk
+```
+
+  </TabItem>
+  <TabItem value="source" label="From Source">
+  If you are building from source, first switch to the `trunk` branch:
+```bash
+git checkout trunk
+```
+
+Then follow the [update steps](/docs/get-started/source#updating)
+
+  </TabItem>
+</Tabs>
