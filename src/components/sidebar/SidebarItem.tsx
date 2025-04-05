@@ -3,6 +3,7 @@ import Link from 'next/link';
 import SidebarDropdown from './SidebarDropdown';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 export interface SidebarItemProps {
   item: Item;
@@ -14,6 +15,12 @@ export default function SidebarItem({ item }: SidebarItemProps) {
 
   if (item.hidden) return null;
 
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(router.asPath === item.href);
+  }, [router.asPath, item.href]);
+
   return (
     <li className='my-1'>
       {item.items ? (
@@ -23,7 +30,7 @@ export default function SidebarItem({ item }: SidebarItemProps) {
           href={item.href}
           className={clsx(
             'flex items-center transition-colors hover:text-black dark:hover:text-white ease-in-out hover:bg-gray-100/70 dark:hover:bg-gray-800/40 max-w-full w-full px-2 py-1.5 rounded-md',
-            active
+            isActive
               ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
               : 'text-gray-400',
           )}
