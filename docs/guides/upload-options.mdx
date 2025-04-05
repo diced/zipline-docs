@@ -7,7 +7,7 @@ Upload options are HTTP headers that can be used to change various settings for 
 | Header                                | Description                                                                                                                                                   |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `x-zipline-deletes-at`                | A [relative time](/docs/guides/ms) or [JavaScript resolvable date string](#javascript-resolvable-date-string) that specifies when the file should be deleted. |
-| `x-zipline-format`                    | One of `random`, `date`, `uuid`, `name`, `gfycat`. This will change the format of the file name. See [here](#file-format) for more.                           |
+| `x-zipline-format`                    | One of `random`, `date`, `uuid`, `name`, `gfycat`. This will change the format of the file name. See [here](#file-name-format) for more.                      |
 | `x-zipline-image-compression-percent` | A number between 0 and 100 that specifies the image compression percentage.                                                                                   |
 | `x-zipline-password`                  | If set, the file will have a password protected dialog upon viewing.                                                                                          |
 | `x-zipline-max-views`                 | The maximum number of views before the file is deleted.                                                                                                       |
@@ -22,15 +22,15 @@ All headers are optional, except `authorization`, which is your token.
 
 ---
 
-## File Format
+## File Name Format
 
-| Format | Example                                    |                                                  |
-| ------ | ------------------------------------------ | ------------------------------------------------ |
-| random | `Dh39ck.png`                               |                                                  |
-| date   | `2021-01-01.png`                           | Uses the `Files Default Date Format` in settings |
-| uuid   | `b79c332b-306e-47ff-b564-2514075122fe.png` |                                                  |
-| name   | `filesOriginalNameWhenUploaded.png`        |                                                  |
-| gfycat |                                            |                                                  |
+| Format                     | Example                                    |                                                  |
+| -------------------------- | ------------------------------------------ | ------------------------------------------------ |
+| `random`                   | `Dh39ck.png`                               |                                                  |
+| `date`                     | `2021-01-01.png`                           | Uses the `Files Default Date Format` in settings |
+| `uuid`                     | `b79c332b-306e-47ff-b564-2514075122fe.png` |                                                  |
+| `name`                     | `filesOriginalNameWhenUploaded.png`        |                                                  |
+| `gfycat` or `random-words` | `adventurous-adorable-gorilla`             | See [here](#random-words) for more information   |
 
 ## File Expiration
 
@@ -84,3 +84,21 @@ X-Zipline-Domain: zipline.example.com
 
 The domain must point towards the Zipline instance in DNS, obviously.
 
+### Randomize Domains
+
+Given a comma separated list of domains, Zipline will randomly select one of the domains from that list to use like above.
+
+```http
+POST https://zipline.otherdomain.com/api/upload
+
+X-Zipline-Domain: zipline.example.com,zipline2.example.com,zipline3.example.com
+```
+
+can be any of the three domains.
+
+## Random Words
+
+A gfycat like style of file name: `adventurous-adorable-gorilla` an N number of adjectives followed by an animal. The number of adjectives can be configured from the "Files" section of the Server Settings page. The separator can also be configured, but the default is a dash `-`. The animal list is a static list of animals, and the adjectives are randomly selected from a list of adjectives. The list of adjectives can be configured from the "Files" section of the Server Settings page.
+
+### Changing the word list
+The word list must be at `./public/animals.txt` and `./public/adjectives.txt`. If these files don't exist, then Zipline will fallback to a built-in word list. The files must be in the format of one word per line. A restart isn't required if the word list is changed.
