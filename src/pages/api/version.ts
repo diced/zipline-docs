@@ -1,3 +1,13 @@
+/*
+TODO: This route will be removed entirely in the future, most likely after the EOL of v3
+all versioning requests should be handled by the new versioning system at
+https://zipline-version.diced.sh?version={version}&sha={sha}
+- version: the version of zipline you are currently running, e.g. 4.0.2
+- sha: the current commit sha of the zipline version, e.g. abcd123
+
+these two parameters can be receieved through the /api/version route on a Zipline v4 instance.
+*/
+
 import { Endpoints } from '@octokit/types';
 import type { NextRequest } from 'next/server';
 import { parse } from 'semver';
