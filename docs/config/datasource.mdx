@@ -95,3 +95,10 @@ This option can be used if your S3 provider requires path-style requests. This i
 ```bash copy
 DATASOURCE_S3_FORCE_PATH_STYLE=true
 ```
+
+### `DATASOURCE_S3_SUBDIRECTORY`
+This option can be used to specify a subdirectory in the S3 bucket to store files in. Note that folders don't technically exist in S3, it's just a way the file is named. Displaying files in subdirectories might be different depending on the S3 provider you are using.
+
+```bash copy
+DATASOURCE_S3_SUBDIRECTORY=zipline
+```
