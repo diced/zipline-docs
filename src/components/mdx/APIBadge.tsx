@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 
-interface APIBadgeProps {
+interface ApiBadgeProps {
   type: string;
 }
 
-export default function APIBadge({ type }: APIBadgeProps) {
+export default function ApiBadge({ type }: ApiBadgeProps) {
   return (
     <div className='inline-block font-bold text-center rounded-md mr-4'>
       <span

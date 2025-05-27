@@ -1,0 +1,36 @@
+# User
+
+The User object represents a Zipline user and their associated settings, authentication providers, security credentials, quotas, and view-route preferences.
+
+## Fields
+
+| Field          | Type (with null/undefined marks)             | Description                    |
+| -------------- | -------------------------------------------- | ------------------------------ |
+| id             | `string`                                     | Unique user identifier in cuid |
+| username       | `string`                                     | Username                       |
+| createdAt      | `Date`                                       | User creation timestamp        |
+| updatedAt      | `Date`                                       | Last updated timestamp         |
+| role           | `'USER' \| 'ADMIN' \| 'SUPERADMIN'`          | User role                      |
+| view           | [`UserViewSettings`](#userviewsettings-type) | View/UI settings               |
+| sessions       | `string[]`                                   | List of session IDs            |
+| oauthProviders | `OAuthProvider[]`                            | Linked OAuth providers         |
+| totpSecret     | `string?~`                                   | TOTP 2FA secret                |
+| quota          | `UserQuota?~`                                | Quota info                     |
+
+## UserViewSettings Type
+
+Represents a user's view-route preferences
+
+| Property           | Type                              | Description                                                |
+| ------------------ | --------------------------------- | ---------------------------------------------------------- |
+| `enabled`          | `boolean?~`                       | Whether custom view settings are enabled.                  |
+| `align`            | `'left' \| 'center' \| 'right'?~` | Preferred content alignment (nullable, undefined allowed). |
+| `showMimetype`     | `boolean?~`                       | Whether to display mimetype info.                          |
+| `showTags`         | `boolean?~`                       | Whether to display tags.                                   |
+| `showFolder`       | `boolean?~`                       | Whether to show folders in UI.                             |
+| `content`          | `string?~`                        | Custom content string for view settings.                   |
+| `embed`            | `boolean?~`                       | Whether to use embedded views.                             |
+| `embedTitle`       | `string?~`                        | Custom embed title.                                        |
+| `embedDescription` | `string?~`                        | Custom embed description.                                  |
+| `embedColor`       | `string?~`                        | Embed color in hex                                         |
+| `embedSiteName`    | `string?~`                        | Custom embed site name.                                    |

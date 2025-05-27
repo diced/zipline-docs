@@ -1,0 +1,68 @@
+# /api/upload
+
+Upload one or more files. Supports both regular and chunked ("partial") uploads. Quota and folder restrictions may apply.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+### Headers
+
+See [upload options](/docs/guides/upload-options) for headers.
+
+### Body
+
+**Content-Type:** `multipart/form-data`
+
+All files should be included in the form data with the key `file`. You can upload multiple files by repeating the `file` key.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property            | Type                                                              | Description                                                                                               |
+| ------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `files`             | `{ id: string; type: string; url: string; pending?: boolean; }[]` | Uploaded file(s) info.<br/>• `pending` is `true` if the file is not fully uploaded (e.g. chunked upload). |
+| `deletesAt`         | `string?`                                                         | ISO timestamp when files will be deleted.                                                                 |
+| `assumedMimetypes`  | `boolean[]?`                                                      | List indicating if file mimetypes were assumed.                                                           |
+| `partialSuccess`    | `boolean?`                                                        | If the partial upload (chunk) succeeded.                                                                  |
+| `partialIdentifier` | `string?`                                                         | Identifier for the partial upload session.                                                                |
+
+### Example
+
+```json
+{
+  "files": [
+    {
+      "id": "cmb60pvng00039kentdaw6p68",
+      "type": "image/png",
+      "url": "http://localhost:3000/u/brg2IB.png"
+    }
+  ]
+}
+```
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - Missing or invalid headers
+  - Folder does not exist
+  - Partial uploads with multiple files
+  - Malfored upload, missing files, etc.
+
+- **403 Forbidden**
+
+  Folder uploads not allowed for anonymous user
+
+- **413 Payload Too Large**
+
+  Upload would exceed user quota (by file count or by bytes)
+
+- **500 Internal Server Error**
+
+  Unexpected server error while processing upload

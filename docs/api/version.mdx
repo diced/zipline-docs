@@ -1,0 +1,76 @@
+# /api/version
+
+Returns version details of the backend, including current version, release status, and upstream/latest version information.
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property  | Type                             | Description                                                                                           |
+| --------- | -------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `details` | `object`                         | Build/version info from the server (result from the [version server](/docs/guides/version-checking)). |
+| `data`    | [`VersionAPI`](#versionapi-type) | Upstream and release version details.                                                                 |
+
+#### VersionAPI Type
+
+| Property             | Type       | Description                                   |
+| -------------------- | ---------- | --------------------------------------------- |
+| `isUpstream`         | `boolean`  | Is this running the upstream codebase?        |
+| `isRelease`          | `boolean`  | Is this an official release?                  |
+| `isLatest`           | `boolean`  | Is this the latest available version?         |
+| `version`            | `object`   | Current version information.                  |
+| `version.tag`        | `string`   | Version tag.                                  |
+| `version.sha`        | `string`   | Git SHA of current version.                   |
+| `version.url`        | `string`   | URL to commit or release.                     |
+| `latest`             | `object`   | Latest available version.                     |
+| `latest.tag`         | `string`   | Latest version tag.                           |
+| `latest.url`         | `string`   | URL to latest version/release.                |
+| `latest.commit`      | `object?~` | Latest commit info (omitted if not upstream). |
+| `latest.commit.sha`  | `string`   | Commit SHA.                                   |
+| `latest.commit.url`  | `string`   | Commit URL.                                   |
+| `latest.commit.pull` | `boolean`  | Is from a pull request.                       |
+
+### Example
+
+```json
+{
+  "data": {
+    "latest": {
+      "tag": "v4.1.0",
+      "url": "https://github.com/diced/zipline/releases/v4.1.0",
+      "commit": {
+        "sha": "e8380cc261c00e76c66a5810f2588a4e777c3eab",
+        "url": "https://github.com/diced/zipline/commit/e8380cc261c00e76c66a5810f2588a4e777c3eab",
+        "pull": true
+      }
+    },
+    "isUpstream": true,
+    "isRelease": false,
+    "isLatest": true,
+    "version": {
+      "tag": "v4.1.0",
+      "sha": "e8380cc",
+      "url": "https://github.com/diced/zipline/commit/e8380cc"
+    }
+  },
+  "details": { "version": "4.1.0", "sha": "e8380cc" }
+}
+```
+
+### Error Responses
+
+- **404 Not Found**
+
+  Version checking is disabled
+
+- **500 Internal Server Error**
+
+  Failed to fetch version details (network, API, or other errors).

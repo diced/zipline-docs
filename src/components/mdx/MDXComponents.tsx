@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { Heading } from './Headings';
 import Image from './Image';
-import APIBadge from './APIBadge';
+import ApiBadge from './ApiBadge';
 import TabItem from './tabs/TabItem';
 import Tabs from './tabs';
 import Alert from './Alert';
@@ -9,9 +9,11 @@ import DocLinks from './DocLinks';
 
 import Pre from './Pre';
 import Link from 'next/link';
+import ApiHeading from './ApiHeader';
 
 export const MDXComponents = {
-  APIBadge: APIBadge,
+  ApiBadge: ApiBadge,
+  ApiHeading: ApiHeading,
   VariablesPlayground: dynamic(() => import('./VariablesPlayground')),
   TimezoneCollapse: dynamic(() => import('./TimezoneCollapse')),
   ExternalLinksBuilder: dynamic(() => import('./ExternalLinksBuilder')),

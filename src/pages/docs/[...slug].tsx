@@ -232,7 +232,7 @@ export const getStaticProps = (async ({ params }) => {
   const mdxSource = await serialize(content, {
     mdxOptions: {
       rehypePlugins: [
-        rehypeSlug,
+        [rehypeSlug, {  }],
         rehypeMdxCodeProps,
         rehypeUnwrapImages,
         [rehypeImageSize, { root: join(process.cwd(), 'public') }],

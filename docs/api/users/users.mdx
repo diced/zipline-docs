@@ -1,0 +1,108 @@
+# /api/users
+
+Perform various actions on users, or retrieve all the users in the database.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<Alert type='info'>
+  This endpoint requires administrator priviliges or higher.
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Query Parameters
+
+| Name     | Type              | Description                                                       |
+| -------- | ----------------- | ----------------------------------------------------------------- |
+| `noincl` | `'true'\|'false'` | If `'true'`, exclude the current authenticated user from results. |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+An array of [users](/docs/api/models/user) in the database.
+
+### Example
+
+```json
+[
+  {
+    "id": "cmb6042f500029kenox2u8npu",
+    "username": "admin",
+    "createdAt": "2025-05-27T04:13:22.625Z",
+    "updatedAt": "2025-05-27T04:13:22.689Z",
+    "role": "SUPERADMIN",
+    "view": {},
+    "oauthProviders": [],
+    "totpSecret": null,
+    "passkeys": [],
+    "quota": null,
+    "sessions": ["QSmGQUAjHBQCCdn7p6YfIOuAR24ZTNIL"],
+    "avatar": null
+  }
+]
+```
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+Create a new user.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property   | Type                  | Description                                             |
+| ---------- | --------------------- | ------------------------------------------------------- |
+| `username` | `string`              | **Required.** Username for the new user.                |
+| `password` | `string`              | **Required.** Password for the new user.                |
+| `avatar`   | `string?~`            | Base64 avatar image, or uses default if not provided.   |
+| `role`     | `'USER' \| 'ADMIN'?~` | Role to assign (`USER` or `ADMIN`). Defaults to `USER`. |
+
+#### Example
+
+```json
+{
+  "username": "test",
+  "password": "test",
+  "avatar": "data:image/png;base64,stuff...",
+  "role": "USER"
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns a [User](/docs/api/models/user) object representing the newly created user.
+
+### Example
+
+```json
+{
+  "id": "cmb618zts00059ken21a6uenw",
+  "username": "hello",
+  "createdAt": "2025-05-27T04:45:12.160Z",
+  "updatedAt": "2025-05-27T04:45:12.160Z",
+  "role": "USER",
+  "view": {},
+  "oauthProviders": [],
+  "quota": null,
+  "sessions": []
+}
+```
+
+### Error Responses
+
+- **400 Bad Request**
+
+  If the request body is invalid or missing required fields.
+
+- **403 Forbidden**
+
+  If the setup has already been completed.

@@ -1,0 +1,33 @@
+# /api/healthcheck
+
+Perform a simple healthcheck on the database and backend of Zipline. Returns a simple pass/fail response.
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type      | Description                                                      |
+| -------- | --------- | ---------------------------------------------------------------- |
+| `pass`   | `boolean` | `true` if the server and database are reachable and functioning. |
+
+### Example
+
+```json
+{
+  "pass": true
+}
+```
+
+### Error Responses
+
+- **404 Not Found**
+
+  If the healthcheck endpoint is disabled in settings
+
+- **500 Internal Server Error**
+
+  If there is an issue with the database connection or server configuration.
