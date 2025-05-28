@@ -1,0 +1,72 @@
+# /api/user
+
+Get the currently logged in user, and perform actions on the current user.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Get the currently authenticated user.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type                          | Description                    |
+| -------- | ----------------------------- | ------------------------------ |
+| `user`   | [User](/docs/api/models/user) | The authenticated user object. |
+| `token`  | `string`                      | The user's token.              |
+
+#### Example
+
+```json
+{
+  "user": {
+    "id": "cmb6042f500029kenox2u8npu",
+    "username": "admin",
+    "createdAt": "2025-05-27T04:13:22.625Z",
+    "updatedAt": "2025-05-28T02:20:19.136Z",
+    "role": "SUPERADMIN",
+    "view": {},
+    "oauthProviders": [],
+    "totpSecret": null,
+    "passkeys": [],
+    "quota": null,
+    "sessions": ["MW4kw66bAsosVnaAB2VyuCRt6Sh2XNfo"]
+  }
+}
+```
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Update the currently authenticated user.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property   | Type                                                                | Description                                      |
+| ---------- | ------------------------------------------------------------------- | ------------------------------------------------ |
+| `username` | `string?~`                                                          | New username. Must not be already taken.         |
+| `password` | `string?~`                                                          | New password.                                    |
+| `avatar`   | `string?~`                                                          | Base64 avatar image string, or `null` to remove. |
+| `view`     | [`UserViewSettings?~`](/docs/api/models/user#userviewsettings-type) | Object with user interface/view preferences.     |
+
+All properties are optional. If a property is not provided, it will not be updated. The same goes for inside the `view` object, where only the provided properties will be updated.
+
+### Response
+
+**Status:** `200 OK`
+**Content-Type:** `application/json`
+
+The same response as the [`GET /api/user`](#get-request) endpoint, with the updated user information.
+
+### Error Responses
+
+- **400 Bad Request**
+  - If the username is already taken.
+  - If any invalid properties are provided.

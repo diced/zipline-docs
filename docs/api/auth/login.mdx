@@ -1,0 +1,79 @@
+# /api/auth/login
+
+Authenticate a user and register a session.
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property   | Type      | Description                                                                                     |
+| ---------- | --------- | ----------------------------------------------------------------------------------------------- |
+| `username` | `string`  | **Required.** Username for the user.                                                            |
+| `password` | `string`  | **Required.** Password for the user.                                                            |
+| `code`     | `string?` | TOTP code if user has TOTP enabled. This is used as the second request if a totp code is needed |
+
+#### Example
+
+```json
+{
+  "username": "test",
+  "password": "test"
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+**If login is successful**
+
+| Property | Type                          | Description                    |
+| -------- | ----------------------------- | ------------------------------ |
+| `user`   | [User](/docs/api/models/user) | The authenticated user object. |
+
+**If TOTP is enabled for the user**
+
+| Property | Type      | Description                     |
+| -------- | --------- | ------------------------------- |
+| `totp`   | `boolean` | Indicates that TOTP is enabled. |
+
+#### Example
+
+```json
+{
+  "user": {
+    "id": "cmb6042f500029kenox2u8npu",
+    "username": "admin",
+    "createdAt": "2025-05-27T04:13:22.625Z",
+    "updatedAt": "2025-05-28T02:20:05.997Z",
+    "role": "SUPERADMIN",
+    "view": {},
+    "oauthProviders": [],
+    "totpSecret": null,
+    "passkeys": [],
+    "quota": null,
+    "sessions": [],
+    "token": "MTc0ODMxOTIwMjYyNQ==.ejV1UVFRODBJNHltU0VGZWVaTXNzRmc2UFZKUTlIMmg="
+  }
+}
+```
+
+or if TOTP is enabled:
+
+```json
+{
+  "totp": true
+}
+```
+
+It is then recommended to ask the user for their TOTP code, and include it in the next request to this endpoint.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  Invalid fields, invalid username or password, invalid TOTP code.

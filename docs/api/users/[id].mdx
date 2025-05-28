@@ -10,6 +10,12 @@ Get a specific user by their ID, and make changes to their user.
   This endpoint requires administrator priviliges or higher.
 </Alert>
 
+## Path Parameters
+
+| Name | Type   | Description                |
+| ---- | ------ | -------------------------- |
+| `id` | string | The unique ID of the user. |
+
 <ApiHeading type='GET'>Request</ApiHeading>
 
 ### Response
@@ -20,7 +26,7 @@ Get a specific user by their ID, and make changes to their user.
 
 A [users](/docs/api/models/user) object.
 
-### Example
+#### Example
 
 ```json
 {
@@ -92,7 +98,7 @@ Edit a user
 
 Returns the updated [User](/docs/api/models/user) object.
 
-### Example
+#### Example
 
 ```json
 {

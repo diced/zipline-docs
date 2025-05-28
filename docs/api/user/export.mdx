@@ -1,0 +1,104 @@
+# /api/user/export
+
+Export, download, and delete a data archive (export) as the current user.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Retrieve a list of your exports, or download a specific export by its ID.
+
+### Query Parameters
+
+| Name | Type   | Description                                                             |
+| ---- | ------ | ----------------------------------------------------------------------- |
+| `id` | string | (Optional) Export ID. If provided, downloads that specific export file. |
+
+### Response (list exports)
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+An array of exports:
+
+| Property    | Type      | Description                                        |
+| ----------- | --------- | -------------------------------------------------- |
+| `id`        | `string`  | Unique export ID.                                  |
+| `userId`    | `string`  | User ID that owns this export.                     |
+| `path`      | `string`  | Relative path of the export archive.               |
+| `files`     | `number`  | Number of files included in the export.            |
+| `size`      | `string`  | Size of the archive (bytes, as string).            |
+| `completed` | `boolean` | `true` if the export is complete and downloadable. |
+| `createdAt` | `string`  | ISO timestamp when the export started.             |
+| `updatedAt` | `string`  | ISO timestamp when the export was updated.         |
+
+### Response (download export)
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/zip`
+
+The binary data of the ZIP archive.
+
+### Error Responses
+
+- **404 Not Found**
+
+  The export doesn't exist
+
+- **400 Bad Request**
+
+  The export has not completed yet, or the ID is invalid.
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+Initiate a new export of your data.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property  | Type      | Description                       |
+| --------- | --------- | --------------------------------- |
+| `running` | `boolean` | `true` if export job has started. |
+
+### Error Responses
+
+- **400 Bad Request**
+
+  There are no files to export...
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Delete an export by its ID. This will delete it form the database and remove the archive file. Usually the archive file is stored in the temporary directory which may be cleaned up on restarts of a docker container.
+
+### Query Parameters
+
+| Name | Type   | Description                            |
+| ---- | ------ | -------------------------------------- |
+| `id` | string | **Required.** The export ID to delete. |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property  | Type      | Description                   |
+| --------- | --------- | ----------------------------- |
+| `deleted` | `boolean` | `true` if export was deleted. |
+
+### Error Responses
+
+- **404 Not Found**
+
+  The export doesn't exist.
+
+- **400 Bad Request**
+
+  No export ID provided.

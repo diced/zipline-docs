@@ -1,0 +1,35 @@
+# /api/user/token
+
+Get a valid token or refresh the underlying key that generates valid tokens.
+
+**How do tokens on Zipline work?** You may notice that every time you "copy" a token from the dashboard, it is actually a new and different token. This is because Zipline generates this token dynamically based on the current time + a underlying secret key which is then encrypted using the `CORE_SECRET` environment variable. Refreshing a token will simply update the underlying secret key, which will then invalidate all previously generated tokens.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Retrieve an encrypted token.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description                                         |
+| -------- | -------- | --------------------------------------------------- |
+| `token`  | `string` | The encrypted API token for the authenticated user. |
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Update the underlying secret key used to generate tokens.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns the same response as the [`POST /api/auth/login`](/docs/api/auth/login#post-request) endpoint.

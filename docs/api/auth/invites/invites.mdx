@@ -1,0 +1,105 @@
+# /api/auth/invites
+
+View all invites or create an invite code.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<Alert type='info'>
+  This endpoint requires administrator priviliges or higher.
+</Alert>
+
+## Path Parameters
+
+| Name | Type   | Description                  |
+| ---- | ------ | ---------------------------- |
+| `id` | string | The unique ID of the invite. |
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+An array of the [Invite](/docs/api/models/invite) object.
+
+#### Example
+
+```json
+[
+  {
+    "id": "cmb7c5d3n0002vcatximfhrf0",
+    "createdAt": "2025-05-28T02:38:04.691Z",
+    "updatedAt": "2025-05-28T02:38:04.691Z",
+    "expiresAt": null,
+    "code": "falpjX",
+    "uses": 0,
+    "maxUses": null,
+    "inviterId": "cmb6042f500029kenox2u8npu",
+    "inviter": {
+      "username": "admin",
+      "id": "cmb6042f500029kenox2u8npu",
+      "role": "SUPERADMIN"
+    }
+  }
+]
+```
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property    | Type      | Description                                                         |
+| ----------- | --------- | ------------------------------------------------------------------- |
+| `expiresAt` | `string`  | **Required.** Expiry time for the invite (ISO string or `'never'`). |
+| `maxUses`   | `number?` | Maximum allowed uses for the invite.                                |
+
+#### Example
+
+An invite that expires on June 1, 2025, and can be used a maximum of 10 times:
+
+```json
+{
+  "expiresAt": "2025-06-01T00:00:00Z",
+  "maxUses": 10
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns the newly created [Invite](/docs/api/models/invite) object.
+
+#### Example
+
+```json
+{
+  "id": "cmb7c5d3n0002vcatximfhrf0",
+  "createdAt": "2025-05-28T02:38:04.691Z",
+  "updatedAt": "2025-05-28T02:38:04.691Z",
+  "expiresAt": "2025-06-01T00:00:00Z",
+  "code": "falpjX",
+  "uses": 0,
+  "maxUses": 10,
+  "inviterId": "cmb6042f500029kenox2u8npu",
+  "inviter": {
+    "username": "admin",
+    "id": "cmb6042f500029kenox2u8npu",
+    "role": "SUPERADMIN"
+  }
+}
+```
+
+### Error Responses
+
+- **400 Bad Request**
+  - If the `expiresAt` is not a valid ISO string.
+  - If `maxUses` is provided but not a number.
