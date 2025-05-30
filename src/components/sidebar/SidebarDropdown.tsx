@@ -29,6 +29,7 @@ export default function SidebarDropdown({ item }: SidebarItemProps) {
               ? 'dark:bg-gray-800/60 bg-gray-100/50 text-blue-400 font-semibold'
               : 'text-gray-400',
           )}
+          onClick={() => setOpen(!open)}
         >
           <Link href={item.href} className='w-full text-left'>
             {item.title}
