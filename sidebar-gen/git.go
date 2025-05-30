@@ -2,12 +2,22 @@ package main
 
 import (
 	"log"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
 )
+
+func osModTime(path string) time.Time {
+	info, err := os.Stat(path)
+	if err != nil {
+		log.Fatalf("error while getting file info for %s: %v", path, err)
+	}
+
+	return info.ModTime()
+}
 
 func gitFiles(dir string) []string {
 	cmd := exec.Command("git", "ls-files", dir)
@@ -47,6 +57,7 @@ func createDateMap(files []string) map[string]time.Time {
 
 			tsStr := strings.TrimSpace(string(out))
 			if tsStr == "" {
+				log.Printf("[%v] git log output is empty\n", file)
 				return
 			}
 
@@ -72,7 +83,13 @@ func createDateMap(files []string) map[string]time.Time {
 }
 
 func GetLastUpdated(path string) time.Time {
-	return cachedTimes[path]
+	cached := cachedTimes[path]
+	if cached.IsZero() {
+		return osModTime(path)
+	}
+
+
+	return cached
 }
 
 var cachedTimes = createDateMap(gitFiles("docs/"))
