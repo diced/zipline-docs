@@ -3,12 +3,13 @@
   "version": "4.0.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/watch.mjs & next dev --turbo",
-    "build": "node --experimental-fetch scripts/runAll.mjs && next build",
+    "dev": "GO_SIDEBAR_BIN=./build/sidebar-gen node scripts/watch.mjs & next dev --turbo",
+    "build": "node scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
-    "scripts": "node --experimental-fetch scripts/runAll.mjs"
+    "scripts": "node scripts/runAll.mjs",
+    "go:build": "cd sidebar-gen; go build -o ../build/sidebar-gen ."
   },
   "dependencies": {
     "@docsearch/react": "3.8.3",
