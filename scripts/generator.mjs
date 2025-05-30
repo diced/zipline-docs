@@ -60,9 +60,13 @@ async function goGenerator(context) {
     return nodeGenerator(context);
   }
 
+  const extraArgs = process.env['GO_SIDEBAR_EXTRA_ARGS']
+    ? process.env['GO_SIDEBAR_EXTRA_ARGS'].split(' ')
+    : [];
+
   const result = spawnSync(
     goSidebarBin,
-    ['-ctx=' + context, '-out=./sidebar.json'],
+    ['-ctx=' + context, '-out=./sidebar.json', ...extraArgs],
     {
       stdio: 'inherit',
     },

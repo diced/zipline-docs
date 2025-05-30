@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
@@ -21,12 +20,12 @@ const (
 )
 
 type SidebarAst struct {
-	Title       string    
-	Path        string    
-	Position    *int    
-	Hidden      *bool  
-	Description string     
-	Type        AstType 
+	Title       string
+	Path        string
+	Position    *int
+	Hidden      *bool
+	Description string
+	Type        AstType
 	Children    []SidebarAst
 }
 
@@ -79,10 +78,10 @@ func ReadCategoryJson(file string) Category {
 	return category
 }
 
-func ReadSidebarAst(dir string, fsys fs.FS) []SidebarAst {
+func ReadSidebarAst(dir string) []SidebarAst {
 	sidebar := make([]SidebarAst, 0)
 
-	files, err := fs.ReadDir(fsys, ".")
+	files, err := os.ReadDir(dir)
 	if err != nil {
 		log.Fatal("error while reading dir:", err)
 	}
@@ -91,8 +90,7 @@ func ReadSidebarAst(dir string, fsys fs.FS) []SidebarAst {
 		filePath := filepath.Join(dir, file.Name())
 
 		if file.IsDir() {
-			fsysChildren := os.DirFS(filePath)
-			children := ReadSidebarAst(filePath, fsysChildren)
+			children := ReadSidebarAst(filePath)
 
 			categoryJsonPath := filepath.Join(filePath, "_category_.json")
 			if _, err := os.Stat(categoryJsonPath); err == nil {
@@ -155,7 +153,6 @@ func ConvertDirFiles(sidebar []SidebarAst) []SidebarAst {
 
 		fileName := filepath.Base(item.Path) + ".mdx"
 		filePath := filepath.Join(item.Path, fileName)
-
 
 		if _, err := os.Stat(filePath); err == nil {
 			md, _ := GetFrontmatter(filePath)

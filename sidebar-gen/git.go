@@ -10,34 +10,37 @@ import (
 	"time"
 )
 
+type CacheTimes map[string]time.Time
+
 func osModTime(path string) time.Time {
 	info, err := os.Stat(path)
 	if err != nil {
-		log.Fatalf("error while getting file info for %s: %v", path, err)
+		log.Fatalf("[%s] error while getting file info: %v", path, err)
 	}
 
 	return info.ModTime()
 }
 
-func gitFiles(dir string) []string {
-	cmd := exec.Command("git", "ls-files", dir)
+func gitFiles() []string {
+	cmd := exec.Command("git", "ls-files", *dirFlag)
 	out, err := cmd.Output()
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	lines := strings.Split(strings.TrimSpace(string(out)), "\n")
 	return lines
 }
 
-func createDateMap(files []string) map[string]time.Time {
+func CreateDateMap(files []string) CacheTimes {
 	start := time.Now()
 
-	result := make(map[string]time.Time)
+	result := make(CacheTimes)
 
 	// concurrency shit
 	var waitGroup sync.WaitGroup
 	var mutex sync.Mutex
-	semaphore := make(chan struct{}, 24)
+	semaphore := make(chan struct{}, *grcFlag)
 
 	for _, file := range files {
 		waitGroup.Add(1)
@@ -88,8 +91,7 @@ func GetLastUpdated(path string) time.Time {
 		return osModTime(path)
 	}
 
-
 	return cached
 }
 
-var cachedTimes = createDateMap(gitFiles("docs/"))
+var cachedTimes CacheTimes

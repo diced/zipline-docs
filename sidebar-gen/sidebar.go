@@ -52,9 +52,10 @@ func CreateSidebarFromAst(dir string, ast []SidebarAst) []SidebarItem {
 		href := PathToHref(dir, astItem.MdxPathUrl())
 
 		item := SidebarItem{
-			Title: astItem.Title,
-			Path:  "./" + astItem.MdxPathUrl(),
+			Title:       astItem.Title,
+			Path:        "./" + astItem.MdxPathUrl(),
 			LastUpdated: GetLastUpdated(astItem.Path),
+			Hidden:      astItem.Hidden != nil && *astItem.Hidden,
 		}
 
 		if astItem.Type == AstDir {

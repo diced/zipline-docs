@@ -6,7 +6,16 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"time"
+)
+
+var (
+	ctxFlag      = flag.String("ctx", "build", "the log context")
+	outFlag      = flag.String("out", "./sidebar.json", "the outfile")
+	dirFlag      = flag.String("dir", "./docs", "docs directory")
+	grcFlag      = flag.Int("grc", runtime.NumCPU(), "number of concurrent goroutines to run at a time")
+	noIndentFlag = flag.Bool("no-indent", false, "do not indent the output JSON file")
 )
 
 func LogTime(context string, msg string, duration time.Duration) {
@@ -14,26 +23,27 @@ func LogTime(context string, msg string, duration time.Duration) {
 }
 
 func main() {
-	ctxPtr := flag.String("ctx", "build", "the log context")
-	outPtr := flag.String("out", "./sidebar.json", "the outfile")
-
-	// may or may not work lol, i would just run it in the same dir as the docs dir to be safe.
-	dirPtr := flag.String("dir", "./docs", "docs directory")
-
 	flag.Parse()
 
-	fsys := os.DirFS(*dirPtr)
+	cachedTimes = CreateDateMap(gitFiles())
+
 	start := time.Now()
 
-	sidebarAst := ConvertDirFiles(OrderSidebar(ReadSidebarAst(*dirPtr, fsys)))
-	sidebar := CreateSidebarFromAst(*dirPtr, sidebarAst)
+	sidebarAst := ConvertDirFiles(OrderSidebar(ReadSidebarAst(*dirFlag)))
+	sidebar := CreateSidebarFromAst(*dirFlag, sidebarAst)
 
-	stringJson, _ := json.MarshalIndent(sidebar, "", "  ")
-	err := os.WriteFile(*outPtr, stringJson, 0644)
+	var stringJson []byte
+	if *noIndentFlag {
+		stringJson, _ = json.Marshal(sidebar)
+	} else {
+		stringJson, _ = json.MarshalIndent(sidebar, "", "  ")
+	}
+
+	err := os.WriteFile(*outFlag, stringJson, 0644)
 	if err != nil {
 		log.Fatalln("error while writing sidebar.json", err)
 	}
 
 	elapsed := time.Since(start)
-	LogTime(*ctxPtr, "generated sidebar.json", elapsed)
+	LogTime(*ctxFlag, "generated sidebar.json", elapsed)
 }
