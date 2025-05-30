@@ -1,0 +1,19 @@
+# Url
+
+Represents a shortened URL.
+
+## Fields
+
+| Property      | Type                    | Description                                               |
+| ------------- | ----------------------- | --------------------------------------------------------- |
+| `id`          | `string`                | Unique identifier for the URL.                            |
+| `createdAt`   | `string`                | ISO timestamp when the URL was created.                   |
+| `updatedAt`   | `string`                | ISO timestamp when the URL was last updated.              |
+| `code`        | `string`                | The unique code used for the shortened URL.               |
+| `vanity`      | `string?~`              | (Optional) Custom vanity string for the URL.              |
+| `destination` | `string`                | The target destination/original URL.                      |
+| `views`       | `number`                | Number of times the URL has been accessed.                |
+| `maxViews`    | `number?~`              | (Optional) Maximum number of allowed views, or unlimited. |
+| `password`    | `string?~ \| boolean?~` | (Optional) Password for access, if set.                   |
+| `enabled`     | `boolean`               | Whether the URL is currently enabled and can be accessed. |
+| `userId`      | `string?~`              | (Optional) User ID of the owner, or `null` if unowned.    |

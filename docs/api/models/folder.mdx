@@ -1,0 +1,24 @@
+# Folder
+
+Represents an invite created by a user to allow others to join a Zipline instance.
+
+## Fields
+
+| Property       | Type       | Description                                                                                                    |
+| -------------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
+| `id`           | `string`   | Unique identifier for the folder.                                                                              |
+| `createdAt`    | `string`   | ISO timestamp when the folder was created.                                                                     |
+| `updatedAt`    | `string`   | ISO timestamp when the folder was last updated.                                                                |
+| `name`         | `string`   | The folder's name.                                                                                             |
+| `public`       | `boolean`  | If `true`, the folder and its contents are public.                                                             |
+| `allowUploads` | `boolean`  | If `true`, allows anonymous uploads to this folder.                                                            |
+| `files`        | `[File]?~` | Array of [File](/docs/api/models/file) objects in this folder. This may be a partial representation of a file. |
+| `userId`       | `string`   | The ID of the user who owns this folder.                                                                       |
+
+### Inviter Type
+
+| Property   | Type     | Description                        |
+| ---------- | -------- | ---------------------------------- |
+| `id`       | `string` | The inviter's user ID.             |
+| `username` | `string` | The inviter's username.            |
+| `role`     | `string` | The inviter's role (e.g. `ADMIN`). |
