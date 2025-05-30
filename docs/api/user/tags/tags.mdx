@@ -1,0 +1,53 @@
+# /api/user/tags
+
+View or create tags that are assigned to files.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+An array of [Tag](/docs/api/models/tag) objects.
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description                                          |
+| -------- | -------- | ---------------------------------------------------- |
+| `name`   | `string` | **Required.** Name for the tag.                      |
+| `color`  | `string` | **Required.** Color for the tag (HEX). |
+
+#### Example
+
+Create a tag named "Screenshots" with a red color.
+
+```json
+{
+  "name": "Screenshots",
+  "color": "#ff0000"
+}
+```
+
+### Response
+
+**Status:** `200 Created`
+
+**Content-Type:** `application/json`
+
+A [Tag](/docs/api/models/tag) object representing the created tag.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  If the request body is invalid, missing required fields, or a tag with the same name already exists.

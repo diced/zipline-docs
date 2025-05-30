@@ -1,0 +1,70 @@
+# /api/user/tags/:id
+
+View, update, or delete a specific tag owned by the currently authenticated user.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+## Path Parameters
+
+| Name | Type   | Description              |
+| ---- | ------ | ------------------------ |
+| `id` | string | The unique ID of the tag |
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Get a specific tag by its ID.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+A [Tag](/docs/api/models/tag) object.
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Update a specific tag.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `name`   | `string` | Name for the tag.        |
+| `color`  | `string` | Color for the tag (HEX). |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+A [Tag](/docs/api/models/tag) object.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  The new name is already in use
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Delete a specific tag.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+A [Tag](/docs/api/models/tag) object representing the deleted tag.
+
+## Error Responses
+
+- **404 Not Found**
+
+  If the tag with the specified ID does not exist, or is not owned by the user.
