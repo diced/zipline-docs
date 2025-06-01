@@ -1,0 +1,47 @@
+# /api/server/clear_zeros
+
+Find and (optionally) delete files with zero-byte size from your storage/database.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<Alert type='info'>
+  This endpoint requires **administrator** privileges or higher.
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Scan for zero-byte files currently in the database/storage.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type    | Description                                      |
+| -------- | ------- | ------------------------------------------------ |
+| `files`  | `array` | An array of zero-byte file objects or IDs found. |
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Delete all files identified as zero-byte from both storage and the database.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description                         |
+| -------- | -------- | ----------------------------------- |
+| `status` | `string` | Status message about the operation. |
+
+#### Example
+
+```json
+{
+  "status": "Successfully deleted 2 zero-byte files."
+}
+```

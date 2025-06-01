@@ -1,0 +1,53 @@
+# /api/server/requery_size
+
+Trigger a server-side re-query to recalculate or clean up file sizes.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<Alert type='info'>
+  This endpoint requires **administrator** privileges or higher.
+</Alert>
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+Recalculate file sizes or delete files with missing data sources (advanced maintenance operation).
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property      | Type       | Description                                                     |
+| ------------- | ---------- | --------------------------------------------------------------- |
+| `forceDelete` | `boolean?` | If `true`, remove files from the database with missing storage. |
+| `forceUpdate` | `boolean?` | If `true`, update file size records, even if already set.       |
+
+#### Example
+
+Delete missing files and update sizes:
+
+```json
+{
+  "forceDelete": false,
+  "forceUpdate": true
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type      | Description                                 |
+| -------- | --------- | ------------------------------------------- |
+| `status` | `string?` | Status message indicating operation result. |
+
+#### Example
+
+```json
+{
+  "status": "Requery complete. 3 files deleted, 42 sizes updated."
+}
+```

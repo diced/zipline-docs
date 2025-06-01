@@ -1,0 +1,33 @@
+# /api/server/clear_temp
+
+Delete temporary files in your temp directory (useful for cleaning up after exports, failed uploads, etc).
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<Alert type='info'>
+  This endpoint requires **administrator** privileges or higher.
+</Alert>
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Remove all files in the server's temporary directory.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description                         |
+| -------- | -------- | ----------------------------------- |
+| `status` | `string` | Status message about the operation. |
+
+#### Example
+
+```json
+{
+  "status": "Cleared 5 temporary files."
+}
+```
