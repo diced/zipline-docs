@@ -1,0 +1,71 @@
+# /api/user/folders
+
+View all folders or create a new folder.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Query Parameters
+
+| Name     | Type      | Description                                                                                            |
+| -------- | --------- | ------------------------------------------------------------------------------------------------------ |
+| `noincl` | `boolean` | If `true`, returned folders will **not** include the files (eliminates unnecessary fetching of files). |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+An array of [Folder](/docs/api/models/folder) objects.
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+Create a new folder.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property   | Type        | Description                                               |
+| ---------- | ----------- | --------------------------------------------------------- |
+| `name`     | `string`    | **Required.** Name of the folder.                         |
+| `isPublic` | `boolean?`  | Whether the folder is public (`false` by default).        |
+| `files`    | `string[]?` | Optional array of file IDs to associate with this folder. |
+
+#### Example
+
+Create a folder that is not public and contains two files:
+
+```json
+{
+  "name": "My Folder",
+  "files": ["id1", "id2"]
+}
+```
+
+Create a folder that is public:
+
+```json
+{
+  "name": "Public Folder",
+  "isPublic": true
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+A [Folder](/docs/api/models/Folder) object representing the created folder.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  Missing a folder name or the file ids provided are invalid.

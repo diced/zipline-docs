@@ -1,0 +1,93 @@
+# /api/user/files/:id
+
+View, update, or delete a specific file you own (by ID or filename).
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+## Path Parameters
+
+| Parameter | Type     | Description                        |
+| --------- | -------- | ---------------------------------- |
+| `id`      | `string` | **Required.** File ID or filename. |
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns a [File](/docs/api/models/file) object.
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Update file properties (favorite status, max views, password, tags, etc).
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property       | Type        | Description                                                      |
+| -------------- | ----------- | ---------------------------------------------------------------- |
+| `favorite`     | `boolean?`  | Set/unset as favorite.                                           |
+| `maxViews`     | `number?`   | Max allowed views (`>= 0`).                                      |
+| `password`     | `string?~`  | Set password (string), remove password (`null` or empty string). |
+| `originalName` | `string?`   | Set or update the original filename.                             |
+| `type`         | `string?`   | Set or update the file MIME type.                                |
+| `tags`         | `string[]?` | Array of tag IDs to set for this file.                           |
+
+#### Example
+
+```json
+{
+  "favorite": true,
+  "maxViews": 100,
+  "password": "newpassword",
+  "originalName": "newfile.txt",
+  "type": "text/plain",
+  "tags": ["tag1", "tag2"]
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns an updated [File](/docs/api/models/file) object.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - If the request body is invalid or missing required fields
+  - Number fields are invalid or out of range
+  - Tags provided are invalid or do not exist
+
+- **404 Not Found**
+
+  - If the file with the specified ID or filename does not exist
+  - If the file does not belong to the authenticated user
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Delete a specific file by ID or filename.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns a [File](/docs/api/models/file) object representing the deleted file.
+
+### Error Responses
+
+- **404 Not Found**
+
+  - If the file with the specified ID or filename does not exist
+  - If the file does not belong to the authenticated user

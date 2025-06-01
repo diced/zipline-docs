@@ -20,6 +20,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "build/types/**/*.ts", "docs/api/user/tags/[id].mdx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "build/types/**/*.ts", "docs/api/user/tags/[id].mdx", "docs/api/user/files/[id]/password.mdx"],
   "exclude": ["node_modules"]
 }

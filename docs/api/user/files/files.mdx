@@ -1,0 +1,137 @@
+# /api/user/files
+
+List and search files for the authenticated user (with pagination, sorting, and filters).
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Retrieve a paginated, filterable, and searchable list of files for the user, or for another user if you have sufficient privileges.
+
+### Query Parameters
+
+| Name          | Type                                                   | Description                                                                                         |
+| ------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `page`        | `string`                                               | **Required.** The page number to retrieve (1-based).                                                |
+| `perpage`     | `string`                                               | Number of files per page (default: `15`).                                                           |
+| `filter`      | `'dashboard' \| 'none' \| 'all'`                       | Filter by file type/favorite: `dashboard` = media/text files, `all` = all files, `none` = no filter |
+| `favorite`    | `'true' \| 'false'`                                    | If `'true'`, only return favorite files.                                                            |
+| `sortBy`      | See sort options below                                 | Sort by this field. Defaults to `'createdAt'`.                                                      |
+| `order`       | `'asc' \| 'desc'`                                      | Sort order. Defaults to `'desc'`.                                                                   |
+| `searchField` | `'name' \| 'originalName' \| 'type' \| 'tags' \| 'id'` | Which field to search in. Defaults to `'name'`.                                                     |
+| `searchQuery` | `string`                                               | Search string (URL encoded).                                                                        |
+| `id`          | `string`                                               | (Admin only) Search files of a different user by their user ID.                                     |
+
+#### Sort options
+
+- `id`
+- `createdAt`
+- `updatedAt`
+- `deletesAt`
+- `name`
+- `originalName`
+- `size`
+- `type`
+- `views`
+- `favorite`
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+#### Standard (no search):
+
+| Property | Type     | Description                                                                   |
+| -------- | -------- | ----------------------------------------------------------------------------- |
+| `page`   | `File[]` | Array of files for the current page. See [File model](/docs/api/models/file). |
+| `total`  | `number` | Total number of files matching query.                                         |
+| `pages`  | `number` | Total number of pages.                                                        |
+
+##### Example
+
+```json
+{
+  "page": [
+    {
+      "createdAt": "2025-05-27T04:30:20.284Z",
+      "updatedAt": "2025-05-27T04:30:20.284Z",
+      "deletesAt": null,
+      "favorite": false,
+      "id": "cmb60pvng00039kentdaw6p68",
+      "originalName": null,
+      "name": "brg2IB.png",
+      "size": 1275067,
+      "type": "image/png",
+      "views": 0,
+      "maxViews": null,
+      "folderId": null,
+      "thumbnail": null,
+      "tags": [],
+      "password": null,
+      "url": "/u/brg2IB.png"
+    }
+  ],
+  "total": 1,
+  "pages": 1
+}
+```
+
+#### With search (searchField & searchQuery):
+
+| Property | Type     | Description                     |
+| -------- | -------- | ------------------------------- |
+| `page`   | `File[]` | Array of files matching search. |
+| `search` | `object` | Details about the search:       |
+|          | `field`  | Which field was searched.       |
+|          | `query`  | The query string or tag array.  |
+
+##### Example
+
+```json
+{
+{
+  "page": [
+    {
+      "createdAt": "2025-05-27T04:30:20.284Z",
+      "updatedAt": "2025-05-27T04:30:20.284Z",
+      "deletesAt": null,
+      "favorite": false,
+      "id": "cmb60pvng00039kentdaw6p68",
+      "originalName": null,
+      "name": "brg2IB.png",
+      "size": 1275067,
+      "type": "image/png",
+      "views": 0,
+      "maxViews": null,
+      "folderId": null,
+      "thumbnail": null,
+      "tags": [],
+      "url": "/u/brg2IB.png"
+    }
+  ],
+  "search": {
+    "field": "id",
+    "query": "cmb"
+  }
+}
+```
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - Page or perpage are missing or invalid.
+  - Invalid sort, order, or search field.
+  - Invalid tag for tag search.
+
+- **403 Forbidden**
+
+  Insufficient privileges to view another user's files.
+
+- **404 Not Found**
+
+  User does not exist.

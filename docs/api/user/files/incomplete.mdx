@@ -1,0 +1,49 @@
+# /api/user/files/incomplete
+
+View processing files that are incomplete or not fully processed yet.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns an array of [IncompleteFile](/docs/api/models/incompletefile) objects.
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+### Body
+
+| Property | Type       | Description                                           |
+| -------- | ---------- | ----------------------------------------------------- |
+| `id`     | `string[]` | **Required.** Array of incomplete file IDs to delete. |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `count`  | `number` | Number of files deleted. |
+
+#### Example
+
+```json
+{
+  "count": 3
+}
+```
+
+### Error Responses
+
+- **400 Bad Request**
+
+  If the request body is invalid or missing required fields.

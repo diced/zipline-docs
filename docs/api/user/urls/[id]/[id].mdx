@@ -1,0 +1,178 @@
+# /api/user/folders/:id
+
+View, update, or delete a specific folder by its ID.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+## Path Parameters
+
+| Name | Type   | Description                 |
+| ---- | ------ | --------------------------- |
+| `id` | string | The unique ID of the folder |
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Get a specific folder by its ID.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns a [Folder](/docs/api/models/folder) object.
+
+### Error Responses
+
+- **404 Not Found**
+
+  If the folder with the specified ID does not exist.
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Update a specific folder by its ID.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property       | Type       | Description                                      |
+| -------------- | ---------- | ------------------------------------------------ |
+| `isPublic`     | `boolean?` | Set folder to public/private.                    |
+| `name`         | `string?`  | Update folder name.                              |
+| `allowUploads` | `boolean?` | Allow/disallow anonymous uploads to this folder. |
+
+#### Example
+
+Update a folder to be public and allow uploads:
+
+```json
+{
+  "isPublic": true,
+  "allowUploads": true
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns the updated [Folder](/docs/api/models/folder) object.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  If the request body is invalid or missing required fields.
+
+- **404 Not Found**
+
+  If the folder with the specified ID does not exist.
+
+<ApiHeading type='PUT'>Request</ApiHeading>
+
+Add a file to this folder.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description                                  |
+| -------- | -------- | -------------------------------------------- |
+| `id`     | `string` | **Required.** File ID to add to this folder. |
+
+#### Example
+
+Add a file with ID `file123` to the folder:
+
+```json
+{
+  "id": "file123"
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns the updated [Folder](/docs/api/models/folder) object with the file added.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  If the request body is invalid or missing required fields.
+
+- **404 Not Found**
+
+  If the folder with the specified ID does not exist or the file ID is invalid.
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Remove a file from a folder or delete the entire folder.
+
+### Body
+
+**Content-Type:** `application/json`
+
+**To delete an entire folder:**
+
+| Property | Type       | Description                       |
+| -------- | ---------- | --------------------------------- |
+| `delete` | `"folder"` | **Required.** Deletes the folder. |
+
+**To remove a file from the folder:**
+
+| Property | Type     | Description                                   |
+| -------- | -------- | --------------------------------------------- |
+| `delete` | `"file"` | **Required.** Removes a file from the folder. |
+| `id`     | `string` | **Required.** File ID to remove.              |
+
+#### Example
+
+To delete the entire folder:
+
+```json
+{
+  "delete": "folder"
+}
+```
+
+To delete a specific file from the folder:
+
+```json
+{
+  "delete": "file",
+  "id": "file123"
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+Returns the updated [Folder](/docs/api/models/folder) object after the file is removed or the folder is deleted.
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - File or folder ID missing/invalid.
+  - File not in folder, or already in folder.
+  - Invalid delete type.
+
+- **404 Not Found**
+
+  Folder or file not found.
+
+- **403 Forbidden**
+
+  The user does not own the folder or file.

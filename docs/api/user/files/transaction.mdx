@@ -1,0 +1,103 @@
+# /api/user/files/transaction
+
+Perform bulk actions on your files: delete, favorite/unfavorite, or move to a folder.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='PATCH'>Request</ApiHeading>
+
+Bulk update files: favorite/unfavorite them or move them to a folder.
+
+### Body
+
+**Content-Type:** `application/json`
+
+| Property   | Type       | Description                                                         |
+| ---------- | ---------- | ------------------------------------------------------------------- |
+| `files`    | `string[]` | **Required.** Array of file IDs to operate on.                      |
+| `favorite` | `boolean?` | If present, sets/unsets favorite status for the files.              |
+| `folder`   | `string?`  | If present (and `favorite` is not), moves the files to this folder. |
+
+#### Examples
+
+Favorite files:
+
+```json
+{
+  "files": ["file1", "file2"],
+  "favorite": true
+}
+```
+
+Unfavorite files:
+
+```json
+{
+  "files": ["file1", "file2"],
+  "favorite": false
+}
+```
+
+Move files to a folder:
+
+```json
+{
+  "files": ["file1", "file2"],
+  "folder": "folderid"
+}
+```
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type      | Description                                   |
+| -------- | --------- | --------------------------------------------- |
+| `count`  | `number`  | Number of files updated.                      |
+| `name`   | `string?` | Folder name, if files were moved to a folder. |
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - If the `files` array is missing or empty.
+  - Invalid files
+
+- **404 Not Found**
+
+  - If any of the specified files do not exist.
+  - If the specified folder does not exist when moving files.
+  - The provided folder is not owned by the user.
+
+<ApiHeading type='DELETE'>Request</ApiHeading>
+
+Bulk delete files (and optionally delete from underlying datasource).
+
+### Body
+
+| Property                 | Type       | Description                                                |
+| ------------------------ | ---------- | ---------------------------------------------------------- |
+| `files`                  | `string[]` | **Required.** Array of file IDs to delete.                 |
+| `delete_datasourceFiles` | `boolean?` | If `true`, also deletes the files from underlying storage. |
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type     | Description              |
+| -------- | -------- | ------------------------ |
+| `count`  | `number` | Number of files deleted. |
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - If the `files` array is missing or empty.
+  - Invalid files
+  - Missing required properties in the request body.
