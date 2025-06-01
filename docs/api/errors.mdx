@@ -1,0 +1,35 @@
+---
+sidebar_position: 3
+---
+
+# Errors
+
+All errors are formatted as JSON objects with the following structure. The `statusCode` field is the same as the HTTP status code returned by the server.
+
+| Property     | Type     | Description                        |
+| ------------ | -------- | ---------------------------------- |
+| `error`      | `string` | A short error code or message.     |
+| `statusCode` | `number` | HTTP status code (e.g., 400, 404). |
+
+## Examples
+
+```json
+{
+  "error": "not logged in",
+  "statusCode": 401
+}
+```
+
+```json
+{
+  "error": "Invalid username",
+  "statusCode": 400
+}
+```
+
+```json
+{
+  "error": "Not Found",
+  "statusCode": 404
+}
+```
