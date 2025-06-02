@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "go: build-tools/cmd/validate-links",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/build-tools/cmd/validate-links",
+      "cwd": "${workspaceFolder}",
+      "output": "${workspaceFolder}/build/build-tools-debug__validate-links"
+    },
+    {
+      "name": "go: build-tools/cmd/sidebar-gen",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/build-tools/cmd/sidebar-gen",
+      "cwd": "${workspaceFolder}",
+      "output": "${workspaceFolder}/build/build-tools-debug__sidebar-gen"
+    }
+  ]
+}

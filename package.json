@@ -9,8 +9,11 @@
     "lint": "next lint",
     "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
     "scripts": "GO_SIDEBAR_BIN=./build/sidebar-gen node scripts/runAll.mjs",
-    "go:build": "cd sidebar-gen; go build -o ../build/sidebar-gen .",
-    "go:run": "./build/sidebar-gen"
+    "go:build": "pnpm run go:build:sidebar && pnpm run go:build:validate",
+    "go:build:sidebar": "cd build-tools; go build -o ../build/sidebar-gen ./cmd/sidebar-gen",
+    "go:build:validate": "cd build-tools; go build -o ../build/validate-links ./cmd/validate-links",
+    "go:run:sidebar-gen": "./build/sidebar-gen",
+    "go:run:validate-links": "./build/validate-links"
   },
   "dependencies": {
     "@docsearch/react": "3.8.3",

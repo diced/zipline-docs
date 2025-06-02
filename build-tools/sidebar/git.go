@@ -1,4 +1,4 @@
-package main
+package sidebar
 
 import (
 	"log"
@@ -8,6 +8,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/diced/zipline-docs/build-tools/internal"
 )
 
 type CacheTimes map[string]time.Time
@@ -21,8 +23,8 @@ func osModTime(path string) time.Time {
 	return info.ModTime()
 }
 
-func gitFiles() []string {
-	cmd := exec.Command("git", "ls-files", *dirFlag)
+func GitFiles(dir string) []string {
+	cmd := exec.Command("git", "ls-files", dir)
 	out, err := cmd.Output()
 	if err != nil {
 		log.Fatal(err)
@@ -32,7 +34,7 @@ func gitFiles() []string {
 	return lines
 }
 
-func CreateDateMap(files []string) CacheTimes {
+func CreateDateMap(files []string, processes int) CacheTimes {
 	start := time.Now()
 
 	result := make(CacheTimes)
@@ -40,7 +42,7 @@ func CreateDateMap(files []string) CacheTimes {
 	// concurrency shit
 	var waitGroup sync.WaitGroup
 	var mutex sync.Mutex
-	semaphore := make(chan struct{}, *grcFlag)
+	semaphore := make(chan struct{}, processes)
 
 	for _, file := range files {
 		waitGroup.Add(1)
@@ -80,13 +82,13 @@ func CreateDateMap(files []string) CacheTimes {
 	waitGroup.Wait()
 
 	elapsed := time.Since(start)
-	LogTime("gitcache", "populated git cache", elapsed)
+	internal.LogTime("gitcache", "populated git cache", elapsed)
 
 	return result
 }
 
 func GetLastUpdated(path string) time.Time {
-	cached := cachedTimes[path]
+	cached := CachedTimes[path]
 	if cached.IsZero() {
 		return osModTime(path)
 	}
@@ -94,4 +96,4 @@ func GetLastUpdated(path string) time.Time {
 	return cached
 }
 
-var cachedTimes CacheTimes
+var CachedTimes CacheTimes

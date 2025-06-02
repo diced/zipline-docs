@@ -1,4 +1,4 @@
-module github.com/diced/zipline-docs/sidebar-gen
+module github.com/diced/zipline-docs/build-tools
 
 go 1.24.3
 
