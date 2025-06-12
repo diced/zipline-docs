@@ -1,10 +1,16 @@
 import { IconSearch } from '@tabler/icons-react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SearchContext } from './SearchProvider';
 import clsx from 'clsx';
 
 export default function SearchBar({ big }: { big?: boolean }) {
   const { isOpen, setIsOpen } = useContext(SearchContext);
+
+  const [mod, setMod] = useState('Ctrl + ');
+  useEffect(() => {
+    const isMac = navigator.userAgent.includes('Mac');
+    setMod(isMac ? '⌘' : 'Ctrl + ');
+  }, []);
 
   return (
     <button
@@ -17,7 +23,7 @@ export default function SearchBar({ big }: { big?: boolean }) {
     >
       <IconSearch size={20} />
       <span className='flex-auto text-left'>Quick search...</span>
-      <span className='text-gray-400 text-xs font-semibold'>Ctrl + K</span>
+      <span className='text-gray-400 text-xs font-semibold'>{mod}K</span>
     </button>
   );
 }

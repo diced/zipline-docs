@@ -2,7 +2,14 @@ import { DocSearchModal } from '@docsearch/react';
 import clsx from 'clsx';
 import Head from 'next/head';
 import Link from 'next/link';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 
 const INDEX_NAME = 'zipline';
@@ -17,21 +24,35 @@ export const SearchContext = createContext({
 export default function SearchProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isMac =
+    typeof window !== 'undefined' && navigator.userAgent.includes('Mac');
+
+  const isOpenRef = useRef(isOpen);
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.ctrlKey && event.key === 'k') {
+    isOpenRef.current = isOpen;
+  }, [isOpen]);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const mod = isMac ? event.metaKey : event.ctrlKey;
+
+      if (mod && event.key.toLowerCase() === 'k') {
         event.preventDefault();
         setIsOpen(true);
+        return;
       }
 
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === 'Escape' && isOpenRef.current) {
         setIsOpen(false);
       }
-    };
+    },
+    [isMac],
+  );
 
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [handleKeyDown]);
 
   return (
     <>
