@@ -14,10 +14,11 @@ Returns version details of the backend, including current version, release statu
 
 **Content-Type:** `application/json`
 
-| Property  | Type                             | Description                                                                                           |
-| --------- | -------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `details` | `object`                         | Build/version info from the server (result from the [version server](/docs/guides/version-checking)). |
-| `data`    | [`VersionAPI`](#versionapi-type) | Upstream and release version details.                                                                 |
+| Property  | Type                             | Description                                                                                                 |
+| --------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `details` | `object`                         | Build/version info from the server (result from the [version server](/docs/guides/version-checking)).       |
+| `data`    | [`VersionAPI`](#versionapi-type) | Upstream and release version details.                                                                       |
+| `cached`  | `boolean`                        | Whether the response was served from the in-memory cache. The cache lasts for 6 hours before being cleared. |
 
 #### VersionAPI Type
 

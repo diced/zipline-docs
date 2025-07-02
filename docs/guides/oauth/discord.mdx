@@ -1,6 +1,6 @@
 # Discord
 
-This page guides you through setting up Discord OAuth for Zipline.
+This page explains how to set up Discord OAuth in Zipline.
 
 ## Create a Discord application
 
@@ -37,3 +37,17 @@ This page guides you through setting up Discord OAuth for Zipline.
 9. Click "Save" at the bottom of the section.
 
 Once these two fields are filled out, you should see a "Login with Discord" button on the login page, as well as the option to link your Discord account in the manage account page.
+
+## Allow/Deny List
+
+Zipline allows you to restrict which Discord accounts can log in to your instance. This is done by using the allow/deny list feature.
+
+![zipline settings oauth allow deny list](/img/docs/oauth-discord-5.png)
+
+#### Allow List
+
+Only users with Discord IDs in the allow list will be able to log in to your Zipline instance. This is useful for private instances where you only want certain users to have access.
+
+#### Deny List
+
+Users with Discord IDs in the deny list will not be able to log in to your Zipline instance. This is useful for public instances where you want to block certain users from accessing your instance.

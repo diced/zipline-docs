@@ -1,0 +1,45 @@
+---
+sidebar_position: 6
+---
+
+# ziplinectl export-config
+
+Export the current configuration as environment variables.
+
+## Usage
+
+```bash
+ziplinectl export-config [options]
+```
+
+## Options
+
+| Option                  | Description                                                                                                                                                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `-y`, `--yml`           | Export the config in YAML format so that it can be used in a docker compose file. (default: false)                                                                                                                                    |
+| `-d`, `--show-defaults` | Show default variables. By default (when this flag is not present), the export-config command will only export settings that have changed values, which may be helpful if you want to keep your `.env` or `docker-compose.yml` short. |
+| `-h`, `--help`          | Display options and arguments for this command.                                                                                                                                                                                       |
+
+## Example Usage
+
+Export the configuration as environment variables:
+
+```bash
+ziplinectl export-config
+```
+
+Export the configuration in YAML format:
+
+```bash
+ziplinectl export-config -y
+```
+
+Export the configuration in YAML format, showing default variables:
+
+```bash
+ziplinectl export-config -y -d
+```
+
+## Extra
+
+This command is mostly going to be useful if you are trying to convert your settings into environment variables.
