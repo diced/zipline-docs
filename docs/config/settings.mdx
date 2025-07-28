@@ -80,20 +80,20 @@ The command used to generate thumbnails is `ffmpeg -i tmpfile -y -vframes 1 -fil
 
 ### Variables
 
-| Variable                              | Type      | Example                            |
-| ------------------------------------- | --------- | ---------------------------------- |
-| `FEATURES_IMAGE_COMPRESSION`          | `boolean` | `true`                             |
-| `FEATURES_ROBOTS_TXT`                 | `boolean` | `true`                             |
-| `FEATURES_HEALTHCHECK`                | `boolean` | `true`                             |
-| `FEATURES_USER_REGISTRATION`          | `boolean` | `true`                             |
-| `FEATURES_OAUTH_REGISTRATION`         | `boolean` | `true`                             |
-| `FEATURES_DELETE_ON_MAX_VIEWS`        | `boolean` | `true`                             |
-| `FEATURES_THUMBNAILS_ENABLED`         | `boolean` | `true`                             |
-| `FEATURES_THUMBNAILS_NUM_THREADS`     | `number`  | `4`                                |
-| `FEATURES_METRICS_ENABLED`            | `boolean` | `true`                             |
-| `FEATURES_METRICS_ADMIN_ONLY`         | `boolean` | `false`                            |
-| `FEATURES_METRICS_SHOW_USER_SPECIFIC` | `boolean` | `true`                             |
-| `FEATURES_VERSION_CHECKING`           | `boolean` | `true`                             |
+| Variable                              | Type      | Example                             |
+| ------------------------------------- | --------- | ----------------------------------- |
+| `FEATURES_IMAGE_COMPRESSION`          | `boolean` | `true`                              |
+| `FEATURES_ROBOTS_TXT`                 | `boolean` | `true`                              |
+| `FEATURES_HEALTHCHECK`                | `boolean` | `true`                              |
+| `FEATURES_USER_REGISTRATION`          | `boolean` | `true`                              |
+| `FEATURES_OAUTH_REGISTRATION`         | `boolean` | `true`                              |
+| `FEATURES_DELETE_ON_MAX_VIEWS`        | `boolean` | `true`                              |
+| `FEATURES_THUMBNAILS_ENABLED`         | `boolean` | `true`                              |
+| `FEATURES_THUMBNAILS_NUM_THREADS`     | `number`  | `4`                                 |
+| `FEATURES_METRICS_ENABLED`            | `boolean` | `true`                              |
+| `FEATURES_METRICS_ADMIN_ONLY`         | `boolean` | `false`                             |
+| `FEATURES_METRICS_SHOW_USER_SPECIFIC` | `boolean` | `true`                              |
+| `FEATURES_VERSION_CHECKING`           | `boolean` | `true`                              |
 | `FEATURES_VERSION_API`                | `string`  | `https://zipline-version.diced.sh/` |
 
 ## Files
@@ -181,6 +181,8 @@ External links can be configured through a JSON array. Each object in the array 
 ## OAuth
 
 These settings enable the four OAuth providers that Zipline supports. The currently supported providers are Google, GitHub, Discord, and OIDC (like Okta, Authentik, Keycloak, etc.). Each provider requires a client ID and client secret. There are more detailed instructions on how to set up each provider below the settings.
+
+For OAuth providers to show up, the "OAuth Registration" toggle must be enabled in the [Features](#features) section.
 
 - [Google](/docs/guides/oauth/google)
 - [GitHub](/docs/guides/oauth/github)

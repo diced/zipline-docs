@@ -18,8 +18,9 @@ export default function Pre({
   className?: string;
 }) {
   const { theme } = useTheme();
-  const className = cN ?? children?.props?.className;
-  const match = /language-(\w+)/.exec(className || '');
+  const className = cN || children?.props?.className;
+  const classNameParts = className?.split(' ') || [];
+  const match = /language-(\w+)/.exec(classNameParts[0] || '');
 
   const [copied, setCopied] = useState(false);
 
@@ -55,6 +56,7 @@ export default function Pre({
                 'shadow-md scroll-styled bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800',
                 filename && 'rounded-t-none mt-0',
                 className,
+                ...classNameParts.slice(1),
               )}
               style={{
                 ...style,

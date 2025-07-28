@@ -33,9 +33,30 @@ export default function Community() {
             </h1>
 
             <p className='text-center text-xl mt-4'>
-              Interact with the Zipline community, or check out these
-              Zipline-related projects!
+              Interact with the Zipline community, find custom themes, or check
+              out these Zipline-related projects!
             </p>
+
+            <div className='flex justify-center gap-2 mt-8'>
+              <a
+                href='#community'
+                className='px-4 py-2 rounded-md bg-blue-100 dark:bg-gray-700 text-blue-700 dark:text-blue-300 font-semibold hover:bg-blue-200 dark:hover:bg-gray-800 transition'
+              >
+                Community Links
+              </a>
+              <a
+                href='#themes'
+                className='px-4 py-2 rounded-md bg-blue-100 dark:bg-gray-700 text-blue-700 dark:text-blue-300 font-semibold hover:bg-blue-200 dark:hover:bg-gray-800 transition'
+              >
+                Themes
+              </a>
+              <a
+                href='#showcase'
+                className='px-4 py-2 rounded-md bg-blue-100 dark:bg-gray-700 text-blue-700 dark:text-blue-300 font-semibold hover:bg-blue-200 dark:hover:bg-gray-800 transition'
+              >
+                Showcase
+              </a>
+            </div>
 
             <CommunityPage />
           </div>

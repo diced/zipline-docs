@@ -20,6 +20,7 @@ const items = [
     items: [
       { title: 'Get Started', href: '/docs/get-started' },
       { title: 'Config', href: '/docs/config' },
+      { title: 'Migrate from v3', href: '/docs/migrate' },
     ],
   },
   {
@@ -37,6 +38,11 @@ const items = [
       { title: 'GitHub Docs', href: '/github-docs' },
       { title: 'Discord', href: '/discord' },
       { title: 'v3 Docs', href: 'https://v3.zipline.diced.sh' },
+      { title: 'Version Search', href: 'https://search.zipline.diced.sh/' },
+      {
+        title: 'Version API',
+        href: 'https://github.com/diced/zipline-version',
+      },
     ],
   },
 ];

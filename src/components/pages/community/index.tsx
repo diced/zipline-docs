@@ -8,6 +8,10 @@ import {
 import CommunityCard, { Link as CommunityLink } from './CommunityCard';
 import CommunityProject, { Project } from './CommunityProject';
 
+import Link from 'next/link';
+import midnightNeonGreen from '../../../../public/img/themes/midnight-neon-green.png';
+import CommunityTheme, { Theme } from './CommunityTheme';
+
 const links: CommunityLink[] = [
   {
     name: 'GitHub',
@@ -24,6 +28,42 @@ const links: CommunityLink[] = [
   },
 ];
 
+/* for PRS:
+  when adding new themes here, make sure the following is true:
+  - the theme has a unique name
+  - an author href is provided
+    - if you submit prs with a link to something other than a personal profile it will be rejected
+  - the theme json is unformatted like the below one
+  - you included a screenshot of the theme in the public/img/themes folder
+    - when taking this screenshot the browser UI should not be visible
+    - on *windows* this can be done using sharex
+    - on *mac* this can be done using the built in screenshot tool then editing the screenshot to remove rounded corners
+    - on *linux* this can be done using any screenshot tool, then editing the screenshot to remove unwanted UI
+
+  ! if you are unsure, just use the midnight neon green as a template !
+*/
+const themes: Theme[] = [
+  {
+    name: 'Midnight Neon Green',
+    description: 'A modern dark theme with neon green accents.',
+    author: 'diced',
+    authorHref: 'https://github.com/diced',
+    image: midnightNeonGreen,
+    json: '{"name":"test","id":"test","colorScheme":"dark","colors":{"green":["#e5ff99","#dfff80","#d9ff66","#d2ff4d","#bfff00","#ace600","#99cc00","#86b300","#739900","#4c6600"],"dark":["#FFFFFF","#999999","#a8a8a8","#666666","#282828","#181818","#151515","#111111","#181818","#00001E"]},"primaryColor":"green","mainBackgroundColor":"#0a0a0a"}',
+  },
+];
+
+/* for PRS:
+  when adding new projects here, make sure the following is true:
+  - the project has a unique name
+  - an author href is provided
+    - if you submit prs with a link to something other than a personal profile it will be rejected
+  - the project has a description
+  - the project has a link to the project
+  - the project has an icon or image preferable remote hosted, we will not add images to this repo
+  - the project is related to Zipline in some way (e.g. an app, library, etc..)
+  - the project is not a theme, themes should be added to the themes array above
+*/
 const projects: Project[] = [
   {
     name: 'Add yours!',
@@ -66,13 +106,42 @@ const projects: Project[] = [
 export default function CommunityPage() {
   return (
     <>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 my-36 mx-12 md:mx-72'>
+      <div
+        id='community'
+        className='grid grid-cols-1 md:grid-cols-2 gap-4 my-36 mx-12 md:mx-72'
+      >
         {links.map((link, i) => (
           <CommunityCard key={i} link={link} />
         ))}
       </div>
 
-      <h2 className='text-4xl font-extrabold text-center'>Showcase</h2>
+      <h2 className='text-4xl font-extrabold text-center' id='themes'>
+        Themes
+      </h2>
+      <p className='text-center text-xl mt-4'>
+        Check out these custom themes made by the community!
+      </p>
+      <p className='text-center text-sm mt-2'>
+        Want to create your own theme for Zipline? Visit the{' '}
+        <Link
+          href='/docs/guides/themes'
+          className='underline decoration-blue-400'
+        >
+          themes guide
+        </Link>{' '}
+        to learn how to create and install your own themes! If you want to add a
+        theme to this list, please make a PR or reach out on Discord.
+      </p>
+
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-36 mb-72 mx-12'>
+        {themes.map((theme) => (
+          <CommunityTheme key={theme.name} theme={theme} />
+        ))}
+      </div>
+
+      <h2 className='text-4xl font-extrabold text-center' id='showcase'>
+        Showcase
+      </h2>
       <p className='text-center text-xl mt-4'>
         Check out these Zipline-related projects!
       </p>

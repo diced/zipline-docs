@@ -42,3 +42,5 @@ next-env.d.ts
 sidebar*.json
 
 __debug_*
+
+.direnv

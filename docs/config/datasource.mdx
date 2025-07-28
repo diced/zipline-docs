@@ -64,6 +64,7 @@ DATASOURCE_S3_BUCKET=zipline
 
 If your S3 provider requires a specific region, you can specify it here (it will default to `us-east-1`). AWS, for example, requires a region to be specified.
 
+- **AWS S3**: A valid AWS region, such as `us-west-2`, `us-east-1`, etc. This is required for AWS S3.
 - **Cloudflare R2**: Must be `us-east-1` or `auto` - cloudflare R2 doesn't use regions since they are automatically determined, `us-east-1` is an alias for `auto`.
 - **Backblaze B2**: Region provided when creating your account and bucket, it may look like `us-west-004`.
 - **Hetzner Object Storage**: One of `fs1`, `nbg1`, `hel1`.
@@ -84,7 +85,7 @@ This option can be used if you are using a different provider other than Amazon 
 DATASOURCE_S3_ENDPOINT=https://123abc.r2.cloudflarestorage.com # Cloudflare R2
 DATASOURCE_S3_ENDPOINT=https://s3.us-west-004.backblazeb2.com # Backblaze B2
 DATASOURCE_S3_ENDPOINT=https://fs1.your-objectstorage.com # Hetzner Object Storage
-DATASOURCE_S3_ENDPOINT=https://s3.us-west-2.amazonaws.com # AWS S3
+DATASOURCE_S3_ENDPOINT=https://s3.us-west-2.amazonaws.com # AWS S3 (recommended to not set if using AWS)
 DATASOURCE_S3_ENDPOINT=http://localhost:9000 # something like a locally hosted minio server
 ```
 
@@ -96,7 +97,16 @@ This option can be used if your S3 provider requires path-style requests. This i
 DATASOURCE_S3_FORCE_PATH_STYLE=true
 ```
 
+<Alert type='warning'>
+  If you are using a provider other than AWS S3, you may need to set this option
+  to `true`. If you notice errors when starting Zipline, or when
+  uploading/getting files, try setting this option to `true`. If you are unsure
+  whether or not your provider requires this, check their API documentation or
+  contact their support.
+</Alert>
+
 ### `DATASOURCE_S3_SUBDIRECTORY`
+
 This option can be used to specify a subdirectory in the S3 bucket to store files in. Note that folders don't technically exist in S3, it's just a way the file is named. Displaying files in subdirectories might be different depending on the S3 provider you are using.
 
 ```bash copy
