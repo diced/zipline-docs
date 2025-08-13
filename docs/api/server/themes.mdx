@@ -1,0 +1,933 @@
+# /api/server/themes
+
+Get a list of themes that are available on the instance. You don't need to authenticate to receieve themes.
+
+<ApiHeading type='GET'>Request</ApiHeading>
+
+Get themes and default themes. Default themes are used on view routes when you are not logged in.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property | Type | Description |
+| -------- | ---- | ----------- |
+| `themes` | `Theme[]` | An array of Mantine Themes |
+| `defaultTheme` | `object` | An object that contains `default` `dark` and `light` properties |
+
+#### Example
+
+```json
+{
+  "themes": [
+    {
+      "name": "Dark Gray",
+      "id": "builtin:dark_gray",
+      "colorScheme": "dark",
+      "primaryColor": "gray",
+      "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-gray-9), black 45%)",
+      "colors": {
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      }
+    },
+    {
+      "name": "Light Gray",
+      "id": "builtin:light_gray",
+      "colorScheme": "light",
+      "primaryColor": "gray",
+      "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-white), black 3%)",
+      "colors": {
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      }
+    },
+    {
+      "name": "Black Dark",
+      "id": "builtin:black_dark",
+      "colorScheme": "dark",
+      "colors": {
+        "dark": [
+          "#ffffff",
+          "#A7A9AD",
+          "#7B7E84",
+          "#61646A",
+          "#54575D",
+          "#303236",
+          "#191a1c",
+          "#060606",
+          "#141517",
+          "#000000"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "gray",
+      "mainBackgroundColor": "#000"
+    },
+    {
+      "name": "Light Blue",
+      "id": "builtin:light_blue",
+      "colorScheme": "light",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#7C7DC2",
+          "#7778C0",
+          "#6C6FBC",
+          "#575DB5",
+          "#4D54B2",
+          "#424BAE",
+          "#3742AA",
+          "#323EA8",
+          "#2C39A6"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-white), black 2%)"
+    },
+    {
+      "name": "Dark Blue",
+      "id": "builtin:dark_blue",
+      "colorScheme": "dark",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#7C7DC2",
+          "#7778C0",
+          "#6C6FBC",
+          "#575DB5",
+          "#4D54B2",
+          "#424BAE",
+          "#3742AA",
+          "#323EA8",
+          "#2C39A6"
+        ],
+        "dark": [
+          "#FFFFFF",
+          "#293747",
+          "#6C7A8D",
+          "#2d3e5a",
+          "#222c47",
+          "#171F35",
+          "#181c28",
+          "#0c101c",
+          "#060824",
+          "#00001E"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-dark-9), black 45%)"
+    },
+    {
+      "name": "Catppuccin Frappé",
+      "id": "builtin:cat_frappe",
+      "colorScheme": "dark",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#b8caf4",
+          "#a2baf1",
+          "#7599ea",
+          "#5f89e7",
+          "#8c99ee",
+          "#8ca1ee",
+          "#8cb2ee",
+          "#8cbaee",
+          "#8caaee"
+        ],
+        "dark": [
+          "#c6d0f5",
+          "#949cbb",
+          "#838ba7",
+          "#737994",
+          "#626880",
+          "#51576d",
+          "#414559",
+          "#303446",
+          "#292c3c",
+          "#232634"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "var(--mantine-color-dark-9)"
+    },
+    {
+      "name": "Catppuccin Latte",
+      "id": "builtin:cat_latte",
+      "colorScheme": "light",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#3676f6",
+          "#0a57ee",
+          "#094ed6",
+          "#1d42f5",
+          "#1d54f5",
+          "#1d65f5",
+          "#1d77f5",
+          "#1d89f5",
+          "#1e66f5"
+        ],
+        "gray": [
+          "#ccd0da",
+          "#ccd0da",
+          "#9ca0b0",
+          "#ccd0da",
+          "#acb0be",
+          "#bcc0cc",
+          "#5c5f77",
+          "#eff1f5",
+          "#e6e9ef",
+          "#dce0e8"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "white": "#eff1f5",
+      "primaryColor": "blue",
+      "mainBackgroundColor": "#e6e9ef"
+    },
+    {
+      "name": "Catppuccin Macchiato",
+      "id": "builtin:cat_macchiato",
+      "colorScheme": "dark",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#a1bdf6",
+          "#729cf1",
+          "#5b8cef",
+          "#899bf4",
+          "#89a4f4",
+          "#89acf4",
+          "#89b5f4",
+          "#89bef4",
+          "#8aadf4"
+        ],
+        "dark": [
+          "#cad3f5",
+          "#8087a2",
+          "#8087a2",
+          "#6e738d",
+          "#5b6078",
+          "#494d64",
+          "#363a4f",
+          "#24273a",
+          "#1e2030",
+          "#181926"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "var(--mantine-color-dark-9)"
+    },
+    {
+      "name": "Catppuccin Mocha",
+      "id": "builtin:cat_mocha",
+      "colorScheme": "dark",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#b9d3fc",
+          "#a1c3fb",
+          "#70a4f8",
+          "#5894f7",
+          "#89a1fa",
+          "#89aafa",
+          "#89b4fa",
+          "#89bdfa",
+          "#89c6fa"
+        ],
+        "dark": [
+          "#cdd6f4",
+          "#9399b2",
+          "#7f849c",
+          "#6c7086",
+          "#585b70",
+          "#45475a",
+          "#313244",
+          "#1e1e2e",
+          "#181825",
+          "#11111b"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "var(--mantine-color-dark-9)"
+    },
+    {
+      "name": "Midnight Orange",
+      "id": "builtin:midnight_orange",
+      "colorScheme": "dark",
+      "colors": {
+        "orange": [
+          "#FFFFFF",
+          "#f5994b",
+          "#f5994b",
+          "#f48c35",
+          "#f48c35",
+          "#f3801f",
+          "#f3801f",
+          "#da731b",
+          "#da731b",
+          "#c26618"
+        ],
+        "dark": [
+          "#FFFFFF",
+          "#999999",
+          "#a8a8a8",
+          "#666666",
+          "#282828",
+          "#181818",
+          "#151515",
+          "#111111",
+          "#181818",
+          "#00001E"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "orange",
+      "mainBackgroundColor": "#0a0a0a"
+    },
+    {
+      "name": "Midnight Blue",
+      "id": "builtin:midnight_blue",
+      "colorScheme": "dark",
+      "colors": {
+        "blue": [
+          "#FFFFFF",
+          "#7C7DC2",
+          "#7778C0",
+          "#6C6FBC",
+          "#575DB5",
+          "#4D54B2",
+          "#424BAE",
+          "#3742AA",
+          "#323EA8",
+          "#2C39A6"
+        ],
+        "dark": [
+          "#FFFFFF",
+          "#999999",
+          "#a8a8a8",
+          "#666666",
+          "#282828",
+          "#181818",
+          "#151515",
+          "#111111",
+          "#181818",
+          "#00001E"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "blue",
+      "mainBackgroundColor": "#0a0a0a"
+    },
+    {
+      "name": "Midnight Purple",
+      "id": "builtin:midnight_purple",
+      "colorScheme": "dark",
+      "colors": {
+        "pink": [
+          "#f6ecff",
+          "#e6d7fa",
+          "#caabef",
+          "#ac7de6",
+          "#9356dd",
+          "#833ed9",
+          "#7b31d7",
+          "#6422b5",
+          "#5e1fab",
+          "#511797"
+        ],
+        "dark": [
+          "#FFFFFF",
+          "#999999",
+          "#a8a8a8",
+          "#666666",
+          "#282828",
+          "#181818",
+          "#151515",
+          "#111111",
+          "#181818",
+          "#00001E"
+        ],
+        "google": [
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4",
+          "#4285F4"
+        ],
+        "github": [
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E",
+          "#24292E"
+        ],
+        "oidc": [
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf",
+          "#72abcf"
+        ],
+        "discord": [
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2",
+          "#5865F2"
+        ]
+      },
+      "primaryColor": "pink",
+      "mainBackgroundColor": "#0a0a0a"
+    }
+  ],
+  "defaultTheme": {
+    "default": "system",
+    "dark": "builtin:midnight_blue",
+    "light": "builtin:light_gray"
+  }
+}
+```
