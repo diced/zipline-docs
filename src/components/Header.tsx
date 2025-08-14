@@ -22,11 +22,11 @@ export const items = [
     href: '/releases',
     active: (pathname: string) => pathname === '/releases',
   },
-  {
-    name: 'FAQ',
-    href: '/faq',
-    active: (pathname: string) => pathname === '/faq',
-  },
+  // {
+  //   name: 'FAQ',
+  //   href: '/faq',
+  //   active: (pathname: string) => pathname === '/faq',
+  // },
   {
     name: 'Community',
     href: '/community',

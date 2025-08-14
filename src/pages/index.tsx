@@ -142,7 +142,6 @@ export default function Home({ stars }: { stars: number }) {
           cardType: 'summary_large_image',
         }}
       />
-
       <Container>
         <Center>
           <div className='my-28 w-full mx-6'>

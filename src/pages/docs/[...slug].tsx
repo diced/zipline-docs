@@ -28,6 +28,7 @@ import {
   readSidebar,
 } from '../../lib/docs';
 import rehypeImageSize from '../../lib/rehypeImageSize';
+import dayjs from 'dayjs';
 
 // @ts-ignore
 (typeof global !== 'undefined' ? global : window).Prism = Prism;
@@ -35,6 +36,9 @@ import rehypeImageSize from '../../lib/rehypeImageSize';
 require('prismjs/components/prism-bash');
 require('prismjs/components/prism-nginx');
 require('prismjs/components/prism-http');
+
+const REPO_BASE_URL = 'https://github.com/diced/zipline-docs';
+const REPO_BRANCH = 'v4';
 
 export default function DocsPage({
   source,
@@ -162,13 +166,12 @@ export default function DocsPage({
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
               <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>
-                {lastUpdated.toLocaleDateString('en-US')}
+                {dayjs(lastUpdated).format('MMM D, YYYY')}
               </span>
             </div>
 
-            {/* TODO: change branch */}
             <Link
-              href={`https://github.com/diced/zipline-docs/edit/v4/${path.endsWith('.mdx') ? path : path + '/' + path.split('/').pop()}`}
+              href={`${REPO_BASE_URL}/edit/${REPO_BRANCH}${path.endsWith('.mdx') ? path.slice(1) : path.slice(1) + '/' + path.split('/').pop() + '.mdx'}`}
               className='flex items-center text-sm dark:text-gray-400 transition-colors dark:hover:text-blue-500 hover:text-blue-600'
               target='_blank'
               data-umami-event='edit_on_github'
