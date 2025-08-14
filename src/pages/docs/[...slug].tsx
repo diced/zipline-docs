@@ -162,7 +162,7 @@ export default function DocsPage({
             <div className='flex items-center text-sm dark:text-gray-400'>
               Last updated:{' '}
               <span className='hover:text-gray-400 dark:hover:text-gray-100 transition-colors ml-1'>
-                {lastUpdated.toLocaleDateString()}
+                {lastUpdated.toLocaleDateString('en-US')}
               </span>
             </div>
 
