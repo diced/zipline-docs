@@ -1,0 +1,94 @@
+# Backup Postgres
+
+This guide aims to explain and walk you through how to backup any postgres
+database (in this case it will be for Zipline). If you aren't using
+`docker-compose` then this guide will still work, but you will need to modify
+commands to work for your usecase.
+
+## Before you start
+
+Make sure the Zipline container is downed, and the Postgresql container is up.
+
+```bash
+docker compose down zipline
+```
+
+and
+
+```bash
+docker compose up postgresql -d
+```
+
+## 1. Identify Credentials
+
+First, locate your `docker-compose.yml` and find the username and database that
+you have set for Zipline. If you are using the provided `docker-compose.yml` and
+haven't changed anything you can find it here:
+
+```yaml
+postgresql:
+  image: postgres:16
+  restart: unless-stopped
+  env_file:
+    - .env
+  environment:
+    POSTGRES_USER: ${POSTGRESQL_USER:-zipline}
+    POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD:?POSTGRESSQL_PASSWORD is required}
+    POSTGRES_DB: ${POSTGRESQL_DB:-zipline}
+```
+
+In this case, since the `POSTGRESQL_USER` and `POSTGRESQL_DB` aren't set in the
+`.env` file, we will connect to the database using the `zipline` user and
+`zipline` database.
+
+## 2. Create a backup using pg_dump
+
+Run the following in the same directory as your `docker-compose.yml`:
+
+```bash
+docker compose exec -T postgresql \
+  pg_dump -U zipline zipline > zipline_backup_$(date +%F_%H-%M-%S).sql
+```
+
+<Alert type="note">
+What does this command do?
+
+```bash
+docker compose exec -T postgresql \
+  pg_dump -U zipline zipline > zipline_backup_$(date +%F_%H-%M-%S).sql
+```
+
+- `docker compose exec -T postgresql`: Run commands inside the `postgresql`
+  container
+- `pg_dump -U zipline zipline`: Run the `pg_dump` command on the `zipline`
+  database as the `zipline` user
+- Finally, the output is redirected to a timestamped sql file.
+
+</Alert>
+
+## 3. Do something with the backup
+
+Literally do something with the backup. If you took a backup because you need to
+move servers, move the sql file into your new server and place it in the same
+directory as Zipline's `docker-compose.yml`
+
+## 4. Restoring a backup
+
+Again, before running this, make sure that the Zipline container is off and the Postgresql container is on.
+
+After ensuring that the containers are off/on, you can simply run the command below to restore the backup.
+
+```bash
+docker compose exec -T postgres psql -U zipline zipline < thesqlfilebackup.sql
+```
+
+Make sure that "thesqlfilebackup.sql" is replaced with the
+`zipline_backup_(timestamp).sql` file.
+
+## After Restoring
+
+After restoring the backup, you can start the Zipline container by doing:
+
+```bash
+docker compose up zipline
+```
