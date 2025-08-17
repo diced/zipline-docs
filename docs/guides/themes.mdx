@@ -112,6 +112,30 @@ makes the `dark[9]` color 45% darker.
 
 In theory any value can be used here, any valid CSS function or variables will work here.
 
+### `extraCss`
+
+This property is optional and can be used to add extra CSS to the theme.
+
+#### Adding Custom Fonts
+
+This example uses Google Fonts to add the "Ubuntu" font. First you will need to select a theme in [Google Fonts](https://fonts.google.com/), then after clicking "Get Fonts", click the "@import" button and then copy the contents that are inside the `<style>` tag.
+
+Then you can add it to the extraCss property like so:
+
+```json filename="custom_font.theme.json" copy
+{
+  "name": "Custom Font Example",
+  "id": "custom_font",
+  "primaryColor": "blue",
+  "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-blue-9), black 45%)",
+  "extraCss": "@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');",
+  
+  "fontFamily": "Ubuntu, sans-serif",
+}
+```
+
+Now, restarting the server and choosing the "Custom Font Example" theme will apply the Ubuntu font to the dashboard.
+
 ## Developing
 
 When creating themes, you can test them out instantly by just reloading the page. The theme will be reloaded and applied so you may see the changes instantly after changing the `.theme.json` file.
@@ -132,7 +156,7 @@ This is the default dark theme.
   "primaryColor": "gray",
   "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-gray-9), black 45%)"
 }
-```
+````
 
 ### `builtin:light_gray`
 
