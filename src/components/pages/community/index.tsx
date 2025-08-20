@@ -87,11 +87,12 @@ const projects: Project[] = [
   {
     name: 'Zipline Android App',
     description:
-      'An Android app to manage your self-hosted zipline V4 instance.',
+      'An Android app to manage your self-hosted Zipline V4 instance.',
     href: 'https://github.com/Stef-00012/Zipline-Android-App',
     authorHref: 'https://github.com/Stef-00012',
     author: 'Stef-00012',
-    Icon: IconBrandAndroid,
+    image:
+      'https://raw.githubusercontent.com/Stef-00012/Zipline-Android-App/refs/heads/main/assets/images/icon.png',
   },
   {
     name: 'zipline.py',
