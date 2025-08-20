@@ -6,6 +6,11 @@ Upload one or more files. Supports both regular and chunked ("partial") uploads.
   This endpoint requires [authentication](/docs/api/authentication).
 </Alert>
 
+<Alert type='note'>
+  This endpoint does not support partial uploads. For partial uploads, use the
+  [`/api/upload/partial`](/docs/api/upload-partial) endpoint.
+</Alert>
+
 <ApiHeading type='POST'>Request</ApiHeading>
 
 ### Headers
@@ -24,13 +29,11 @@ All files should be included in the form data with the key `file`. You can uploa
 
 **Content-Type:** `application/json`
 
-| Property            | Type                                                              | Description                                                                                               |
-| ------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `files`             | `{ id: string; type: string; url: string; pending?: boolean; }[]` | Uploaded file(s) info.<br/>• `pending` is `true` if the file is not fully uploaded (e.g. chunked upload). |
-| `deletesAt`         | `string?`                                                         | ISO timestamp when files will be deleted.                                                                 |
-| `assumedMimetypes`  | `boolean[]?`                                                      | List indicating if file mimetypes were assumed.                                                           |
-| `partialSuccess`    | `boolean?`                                                        | If the partial upload (chunk) succeeded.                                                                  |
-| `partialIdentifier` | `string?`                                                         | Identifier for the partial upload session.                                                                |
+| Property           | Type                                                              | Description                                                                                               |
+| ------------------ | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `files`            | `{ id: string; type: string; url: string; pending?: boolean; }[]` | Uploaded file(s) info.<br/>• `pending` is `true` if the file is not fully uploaded (e.g. chunked upload). |
+| `deletesAt`        | `string?`                                                         | ISO timestamp when files will be deleted.                                                                 |
+| `assumedMimetypes` | `boolean[]?`                                                      | List indicating if file mimetypes were assumed.                                                           |
 
 #### Example
 
@@ -52,7 +55,7 @@ All files should be included in the form data with the key `file`. You can uploa
 
   - Missing or invalid headers
   - Folder does not exist
-  - Partial uploads with multiple files
+  - Partial uploads
   - Malfored upload, missing files, etc.
 
 - **403 Forbidden**

@@ -1,0 +1,104 @@
+# /api/upload/partial
+
+Upload one file as a partial upload. This route doesn't support regular uploads, and if it receives a normal upload, it wil reject it. Quota and folder restrictions may apply.
+
+<Alert type='info'>
+  This endpoint requires [authentication](/docs/api/authentication).
+</Alert>
+
+<ApiHeading type='POST'>Request</ApiHeading>
+
+### Headers
+
+Supports hedars from [upload options](/docs/guides/upload-options), but the following headers are **all required** for partial uploads:
+
+| Header                       | Description                                                                                                                                                                            |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x-zipline-p-filename`       | The filename for the partial upload, this is used for guessing the extension and original names. Note that setting a filename in the multipart/form-data body will not be used.        |
+| `x-zipline-p-content-type`   | The content type of the file being uploaded.                                                                                                                                           |
+| `x-zipline-p-lastchunk`      | Set to `true` if the request contains the last chunk of the file. If this is not set, the server will assume that more chunks are coming.                                              |
+| `x-zipline-p-content-length` | The total size of the file being uploaded. This is used to determine if an upload is finished and additionally used for validation.                                                    |
+| `x-zipline-p-identifier`     | A unique identifier for the partial upload. This is not requried on the **first request**, but is required on subsequent requests to continue the upload. See more [here](#identifier) |
+
+#### Identifier
+
+The `x-zipline-p-identifier` header is used to identify a partial upload session. This is required for all subsequent requests after the first one.
+
+To get an identifier, you need to make your first request **without** the identifier header. The server will then response with a JSON object containing the identifier under the `partialIdentifier` property.
+
+This identifier should be used in all subsequent requests to continue the upload. If the identifier is not provided, Zipline will invalidate uploads and return an error.
+
+### Body
+
+**Content-Type:** `multipart/form-data`
+
+All files should be included in the form data with the key `file`. Having multiple files in the body is not allowed.
+
+### Response
+
+**Status:** `200 OK`
+
+**Content-Type:** `application/json`
+
+| Property            | Type                                                           | Description                                                                                                                                                 |
+| ------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `files`             | `{ id: string; type: string; url: string; pending?: true; }[]` | Uploaded file(s) info.<br/>• `pending` will always be `true` since we are dealing with partial uploads.                                                     |
+| `deletesAt`         | `string?`                                                      | ISO timestamp when files will be deleted.                                                                                                                   |
+| `assumedMimetypes`  | `boolean[]?`                                                   | List indicating if file mimetypes were assumed.                                                                                                             |
+| `partialSuccess`    | `boolean?`                                                     | If the partial upload (chunk) succeeded. It is **safe** to continue requesting if this is `true`, otherwise hold off on uploading partials if it's `false`. |
+| `partialIdentifier` | `string?`                                                      | Identifier for the partial upload session.                                                                                                                  |
+
+#### Example
+
+The first request's response:
+
+```json
+{
+  "partialSuccess": true,
+  "partialIdentifier": "some ident"
+}
+```
+
+The response to the `x-zipline-p-lastchunk` header being set to `true`:
+
+```json
+{
+  "files": [
+    {
+      "id": "cmb60pvng00039kentdaw6p68",
+      "type": "image/png",
+      "url": "http://localhost:3000/u/brg2IB.png"
+    }
+  ],
+  "partialSuccess": true
+}
+```
+
+<Alert type="note">
+  Zipline will return the `files` property when it has finished receiving the last chunk of the file, and this is also how you can determine that the upload is fully complete.
+
+The last step is to wait for uploads to be processed, which are handled off the main thread.
+
+</Alert>
+
+### Error Responses
+
+- **400 Bad Request**
+
+  - Missing or invalid headers
+  - Folder does not exist
+  - Partial uploads with multiple files
+  - Malfored upload, missing files, etc.
+  - Any sort of client-server mismatch, such as the `x-zipline-p-lastchunk` header being set to `true` but the server not receiving the last chunk of the file.
+
+- **403 Forbidden**
+
+  Folder uploads not allowed for anonymous user
+
+- **413 Payload Too Large**
+
+  Upload would exceed user quota (by file count or by bytes)
+
+- **500 Internal Server Error**
+
+  Unexpected server error while processing upload
