@@ -303,9 +303,9 @@ export default function Home({ stars }: { stars: number }) {
                     <IconStarFilled className='w-10 h-10 text-yellow-500' />
                     <div className='text-3xl font-bold my-2'>Star Zipline</div>
                     <p className='text-xl my-4 text-center'>
-                      If you don&apos;t want to sponsor me, consider starring
-                      Zipline on GitHub! It helps Zipline get more exposure on
-                      the project :)
+                      If sponsoring isn&apos;t an option, consider starring
+                      Zipline on GitHub! It greatly helps increase the
+                      project&apos;s visibility :)
                     </p>
                     <GithubStarsButton stars={stars} />
                   </div>

@@ -62,9 +62,9 @@ export default function Navbar() {
   return (
     <header
       className={clsx(
-        'sticky w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100  border-b dark:border-gray-800',
+        'sticky w-full top-0 z-50 backdrop-filter backdrop-blur-md transition-all duration-500 ease-in-out border-gray-100 dark:border-gray-800',
         scrolling
-          ? 'bg-white/85 dark:bg-gray-900/70'
+          ? 'bg-white/85 dark:bg-gray-900/70 border-b border-gray-100 dark:border-gray-800'
           : 'bg-white/0 dark:bg-gray-900/0',
       )}
     >

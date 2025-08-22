@@ -73,7 +73,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <AnnouncementBar id='v4-1'>
         🎉 v4 is out! Learn how to migrate{' '}
-        <Link href='/docs/migrate' className='hover:underline'>
+        <Link href='/docs/migrate' className='underline hover:text-blue-200'>
           here
         </Link>
         . 🎊
