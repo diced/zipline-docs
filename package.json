@@ -3,7 +3,7 @@
   "version": "4.1.0",
   "private": true,
   "scripts": {
-    "dev": "GO_SIDEBAR_BIN=./build/sidebar-gen node scripts/watch.mjs & next dev --turbo",
+    "dev": "GO_WATCHER_BIN=./build/watcher node scripts/watch.mjs & next dev --turbo",
     "build": "GO_SIDEBAR_BIN=./build/sidebar-gen node scripts/runAll.mjs && next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,8 +12,10 @@
     "go:build": "pnpm run go:build:sidebar && pnpm run go:build:validate",
     "go:build:sidebar": "cd build-tools; go build -o ../build/sidebar-gen ./cmd/sidebar-gen",
     "go:build:validate": "cd build-tools; go build -o ../build/validate-links ./cmd/validate-links",
+    "go:build:watcher": "cd build-tools; go build -o ../build/watcher ./cmd/watcher",
     "go:run:sidebar-gen": "./build/sidebar-gen",
-    "go:run:validate-links": "./build/validate-links"
+    "go:run:validate": "./build/validate-links",
+    "go:run:watcher": "./build/watcher"
   },
   "dependencies": {
     "@docsearch/react": "3.8.3",
