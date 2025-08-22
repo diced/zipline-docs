@@ -15,8 +15,8 @@ import (
 
 var (
 	COLOR_RESET = "\033[0m"
-	COLOR_RED = "\033[31m"
-	COLOR_BOLD = "\033[1m"
+	COLOR_RED   = "\033[31m"
+	COLOR_BOLD  = "\033[1m"
 )
 
 func glob(fsys fs.FS, match bool) ([]string, error) {
@@ -97,14 +97,14 @@ func main() {
 
 		links := validate.GetFileLinks(string(content))
 
-	  invalid := validate.ValidateLinks(valids, links)
+		invalid := validate.ValidateLinks(valids, links)
 
 		if len(invalid) > 0 {
 			shouldExit = true
 
-			fmt.Printf(COLOR_BOLD + COLOR_RED + "%s/%s:\n" + COLOR_RESET, *dirFlag, file)
+			fmt.Printf(COLOR_BOLD+COLOR_RED+"%s/%s:\n"+COLOR_RESET, *dirFlag, file)
 			for _, link := range invalid {
-				fmt.Printf("- [%s](" + COLOR_RED + "%s" + COLOR_RESET + ")\n", link.Label, link.Href)
+				fmt.Printf("- [%s]("+COLOR_RED+"%s"+COLOR_RESET+")\n", link.Label, link.Href)
 				numInvalid++
 			}
 		}

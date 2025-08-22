@@ -89,9 +89,15 @@ func GetValidLinks(mdxRoutes []string, publicDirRoutes []string) []string {
 
 	for _, route := range mdxRoutes {
 		name := strings.ReplaceAll(route, ".mdx", "")
-		href := "/docs/" + strings.ToLower(name)
-
-		valids = append(valids,  href)
+		parts := strings.Split(name, "/")
+		if len(parts) > 1 && parts[len(parts)-1] == parts[len(parts)-2] {
+			folderPath := strings.Join(parts[:len(parts)-1], "/")
+			href := "/docs/" + strings.ToLower(folderPath)
+			valids = append(valids, href)
+		} else {
+			href := "/docs/" + strings.ToLower(name)
+			valids = append(valids, href)
+		} 
 	}
 
 	return valids
