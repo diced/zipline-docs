@@ -1,8 +1,10 @@
 # Config
 
-This page will document every configuration option available in Zipline through environment variables, as well as through the settings dashboard.
+Zipline is primarily configured through environment variables. These can be set in a `.env` file in the root of the project, or through `docker-compose.yml` if using Docker.
 
-By default, only the `DATABASE_URL` AND `CORE_SECRET` environment variables are required. The rest are optional, and have default values.
+Most of Zipline's settings are also configurable through the settings dashboard.
+
+By default, only the `DATABASE_URL` and `CORE_SECRET` environment variables are required. The rest are optional and have default values.
 
 <Alert type='info'>
   It is important that the `CORE_SECRET` is not easily guessable. This secret is
@@ -26,6 +28,8 @@ DATASOURCE_LOCAL_DIRECTORY=./uploads
 ---
 
 ## Links
+
+Variables that are in the `core`, `datasource`, and `ssl` categories can ONLY be set through environment variables. The rest can be configured through the settings dashboard, or through environment variables that are documented in the [settings](/docs/config/settings) page.
 
 <DocLinks
   links={[

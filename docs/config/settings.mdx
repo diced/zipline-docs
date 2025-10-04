@@ -13,7 +13,9 @@ Each section here on the docs has a table of environment variables that can be u
 
 ## Core
 
-This section is for core configuration, like whether or not to return HTTPS urls. Some of these options may require a server restart after saving.
+This section is for core configuration, like whether or not to return HTTPS urls. Most of these options require a server restart after saving them.
+
+"Trust Proxy" can be enabled if you are running Zipline behind a reverse proxy (like Nginx or Caddy). This will allow Zipline to correctly determine certain values like the protocol, the client IP address, etc.
 
 ### Variables
 
@@ -22,6 +24,7 @@ This section is for core configuration, like whether or not to return HTTPS urls
 | `CORE_RETURN_HTTPS_URLS` | `boolean` | `true`                |
 | `CORE_DEFAULT_DOMAIN`    | `string`  | `zipline.example.com` |
 | `CORE_TEMP_DIRECTORY`    | `string`  | `/var/tmp/zipline`    |
+| `CORE_TRUST_PROXY`       | `boolean` | `true`                |
 
 ## Chunks
 
@@ -116,6 +119,7 @@ The `Assume Mimetypes` can be enabled to assume the mimetype of a file based on 
 | `FILES_REMOVE_GPS_METADATA`         | `boolean`  | `true`                |
 | `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                   |
 | `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                   |
+| `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`         |
 
 ## URL Shortener
 
