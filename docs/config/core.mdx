@@ -8,14 +8,30 @@ This page documents the core configuration options available.
 
 ## `DATABASE_URL`
 
-`DATABASE_URL` or `CORE_DATABASE_URL` is a **required** environment variable, Zipline will fail to start without it.
-`DATABASE_URL` and `CORE_DATABASE_URL` can be used interchangebly, though it is recommended to use `DATABASE_URL`.
+`DATABASE_URL` is a **required** environment variable, Zipline will fail to start without it.
 
 This variable should be a postgresql connection string.
 
 ```bash copy
 DATABASE_URL=postgresql://user:password@localhost:5432/zipline
 ```
+
+If you prefer, you can also set the individual components of the connection string using the following environment variables: `DATABASE_NAME`, `DATABASE_USER`, `DATABASE_PASSWORD`, `DATABASE_HOST`, and `DATABASE_PORT`.
+
+```bash copy
+DATABASE_NAME=zipline
+DATABASE_USER=user
+DATABASE_PASSWORD=password
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+```
+
+<Alert type="note">
+  If both `DATABASE_URL` and the individual components are provided, `DATABASE_URL` will take precedence.
+
+  If any one of the individual components are missing, Zipline will fail to start.
+
+</Alert>
 
 ## `CORE_HOSTNAME`
 
