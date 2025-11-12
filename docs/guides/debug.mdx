@@ -125,6 +125,57 @@ int main() {
 }
 ```
 
+```ts filename="read.ts"
+import { readFile } from 'fs/promises';
+
+interface MemoryCpuLog {
+  ts: number;
+  mem_rss: number;
+  mem_heap_used: number;
+  mem_heap_total: number;
+  mem_external: number;
+  mem_array_buffers: number;
+  cpu_user: number;
+  cpu_system: number;
+}
+
+function readLine(line: string): MemoryCpuLog {
+  const [
+    ts,
+    mem_rss,
+    mem_heap_used,
+    mem_heap_total,
+    mem_external,
+    mem_array_buffers,
+    cpu_user,
+    cpu_system,
+  ] = line
+    .trim()
+    .split(',')
+    .map((value) => Number(value));
+  return {
+    ts,
+    mem_rss,
+    mem_heap_used,
+    mem_heap_total,
+    mem_external,
+    mem_array_buffers,
+    cpu_user,
+    cpu_system,
+  };
+}
+
+async function readLog(file: string): Promise<MemoryCpuLog[]> {
+  const str = await readFile(file, 'utf-8');
+
+  const lines = str.trim().split('\n');
+
+  return lines.map(readLine);
+}
+
+const entries = await readLog('.memory.log');
+```
+
 ```python filename="read.py"
 from datetime import datetime
 
