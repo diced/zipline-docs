@@ -9,6 +9,7 @@ Upload options are HTTP headers that can be used to change various settings for 
 | `x-zipline-deletes-at`                | A [relative time](/docs/guides/ms) or [JavaScript resolvable date string](#javascript-resolvable-date-string) that specifies when the file should be deleted. |
 | `x-zipline-format`                    | One of `random`, `date`, `uuid`, `name`, `gfycat`. This will change the format of the file name. See [here](#file-name-format) for more.                      |
 | `x-zipline-image-compression-percent` | A number between 0 and 100 that specifies the image compression percentage.                                                                                   |
+| `x-zipline-image-compression-type`    | The image format to compress to. One of `jpg`, `png`, `webp`, `jxl`. See [here](#changing-the-format) for more.                                               |
 | `x-zipline-password`                  | If set, the file will have a password protected dialog upon viewing.                                                                                          |
 | `x-zipline-max-views`                 | The maximum number of views before the file is deleted.                                                                                                       |
 | `x-zipline-no-json`                   | Returns file urls seperated by a newline instead of JSON. See [here](#response-output) for more.                                                              |
@@ -64,6 +65,19 @@ The `x-zipline-image-compression-percent` header can be used to specify the imag
 
 ![compression](/img/docs/compression-20.png 'Compression at 20%')
 
+### Changing the Format
+
+By default, Zipline compresses images into the JPEG format. You can change this by specifying the `x-zipline-image-compression-type` header.
+
+This header supports the following values:
+
+- `jpg` or `jpeg`
+- `png` (idek why you'd compress to png but ok)
+- `webp` (supports animated)
+- `jxl` (may require additional setup)
+
+If Zipline fails to compress the image, it will silently error out and use the original image.
+
 ## Original Name
 
 When using the `x-zipline-original-name` header, the original file name will be saved. This does not affect the file name when it is saved, only when downloading the file.
@@ -101,4 +115,6 @@ can be any of the three domains.
 A gfycat like style of file name: `adventurous-adorable-gorilla` an N number of adjectives followed by an animal. The number of adjectives can be configured from the "Files" section of the Server Settings page. The separator can also be configured, but the default is a dash `-`. The animal list is a static list of animals, and the adjectives are randomly selected from a list of adjectives. The list of adjectives can be configured from the "Files" section of the Server Settings page.
 
 ### Changing the word list
+
 The word list must be at `./public/animals.txt` and `./public/adjectives.txt`. If these files don't exist, then Zipline will fallback to a built-in word list. The files must be in the format of one word per line. A restart isn't required if the word list is changed.
+
