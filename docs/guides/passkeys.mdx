@@ -8,6 +8,13 @@ Passkeys are a way to authenticate users without requiring them to enter a passw
 2. Scroll down to **Multi-Factor Authentication**
 3. Toggle the **Passkeys** switch
 
+Additionally, you need to set the "RP ID" (Relying Party ID) and the Origin.
+
+- The **RP ID** is typically your domain name (e.g., `example.com`). If you are running Zipline locally or on an IP address, you can set it to `localhost` or the IP address.
+- The **Origin** is the full URL where your Zipline instance is hosted (e.g., `https://zipline.example.com` or `http://localhost:3000`).
+
+Without those two set correctly, passkeys will not work and will most likely throw errors during creation or authentication.
+
 ![Enable Passkeys](/img/docs/passkeys-1.png)
 
 ## Creating a Passkey

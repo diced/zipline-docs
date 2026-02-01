@@ -2,13 +2,22 @@
 sidebar_position: 3
 ---
 
-# SSL
+# SSL (Deprecated)
 
 This page documents the configuration options available for SSL. Both the `SSL_CERT` and `SSL_KEY` environment variables are required to enable SSL.
+
+<Alert type='warning'>
+  **Zipline will no longer support SSL natively through built-in options** in
+  the future (versions after 4.4.1). It is recommended to use a reverse proxy
+  like [NGINX or Caddy](/docs/guides/reverse-proxy) to handle SSL termination
+  instead.
+</Alert>
 
 ## `SSL_CERT`
 
 The path to the SSL certificate file. This file must be a `.pem` file.
+
+**Note:** These options will no longer work in versions after 4.4.1.
 
 ```bash copy
 SSL_CERT=/path/to/cert.pem
@@ -17,6 +26,8 @@ SSL_CERT=/path/to/cert.pem
 ## `SSL_KEY`
 
 The path to the SSL key file. This file must be a `.key` file.
+
+**Note:** These options will no longer work in versions after 4.4.1.
 
 ```bash copy
 SSL_KEY=/path/to/key.key
