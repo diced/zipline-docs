@@ -30,7 +30,7 @@ export default function TimezoneCollapse() {
         <div
           className={clsx(
             'overflow-auto transition-all max-h-0',
-            open && 'max-h-[100rem]',
+            open && 'max-h-400',
           )}
         >
           <div className=''>

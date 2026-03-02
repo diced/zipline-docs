@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write ./src/**/*.{ts,tsx} ./*.{md,js,json,yml}",
     "scripts": "GO_SIDEBAR_BIN=./build/sidebar-gen node scripts/runAll.mjs",
-    "go:build": "pnpm run go:build:sidebar && pnpm run go:build:validate",
+    "go:build": "pnpm run go:build:sidebar && pnpm run go:build:validate && pnpm run go:build:watcher",
     "go:build:sidebar": "cd build-tools; go build -o ../build/sidebar-gen ./cmd/sidebar-gen",
     "go:build:validate": "cd build-tools; go build -o ../build/validate-links ./cmd/validate-links",
     "go:build:watcher": "cd build-tools; go build -o ../build/watcher ./cmd/watcher",
@@ -49,12 +49,12 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/bytes": "^3.1.5",
     "@types/node": "^22.13.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@types/semver": "^7.5.8",
-    "autoprefixer": "^10.4.20",
     "chokidar": "^4.0.3",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
@@ -62,7 +62,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad"

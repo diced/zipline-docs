@@ -61,7 +61,7 @@ export default function Image({
           <div className='flex min-h-full items-center justify-center'>
             <DialogPanel
               transition
-              className='w-full text-center items-center justify-center flex max-w-md rounded-md duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0'
+              className='w-full text-center items-center justify-center flex max-w-md rounded-md duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0'
             >
               <img
                 src={src}

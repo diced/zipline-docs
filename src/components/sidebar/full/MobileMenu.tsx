@@ -63,7 +63,7 @@ export default function MobileMenu({ items, open, setOpen }: MobileMenuProps) {
         <>
           <div
             ref={ref}
-            className='md:hidden top-0 right-0 left-0 bottom-0 absolute overflow-auto w-screen max-w-[100vw] z-[999999] h-[60vh] dark:bg-gray-900 bg-white border-b dark:border-b-gray-800 shadow-2xl'
+            className='md:hidden top-0 right-0 left-0 bottom-0 absolute overflow-auto w-screen max-w-[100vw] z-999999 h-[60vh] dark:bg-gray-900 bg-white border-b dark:border-b-gray-800 shadow-2xl'
           >
             <div className='px-5 py-2 flex items-center justify-between'>
               <div className='flex items-center'>

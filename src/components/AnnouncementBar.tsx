@@ -36,7 +36,7 @@ export default function AnnouncementBar({
   return (
     <div
       className={clsx(
-        'z-50 text-white bg-blue-600 font-bold text-center py-2 flex justify-between items-center',
+        'z-50 font-bold text-center py-2 flex justify-between items-center',
         className,
       )}
     >

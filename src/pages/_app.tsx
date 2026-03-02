@@ -8,9 +8,9 @@ import Layout from '../components/Layout';
 import SearchProvider from '../components/search/SearchProvider';
 
 import AnnouncementBar from '../components/AnnouncementBar';
+import '../styles/index.css';
 import '../styles/docs.css';
 import '../styles/docsearch.css';
-import '../styles/index.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,6 +21,11 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
 });
+
+const ANNOUNCEMENT_IDS = {
+  'v4-migration': 'v4-1',
+  stars: 'stars-1',
+};
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -71,12 +76,18 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
 
-      <AnnouncementBar id='v4-1'>
-        🎉 v4 is out! Learn how to migrate{' '}
-        <Link href='/docs/migrate' className='underline hover:text-blue-200'>
-          here
+      <AnnouncementBar
+        className='bg-amber-400/90 text-white'
+        id={ANNOUNCEMENT_IDS['stars']}
+      >
+        ⭐ If you find Zipline useful, please consider giving it a star on{' '}
+        <Link
+          href='https://github.com/diced/zipline'
+          className='underline hover:text-blue-200'
+        >
+          GitHub
         </Link>
-        . 🎊
+        ! ⭐
       </AnnouncementBar>
 
       <ThemeProvider attribute='class' enableSystem={true}>

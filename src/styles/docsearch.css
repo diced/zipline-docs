@@ -1,3 +1,6 @@
+@reference './index.css';
+
+
 /* 
 Adapted from
 https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.css
@@ -28,7 +31,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 }
 
 .DocSearch--active {
-  @apply overflow-hidden !important;
+  /* @apply overflow-hidden !important; */
 }
 
 .DocSearch-Container {
@@ -58,8 +61,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   display: flex;
   flex-direction: column;
   min-height: 0;
-  border-radius: theme('borderRadius.lg');
-  box-shadow: theme('boxShadow.lg');
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   background: white;
 
   @apply border border-gray-800 dark:bg-gray-900 dark:shadow-none;
@@ -81,7 +84,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 
 .DocSearch-Dropdown {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.gray.300') transparent;
+  scrollbar-color: var(--color-gray-300) transparent;
   scrollbar-gutter: stable;
 
   @apply flex-auto overflow-auto;
@@ -102,21 +105,21 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   bottom: -0.25rem;
   left: -1rem;
   width: 1px;
-  background: theme('colors.gray.200');
+  background: var(--color-gray-200);
 
   @apply dark:bg-gray-700;
 }
 
-.DocSearch-Hit > a {
+.DocSearch-Hit>a {
   position: relative;
   font-size: 0.875rem;
-  border-bottom: 1px solid theme('colors.gray.100');
+  border-bottom: 1px solid var(--color-gray-100);
 
   @apply dark:border-gray-200/5;
 }
 
 .DocSearch-Hit--Result {
-  @apply border-b-0 !important;
+  /* @apply border-b-0 !important; */
 }
 
 .DocSearch-MagnifierLabel {
@@ -137,7 +140,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   background: transparent;
   height: 3.5rem;
   font-size: 1rem;
-  color: theme('colors.gray.900');
+  color: var(--color-gray-900);
   margin-left: 0.75rem;
   margin-right: 1rem;
   flex: auto;
@@ -191,7 +194,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 .DocSearch-Hit-source {
   line-height: 1.5rem;
   font-weight: 600;
-  color: theme('colors.gray.900');
+  color: var(--color-gray-900);
   padding-top: 2.5rem;
   margin: 0 1.5rem 1rem;
 
@@ -221,7 +224,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   margin-right: 1rem;
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: theme('borderRadius.md');
+  border-radius: var(--radius-md);
   /* hash icon */
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -252,8 +255,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   font-size: 0.75rem;
   line-height: 1.5rem;
   font-weight: 600;
-  color: theme('colors.gray.700');
-  background: theme('colors.gray.100');
+  color: var(--color-gray-700);
+  background: var(--color-gray-100);
   border-radius: 999px;
   padding: 0 0.375rem;
   @apply dark:bg-gray-700/50 dark:text-gray-400;
@@ -264,9 +267,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10' stroke='%23fff' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
-.DocSearch-Hit[aria-selected='true']
-  .DocSearch-Hit--Parent
-  .DocSearch-Hit-icon {
+.DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Parent .DocSearch-Hit-icon {
   /* book icon */
   background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.5 0c1.093 0 2.117.27 3 .743V10a6.344 6.344 0 0 0-3-.743c-1.093 0-2.617.27-3.5.743V.743C.883.27 2.407 0 3.5 0Z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.5 0c1.093 0 2.617.27 3.5.743V10c-.883-.473-2.407-.743-3.5-.743s-2.117.27-3 .743V.743a6.344 6.344 0 0 1 3-.743Z' fill='%23fff'/%3E%3C/svg%3E");
 }
@@ -275,7 +276,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply text-gray-700 leading-6 truncate dark:text-gray-400;
 }
 
-.DocSearch-Hit-title + .DocSearch-Hit-path {
+.DocSearch-Hit-title+.DocSearch-Hit-path {
   @apply mb-1;
 }
 
@@ -301,8 +302,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply bg-blue-400 text-white dark:bg-blue-400/50;
 }
 
-.DocSearch-Hit--Result.DocSearch-Hit[aria-selected='true']
-  .DocSearch-Hit-title {
+.DocSearch-Hit--Result.DocSearch-Hit[aria-selected='true'] .DocSearch-Hit-title {
   @apply text-white;
 }
 
@@ -310,7 +310,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply flex;
 }
 
-.DocSearch-Hit-action + .DocSearch-Hit-action {
+.DocSearch-Hit-action+.DocSearch-Hit-action {
   @apply ml-2;
 }
 
@@ -323,27 +323,27 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   stroke: white;
 }
 
-.DocSearch-Hit > a {
+.DocSearch-Hit>a {
   @apply block py-4 px-6;
 }
 
 .DocSearch-Hit--Result {
-  @apply py-3 px-4 !important;
+  /* @apply py-3 px-4 !important; */
 }
 
 .DocSearch-Hit {
   @apply relative;
 }
 
-.DocSearch-Hit:first-child > a {
+.DocSearch-Hit:first-child>a {
   @apply border-t border-gray-100 dark:border-gray-200/5;
 }
 
 .DocSearch-Hit--Result {
-  @apply border-t-0 !important;
+  /* @apply border-t-0 !important; */
 }
 
-.DocSearch-Hit + .DocSearch-Hit .DocSearch-Hit--Result {
+.DocSearch-Hit+.DocSearch-Hit .DocSearch-Hit--Result {
   @apply mt-2;
 }
 
@@ -351,7 +351,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply bg-gray-50 rounded-lg dark:bg-gray-700/30;
 }
 
-.DocSearch-Hit[aria-selected='true'] > a {
+.DocSearch-Hit[aria-selected='true']>a {
   @apply bg-gray-50 dark:bg-gray-800/20;
 }
 
@@ -360,11 +360,11 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 }
 
 .DocSearch-Hit--FirstChild::before {
-  @apply top-0 !important;
+  /* @apply top-0 !important; */
 }
 
 .DocSearch-Hit--LastChild::before {
-  @apply bottom-0 !important;
+  /* @apply bottom-0 !important; */
 }
 
 .DocSearch-Hits mark {
@@ -398,11 +398,11 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 }
 
 .DocSearch-Logo svg * {
-  fill: #5468ff !important;
+  /* fill: #5468ff !important; */
 }
 
 .DocSearch-Logo svg *:is(.dark *) {
-  fill: theme('colors.gray.300') !important;
+  /* fill: var(--color-gray-300) !important; */
 }
 
 .DocSearch-Hit--deleting,
@@ -433,7 +433,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 
 .DocSearch-NoResults .DocSearch-Title {
   text-align: center;
-  color: theme('colors.gray.400');
+  color: var(--color-gray-400);
 }
 
 .DocSearch-NoResults-Prefill-List .DocSearch-Help {
@@ -449,8 +449,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   display: block;
   width: 100%;
   text-align: left;
-  font-size: theme('fontSize.sm');
-  line-height: theme('lineHeight.6');
+  font-size: var(--text-sm);
+  line-height: calc(var(--spacing) * 6);
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m11 9 3 3-3 3' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
@@ -458,15 +458,15 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-white/[0.02];
 }
 
-.DocSearch-NoResults-Prefill-List li + li button {
+.DocSearch-NoResults-Prefill-List li+li button {
   @apply border-t border-gray-200 dark:border-gray-200/5;
 }
 
-.DocSearch-NoResults-Prefill-List + .DocSearch-Help {
+.DocSearch-NoResults-Prefill-List+.DocSearch-Help {
   @apply text-xs leading-6 mt-3;
 }
 
-.DocSearch-NoResults-Prefill-List + .DocSearch-Help a {
+.DocSearch-NoResults-Prefill-List+.DocSearch-Help a {
   @apply text-blue-500 font-semibold dark:text-blue-400;
 }
 
@@ -503,8 +503,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply absolute inset-0 content-[''] pointer-events-none bg-blue-50 dark:bg-gray-700/30;
 }
 
-.DocSearch-Hit[aria-selected='true']
-  [title='Remove this search from favorites']::before {
+.DocSearch-Hit[aria-selected='true'] [title='Remove this search from favorites']::before {
   @apply bg-blue-100 dark:bg-gray-800/20;
 }
 
@@ -528,6 +527,6 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
     url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-.DocSearch-Hit-action + .DocSearch-Hit-action {
+.DocSearch-Hit-action+.DocSearch-Hit-action {
   @apply ml-3 pl-3 border-l border-gray-200 dark:border-gray-200/5;
 }

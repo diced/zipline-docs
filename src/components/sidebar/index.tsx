@@ -41,7 +41,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
   return (
     <div className='flex flex-1 w-full'>
       <aside
-        className='scroll-styled pr-4 select-none scroll-area text-sm flex-shrink-0 w-72 hidden lg:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-150px)] xl:block'
+        className='scroll-styled pr-4 select-none scroll-area text-sm shrink-0 w-72 hidden lg:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-150px)] xl:block'
         style={{ maxHeight: '90%' }}
       >
         <SearchBar />
@@ -61,7 +61,7 @@ export default function Sidebar({ items, children }: SidebarProps) {
         </div>
       </div>
 
-      <aside className='scroll-styled select-none text-sm flex-shrink-0 w-64 hidden lg:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] xl:block'>
+      <aside className='scroll-styled select-none text-sm shrink-0 w-64 hidden lg:sticky top-24 overflow-y-auto transform-none h-[calc(100vh-50px)] xl:block'>
         <div className='font-semibold text-sm w-full mb-4'>On This Page</div>
 
         <Headings close={() => {}} />

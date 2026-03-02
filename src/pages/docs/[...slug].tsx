@@ -64,7 +64,7 @@ export default function DocsPage({
   const lastUpdated = new Date(last);
 
   return (
-    <div className='max-w-[90rem] w-full mx-auto flex flex-1 items-stretch'>
+    <div className='max-w-360 w-full mx-auto flex flex-1 items-stretch'>
       <NextSeo
         title={title ?? 'Docs – Zipline'}
         titleTemplate='%s – Docs – Zipline'
@@ -117,11 +117,11 @@ export default function DocsPage({
 
           <hr className='not-prose border-[1.35px] rounded-md border-gray-200 dark:border-gray-800' />
 
-          <div className='flex justify-between my-8 not-prose flex-grow gap-8'>
+          <div className='flex justify-between my-8 not-prose grow gap-8'>
             {prev ? (
               <Link
                 href={prev.href}
-                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out hover:dark:border-blue-700 hover:border-gray-300 hover:shadow-md'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-left transition-all ease-in-out dark:hover:border-blue-700 hover:border-gray-300 hover:shadow-md'
               >
                 <div className='flex flex-col'>
                   <div className='flex items-center justify-start'>
@@ -141,7 +141,7 @@ export default function DocsPage({
             {next ? (
               <Link
                 href={next.href}
-                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out hover:dark:border-blue-700 hover:border-gray-300 hover:shadow-md'
+                className='rounded-md border border-gray-200 dark:border-gray-800 px-4 py-2 w-1/2 text-right transition-all ease-in-out dark:hover:border-blue-700 hover:border-gray-300 hover:shadow-md'
               >
                 <div className='flex flex-col'>
                   <div className='flex items-center justify-end'>
@@ -193,8 +193,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const sidebar = flattenSidebar(await readSidebar());
   const paths: { params: { slug: string[] } }[] = getPaths(sidebar);
 
+  const filteredPaths = paths.filter(
+    (p) => !p.params.slug.join('/').startsWith('api'),
+  );
+
   return {
-    paths,
+    paths: filteredPaths,
     fallback: false,
   };
 };

@@ -41,7 +41,7 @@ export function ThemeDropdownItem({
       data-umami-event='theme_dropdown'
       data-umami-event-theme={value}
     >
-      <span className='p-1 border border-gray-100 dark:border-gray-800 rounded-md shadow-sm'>
+      <span className='p-1 border border-gray-100 dark:border-gray-800 rounded-md shadow-xs'>
         <Icon size={16} />
       </span>
       <span className='ml-2 font-semibold'>{label}</span>
@@ -115,7 +115,7 @@ export default function ThemeDropdown() {
 
       <MenuItems
         anchor='bottom end'
-        className='absolute z-[400] origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-none'
+        className='absolute z-400 origin-top-right flex flex-col w-32 right-0 mt-2 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 focus:outline-hidden'
       >
         {options.map((option) => (
           <ThemeDropdownItem

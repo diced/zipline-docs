@@ -27,7 +27,7 @@ export default function Playground() {
   return (
     <>
       <input
-        className='focus:ring-1 focus:ring-blue-500 focus:outline-none appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-1 ring-gray-50 dark:ring-gray-700 shadow-sm'
+        className='focus:ring-1 focus:ring-blue-500 focus:outline-hidden appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-1 ring-gray-50 dark:ring-gray-700 shadow-xs'
         type='text'
         aria-label='Type out your string here with variables!'
         placeholder='Type out your string here with variables!'
@@ -67,7 +67,7 @@ export default function Playground() {
         <div
           className={clsx(
             'overflow-auto transition-all max-h-0',
-            dataOpen && 'max-h-[100rem]',
+            dataOpen && 'max-h-400',
           )}
         >
           <Pre

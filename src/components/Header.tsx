@@ -69,7 +69,7 @@ export default function Navbar() {
       )}
     >
       <div className='sm:px-2 lg:px-6 py-3'>
-        <div className='flex lg:grid lg:grid-cols-3 items-center mx-auto max-w-screen-2xl'>
+        <div className='flex lg:grid lg:grid-cols-3 items-center mx-auto max-w-(--breakpoint-2xl)'>
           <div className='hidden justify-start items-center md:flex'>
             <Link
               href='/'

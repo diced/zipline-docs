@@ -1,3 +1,6 @@
+@reference './index.css';
+
+
 :root {
   @apply [font-variant-ligatures:none];
 }
@@ -27,7 +30,7 @@
 
 .scroll-styled {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.gray.300') transparent;
+  scrollbar-color: var(--color-gray-300) transparent;
   scrollbar-gutter: stable;
 }
 
@@ -40,13 +43,13 @@
 }
 
 .scroll-styled::-webkit-scrollbar-thumb {
-  background-color: theme('colors.gray.300');
+  background-color: var(--color-gray-300);
 }
 
 @media (hover: hover) {
   .scroll-styled:hover::-webkit-scrollbar-thumb {
     border: 3px solid transparent;
-    background-color: theme('colors.gray.400');
+    background-color: var(--color-gray-400);
     background-clip: content-box;
   }
 }

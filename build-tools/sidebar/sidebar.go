@@ -16,6 +16,12 @@ type SidebarItem struct {
 	Hidden      bool          `json:"hidden,omitempty"`
 }
 
+var API_ITEM = SidebarItem{
+	Title:       "API",
+	Href:        "/docs/api",
+	Description: "OpenAPI Reference",
+}
+
 func OrderSidebar(sidebar []SidebarAst) []SidebarAst {
 	sort.SliceStable(sidebar, func(aIdx, bIdx int) bool {
 		a := sidebar[aIdx]
@@ -58,13 +64,14 @@ func CreateSidebarFromAst(dir string, ast []SidebarAst) []SidebarItem {
 			Hidden:      astItem.Hidden != nil && *astItem.Hidden,
 		}
 
-		if astItem.Type == AstDir {
+		switch astItem.Type {
+		case AstDir:
 			item.Items = CreateSidebarFromAst(dir, astItem.Children)
-		} else if astItem.Type == AstDirFile {
+		case AstDirFile:
 			item.Href = href
 			item.Items = CreateSidebarFromAst(dir, astItem.Children)
 			item.Description = astItem.Description
-		} else {
+		default:
 			item.Href = href
 			item.Description = astItem.Description
 		}

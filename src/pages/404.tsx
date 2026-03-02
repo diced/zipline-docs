@@ -19,7 +19,7 @@ export default function FourOhFour() {
       <Container>
         <Center>
           <div className='my-28'>
-            <h1 className='sm:text-8xl text-6xl font-extrabold text-center bg-clip-text from-purple-500 to-cyan-400 text-transparent bg-gradient-to-tr'>
+            <h1 className='sm:text-8xl text-6xl font-extrabold text-center bg-clip-text from-purple-500 to-cyan-400 text-transparent bg-linear-to-tr'>
               {':('}
             </h1>
 
@@ -32,7 +32,7 @@ export default function FourOhFour() {
                 className={clsx(
                   'transition-all duration-300 ease-in-out hover:scale-105 group w-full my-6',
                   'bg-blue-600 hover:bg-blue-500 focus:bg-blue-500',
-                  'text-white font-bold py-2 px-4 rounded text-xl',
+                  'text-white font-bold py-2 px-4 rounded-sm text-xl',
                   'hover:ring-2 hover:ring-blue-800 dark:hover:ring-blue-300 hover:ring-offset-white dark:hover:ring-offset-gray-900 hover:ring-offset-2',
                 )}
               >

@@ -31,4 +31,6 @@ export const MDXComponents = {
   h2: (props: any) => <Heading level={2} {...props} />,
   h3: (props: any) => <Heading level={3} {...props} />,
   h4: (props: any) => <Heading level={4} {...props} />,
+
+  ApiDocs: dynamic(() => import('../ApiDocs')),
 };

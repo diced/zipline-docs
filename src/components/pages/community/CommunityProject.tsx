@@ -21,18 +21,18 @@ export default function CommunityProject({ project }: { project: Project }) {
         <img
           src={project.image}
           alt={project.name}
-          className='rounded-md w-20 h-20 object-cover grow-1'
+          className='rounded-md w-20 h-20 object-cover grow'
         />
       ) : project.Icon ? (
-        <project.Icon className='w-20 h-20 grow-1' />
+        <project.Icon className='w-20 h-20 grow' />
       ) : (
-        <IconFile className='w-20 h-20 grow-1' />
+        <IconFile className='w-20 h-20 grow' />
       )}
 
       <div className='flex flex-col ml-4'>
         <Link
           href={project.href}
-          className='text-3xl font-bold hover:underline decoration-blue-400 hover:decoration-[2px]'
+          className='text-3xl font-bold hover:underline decoration-blue-400 hover:decoration-2'
           data-umami-event={`community_project_${project.name.replace(' ', '-')}`}
           data-umami-event-action='link'
         >

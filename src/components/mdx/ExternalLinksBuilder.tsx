@@ -33,7 +33,7 @@ export default function ExternalLinksBuilder() {
     <div>
       <div className='flex-row space-y-4 md:space-y-0 md:flex gap-4'>
         <input
-          className='focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-2 ring-gray-700 shadow-sm'
+          className='focus:ring-2 focus:ring-blue-500 focus:outline-hidden appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-2 ring-gray-700 shadow-xs'
           type='text'
           aria-label='Label for the link'
           placeholder='Label for the link'
@@ -41,7 +41,7 @@ export default function ExternalLinksBuilder() {
           onChange={(e) => setLabelValue(e.target.value)}
         />
         <input
-          className='focus:ring-2 focus:ring-blue-500 focus:outline-none appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-2 ring-gray-700 shadow-sm'
+          className='focus:ring-2 focus:ring-blue-500 focus:outline-hidden appearance-none w-full text-md leading-6 text-gray-800 dark:text-gray-200 placeholder-slate-400 rounded-md p-2 ring-2 ring-gray-700 shadow-xs'
           type='text'
           aria-label='The link (must be a valid link)'
           placeholder='The link (must be a valid link)'
@@ -49,7 +49,7 @@ export default function ExternalLinksBuilder() {
           onChange={(e) => setLinkValue(e.target.value)}
         />
         <button
-          className='bg-blue-400 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-blue-500 ease-in-out disabled:bg-gray-300 disabled:dark:bg-gray-600 disabled:text-gray-100 disabled:dark:text-gray-300'
+          className='bg-blue-400 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-blue-500 ease-in-out disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:text-gray-100 dark:disabled:text-gray-300'
           onClick={handleAdd}
           disabled={
             labelValue.trim().length === 0 || linkValue.trim().length === 0
@@ -59,7 +59,7 @@ export default function ExternalLinksBuilder() {
           Add
         </button>
         <button
-          className='bg-red-500 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-red-400 ease-in-out disabled:bg-gray-300 disabled:dark:bg-gray-600 disabled:text-gray-100 disabled:dark:text-gray-300'
+          className='bg-red-500 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-red-400 ease-in-out disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:text-gray-100 dark:disabled:text-gray-300'
           onClick={() => setLinks([])}
           disabled={links.length === 0}
           data-umami-event='external_links_builder_clear'

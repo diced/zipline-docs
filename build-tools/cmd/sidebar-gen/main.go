@@ -26,13 +26,14 @@ func main() {
 	start := time.Now()
 
 	sidebarAst := sidebar.ConvertDirFiles(sidebar.OrderSidebar(sidebar.ReadSidebarAst(*dirFlag)))
-	sidebar := sidebar.CreateSidebarFromAst(*dirFlag, sidebarAst)
+	sidebarObject := sidebar.CreateSidebarFromAst(*dirFlag, sidebarAst)
+	sidebarObject = append(sidebarObject, sidebar.API_ITEM)
 
 	var stringJson []byte
 	if *noIndentFlag {
-		stringJson, _ = json.Marshal(sidebar)
+		stringJson, _ = json.Marshal(sidebarObject)
 	} else {
-		stringJson, _ = json.MarshalIndent(sidebar, "", "  ")
+		stringJson, _ = json.MarshalIndent(sidebarObject, "", "  ")
 	}
 
 	err := os.WriteFile(*outFlag, stringJson, 0644)

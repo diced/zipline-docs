@@ -38,7 +38,7 @@ export default function Premium({ stars }: { stars: number }) {
             <div className='sm:text-7xl text-5xl font-medium text-center'>
               <div>
                 The{' '}
-                <span className='bg-clip-text from-purple-500 via-blue-400 to-purple-500 text-transparent bg-gradient-to-r bg-pos-0 bg-size-200'>
+                <span className='bg-clip-text from-purple-500 via-blue-400 to-purple-500 text-transparent bg-linear-to-r bg-pos-0 bg-size-200'>
                   premium
                 </span>{' '}
               </div>

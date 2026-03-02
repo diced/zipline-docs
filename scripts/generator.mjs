@@ -19,14 +19,17 @@ async function nodeGenerator(context) {
   const time = process.hrtime();
   const sidebar = await genSidebar('./docs');
 
-  await writeFile(
-    './sidebar.json',
-    JSON.stringify(
-      convertSidebarToParsable(checkIfDirectoryFile(orderSidebar(sidebar))),
-      null,
-      2,
-    ),
+  const sidebarObject = convertSidebarToParsable(
+    checkIfDirectoryFile(orderSidebar(sidebar)),
   );
+
+  sidebarObject.push({
+    title: 'API',
+    href: '/docs/api',
+    description: 'OpenAPI reference for Zipline',
+  });
+
+  await writeFile('./sidebar.json', JSON.stringify(sidebarObject, null, 2));
 
   const diff = process.hrtime(time);
 

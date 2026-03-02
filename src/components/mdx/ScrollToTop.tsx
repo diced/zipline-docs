@@ -6,7 +6,7 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   const handleScroll = () => {
-    const offset = window.pageYOffset;
+    const offset = window.scrollY;
     setVisible(offset > 300);
   };
 

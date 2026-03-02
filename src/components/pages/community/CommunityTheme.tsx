@@ -41,7 +41,7 @@ function CommunityThemeModal({
 
   return (
     <Dialog open={open} onClose={onClose} className='relative z-50'>
-      <div className='fixed inset-0 w-screen overflow-y-auto p-4 backdrop-blur bg-black/30'>
+      <div className='fixed inset-0 w-screen overflow-y-auto p-4 backdrop-blur-sm bg-black/30'>
         <div className='flex min-h-full items-center justify-center'>
           <DialogPanel className='max-w-4xl space-y-4 border border-gray-100 dark:border-gray-800 rounded-md p-6 bg-white dark:bg-gray-900'>
             <div className='flex items-center justify-between'>
@@ -104,7 +104,7 @@ function CommunityThemeModal({
                 </button>
 
                 {!showFull && (
-                  <div className='absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-gray-900 pointer-events-none rounded-md' />
+                  <div className='absolute inset-0 bg-linear-to-b from-transparent to-white dark:to-gray-900 pointer-events-none rounded-md' />
                 )}
               </div>
             </div>

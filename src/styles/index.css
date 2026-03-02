@@ -1,6 +1,107 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-gray-50: #EEEFF1;
+  --color-gray-100: #DDDFE4;
+  --color-gray-200: #BBBEC8;
+  --color-gray-300: #999EAD;
+  --color-gray-400: #777E92;
+  --color-gray-500: #5B6071;
+  --color-gray-600: #494D5A;
+  --color-gray-700: #373A44;
+  --color-gray-800: #24262D;
+  --color-gray-900: #121317;
+
+  --color-blue-50: #f2f6fd;
+  --color-blue-100: #e5ebf9;
+  --color-blue-200: #c4d5f3;
+  --color-blue-300: #90b2e9;
+  --color-blue-400: #558adb;
+  --color-blue-500: #2f6cc8;
+  --color-blue-600: #2052a9;
+  --color-blue-700: #1b4189;
+  --color-blue-800: #1a3972;
+  --color-blue-900: #1b325f;
+  --color-blue-950: #091020;
+
+  --color-yellow-50: #FEFBEC;
+  --color-yellow-100: #FDF8DE;
+  --color-yellow-200: #FAF1B8;
+  --color-yellow-300: #F7EA96;
+  --color-yellow-400: #F5E370;
+  --color-yellow-500: #F2DB4E;
+  --color-yellow-600: #EED011;
+  --color-yellow-700: #B59E0D;
+  --color-yellow-800: #776809;
+  --color-yellow-900: #3E3605;
+
+  --background-size-200: 200% 200%;
+  --background-position-pos-0: 0% 0%;
+  --background-position-pos-100: 100% 100%;
+}
+
+/* dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin '@tailwindcss/typography';
+
+@utility prose {
+  /* Light Mode Styles */
+  --tw-prose-body: var(--color-black);
+  --tw-prose-links: var(--color-black);
+  --tw-prose-code: var(--color-black);
+  --tw-prose-counters: var(--color-gray-400);
+
+  /* Applying your specific code block styling */
+  & code {
+    background-color: var(--color-gray-100);
+    border-radius: var(--radius-md);
+    padding: 0 var(--spacing-1);
+    font-weight: 400;
+  }
+
+  & h2,
+  & h3,
+  & h4 {
+    scroll-margin-top: 100px;
+  }
+}
+
+/* Dark Mode (Invert) */
+.dark .prose {
+  --tw-prose-body: var(--color-gray-900);
+  --tw-prose-invert-body: var(--color-white);
+  --tw-prose-invert-links: var(--color-white);
+
+  & code {
+    color: var(--color-white);
+    background-color: var(--color-gray-800);
+    border-radius: var(--radius-sm);
+  }
+
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6,
+  & p,
+  & strong,
+  & th {
+    color: var(--color-white);
+  }
+}
+
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 @keyframes gradient-spin {
   0% {
@@ -14,4 +115,92 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.dark rapi-doc {
+  --border-radius: var(--radius-md);
+  --font-mono: var(--font-mono);
+  --font-regular: var(--font-sans);
+  --font-size-regular: 14px;
+
+  --bg: var(--color-gray-900);
+  --bg2: var(--color-gray-800);
+  --bg3: var(--color-gray-700);
+  --fg: var(--color-gray-100);
+  --fg2: var(--color-gray-200);
+
+  --border-color: var(--color-gray-700);
+  --input-bg: var(--color-gray-950);
+  --placeholder-color: var(--color-gray-500);
+
+  --primary-color: var(--color-blue-400);
+  --nav-bg-color: var(--color-gray-900);
+  --nav-text-color: var(--color-gray-300);
+  --hover-color: var(--color-gray-800);
+  --nav-hover-bg-color: var(--color-gray-800);
+  --nav-hover-text-color: var(--color-white);
+  --nav-accent-color: var(--color-blue-400);
+  --nav-accent-text-color: var(--color-white);
+
+  --code-bg: var(--color-gray-950);
+  --code-fg: var(--color-blue-100);
+  --code-property-color: var(--color-yellow-400);
+  --code-keyword-color: var(--color-blue-300);
+
+  --nav-get-color: var(--color-blue-400);
+  --nav-post-color: var(--color-green-500);
+}
+
+rapi-doc {
+  --border-radius: var(--radius-md);
+  --font-mono: var(--font-mono);
+  --font-regular: var(--font-sans);
+  --font-size-regular: 14px;
+  --bg: var(--color-white);
+  --bg2: var(--color-white);
+  --bg3: var(--color-white);
+  --fg: var(--color-gray-900);
+  --fg2: var(--color-gray-700);
+
+  --border-color: var(--color-gray-200);
+  --input-bg: var(--color-gray-100);
+  --placeholder-color: var(--color-gray-500);
+  --primary-color: var(--color-blue-500);
+  --nav-bg-color: var(--color-white);
+  --nav-text-color: var(--color-gray-900);
+  --hover-color: var(--color-gray-50);
+  --nav-hover-bg-color: var(--color-gray-50);
+  --nav-hover-text-color: var(--color-gray-900);
+  --nav-accent-color: var(--color-blue-500);
+  --nav-accent-text-color: var(--color-gray-50);
+  --code-bg: var(--color-gray-100);
+  --code-fg: var(--color-gray-900);
+  --code-property-color: var(--color-blue-500);
+  --code-keyword-color: var(--color-blue-700);
+  --nav-get-color: var(--color-blue-500);
+  --nav-post-color: var(--color-green-500);
+}
+
+/* removes repeated desc in title */
+rapi-doc::part(section-operation-summary) {
+  display: none;
+}
+
+rapi-doc::part(label-operation-path) {
+  font-size: var(--font-size-regular);
+  /* or 18px */
+  font-weight: 700;
+  color: var(--fg);
+  /* Your gray-100 */
+  font-family: var(--font-mono);
+}
+
+rapi-doc::part(label-operation-method) {
+  font-size: var(--text-xl);
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+}
+
+rapi-doc::part(section-operation-webhook-method) {
+  font-size: var(--text-xl);
 }

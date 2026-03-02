@@ -52,7 +52,7 @@ export default function HamburgerMenu({ item }: HamburgerMenuProps) {
       {open && (
         <div
           ref={ref}
-          className='md:hidden top-0 right-0 left-0 bottom-0 absolute w-screen max-w-[100vw] h-screen z-[10000] dark:bg-gray-900 bg-white dark:border-gray-700 shadow-md'
+          className='md:hidden top-0 right-0 left-0 bottom-0 absolute w-screen max-w-[100vw] h-screen z-10000 dark:bg-gray-900 bg-white dark:border-gray-700 shadow-md'
         >
           <div className='px-5 pt-4 flex items-center justify-between'>
             <div className='flex items-center'>
