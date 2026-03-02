@@ -2,5 +2,7 @@ onlyBuiltDependencies:
   - '@scarf/scarf'
   - '@tree-sitter-grammars/tree-sitter-yaml'
   - core-js-pure
+  - sharp
   - tree-sitter
   - tree-sitter-json
+  - unrs-resolver

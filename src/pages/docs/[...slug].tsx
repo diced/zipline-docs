@@ -248,6 +248,7 @@ export const getStaticProps = (async ({ params }) => {
       development: process.env.NODE_ENV === 'development',
     },
     parseFrontmatter: true,
+    blockJS: false,
   });
 
   const sidebar = await readSidebar();
