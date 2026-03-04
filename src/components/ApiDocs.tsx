@@ -29,6 +29,10 @@ export default function ApiDocs() {
       allow-authentication='false'
       allow-server-selection='false'
       allow-try='false'
+      allow-spec-url-load='false'
+      allow-spec-file-load='false'
+      allow-spec-file-download='true'
+      sort-endpoints-by='path'
     />
   );
 }
