@@ -6,7 +6,7 @@ export default function DocsPageApi() {
   return (
     <>
       <Link
-        href='/docs/get-started'
+        href='/docs/api'
         className='text-sm text-blue-500 hover:underline mx-5 inline-block'
       >
         &larr; Back to Docs

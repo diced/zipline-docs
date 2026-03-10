@@ -1,7 +1,6 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import Image, { StaticImageData } from 'next/image';
 import { useCallback, useState } from 'react';
-import Pre from '../../mdx/Pre';
 
 export type Theme = {
   name: string;
@@ -78,11 +77,9 @@ function CommunityThemeModal({
 
             <div>
               <div className='relative'>
-                <Pre
-                  className='language-json p-2 rounded-md'
-                  copy={showFull}
-                  code={
-                    showFull
+                <pre className='shadow-md scroll-styled bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 p-2 rounded-md'>
+                  <code className='language-json'>
+                    {showFull
                       ? JSON.stringify(JSON.parse(theme.json), null, 2)
                       : (() => {
                           const fmt = JSON.stringify(
@@ -93,9 +90,9 @@ function CommunityThemeModal({
                           return fmt.length > 140
                             ? fmt.slice(0, 140) + '\n'
                             : fmt;
-                        })()
-                  }
-                />
+                        })()}
+                  </code>
+                </pre>
                 <button
                   className='absolute bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-md border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-sm font-mono z-10'
                   onClick={() => setShowFull((prev) => !prev)}

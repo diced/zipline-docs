@@ -63,6 +63,8 @@ export function getPaths(sidebar: DocSidebarItem[]) {
       const slug = item.href.split('/').filter((i: string) => i !== '');
       slug.shift();
 
+      if (item.href === '/docs/api-reference') continue;
+
       paths.push({
         params: {
           slug,

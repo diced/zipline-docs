@@ -26,7 +26,7 @@ export default function Image({
         alt={alt ?? src}
         width={width}
         height={height}
-        className='rounded-md cursor-pointer'
+        className='rounded-md cursor-pointer my-0.5'
         onClick={() => setOpen(true)}
         loading='lazy'
       />

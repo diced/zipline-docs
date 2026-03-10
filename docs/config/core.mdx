@@ -12,13 +12,13 @@ This page documents the core configuration options available.
 
 This variable should be a postgresql connection string.
 
-```bash copy
+```dotenv copy
 DATABASE_URL=postgresql://user:password@localhost:5432/zipline
 ```
 
 If you prefer, you can also set the individual components of the connection string using the following environment variables: `DATABASE_NAME`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_HOST`, and `DATABASE_PORT`.
 
-```bash copy
+```dotenv copy
 DATABASE_NAME=zipline
 DATABASE_USERNAME=user
 DATABASE_PASSWORD=password
@@ -38,7 +38,7 @@ DATABASE_PORT=5432
 `CORE_HOSTNAME` is an optional environment variable that specifies the hostname that Zipline will bind to, it defaults to `0.0.0.0`.
 If using Docker, you can set this to `0.0.0.0` so that you can access Zipline from outside the container (with a exposed port).
 
-```bash copy
+```dotenv copy
 CORE_HOSTNAME=127.0.0.1
 CORE_HOSTNAME=0.0.0.0
 ```
@@ -47,7 +47,7 @@ CORE_HOSTNAME=0.0.0.0
 
 `CORE_PORT` is an optional environment variable that specifies the port that Zipline will bind to, it defaults to `3000`.
 
-```bash copy
+```dotenv copy
 CORE_PORT=3000
 ```
 
@@ -56,10 +56,10 @@ CORE_PORT=3000
 `CORE_SECRET` is a **required** environment variable that is used to sign website cookies, and should be kept private.
 It is recommended to generate this value using a password manager, or with the following command:
 
-```bash copy
+```dotenv copy
 openssl rand -base64 32 # 32 is the length, you can change this
 ```
 
-```bash copy
+```dotenv copy
 CORE_SECRET="p5g9NUcnpSbSl+N/70rlv+YXcoL5X0LA6fTc8Anz74w="
 ```

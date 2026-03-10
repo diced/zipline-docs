@@ -9,8 +9,6 @@ import SearchProvider from '../components/search/SearchProvider';
 
 import AnnouncementBar from '../components/AnnouncementBar';
 import '../styles/index.css';
-import '../styles/docs.css';
-import '../styles/docsearch.css';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -63,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Script
         async
         src='https://analytics_.diced.sh/script.js'
-        data-website-id='eb6dbb46-aeae-45c5-ae52-a6d8ab6bf43c'
+        data-website-id='b67b1a7b-fc2f-4fe7-b6aa-f56d4bbe9c4f'
       />
       <style jsx global>{`
         html {

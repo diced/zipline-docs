@@ -4,7 +4,7 @@ This page will guide you through setting up a reverse proxy for Zipline using va
 
 ## NGINX
 
-```nginx-conf filename="/etc/nginx/sites-available/zipline.conf" copy
+```nginx filename="/etc/nginx/sites-available/zipline.conf" copy
 server {
   listen 80;
   # Allows Zipline to handle large file uploads, feel free to change this value
@@ -41,7 +41,7 @@ Setting up SSL through NGINX Proxy Manager is also very simple, you can use the 
 
 You will need to have a valid SSL certificate to use this configuration. If you don't have one, you can use [Let's Encrypt](https://letsencrypt.org/), or Cloudflare for example.
 
-```nginx-conf filename="/etc/nginx/sites-available/zipline-ssl.conf" copy
+```nginx filename="/etc/nginx/sites-available/zipline-ssl.conf" copy
 server {
   listen 443 ssl;
   client_max_body_size 100M;
@@ -88,7 +88,7 @@ You can save these keys anywhere, but make sure your reverse proxy configuration
 
 Then within NGINX, you can use the following configuration:
 
-```nginx-conf filename="/etc/nginx/sites-available/zipline-ssl.conf"
+```nginx filename="/etc/nginx/sites-available/zipline-ssl.conf"
 server {
   ...
 

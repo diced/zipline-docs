@@ -20,7 +20,7 @@ function BaseAlert({
   className?: string;
 }) {
   return (
-    <div className={clsx('my-2 px-3 py-0.5 border rounded-md', className)}>
+    <div className={clsx('my-2 px-5 py-3 border rounded-xl', className)}>
       {children}
     </div>
   );
@@ -70,12 +70,12 @@ export default function Alert({ children, type }: AlertProps) {
 
   return (
     <Element>
-      <div className='flex dark:text-white text-black items-center mt-2'>
+      <div className='flex dark:text-white text-black items-center mt-2 not-prose mb-2'>
         <Icon size={20} />
         <div className='ml-2 font-bold'>{name}</div>
       </div>
 
-      <div>{children}</div>
+      <div className='mb-1'>{children}</div>
     </Element>
   );
 }

@@ -23,11 +23,15 @@ async function nodeGenerator(context) {
     checkIfDirectoryFile(orderSidebar(sidebar)),
   );
 
-  sidebarObject.push({
-    title: 'API',
-    href: '/docs/api',
-    description: 'OpenAPI reference for Zipline',
-  });
+  // find item in sidebarobject root wihtt itle API
+  const apiIndex = sidebarObject.findIndex((item) => item.title === 'API');
+  if (apiIndex) {
+    sidebarObject[apiIndex].items.push({
+      title: 'Reference',
+      href: '/docs/api-reference',
+      description: 'OpenAPI reference for Zipline',
+    });
+  }
 
   await writeFile('./sidebar.json', JSON.stringify(sidebarObject, null, 2));
 

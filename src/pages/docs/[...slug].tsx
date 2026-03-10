@@ -12,7 +12,6 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import { join } from 'path';
-import { Prism } from 'prism-react-renderer';
 import { Fragment } from 'react';
 import rehypeMdxCodeProps from 'rehype-mdx-code-props';
 import rehypeSlug from 'rehype-slug';
@@ -29,13 +28,6 @@ import {
 } from '../../lib/docs';
 import rehypeImageSize from '../../lib/rehypeImageSize';
 import dayjs from 'dayjs';
-
-// @ts-ignore
-(typeof global !== 'undefined' ? global : window).Prism = Prism;
-
-require('prismjs/components/prism-bash');
-require('prismjs/components/prism-nginx');
-require('prismjs/components/prism-http');
 
 const REPO_BASE_URL = 'https://github.com/diced/zipline-docs';
 const REPO_BRANCH = 'v4';
@@ -83,7 +75,7 @@ export default function DocsPage({
 
       <Sidebar items={sidebar}>
         <article className='prose dark:prose-invert dark:text-white text-black max-w-4xl min-w-0 pt-6 px-8 md:px-20 w-full'>
-          <div className='items-center cursor-default select-none mb-6 hidden md:flex'>
+          <div className='items-center cursor-default select-none mb-6 hidden md:flex not-prose'>
             <Link href='/docs/get-started' className='flex items-center'>
               <IconHome className='w-5 h-5 text-gray-500 dark:text-gray-400' />
             </Link>
@@ -115,7 +107,7 @@ export default function DocsPage({
             <MDXRemote components={MDXComponents} {...source} />
           </div>
 
-          <hr className='not-prose border-[1.35px] rounded-md border-gray-200 dark:border-gray-800' />
+          <hr className='not-prose border-[1.35px] mt-4 rounded-md border-gray-200 dark:border-gray-800' />
 
           <div className='flex justify-between my-8 not-prose grow gap-8'>
             {prev ? (
@@ -193,12 +185,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const sidebar = flattenSidebar(await readSidebar());
   const paths: { params: { slug: string[] } }[] = getPaths(sidebar);
 
-  const filteredPaths = paths.filter(
-    (p) => !p.params.slug.join('/').startsWith('api'),
-  );
-
   return {
-    paths: filteredPaths,
+    paths,
     fallback: false,
   };
 };

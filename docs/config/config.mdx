@@ -15,7 +15,7 @@ By default, only the `DATABASE_URL` and `CORE_SECRET` environment variables are 
 
 ## Example
 
-```bash copy filename=".env"
+```dotenv copy filename=".env"
 DATABASE_URL=postgresql://user:password@localhost:5432/zipline
 CORE_SECRET="secret"
 CORE_PORT=3000
@@ -31,7 +31,7 @@ If you want to set certain environment variables through file content, you can u
 
 For example, instead of setting the `CORE_SECRET` variable directory, you can create a file named `secret.txt` containing the secret, and set the environment variable to the relative/full path to that file.
 
-```bash copy filename=".env"
+```dotenv copy filename=".env"
 # Instead of this:
 CORE_SECRET="hello"
 

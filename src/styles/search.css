@@ -1,6 +1,3 @@
-@reference './index.css';
-
-
 /* 
 Adapted from
 https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.css
@@ -110,7 +107,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply dark:bg-gray-700;
 }
 
-.DocSearch-Hit>a {
+.DocSearch-Hit > a {
   position: relative;
   font-size: 0.875rem;
   border-bottom: 1px solid var(--color-gray-100);
@@ -267,7 +264,9 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.75 1v10M8.25 1v10M1 3.75h10M1 8.25h10' stroke='%23fff' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
-.DocSearch-Hit[aria-selected='true'] .DocSearch-Hit--Parent .DocSearch-Hit-icon {
+.DocSearch-Hit[aria-selected='true']
+  .DocSearch-Hit--Parent
+  .DocSearch-Hit-icon {
   /* book icon */
   background-image: url("data:image/svg+xml,%3Csvg width='14' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.5 0c1.093 0 2.117.27 3 .743V10a6.344 6.344 0 0 0-3-.743c-1.093 0-2.617.27-3.5.743V.743C.883.27 2.407 0 3.5 0Z' fill='%23fff'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.5 0c1.093 0 2.617.27 3.5.743V10c-.883-.473-2.407-.743-3.5-.743s-2.117.27-3 .743V.743a6.344 6.344 0 0 1 3-.743Z' fill='%23fff'/%3E%3C/svg%3E");
 }
@@ -276,7 +275,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply text-gray-700 leading-6 truncate dark:text-gray-400;
 }
 
-.DocSearch-Hit-title+.DocSearch-Hit-path {
+.DocSearch-Hit-title + .DocSearch-Hit-path {
   @apply mb-1;
 }
 
@@ -302,7 +301,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply bg-blue-400 text-white dark:bg-blue-400/50;
 }
 
-.DocSearch-Hit--Result.DocSearch-Hit[aria-selected='true'] .DocSearch-Hit-title {
+.DocSearch-Hit--Result.DocSearch-Hit[aria-selected='true']
+  .DocSearch-Hit-title {
   @apply text-white;
 }
 
@@ -310,7 +310,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply flex;
 }
 
-.DocSearch-Hit-action+.DocSearch-Hit-action {
+.DocSearch-Hit-action + .DocSearch-Hit-action {
   @apply ml-2;
 }
 
@@ -323,7 +323,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   stroke: white;
 }
 
-.DocSearch-Hit>a {
+.DocSearch-Hit > a {
   @apply block py-4 px-6;
 }
 
@@ -335,7 +335,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply relative;
 }
 
-.DocSearch-Hit:first-child>a {
+.DocSearch-Hit:first-child > a {
   @apply border-t border-gray-100 dark:border-gray-200/5;
 }
 
@@ -343,7 +343,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   /* @apply border-t-0 !important; */
 }
 
-.DocSearch-Hit+.DocSearch-Hit .DocSearch-Hit--Result {
+.DocSearch-Hit + .DocSearch-Hit .DocSearch-Hit--Result {
   @apply mt-2;
 }
 
@@ -351,7 +351,7 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply bg-gray-50 rounded-lg dark:bg-gray-700/30;
 }
 
-.DocSearch-Hit[aria-selected='true']>a {
+.DocSearch-Hit[aria-selected='true'] > a {
   @apply bg-gray-50 dark:bg-gray-800/20;
 }
 
@@ -458,15 +458,15 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-white/[0.02];
 }
 
-.DocSearch-NoResults-Prefill-List li+li button {
+.DocSearch-NoResults-Prefill-List li + li button {
   @apply border-t border-gray-200 dark:border-gray-200/5;
 }
 
-.DocSearch-NoResults-Prefill-List+.DocSearch-Help {
+.DocSearch-NoResults-Prefill-List + .DocSearch-Help {
   @apply text-xs leading-6 mt-3;
 }
 
-.DocSearch-NoResults-Prefill-List+.DocSearch-Help a {
+.DocSearch-NoResults-Prefill-List + .DocSearch-Help a {
   @apply text-blue-500 font-semibold dark:text-blue-400;
 }
 
@@ -503,7 +503,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   @apply absolute inset-0 content-[''] pointer-events-none bg-blue-50 dark:bg-gray-700/30;
 }
 
-.DocSearch-Hit[aria-selected='true'] [title='Remove this search from favorites']::before {
+.DocSearch-Hit[aria-selected='true']
+  [title='Remove this search from favorites']::before {
   @apply bg-blue-100 dark:bg-gray-800/20;
 }
 
@@ -514,7 +515,8 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
   width: calc(4.5rem + 1px);
   height: 1.5rem;
   margin-left: calc(-3rem - 1px);
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat, repeat-y, no-repeat;
@@ -522,11 +524,12 @@ https://github.com/tailwindlabs/tailwindcss.com/blob/master/src/css/docsearch.cs
 }
 
 .DocSearch-Hit-action [title='Remove this search from favorites']:hover::after {
-  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 5 2 5h5l-4 4 2 5-5-3-5 3 2-5-4-4h5l2-5Z' fill='%230EA5E9' stroke='%230EA5E9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='1' height='1' fill='%23e2e8f0' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='1' height='1'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M17 7 7 17M7 7l10 10' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-.DocSearch-Hit-action+.DocSearch-Hit-action {
+.DocSearch-Hit-action + .DocSearch-Hit-action {
   @apply ml-3 pl-3 border-l border-gray-200 dark:border-gray-200/5;
 }

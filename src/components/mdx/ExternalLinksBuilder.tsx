@@ -1,12 +1,7 @@
-import { useTheme } from 'next-themes';
-import { Highlight, themes } from 'prism-react-renderer';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Pre from './Pre';
-import clsx from 'clsx';
 
 export default function ExternalLinksBuilder() {
-  const { theme } = useTheme();
-
   const [links, setLinks] = useState([]);
   const [labelValue, setLabelValue] = useState('');
   const [linkValue, setLinkValue] = useState('');
@@ -100,7 +95,7 @@ export default function ExternalLinksBuilder() {
           copy
         />
 
-        <figcaption className='text-sm -mt-4 text-gray-500 dark:text-gray-400 mb-2'>
+        <figcaption className='text-sm text-gray-500 dark:text-gray-400 mb-2'>
           Copy the above JSON and paste it into the External Links text box.
         </figcaption>
       </figure>

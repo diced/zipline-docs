@@ -1,15 +1,22 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+@import './search.css';
+@import './typography.css' layer(components);
+
+/* dark mode */
+@custom-variant dark (&:is(.dark *));
+
+/* theme */
 @theme {
-  --color-gray-50: #EEEFF1;
-  --color-gray-100: #DDDFE4;
-  --color-gray-200: #BBBEC8;
-  --color-gray-300: #999EAD;
-  --color-gray-400: #777E92;
-  --color-gray-500: #5B6071;
-  --color-gray-600: #494D5A;
-  --color-gray-700: #373A44;
-  --color-gray-800: #24262D;
+  --color-gray-50: #eeeff1;
+  --color-gray-100: #dddfe4;
+  --color-gray-200: #bbbec8;
+  --color-gray-300: #999ead;
+  --color-gray-400: #777e92;
+  --color-gray-500: #5b6071;
+  --color-gray-600: #494d5a;
+  --color-gray-700: #373a44;
+  --color-gray-800: #24262d;
   --color-gray-900: #121317;
 
   --color-blue-50: #f2f6fd;
@@ -24,72 +31,16 @@
   --color-blue-900: #1b325f;
   --color-blue-950: #091020;
 
-  --color-yellow-50: #FEFBEC;
-  --color-yellow-100: #FDF8DE;
-  --color-yellow-200: #FAF1B8;
-  --color-yellow-300: #F7EA96;
-  --color-yellow-400: #F5E370;
-  --color-yellow-500: #F2DB4E;
-  --color-yellow-600: #EED011;
-  --color-yellow-700: #B59E0D;
+  --color-yellow-50: #fefbec;
+  --color-yellow-100: #fdf8de;
+  --color-yellow-200: #faf1b8;
+  --color-yellow-300: #f7ea96;
+  --color-yellow-400: #f5e370;
+  --color-yellow-500: #f2db4e;
+  --color-yellow-600: #eed011;
+  --color-yellow-700: #b59e0d;
   --color-yellow-800: #776809;
-  --color-yellow-900: #3E3605;
-
-  --background-size-200: 200% 200%;
-  --background-position-pos-0: 0% 0%;
-  --background-position-pos-100: 100% 100%;
-}
-
-/* dark mode */
-@custom-variant dark (&:where(.dark, .dark *));
-
-@plugin '@tailwindcss/typography';
-
-@utility prose {
-  /* Light Mode Styles */
-  --tw-prose-body: var(--color-black);
-  --tw-prose-links: var(--color-black);
-  --tw-prose-code: var(--color-black);
-  --tw-prose-counters: var(--color-gray-400);
-
-  /* Applying your specific code block styling */
-  & code {
-    background-color: var(--color-gray-100);
-    border-radius: var(--radius-md);
-    padding: 0 var(--spacing-1);
-    font-weight: 400;
-  }
-
-  & h2,
-  & h3,
-  & h4 {
-    scroll-margin-top: 100px;
-  }
-}
-
-/* Dark Mode (Invert) */
-.dark .prose {
-  --tw-prose-body: var(--color-gray-900);
-  --tw-prose-invert-body: var(--color-white);
-  --tw-prose-invert-links: var(--color-white);
-
-  & code {
-    color: var(--color-white);
-    background-color: var(--color-gray-800);
-    border-radius: var(--radius-sm);
-  }
-
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5,
-  & h6,
-  & p,
-  & strong,
-  & th {
-    color: var(--color-white);
-  }
+  --color-yellow-900: #3e3605;
 }
 
 @layer base {
@@ -116,6 +67,8 @@
     background-position: 0% 50%;
   }
 }
+
+/* rapi doc styles */
 
 .dark rapi-doc {
   --border-radius: var(--radius-md);
@@ -188,10 +141,8 @@ rapi-doc::part(section-operation-summary) {
 
 rapi-doc::part(label-operation-path) {
   font-size: var(--font-size-regular);
-  /* or 18px */
   font-weight: 700;
   color: var(--fg);
-  /* Your gray-100 */
   font-family: var(--font-mono);
 }
 
@@ -203,4 +154,31 @@ rapi-doc::part(label-operation-method) {
 
 rapi-doc::part(section-operation-webhook-method) {
   font-size: var(--text-xl);
+}
+
+/* scroll bar */
+.scroll-styled {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-300) transparent;
+  scrollbar-gutter: stable;
+}
+
+.scroll-styled::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+.scroll-styled::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroll-styled::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+}
+
+@media (hover: hover) {
+  .scroll-styled:hover::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    background-color: var(--color-gray-400);
+    background-clip: content-box;
+  }
 }

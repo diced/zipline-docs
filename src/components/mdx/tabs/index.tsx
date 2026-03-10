@@ -20,7 +20,7 @@ export default function Tabs({ defaultValue, children }: TabsProps) {
           <button
             key={child.props.value}
             className={clsx(
-              'border rounded-md px-3 py-0.5 dark:text-white text-black transition-all',
+              'not-prose border rounded-md px-3 py-0.5 my-1 dark:text-white text-black transition-all',
               child.props.value === activeTab
                 ? 'border-blue-400'
                 : 'border-gray-200 dark:border-gray-800',
