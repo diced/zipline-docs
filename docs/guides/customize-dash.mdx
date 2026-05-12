@@ -2,7 +2,11 @@
 
 Zipline offers a couple of settings that let you customize the dashboard to your liking. This guide will walk you through the available options.
 
-## Favicons
+## Server Settings
+
+These settings are configured for the entire server, so they will show up for all users.
+
+### Favicons
 
 Changing the favicon is as simple as replacing the `favicon.ico` file in the `public` directory.
 
@@ -10,7 +14,7 @@ The favicon is the small icon that appears in the browser tab next to the page t
 
 ![Favicon](/img/docs/customize-1.png)
 
-## Title
+### Title
 
 If you want to change the title of the dashboard, you can do so by changing the title by heading over to the **Server Settings**
 
@@ -23,7 +27,7 @@ This will change the title that appears in the browser tab, as well as the title
 
 ![Title](/img/docs/customize-3.png)
 
-## Title Logo
+### Title Logo
 
 If you want to change the logo that appears in the navigation bar, you can do so by changing the **Title Logo** by heading over to the **Server Settings**
 
@@ -45,7 +49,7 @@ If you want to change the external links, you can do so by heading over to the *
 
 If you want help making the JSON array, you can use the [External Links Builder](/docs/guides/external-links#builder) tool.
 
-## Terms of Service
+### Terms of Service
 
 Zipline allows you to add a Terms of Service link. The file provided must be a Markdown file, and it is accessible at `/auth/tos` when configured.
 
@@ -74,7 +78,7 @@ Now, when users sign up they will see a checkbox requiring them to agree to the 
 
 ![Terms of Service](/img/docs/customize-6.png)
 
-## Login Background
+### Login Background
 
 If you want to change from the default solid color background on the login page, you can do so by changing the **Login Background** by heading over to the **Server Settings**.
 
@@ -87,7 +91,7 @@ If you want to change from the default solid color background on the login page,
 
 Configures whether the login background should be blurred or not.
 
-## Theme
+### Theme
 
 Zipline allows you to change the theme of the dashboard as well. Users are free to set their own themes, but you can set a default theme that is used on view-routes and the dashboard when the user has not set their own theme yet.
 
@@ -100,8 +104,27 @@ Note that what counts as dark/light is dependent on the OS and browser.
 
 </Alert>
 
-### Custom Themes
+#### Custom Themes
 
 If you want to make your own theme, visit [theming](/docs/guides/themes) for more info.
 
 On the other hand, if you are looking to contribute a theme, you can do so by simply submitting a PR with the theme you want to add in!
+
+## User Dashboard Settings
+
+Head over to your user settings page, and then you should see a section titled "Dashboard Settings".
+
+![Dashboard Settings](/img/docs/customize-8.png)
+
+### File Viewer
+
+As of Zipline 4.6, there are now two options for the "file viewer" which controls what view you get when clicking on a file.
+
+- Fullscreen: new viewer, is fullscreen and takes up the entire viewport.
+- Modal: the old viewer, most people recognize. This may or may not be deprecated in the future.
+
+### Default Domain
+
+This domain can be configured based on the server settings' domains or if there are none set, it will become an input where you can put in a domain.
+
+It's then used in anywhere a domain is needed, for example, when copying file urls.
