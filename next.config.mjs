@@ -28,6 +28,7 @@ const config = {
       permanent: true,
     },
   ],
+  distDir: 'build',
 };
 
 export default withMDX(config);

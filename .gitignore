@@ -29,3 +29,4 @@ next-env.d.ts
 openapi.json
 content/docs/api/(generated)/
 .env
+build/
