@@ -1,0 +1,111 @@
+---
+title: Datasource
+description: This page will document the configuration options available for the datasource
+---
+
+## `DATASOURCE_TYPE`
+
+Must be one of the following values:
+
+- [`local`](#local-datasource) - Local file storage through a directory
+- [`s3`](#s3-datasource) - S3 compatible storage (AWS, Cloudflare R2, Minio, etc.)
+
+```dotenv title=".env"
+DATASOURCE_TYPE=local
+DATASOURCE_TYPE=s3
+```
+
+---
+
+## Local Datasource
+
+### `DATASOURCE_LOCAL_DIRECTORY`
+
+The directory where files will be stored. This directory must be writable by the Zipline server.
+If no value is provided, the default value is `./uploads` which will map to the `uploads` directory in the Zipline root directory.
+
+Paths are resolved relative to the Zipline root directory, so you can use `./` to specify the root directory, or even `../` to specify a directory outside of the Zipline root directory.
+It also supports absolute paths, such as `/uploads`.
+
+```dotenv title=".env"
+DATASOURCE_LOCAL_DIRECTORY=./uploads
+```
+
+## S3 Datasource
+
+### `DATASOURCE_S3_ACCESS_KEY_ID`
+
+The access key ID for the S3 bucket.
+
+```dotenv title=".env"
+DATASOURCE_S3_ACCESS_KEY_ID=access_key_id
+```
+
+### `DATASOURCE_S3_SECRET_ACCESS_KEY`
+
+The secret access key for the S3 bucket.
+
+```dotenv title=".env"
+DATASOURCE_S3_SECRET_ACCESS_KEY=secret
+```
+
+### `DATASOURCE_S3_BUCKET`
+
+The name of the S3 bucket. The bucket must have read/write access with the credentials provided. The bucket does not have to be public for Zipline to access it.
+
+```dotenv title=".env"
+DATASOURCE_S3_BUCKET=zipline
+```
+
+### `DATASOURCE_S3_REGION`
+
+If your S3 provider requires a specific region, you can specify it here (it will default to `us-east-1`). AWS, for example, requires a region to be specified.
+
+- **AWS S3**: A valid AWS region, such as `us-west-2`, `us-east-1`, etc. This is required for AWS S3.
+- **Cloudflare R2**: Must be `us-east-1` or `auto` - cloudflare R2 doesn't use regions since they are automatically determined, `us-east-1` is an alias for `auto`.
+- **Backblaze B2**: Region provided when creating your account and bucket, it may look like `us-west-004`.
+- **Hetzner Object Storage**: One of `fs1`, `nbg1`, `hel1`.
+
+```dotenv title=".env"
+DATASOURCE_S3_REGION=us-west-2
+```
+
+### `DATASOURCE_S3_ENDPOINT`
+
+This option can be used if you are using a different provider other than Amazon AWS S3.
+
+- **Cloudflare R2**: `https://<account_id>.r2.cloudflarestorage.com`
+- **Backblaze B2**: `https://s3.<region>.backblazeb2.com`
+- **Hetzner Object Storage**: `https://<region>.your-objectstorage.com/`
+
+```dotenv title=".env"
+DATASOURCE_S3_ENDPOINT=https://123abc.r2.cloudflarestorage.com # Cloudflare R2
+DATASOURCE_S3_ENDPOINT=https://s3.us-west-004.backblazeb2.com # Backblaze B2
+DATASOURCE_S3_ENDPOINT=https://fs1.your-objectstorage.com # Hetzner Object Storage
+DATASOURCE_S3_ENDPOINT=https://s3.us-west-2.amazonaws.com # AWS S3 (recommended to not set if using AWS)
+DATASOURCE_S3_ENDPOINT=http://localhost:9000 # something like a locally hosted minio server
+```
+
+### `DATASOURCE_S3_FORCE_PATH_STYLE`
+
+This option can be used if your S3 provider requires path-style requests. This isn't needed for any of the example providers you may see above, but it might be needed for something like a locally hosted minio server.
+
+```dotenv title=".env"
+DATASOURCE_S3_FORCE_PATH_STYLE=true
+```
+
+<Callout type='warn'>
+  If you are using a provider other than AWS S3, you may need to set this option
+  to `true`. If you notice errors when starting Zipline, or when
+  uploading/getting files, try setting this option to `true`. If you are unsure
+  whether or not your provider requires this, check their API documentation or
+  contact their support.
+</Callout>
+
+### `DATASOURCE_S3_SUBDIRECTORY`
+
+This option can be used to specify a subdirectory in the S3 bucket to store files in. Note that folders don't technically exist in S3, it's just a way the file is named. Displaying files in subdirectories might be different depending on the S3 provider you are using.
+
+```dotenv title=".env"
+DATASOURCE_S3_SUBDIRECTORY=zipline
+```

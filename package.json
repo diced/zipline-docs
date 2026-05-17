@@ -8,29 +8,49 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "postinstall": "fumadocs-mdx",
-    "lint": "eslint"
+    "lint": "eslint",
+    "gen:openapi": "tsx scripts/gen-openapi.ts"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-presence": "^1.1.5",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@takumi-rs/image-response": "^1.1.2",
+    "algoliasearch": "^5.52.1",
+    "bytes": "^3.1.2",
+    "class-variance-authority": "^0.7.1",
     "fumadocs-core": "16.8.11",
     "fumadocs-mdx": "15.0.5",
+    "fumadocs-openapi": "^10.8.3",
     "fumadocs-ui": "16.8.11",
     "lucide-react": "^1.14.0",
     "next": "16.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "tailwind-merge": "^3.6.0",
-    "@takumi-rs/image-response": "^1.1.2"
+    "react-parallax-tilt": "^1.7.327",
+    "scroll-into-view-if-needed": "^3.1.0",
+    "shiki": "^4.0.2",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.0",
+    "@types/adm-zip": "^0.5.8",
+    "@types/bytes": "^3.1.5",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.6.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "postcss": "^8.5.14",
-    "tailwindcss": "^4.3.0",
-    "typescript": "^6.0.3",
+    "adm-zip": "^0.5.17",
+    "eslint": "^10.3.0",
     "eslint-config-next": "16.2.6",
-    "eslint": "^10.3.0"
+    "postcss": "^8.5.14",
+    "prettier": "^3.8.3",
+    "react-medium-image-zoom": "^5.4.5",
+    "tailwindcss": "^4.3.0",
+    "tsx": "^4.22.0",
+    "typescript": "^6.0.3"
   }
 }

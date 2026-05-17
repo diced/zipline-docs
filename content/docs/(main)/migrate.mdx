@@ -1,0 +1,307 @@
+---
+title: Migrate from v3
+description: A guide to help you migrate from Zipline v3 to v4.
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+<Callout type='info'>
+  You must be on `v3.7.12` or higher to use the export feature. Additionally, to see the `Export all Server Data (JSON)` button, you must be logged in as a super-admin.
+
+If you have lost access to your super-admin account, you can utilize the [set-user](https://v3.zipline.diced.sh/docs/guides/scripts/set-user) while still running v3.
+
+</Callout>
+
+## Preparation
+
+Before you start, navigate to your v3 instance's manage account page and follow the steps below to export your data:
+
+### Export all Server Data [step]
+
+Click the "Export all Server Data (JSON)" button to start preparing a JSON file that contains all your server data.
+
+![Manage Account](/img/docs/migrate-1.png)
+
+### Confirm Export [step]
+
+Click "Yes" after confirming the export.
+
+![Export Data](/img/docs/migrate-2.png 'The modal shows what data is collected in the export file and asks for confirmation.')
+
+<Callout type='warning'>
+  The export contains sensitive information, such as passwords, API keys, 2fa
+  secrets, and more. Make sure to keep the file secure and delete it after the
+  migration.
+</Callout>
+
+### Wait for the export file to be prepared [step]
+
+After clicking yes, the server will start preparing the export file. This may take a few seconds to a few minutes, depending on the size of your data. Once the file is ready, your browser will prompt you to download it. Make sure to save it in a secure location, as it contains sensitive information.
+
+![Download Data](/img/docs/migrate-3.png)
+
+## Setting up v4
+
+The process is made much easier when using Docker, so this guide will assume you are using Docker. If you are not using Docker, you can still follow along, but you will have to adjust the commands accordingly.
+
+For the first few steps, keep the v3 instance running. We will need to access the postgres database to create a new database.
+
+### Pull the latest v4 image [step]
+
+```bash
+docker pull ghcr.io/diced/zipline:latest
+```
+
+### Enter `psql` CLI [step]
+
+Enter the database of your old v3 instance, so that we can create the new database.
+
+```bash
+docker compose exec postgres psql -U postgres # or whatever your postgres user is configured as
+```
+
+### Create a new database for v4 [step]
+
+```sql
+CREATE DATABASE zipline_v4; -- you may name this anything
+```
+
+<Callout type='info'>
+  You may run into an error that says `ERROR: template database "template1" has
+  a collation version mismatch`, run `ALTER DATABASE template1 REFRESH COLLATION
+  VERSION;` in the postgres CLI to rebuild all of the objects in the template
+  database using the new version, and you should be able to proceed with
+  creating the database.
+</Callout>
+
+### Exit the postgres shell [step]
+
+```bash
+exit;
+```
+
+### Environment Variables
+
+Almost all environment variables supported in v3 are no longer supported in v4. This is because v4 has a new configuration system that is handled entirely through the dashboard. Only a handful of environment variables are needed to get v4 running.
+
+Here are some variables that you will need to keep/rename:
+
+- `CORE_DATABASE_URL` -> `DATABASE_URL` (change the database at the end, to the new database you created in the above steps)
+- `CORE_HOST` -> is now `CORE_HOSTNAME`
+- `CORE_PORT`
+- `CORE_SECRET` -> this must be a string greater than 32 characters, or it will be rejected. It is recommended to just generate a new secret. (you may want to close this in single quotes if you're using a password generator)
+- `DATASOURCE_TYPE` -> only supports `s3` or `local`
+  - `DATASOURCE_LOCAL_DIRECTORY`
+  - `DATASOURCE_S3_ACCESS_KEY_ID`
+  - `DATASOURCE_S3_SECRET_ACCESS_KEY`
+  - `DATASOURCE_S3_BUCKET`
+  - `DATASOURCE_S3_REGION`
+  - `DATASOURCE_S3_ENDPOINT`
+  - `DATASOURCE_S3_REGION`
+  - `DATASOURCE_S3_PORT` -> no longer supported, include the port in the endpoint
+  - `DATASOURCE_S3_FORCE_S3_PATH` -> `DATASOURCE_S3_FORCE_PATH_STYLE`
+  - `DATASOURCE_S3_USE_SSL` -> no longer supported
+- `SSL_CERT` -> no longer supported
+- `SSL_KEY` -> no longer supported
+- `SSL_ALLOW_HTTP1` -> no longer supported
+
+After these changes, your environment section in your docker-compose file may look something like this:
+
+```yaml title="docker-compose.yml"
+environment:
+  - DATABASE_URL=postgres://postgres:postgres@postgres:5432/zipline_v4
+  - CORE_HOSTNAME=0.0.0.0
+  - CORE_PORT=3000
+  - CORE_SECRET=supersecret234567890qwertyuiopasdfghjklzxcvbnm
+  - DATASOURCE_TYPE=local
+  - DATASOURCE_LOCAL_DIRECTORY=./uploads
+```
+
+or...
+
+```yaml title="docker-compose.yml"
+environment:
+  - DATABASE_URL=postgres://postgres:postgres@postgres:5432/zipline_v4
+  - CORE_HOSTNAME=0.0.0.0
+  - CORE_PORT=3000
+  - CORE_SECRET=supersecret234567890qwertyuiopasdfghjklzxcvbnm
+  - DATASOURCE_TYPE=s3
+  - DATASOURCE_S3_ACCESS_KEY_ID=youraccesskey
+  - DATASOURCE_S3_SECRET_ACCESS_KEY=yoursecretkey
+  - DATASOURCE_S3_BUCKET=yourbucket
+  - DATASOURCE_S3_REGION=yourregion
+  - DATASOURCE_S3_ENDPOINT=yourendpoint # not needed for amazon aws s3
+```
+
+All other environment variables will have no effect on the server.
+
+<Callout type='danger'>
+  Zipline will fail to run if the database URL is the same as the one used in
+  v3. This is because the database schema has changed significantly between v3
+  and v4.
+</Callout>
+
+## Migrating Data
+
+### Restart the instance [step]
+
+```bash
+docker compose down
+docker compose up -d
+```
+
+If you would like you can view the logs to make sure everything is running correctly.
+
+```bash
+docker compose logs -f
+```
+
+### Navigate to your instance and create a user [step]
+
+On the first launch, you will be prompted to setup a super-admin account.
+
+![Create User](/img/docs/migrate-4.png)
+
+Enter a username and password, then click "Continue", then "Finish".
+
+### Navigate to Settings [step]
+
+After being redirected to the dashboard, click on your username in the top right corner, then click on "Settings" in the dropdown menu.
+
+![Settings](/img/docs/migrate-5.png)
+
+### Scroll down to "Server Actions", and click on "Import Data". [step]
+
+![Upload Export File](/img/docs/migrate-6.png)
+
+### Upload the export file [step]
+
+Click on "Upload Export (JSON)", and select the JSON file you downloaded earlier from your v3 instance.
+
+### View the data to be imported [step]
+
+Once the file is selected, you will see a modal with all the data that will be imported. This includes the number of users, files, and other data that will be imported.
+
+![Export Data Viewer](/img/docs/migrate-7.png)
+
+### Import Options [step]
+
+After scrolling down within the modal, you will see two options: "Import Settings?" and "Select a user to import data from into the current user."
+
+![Import Settings](/img/docs/migrate-8.png)
+
+### Import Settings
+
+When checking this box, Zipline will attempt to import settings that are compatible with v4 from the v3 instance.
+
+<Accordions type='single'>
+  <Accordion title='What settings are imported?'>
+
+    - `CORE_RETURN_HTTPS`
+    - `CORE_TEMP_DIRECTORY`
+    - `CHUNKS_MAX_SIZE`
+    - `CHUNKS_CHUNKS_SIZE`
+    - `CHUNKS_ENABLED`
+    - `UPLOADER_ROUTE`
+    - `UPLOADER_LENGTH`
+    - `UPLOADER_DISABLED_EXTENSIONS`
+    - `UPLOADER_DEFAULT_EXPIRATION`
+    - `UPLOADER_ASSUME_MIMETYPES`
+    - `EXIF_REMOVE_GPS`
+    - `URLS_ROUTE`
+    - `URLS_LENGTH`
+    - `WEBSITE_TITLE`
+    - `WEBSITE_EXTERNAL_LINKS`
+    - `FEATURES_DEFAULT_AVATAR`
+    - `OAUTH_BYPASS_LOCAL_LOGIN`
+    - `FEATURES_OAUTH_LOGIN_ONLY`
+    - `OAUTH_GITHUB_CLIENT_ID`
+    - `OAUTH_GITHUB_CLIENT_SECRET`
+    - `OAUTH_DISCORD_CLIENT_ID`
+    - `OAUTH_DISCORD_CLIENT_SECRET`
+    - `OAUTH_DISCORD_REDIRECT_URI`
+    - `OAUTH_GOOGLE_CLIENT_ID`
+    - `OAUTH_GOOGLE_CLIENT_SECRET`
+    - `OAUTH_GOOGLE_REDIRECT_URI`
+    - `FEATURES_OAUTH_REGISTRATION`
+    - `FEATURES_USER_REGISTRATION`
+    - `FEATURES_ROBOTS_TXT`
+    - `FEATURES_INVITES`
+    - `FEATURES_INVITES_LENGTH`
+    - `FEATURES_THUMBNAILS`
+    - `MFA_TOTP_ISSUER`
+    - `MFA_TOTP_ENABLED`
+    - `CORE_STATS_INTERVAL`
+    - `CORE_INVITES_INTERVAL`
+    - `CORE_THUMBNAILS_INTERVAL`
+    - `DISCORD_URL`
+    - `DISCORD_USERNAME`
+    - `DISCORD_AVATAR_URL`
+    - `DISCORD_UPLOAD_URL`
+    - `DISCORD_UPLOAD_USERNAME`
+    - `DISCORD_UPLOAD_AVATAR_URL`
+    - `DISCORD_SHORTEN_URL`
+    - `DISCORD_SHORTEN_USERNAME`
+    - `DISCORD_SHORTEN_AVATAR_URL`
+
+  </Accordion>
+</Accordions>
+
+### Import User Data
+
+This option allows you to merge data from a user in your export to the currently logged in user (the one you have just setup). This is useful if you used the same username in v3 and v4, as without selecting an option, the importer will skip over the user data that is already present.
+
+It is recommended to select the user you want to import data from, as this will merge the data from the user in the export to the currently logged in user.
+
+Users that were a super-admin on v3 will also be labelled in red.
+
+## Finalize Migration
+
+### Import Data [step]
+
+After selecting the options you want, click "Import Data". The server will now start importing the data.
+You will be prompted to confirm the import. Read the alert, then click "Import Data" to start the import.
+
+![Confirm Import](/img/docs/migrate-9.png)
+
+### View Import Progress [step]
+
+The server will now start importing the data. This may take up to a few minutes (is generally pretty quick), depending on the size of the export.
+
+### Import Success [step]
+
+After the import finishes, you will see a success message:
+
+![Import Success](/img/docs/migrate-10.png)
+
+## Post-Migration
+
+If you had any issues with migration, it is recommended to turn on [debug logs](/docs/guides/debug), and run the import again. This will give you more information on what went wrong.
+
+If the import was successful, the next step is the make sure your files are being served properly:
+
+### Local
+
+If you're using the local datasource and haven't changed the file directory, the same volume will continue to work. Your files will remain accessible at their previous URLs and should still appear on the dashboard.
+
+If you've opted to create a new local datasource for migrating to v4, simply copy over the data from your old datasource to the new one, and it should be accessible.
+
+### S3
+
+If you're using the S3 datasource, you will need to make sure your S3 bucket is still accessible. If you have changed the bucket name, you will need to update the bucket name in the datasource settings.
+
+Other than that, if nothing was changed in the S3 settings, your files should still be accessible at their previous URLs.
+
+### Troubleshooting
+
+If you are having issues with the migration, please check the browser logs during the entire process, then check the server logs after the import has finished.
+
+If you are still having issues, feel free to join our [Discord server](/discord) and ask for help, or open an issue on [GitHub](/github).
+
+## Other Changes
+
+A lot of other changes have been made in v4, here are some notable ones:
+
+- The API has been completely overhauled, most of it will not be compatible with v3's API.
+- Old upload configurations will not be compatible with v4. To see what headers and options have changed, refer to [Upload Options](/docs/guides/upload-options).
+- The old `/r/{file}` route has been remamed to `/raw/{file}`. Zipline currently does redirect `/r/{file}` to `/raw/{file}`, but it is recommended to update any links you may have to the new route.

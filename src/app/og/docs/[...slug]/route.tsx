@@ -1,8 +1,9 @@
+import { DocsOGImage } from '@/components/og/docs-image';
+import { getOgLogoDataUrl } from '@/lib/og-assets';
 import { getPageImage, source } from '@/lib/source';
+import { appName } from '@/lib/shared';
 import { notFound } from 'next/navigation';
 import { ImageResponse } from '@takumi-rs/image-response';
-import { generate as DefaultImage } from 'fumadocs-ui/og/takumi';
-import { appName } from '@/lib/shared';
 
 export const revalidate = false;
 
@@ -11,8 +12,15 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/docs/[...
   const page = source.getPage(slug.slice(0, -1));
   if (!page) notFound();
 
+  const logo = await getOgLogoDataUrl();
+
   return new ImageResponse(
-    <DefaultImage title={page.data.title} description={page.data.description} site={appName} />,
+    <DocsOGImage
+      title={page.data.title}
+      description={page.data.description}
+      site={appName}
+      logo={logo}
+    />,
     {
       width: 1200,
       height: 630,

@@ -1,0 +1,217 @@
+---
+title: Debug
+description: Enable verbose logging or detailed memory usage to help diagnose issues
+---
+
+## Verbose Logs
+
+Enabling debug logs will show more verbose logs from Zipline. This is mostly useful when debugging an issue with Zipline. This mode is helpful when reporting issues, as it provides more context about what is happening.
+
+### Enabling
+
+To enable debug mode, set the `DEBUG` environment variable to `zipline`.
+
+```dotenv title=".env"
+DEBUG=zipline
+```
+
+### Disabling
+
+Simply remove the `DEBUG` environment variable.
+
+### Example Output
+
+![debug out](/img/docs/debug.png)
+
+## Detailed Memory Usage
+
+Enabling detailed memory usage logging will log the memory usage of Zipline at 1 second intervals. This is useful for diagnosing memory leaks or high memory usage issues.
+
+### Enabling
+
+To enable detailed memory usage, set the `DEBUG_MONITOR_MEMORY` environment variable to `true`.
+
+### Disabling
+
+To disable detailed memory usage, set the `DEBUG_MONITOR_MEMORY` environment variable to `false` or remove it entirely.
+
+### Example Output
+
+The output of the detailed memory usage will output to a file called `.memory.log` in the current working directory.
+Each line in the file has values seperated by commas, and each line represents an entry logged at 1 second intervals.
+
+```json
+1762909354,651100160,100545640,296501248,13717303,1183518,443816,2374767
+1762909355,651132928,100567832,296501248,13718816,1184991,444319,2375661
+1762909356,651182080,100593088,296501248,13720273,1186448,444625,2376558
+1762909357,651182080,100609952,296501248,13721730,1187905,444929,2377380
+1762909358,651280384,100636944,296501248,13723187,1189362,445310,2378343
+```
+
+To parse the file, each value is in the following order:
+
+1. ts (timestamp in UNIX epoch)
+2. mem_rss (resident set size)
+3. mem_heap_used (heap used)
+4. mem_heap_total (total heap)
+5. mem_external (external memory)
+6. mem_array_buffers (array buffer memory)
+7. cpu_system (system CPU usage)
+8. cpu_user (user CPU usage)
+
+#### Parsing Examples
+
+```cpp title="read.cc"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+struct MemoryCpuLog {
+  long long ts, mem_rss, mem_heap_used, mem_heap_total, mem_external,
+      mem_array_buffers, cpu_system, cpu_user;
+};
+
+bool parseLine(const string &line, MemoryCpuLog &entry) {
+  stringstream ss(line);
+  string part;
+
+  vector<long long *> fields = {&entry.ts,
+                                &entry.mem_rss,
+                                &entry.mem_heap_used,
+                                &entry.mem_heap_total,
+                                &entry.mem_external,
+                                &entry.mem_array_buffers,
+                                &entry.cpu_system,
+                                &entry.cpu_user};
+
+  for (auto *field : fields) {
+    if (!getline(ss, part, ','))
+      return false;
+
+    *field = stoll(part);
+  }
+
+  return true;
+}
+
+int main() {
+  vector<MemoryCpuLog> entries = {};
+
+  ifstream file(".memory.log");
+  if (!file.is_open()) {
+    cerr << "failed" << endl;
+    return 1;
+  }
+
+  string line;
+
+  while (getline(file, line)) {
+    MemoryCpuLog entry;
+
+    if (parseLine(line, entry)) {
+      entries.push_back(entry);
+    } else {
+      cerr << "failed" << endl;
+      return 1;
+    }
+  }
+
+  // do something with the entries
+
+  return 0;
+}
+```
+
+```ts title="read.ts"
+import { readFile } from 'fs/promises';
+
+interface MemoryCpuLog {
+  ts: number;
+  mem_rss: number;
+  mem_heap_used: number;
+  mem_heap_total: number;
+  mem_external: number;
+  mem_array_buffers: number;
+  cpu_user: number;
+  cpu_system: number;
+}
+
+function readLine(line: string): MemoryCpuLog {
+  const [
+    ts,
+    mem_rss,
+    mem_heap_used,
+    mem_heap_total,
+    mem_external,
+    mem_array_buffers,
+    cpu_user,
+    cpu_system,
+  ] = line
+    .trim()
+    .split(',')
+    .map((value) => Number(value));
+  return {
+    ts,
+    mem_rss,
+    mem_heap_used,
+    mem_heap_total,
+    mem_external,
+    mem_array_buffers,
+    cpu_user,
+    cpu_system,
+  };
+}
+
+async function readLog(file: string): Promise<MemoryCpuLog[]> {
+  const str = await readFile(file, 'utf-8');
+
+  const lines = str.trim().split('\n');
+
+  return lines.map(readLine);
+}
+
+const entries = await readLog('.memory.log');
+```
+
+```python title="read.py"
+from datetime import datetime
+
+LOG_FILE = ".memory.log"
+
+def read_log():
+    if not os.path.exists(LOG_FILE):
+        return []
+
+    entries = []
+    with open(LOG_FILE, "r") as f:
+        for line in f:
+            line = line.strip()
+            if not line or not line[0].isdigit():
+                continue
+
+            try:
+                parts = line.split(",")
+                if len(parts) != 8:
+                    continue
+
+                entry = {
+                  "ts": int(parts[0]),
+                  "mem_rss": int(parts[1]),
+                  "mem_heap_used": int(parts[2]),
+                  "mem_heap_total": int(parts[3]),
+                  "mem_external": int(parts[4]),
+                  "mem_array_buffers": int(parts[5]),
+                  "cpu_system": int(parts[6]),
+                  "cpu_user": int(parts[7]),
+                }
+
+                entries.append(entry)
+            except Exception:
+                continue
+
+    return entries
+```

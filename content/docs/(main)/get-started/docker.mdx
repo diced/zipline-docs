@@ -1,0 +1,76 @@
+---
+title: Docker
+description: Install and run Zipline with Docker*
+---
+
+Zipline can be easily installed and run using Docker Compose. This is the recommended installation method for most users, as it abstracts away the complexities of setting up the environment and dependencies.
+
+## Set up `docker-compse.yml` [step]
+
+First, download the `docker-compose.yml` file:
+
+```bash tab="curl"
+curl -LO https://zipline.diced.sh/docker-compose.yml
+```
+
+```bash tab="wget"
+wget https://zipline.diced.sh/docker-compose.yml
+```
+
+**If you don't already have a `.env`** file with a database password and zipline secret, you can generate one with the following command:
+
+```bash copy
+echo "POSTGRESQL_PASSWORD=$(openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n')" > .env
+echo "CORE_SECRET=$(openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n')" >> .env
+```
+
+<Callout title='What does this command do?' type='info'>
+```bash
+openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n'
+```
+
+- `openssl rand -base64 42`: Generate 42 random bytes in base64 encoding.
+- `tr -dc A-Za-z0-9`: Remove all characters except for letters and numbers.
+- `cut -c -32`: Cut the string to 32 characters.
+- `tr -d '\n'`: Remove the newline character.
+
+</Callout>
+
+<Callout type='warning'>
+  Zipline will fail to start without the `POSTGRESQL_PASSWORD` and `CORE_SECRET`
+  variables.
+</Callout>
+
+<Callout type='info'>
+  You will also want to setup a [datasource](/docs/config/datasource) for your
+  instance. By default, Zipline will use `./uploads` (the docker-compose.yml
+  also includes a volume for this) for local file storage. You can configure a
+  different datasource (e.g. S3) by setting the appropriate environment
+  variables in the `.env` file.
+</Callout>
+
+## Run the server [step]
+
+```bash copy
+docker compose pull
+docker compose up -d
+```
+
+After starting, Zipline will be available at `http://<ip>:3000` where `<ip>` is the IP address of the machine running Zipline.
+
+You will be redirected to a setup page where you can configure the default super administrator username and password.
+
+# Updating
+
+To update Zipline, simply run the following command:
+
+```bash copy
+docker compose pull
+docker compose up -d
+```
+
+This will pull the latest Zipline image and restart the server.
+
+# Extra resources
+
+- [Using a reverse proxy](/docs/guides/reverse-proxy)

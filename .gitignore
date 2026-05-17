@@ -24,3 +24,8 @@ yarn-error.log*
 .env*.local
 .vercel
 next-env.d.ts
+
+# zipline generated at build time
+openapi.json
+content/docs/api/(generated)/
+.env

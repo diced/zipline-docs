@@ -1,0 +1,50 @@
+---
+title: ziplinectl list-users
+description: List all users in Zipline
+---
+
+## Usage
+
+```bash
+ziplinectl list-users [options]
+```
+
+## Options
+
+| Option                      | Description                                                           |
+| --------------------------- | --------------------------------------------------------------------- |
+| `-f`, `--format`            | Format the JSON output for easier reading.                            |
+| `-e [key]`, `--extra [key]` | Displays an extra property. See [Extra](#extra) for more information. |
+| `--id`                      | Find a specific user by ID.                                           |
+| `-h`, `--help`              | Display options and arguments for this command.                       |
+
+### Extra
+
+A list of available properties:
+
+- `view`
+- `oauthProviders`
+- `totpSecret`
+- `passkeys`
+- `quota`
+- `sessions`
+
+## Example Usage
+
+List all users:
+
+```bash
+ziplinectl list-users
+```
+
+List all users and include oauth providers:
+
+```bash
+ziplinectl list-users -e oauthProviders
+```
+
+List all users and include both `oauthProviders` and `quota`:
+
+```bash
+ziplinectl list-users -e oauthProviders -e quota
+```

@@ -1,0 +1,68 @@
+---
+title: View Routes
+description: Customize the preview of files when viewed through the browser
+---
+
+View Routes on Zipline allow you to customize the appearance of files when they are viewed through the browser. By this we mean that instead of just showing the raw file and letting the browser handle it, the file is rendered in a more "user-friendly" way.
+
+![View Route Example](/img/docs/view-routes-1.png)
+
+There is an option to download it, and clicking on the image/video, etc. will enlarge it within the page.
+
+## Enabling View Routes
+
+1. Go to your Zipline dashboard, and head over to the your user settings in the top right corner.
+2. Scroll down to the **View Routes** section.
+3. Toggle the `Enable View Routes` option to enable view routes.
+
+![Enable View Routes](/img/docs/view-routes-2.png)
+
+## Customizing the View
+
+Zipline offers a few options to customize the content on the view route.
+
+### Showing Mimetype
+
+You can enable the `Show Mimetype` option, to show the mimetype of the file at the top of the page (e.g. `image/png`).
+
+### Adding Custom Text
+
+You can add custom text to the view route page by entering it into the `View Content` text field. This text will be displayed below the file preview.
+
+![Custom Text Field](/img/docs/view-routes-3.png)
+
+<Callout type='note'>
+  You can use HTML in the `View Content` field to further customize the
+  appearance of the view route page, although it is very limited.
+</Callout>
+
+#### Examples
+
+Here are some examples of what you can do with the `View Content` field:
+
+- `<h3>{file.name} was uploaded at {file.createdAt::locale}</h3>` - Displays the name of the file and the date it was uploaded.
+
+![Custom Text Example](/img/docs/view-routes-4.png)
+
+For more information on the available variables, see the [Variables](/docs/guides/variables) guide.
+
+### View Content Alignment
+
+This option allows you to change the alignment of the `View Content` text. You can choose between `Left`, `Center`, and `Right`.
+
+## Embeds
+
+![view routes embeds](/img/docs/view-routes-embed-1.png)
+
+Enabling embeds allows you to have a customized embed that shows up on supported platforms (like Discord, Slack, etc.).
+
+Each of the fields supports variables, so you can customize the embed to show the whatever you want.
+
+<Callout type='info'>
+  The view route toggle must be enabled for embeds to work. You may notice that
+  it is disabled if the view route toggle is disabled.
+</Callout>
+
+## Other Resources
+
+- [Variables](/docs/guides/variables)

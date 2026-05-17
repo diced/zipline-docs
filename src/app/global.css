@@ -1,6 +1,180 @@
 @import 'tailwindcss';
+
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+@import 'fumadocs-openapi/css/preset.css';
+
+/* dark mode */
+@custom-variant dark (&:is(.dark *));
+
+/* theme */
+@theme {
+  --color-gray-50: #eeeff1;
+  --color-gray-100: #dddfe4;
+  --color-gray-200: #bbbec8;
+  --color-gray-300: #999ead;
+  --color-gray-400: #777e92;
+  --color-gray-500: #5b6071;
+  --color-gray-600: #494d5a;
+  --color-gray-700: #373a44;
+  --color-gray-800: #24262d;
+  --color-gray-900: #121317;
+  --color-gray-950: #0a0b0d;
+
+  --color-blue-50: #f2f6fd;
+  --color-blue-100: #e5ebf9;
+  --color-blue-200: #c4d5f3;
+  --color-blue-300: #90b2e9;
+  --color-blue-400: #558adb;
+  --color-blue-500: #2f6cc8;
+  --color-blue-600: #2052a9;
+  --color-blue-700: #1b4189;
+  --color-blue-800: #1a3972;
+  --color-blue-900: #1b325f;
+  --color-blue-950: #091020;
+
+  --color-yellow-50: #fefbec;
+  --color-yellow-100: #fdf8de;
+  --color-yellow-200: #faf1b8;
+  --color-yellow-300: #f7ea96;
+  --color-yellow-400: #f5e370;
+  --color-yellow-500: #f2db4e;
+  --color-yellow-600: #eed011;
+  --color-yellow-700: #b59e0d;
+  --color-yellow-800: #776809;
+  --color-yellow-900: #3e3605;
+
+  --color-fd-background: var(--color-gray-50);
+  --color-fd-foreground: var(--color-gray-900);
+  --color-fd-muted: var(--color-gray-100);
+  --color-fd-muted-foreground: var(--color-gray-500);
+  --color-fd-popover: var(--color-gray-50);
+  --color-fd-popover-foreground: var(--color-gray-900);
+  --color-fd-card: var(--color-gray-50);
+  --color-fd-card-foreground: var(--color-gray-900);
+  --color-fd-border: var(--color-gray-200);
+  --color-fd-primary: var(--color-blue-500);
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: var(--color-gray-100);
+  --color-fd-secondary-foreground: var(--color-gray-900);
+  --color-fd-accent: color-mix(in oklab, var(--color-gray-200) 60%, transparent);
+  --color-fd-accent-foreground: var(--color-gray-900);
+  --color-fd-ring: var(--color-gray-400);
+  --color-fd-overlay: color-mix(in oklab, var(--color-gray-900) 20%, transparent);
+}
+
+.dark {
+  --color-fd-background: var(--color-gray-900);
+  --color-fd-foreground: var(--color-gray-100);
+  --color-fd-muted: var(--color-gray-800);
+  --color-fd-muted-foreground: var(--color-gray-400);
+  --color-fd-popover: var(--color-gray-800);
+  --color-fd-popover-foreground: var(--color-gray-100);
+  --color-fd-card: var(--color-gray-900);
+  --color-fd-card-foreground: var(--color-gray-100);
+  --color-fd-border: var(--color-gray-700);
+  --color-fd-primary: var(--color-blue-400);
+  --color-fd-primary-foreground: var(--color-gray-900);
+  --color-fd-secondary: var(--color-gray-800);
+  --color-fd-secondary-foreground: var(--color-gray-100);
+  --color-fd-accent: color-mix(in oklab, var(--color-gray-700) 50%, transparent);
+  --color-fd-accent-foreground: var(--color-gray-100);
+  --color-fd-ring: var(--color-gray-500);
+  --color-fd-overlay: color-mix(in oklab, black 40%, transparent);
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-fd-border, currentcolor);
+  }
+
+  body {
+    background-color: var(--color-fd-background);
+    color: var(--color-fd-foreground);
+  }
+}
+
+.dark #nd-sidebar {
+  --color-fd-muted: var(--color-gray-800);
+  --color-fd-secondary: var(--color-gray-800);
+  --color-fd-muted-foreground: var(--color-gray-400);
+}
+
+/* Transparent docs sidebar — matches main content background */
+#nd-sidebar {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#nd-sidebar[data-hovered='true'] {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Docs layout offsets when site nav sits above the Fumadocs grid */
+.docs-sidebar-placeholder {
+  top: calc(var(--fd-banner-height, 0px) + var(--fd-site-nav-height, 0px));
+  height: calc(
+    var(--fd-docs-height) - var(--fd-banner-height, 0px) - var(--fd-site-nav-height, 0px)
+  );
+}
+
+@keyframes gradient-spin {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* scroll bar */
+.scroll-styled {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-300) transparent;
+  scrollbar-gutter: stable;
+}
+
+.scroll-styled::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+.scroll-styled::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.scroll-styled::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+}
+
+@media (hover: hover) {
+  .scroll-styled:hover::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    background-color: var(--color-gray-400);
+    background-clip: content-box;
+  }
+}
+
+.dark .scroll-styled {
+  scrollbar-color: var(--color-gray-600) transparent;
+}
+
+.dark .scroll-styled::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-600);
+}
+
+.dark .scroll-styled:hover::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-500);
+}
 
 html {
   scrollbar-gutter: stable;

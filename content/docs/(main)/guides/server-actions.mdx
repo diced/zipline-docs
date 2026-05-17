@@ -1,0 +1,56 @@
+---
+title: Server Actions
+description: Perform maintenance actions on the server, such as clearing temp files, requerying file
+---
+
+These are small "maintenance" actions that can be performed on the server. This section is found under the "Administrator" button on the left-nav, then under the "Server Actions" link.
+
+![Server Actions](/img/docs/server-actions-1.png)
+
+From here, you can perform the following actions:
+
+![Server Actions Buttons](/img/docs/server-actions-2.png)
+
+## Import/Export Data
+
+This will allow you to import data (from V3 or V4 exports) or export your current data (that can be imported here later.)
+
+For more information on how V3 imports work, visit [migrations](/docs/migrate).
+
+For more information on how V4 imports/exports work, visit [Import & Export](/docs/guides/backup/instance).
+
+The export file will return a JSON file that contains all your data, except for the actual files. This is to keep the file size down, and to allow you to handle files seperately.
+
+## Clear Zero-Byte Files
+
+This button does what it says, it will remove any files that have 0 bytes.
+
+After clicking the button, it will tell you how many files it will remove and ask you to confirm.
+
+## Clear Temp Files
+
+This button will clear any files within the temporary directory configured.
+
+## Requery Size of Files
+
+This will requery the size of all files in the database. This is useful if you have moved files around, or they no longer exist and you want to clean up your instance.
+
+![Requery Size of Files](/img/docs/server-actions-3.png)
+
+### Force Update
+
+This will update every file regardless of the size has changed or not. This may take a while depending on the number of files you have.
+
+### Force Delete
+
+This will delete files that are in the database but no longer exist on the server. It will also clear files that are in the database but tagged with 0 bytes.
+
+## Generate Thumbnails
+
+Usually, thumbnails are generated on a scheduled interval, but this button will allow you to generate thumbnails for video files that don't have them yet.
+
+![Generate Thumbnails](/img/docs/server-actions-4.png)
+
+### Re-run
+
+This will generate thumbnails for all video files, even if they have been generated before.

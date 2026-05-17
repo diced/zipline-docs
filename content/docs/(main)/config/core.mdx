@@ -1,0 +1,64 @@
+---
+title: Core
+description: This page documents the core configuration options available
+---
+
+## `DATABASE_URL`
+
+`DATABASE_URL` is a **required** environment variable, Zipline will fail to start without it.
+
+This variable should be a postgresql connection string.
+
+```dotenv title=".env"
+DATABASE_URL=postgresql://user:password@localhost:5432/zipline
+```
+
+If you prefer, you can also set the individual components of the connection string using the following environment variables: `DATABASE_NAME`, `DATABASE_USERNAME`, `DATABASE_PASSWORD`, `DATABASE_HOST`, and `DATABASE_PORT`.
+
+```dotenv title=".env"
+DATABASE_NAME=zipline
+DATABASE_USERNAME=user
+DATABASE_PASSWORD=password
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+```
+
+<Callout type="note">
+  If both `DATABASE_URL` and the individual components are provided, `DATABASE_URL` will take precedence.
+
+If any one of the individual components are missing, Zipline will fail to start.
+
+</Callout>
+
+## `CORE_HOSTNAME`
+
+`CORE_HOSTNAME` is an optional environment variable that specifies the hostname that Zipline will bind to, it defaults to `0.0.0.0`.
+If using Docker, you can set this to `0.0.0.0` so that you can access Zipline from outside the container (with a exposed port).
+
+If you want to listen on a UNIX socket, like `/tmp/zipline.sock` you can do so by setting this environment variable to the path to a socket. The `CORE_PORT` variable still needs to be set, but will obviously have no effect.
+
+```dotenv title=".env"
+CORE_HOSTNAME=127.0.0.1
+CORE_HOSTNAME=0.0.0.0
+```
+
+## `CORE_PORT`
+
+`CORE_PORT` is an optional environment variable that specifies the port that Zipline will bind to, it defaults to `3000`.
+
+```dotenv title=".env"
+CORE_PORT=3000
+```
+
+## `CORE_SECRET`
+
+`CORE_SECRET` is a **required** environment variable that is used to sign website cookies, and should be kept private.
+It is recommended to generate this value using a password manager, or with the following command:
+
+```bash
+openssl rand -base64 32 # 32 is the length, you can change this
+```
+
+```dotenv title=".env"
+CORE_SECRET="p5g9NUcnpSbSl+N/70rlv+YXcoL5X0LA6fTc8Anz74w="
+```

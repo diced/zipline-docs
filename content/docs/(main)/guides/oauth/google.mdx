@@ -1,0 +1,73 @@
+---
+title: Google
+description: Setting up Google OAuth for Zipline
+---
+
+## Create a Google OAuth2 application
+
+### Configure OAuth Consent Screen
+
+1. Navigate to the [Google Cloud > OAuth Consent Screen](https://console.cloud.google.com/apis/credentials/consent) page.
+2. It will ask you if you would like Internal or External, read the descriptions and choose the one that best fits your use case.
+3. Fill in the required fields like App name, User support email, Developer contact information, etc.
+4. Under Authorized domains, add your Zipline domain without the protocol (e.g. example.com instead of https://example.com).
+
+![google oauth consent screen](/img/docs/oauth-google-4.png)
+
+5. Click "Save and Continue".
+6. Click the "Add or Remove Scopes" button.
+
+![google oauth scopes](/img/docs/oauth-google-5.png)
+
+7. Under "Manually add scopes" add the following scopes:
+   - `https://www.googleapis.com/auth/userinfo.profile`
+
+Then click the "Add to table button" button.
+
+8. Click "Update" at the bottom of the page.
+
+![google oauth scopes added](/img/docs/oauth-google-6.png)
+
+9. Click "Save and Continue".
+10. Feel free to add test users if you would like, then click "Save and Continue" again.
+11. Finish the setup and head to the [next section to create credentials](#create-oauth2-credentials)
+
+### Create OAuth2 Credentials
+
+1. Navigate to the [Google Cloud > Create OAuth Client ID](https://console.cloud.google.com/apis/credentials/oauthclient) page.
+2. Select "Web application" as the application type.
+3. Under "Authorized redirect URIs", add the following URI: `http(s)://<your domain>/api/auth/oauth/google`
+4. Under "Authorized JavaScript origins", add the following URI: `http(s)://<your domain>`
+
+![google oauth redirect url](/img/docs/oauth-google-1.png)
+
+<Callout type='info'>
+  When clicking the "Login with Google" button, or linking your Google account,
+  the host that Zipline uses for the redirect URL will be the same as the host
+  that you accessed Zipline from. If you access Zipline from
+  `http://localhost:3000`, the redirect URL will be
+  `http://localhost:3000/api/auth/oauth/google`. If you are encountering issues
+  with the redirect URL, you can set a custom redirect URL in the settings
+  dashboard. This **MUST** have the `/api/auth/oauth/google` path at the end.
+</Callout>
+
+5. Click "Create" and copy the "Client ID" and "Client Secret" for later.
+
+![google oauth client id and secret](/img/docs/oauth-google-2.png)
+
+6. Click ["Library"](https://console.cloud.google.com/apis/library) in the sidebar.
+7. Search for "Google People API" (or click [here](https://console.cloud.google.com/apis/library/people.googleapis.com)) and click on it.
+8. Click "Enable" at the top of the page.
+
+![google people api enable](/img/docs/oauth-google-3.png)
+
+## Configure Zipline
+
+5. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
+6. Paste the "Client ID" and "Client Secret" into the respective fields.
+
+![zipline settings oauth google](/img/docs/oauth-google-7.png)
+
+7. Click "Save" at the bottom of the section.
+
+Once these two fields are filled out, you should see a "Login with Google" button on the login page, as well as the option to link your Google account in the manage account page.

@@ -1,0 +1,78 @@
+---
+title: ziplinectl
+description: Manage specific parts of your Zipline instance with the ziplinectl command line utility
+---
+
+Zipline provides a command line utility called `ziplinectl` to manage specific parts of your Zipline instance.
+
+## Accessing `ziplinectl`
+
+In the documentation, this value will be referred to as `ziplinectl`.
+
+<Tabs items={['Docker', 'Manual']} groupId="ziplinectl">
+  <Tab value="Docker">
+    ```bash
+    docker compose exec zipline ziplinectl <...>
+    ```
+    or
+
+    ```bash
+    docker compose exec zipline pnpm ctl <...>
+    ```
+
+  </Tab>
+
+  <Tab value="Manual">
+    ```bash
+    pnpm ctl <...>
+    ```
+  </Tab>
+</Tabs>
+
+## Help Screen (-h, --help)
+
+Output the help screen for `ziplinectl`
+
+```bash
+~/zipline $ ziplinectl -h
+
+Usage: ziplinectl [options] [command]
+
+control utility for zipline
+
+Options:
+  -V, --version                          output the version number
+  -h, --help                             display help for command
+
+Commands:
+  read-config [options]                  output the configuration as json, exactly how Zipline sees it
+  list-users [options]                   list all users
+  set-user [options] <property> <value>
+  import-dir [options] <directory>
+  help [command]                         display help for command
+```
+
+## Version (-V, --version)
+
+Output the version of `zipline`
+
+```bash
+ziplinectl -V
+```
+
+## Commands
+
+<Cards>
+  <Card href='/docs/guides/cli/read-config' title='📖 Read Config'>
+    Output the configuration as JSON, exactly how Zipline sees it
+  </Card>
+  <Card href='/docs/guides/cli/list-users' title='👥 List Users'>
+    List all users
+  </Card>
+  <Card href='/docs/guides/cli/set-user' title='✏️ Set User'>
+    Set a property in a user, like their password
+  </Card>
+  <Card href='/docs/guides/cli/import-dir' title='📩 Import Directory'>
+    Import a directory of files
+  </Card>
+</Cards>

@@ -1,0 +1,61 @@
+---
+title: Shell Script
+description: Uploading a file using a shell script
+---
+
+This guide will show you how to generate a shell-script that takes an argument (file/url) and uploads it to Zipline.
+
+## Downloading
+
+1. Head over to your Settings page (click your user icon in the top right corner)
+2. Scroll down to **Generate Uploaders**
+
+![](/img/docs/sh-1.png)
+
+3. Click on **Shell Script**, then enable any options that you would like
+
+![](/img/docs/sh-2.png)
+
+Once you download one save it to your computer, remember the path, and make the file executable.
+
+```bash
+chmod +x ~/Downloads/zipline-script-file.sh
+#or
+chmod +x ~/Downloads/zipline-script-url.sh
+```
+
+## Using the script
+
+### File
+
+```bash
+./zipline-script-file.sh /path/to/file
+```
+
+### URL
+
+```bash
+./zipline-script-url.sh https://example.com/file
+```
+
+## DIY
+
+If you would like to create your own script, here are some constants that will most likely be needed.
+
+```bash
+TOKEN="your token"
+URL="https://yourdomain.com/api/upload"
+
+curl -H "authorization: $TOKEN" -H "content-type: multipart/form-data" $URL -F file=@$1 | jq -r .files[0].url | tr -d '\n'
+```
+
+After piping the output to `jq` (gets the URL) and `tr` (gets rid of the newline), you can pipe it to anything you want:
+
+- `xclip -selection clipboard` for X11
+- `wl-copy` for Wayland
+- `pbcopy` for macOS (this might be annoying since macOS is annoying)
+- etc.
+
+## More Information
+
+- [Wayland Guide](/docs/guides/wayland): An extensive guide on the many different ways to take screenshots and upload them to Zipline when using a Wayland compositor.

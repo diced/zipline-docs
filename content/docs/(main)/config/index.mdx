@@ -1,0 +1,66 @@
+---
+title: Config
+description: All the environment variables / settings you can use to configure Zipline
+---
+
+Zipline is primarily configured through environment variables. These can be set in a `.env` file in the root of the project, or through `docker-compose.yml` if using Docker.
+
+Most of Zipline's settings are also configurable through the settings dashboard.
+
+By default, only the `DATABASE_URL` and `CORE_SECRET` environment variables are required. The rest are optional and have default values.
+
+<Callout type='info'>
+  It is important that the `CORE_SECRET` is not easily guessable. This secret is
+  used to sign website cookies, and should be kept private. If the secret is
+  comprimised, it is recommended to change it immediately, as it can be used to
+  gain unauthorized access to the website.
+</Callout>
+
+## Example
+
+```dotenv title=".env"
+DATABASE_URL=postgresql://user:password@localhost:5432/zipline
+CORE_SECRET="secret"
+CORE_PORT=3000
+CORE_HOSTNAME=0.0.0.0
+
+DATASOURCE_TYPE=local
+DATASOURCE_LOCAL_DIRECTORY=./uploads
+```
+
+## Reading Environment Variables from Files
+
+If you want to set certain environment variables through file content, you can use the `_FILE` suffix.
+
+For example, instead of setting the `CORE_SECRET` variable directory, you can create a file named `secret.txt` containing the secret, and set the environment variable to the relative/full path to that file.
+
+```dotenv title=".env"
+# Instead of this:
+CORE_SECRET="hello"
+
+# You can do this:
+CORE_SECRET_FILE=./secret.txt
+```
+
+This is useful for managing secrets in containerized environments, where secrets can be mounted as files. If using docker secrets, see [this page](https://docs.docker.com/engine/swarm/secrets/) for more information (secrets can be managed within docker compose files as well!).
+
+---
+
+## Links
+
+Variables in the `core` and `datasource` categories can only be configured through environment variables.
+All other variables can be set either through the settings dashboard or via environment variables listed in the [settings documentation](/docs/config/settings).
+
+<Cards>
+  <Card href='/docs/config/core' title='🛞 Core'>
+    Core configuration options
+  </Card>
+
+<Card href='/docs/config/datasource' title='📂 Datasource'>
+  Local file storage & S3 support
+</Card>
+
+  <Card href='/docs/config/settings' title='⚙️ Settings Dashboard'>
+    Settings that can be managed through the web dashboard
+  </Card>
+</Cards>

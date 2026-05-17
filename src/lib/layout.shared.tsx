@@ -4,9 +4,23 @@ import { appName, gitConfig } from './shared';
 export function baseOptions(): BaseLayoutProps {
   return {
     nav: {
-      // JSX supported
       title: appName,
+      transparentMode: 'top',
     },
-    githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
+    githubUrl: `https://github.com/${gitConfig.user}/zipline`,
+    links: [
+      {
+        text: 'Features',
+        url: '/#features',
+        active: 'url',
+        on: 'nav',
+      },
+      {
+        text: 'Documentation',
+        url: '/docs/get-started',
+        active: 'nested-url',
+        on: 'nav',
+      },
+    ],
   };
 }

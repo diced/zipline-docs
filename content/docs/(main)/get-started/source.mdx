@@ -1,0 +1,107 @@
+---
+title: 'Building from source'
+description: Build and run Zipline from source. Not recommended for most users.
+---
+
+Building Zipline from source is not recommended for most users, as it requires setting up a development environment and managing dependencies manually. However, if you want to contribute to the project or need to customize it in ways that are not supported by the pre-built Docker image, building from source can be a good option.
+
+## Install Prerequisites [step]
+
+- [nodejs@22](https://nodejs.org/)
+- [pnpm@10.10.0](https://pnpm.io/installation)
+- [ffmpeg](https://ffmpeg.org/download.html) (for generating thumbnails, optional)
+
+<Callout type='note'>
+  If you would like to see what versions Zipline has been successfully built on,
+  visit the [actions
+  history](https://github.com/diced/zipline/actions/workflows/build.yml?query=branch%3Av4).
+  Click the latest one on the top, and you can see runs labelled like `build
+  (20.x, amd64)`. This means that Zipline was successfully built on node version
+  20.x on an amd64 architecture.
+</Callout>
+
+## Clone the repository [step]
+
+```bash copy
+git clone https://github.com/diced/zipline
+cd zipline
+```
+
+## Install dependencies [step]
+
+```bash copy
+pnpm install
+```
+
+## Building Zipline [step]
+
+Before building Zipline, you will have to create a `.env` file, as well as have a PostgreSQL database running. An example .env looks like this:
+
+```bash copy
+# Replace username and password with your PostgreSQL credentials
+DATABASE_URL=postgresql://username:password@localhost:5432/zipline
+
+# These two are optional, but you can set them to change the hostname and port
+CORE_HOSTNAME=0.0.0.0
+CORE_PORT=3000
+```
+
+<Callout type='info'>
+  You will also want to setup a [datasource](/docs/config/datasource) for your
+  instance. By default, Zipline will use `./uploads` for local file storage. You
+  can configure a different datasource (e.g. S3) by setting the appropriate
+  environment variables in the `.env` file.
+</Callout>
+
+You will also need to generate a secret for zipline, to do this you can use the command below to append it to your `.env` file:
+
+```bash copy
+echo "CORE_SECRET=$(openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n')" >> .env
+```
+
+<Callout type="note">
+What does this command do?
+
+```bash
+openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n'
+```
+
+- `openssl rand -base64 42`: Generate 42 random bytes in base64 encoding.
+- `tr -dc A-Za-z0-9`: Remove all characters except for letters and numbers.
+- `cut -c -32`: Cut the string to 32 characters.
+- `tr -d '\n'`: Remove the newline character.
+
+</Callout>
+
+Then build Zipline:
+
+```bash copy
+pnpm build
+```
+
+## Run the server [step]
+
+```bash copy
+pnpm start
+```
+
+# Updating
+
+To update Zipline, simply run the following command:
+
+```bash copy
+git pull
+```
+
+Then update dependencies and build Zipline:
+
+```bash copy
+pnpm install
+pnpm build
+```
+
+Then start the server:
+
+```bash copy
+pnpm start
+```

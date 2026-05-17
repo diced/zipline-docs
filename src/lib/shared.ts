@@ -1,11 +1,10 @@
-export const appName = 'My App';
+export const appName = 'Zipline';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';
 
-// fill this with your actual GitHub info, for example:
 export const gitConfig = {
-  user: 'fuma-nama',
-  repo: 'fumadocs',
-  branch: 'main',
+  user: 'diced',
+  repo: 'zipline-docs',
+  branch: 'v4.1',
 };

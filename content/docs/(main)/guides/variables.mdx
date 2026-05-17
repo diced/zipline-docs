@@ -1,0 +1,206 @@
+---
+title: Variables
+description: Use variables to customize your messages with dynamic content
+---
+
+Variables can be used in [Discord Webhook](/docs/guides/discord-webhooks) messages and the [view route](/docs/guides/view-routes) to customize the message with dynamic content.
+Variables also allow you to use modifiers to format the content in a specific way.
+
+Format: `{var.property::modifier::secondModifier?}{:zipline}`
+
+At the bottom of the page there is a [playground](#playground) to test the variables.
+
+## Available Variables
+
+### User
+
+| Access                       | Type                          | Description                                                |
+| ---------------------------- | ----------------------------- | ---------------------------------------------------------- |
+| `{user.id}{:zipline}`        | [`string`](#string-modifiers) | The user's ID                                              |
+| `{user.createdAt}{:zipline}` | [`date`](#date-modifiers)     | The user's creation date                                   |
+| `{user.updatedAt}{:zipline}` | [`date`](#date-modifiers)     | The user's last update date                                |
+| `{user.username}{:zipline}`  | [`string`](#string-modifiers) | The user's username                                        |
+| `{user.role}{:zipline}`      | [`string`](#string-modifiers) | The user's role: `USER` \| `ADMIN` \| `SUPERADMINISTRATOR` |
+
+### File
+
+<Callout type='info'>
+  These variables are only available in the case of anything related to files.
+</Callout>
+
+| Access                           | Type                          | Description                 |
+| -------------------------------- | ----------------------------- | --------------------------- |
+| `{file.id}{:zipline}`            | [`string`](#string-modifiers) | The file's ID               |
+| `{file.createdAt}{:zipline}`     | [`date`](#date-modifiers)     | The file's creation date    |
+| `{file.updatedAt}{:zipline}`     | [`date`](#date-modifiers)     | The file's last update date |
+| `{file.deletesAt}?{:zipline}`    | [`date`](#date-modifiers)     | The file's expiration date  |
+| `{file.favorite}{:zipline}`      | `boolean`                     | If the file is favorited    |
+| `{file.name}{:zipline}`          | [`string`](#string-modifiers) | The file's name             |
+| `{file.originalName}?{:zipline}` | [`string`](#string-modifiers) | The file's original name    |
+| `{file.size}{:zipline}`          | [`number`](#number-modifiers) | The file's size in bytes    |
+| `{file.type}{:zipline}`          | [`string`](#string-modifiers) | The file's type             |
+| `{file.views}{:zipline}`         | [`number`](#number-modifiers) | The file's views            |
+| `{file.maxViews}?{:zipline}`     | [`number`](#number-modifiers) | The file's max views        |
+| `{file.folderId}?{:zipline}`     | [`string`](#string-modifiers) | The file's folder ID        |
+
+### URL
+
+<Callout type='info'>
+  These variables are only available in the case of anything related to URLs.
+</Callout>
+
+| Access                        | Type                          | Description                |
+| ----------------------------- | ----------------------------- | -------------------------- |
+| `{url.id}{:zipline}`          | [`string`](#string-modifiers) | The URL's ID               |
+| `{url.createdAt}{:zipline}`   | [`date`](#date-modifiers)     | The URL's creation date    |
+| `{url.updatedAt}{:zipline}`   | [`date`](#date-modifiers)     | The URL's last update date |
+| `{url.code}{:zipline}`        | [`string`](#string-modifiers) | The URL's code             |
+| `{url.vanity}?{:zipline}`     | [`string`](#string-modifiers) | The URL's vanity           |
+| `{url.destination}{:zipline}` | [`string`](#string-modifiers) | The URL's destination      |
+| `{url.views}{:zipline}`       | [`number`](#number-modifiers) | The URL's views            |
+| `{url.maxViews}?{:zipline}`   | [`number`](#number-modifiers) | The URL's max views        |
+
+### Link
+
+<Callout type='info'>
+  These variables are only available on the `onUpload` and `onShorten` events.
+</Callout>
+
+| Access                       | Type                          | Description                                                            |
+| ---------------------------- | ----------------------------- | ---------------------------------------------------------------------- |
+| `{link.returned}?{:zipline}` | [`string`](#string-modifiers) | The returned link when a file is uploaded or a URL is shortened        |
+| `{link.raw}?{:zipline}`      | [`string`](#string-modifiers) | Only available on the `onUpload` event, this will be the raw file link |
+
+### User Metrics
+
+These are variables to access user metrics
+
+| Access                              | Type                          | Description                       |
+| ----------------------------------- | ----------------------------- | --------------------------------- |
+| `{metricsUser.files}{:zipline}`     | [`number`](#number-modifiers) | The user's total files            |
+| `{metricsUser.urls}{:zipline}`      | [`number`](#number-modifiers) | The user's total URLs             |
+| `{metricsUser.storage}{:zipline}`   | [`number`](#number-modifiers) | The user's total storage in bytes |
+| `{metricsUser.fileViews}{:zipline}` | [`number`](#number-modifiers) | The user's total file views       |
+| `{metricsUser.urlViews}{:zipline}`  | [`number`](#number-modifiers) | The user's total URL views        |
+
+### Zipline Metrics
+
+These are variables for the current instance metrics (not limited to the user).
+
+| Access                                 | Type                          | Description                |
+| -------------------------------------- | ----------------------------- | -------------------------- |
+| `{metricsZipline.files}{:zipline}`     | [`number`](#number-modifiers) | The total files            |
+| `{metricsZipline.urls}{:zipline}`      | [`number`](#number-modifiers) | The total URLs             |
+| `{metricsZipline.storage}{:zipline}`   | [`number`](#number-modifiers) | The total storage in bytes |
+| `{metricsZipline.fileViews}{:zipline}` | [`number`](#number-modifiers) | The total file views       |
+| `{metricsZipline.urlViews}{:zipline}`  | [`number`](#number-modifiers) | The total URL views        |
+
+### Debug
+
+If you are having issues with variables, you can use these debug variables to see the raw data in JSON format.
+
+| Access                     | Type                          | Description                                                |
+| -------------------------- | ----------------------------- | ---------------------------------------------------------- |
+| `{debug.json}?{:zipline}`  | [`string`](#string-modifiers) | The raw JSON data of the event unformatted                 |
+| `{debug.jsonf}?{:zipline}` | [`string`](#string-modifiers) | The raw JSON data of the event formatted with 2 space tabs |
+
+## Modifiers
+
+To use modifiers, you need to add them after the variable with a double colon `::`. For example to format a date to UTC time you would use `{user.createdAt::utc}{:zipline}`.
+
+### `string` modifiers
+
+| Modifier  | Description                 | Example              |
+| --------- | --------------------------- | -------------------- |
+| `upper`   | Uppercase the string        | `aBcD` -> `ABCD`     |
+| `lower`   | Lowercase the string        | `aBcD` -> `abcd`     |
+| `title`   | Title case the string       | `aBcD` -> `Abcd`     |
+| `length`  | Get the string length       | `aBcD` -> `4`        |
+| `reverse` | Reverse the string          | `aBcD` -> `DcBa`     |
+| `base64`  | Encode the string to base64 | `aBcD` -> `YUJjRA==` |
+| `hex`     | Encode the string to hex    | `aBcD` -> `61426344` |
+| `string`  | Convert the value to string | `aBcD` -> `aBcD`     |
+
+unknown -> `{unknown_str_modifier({mod})}{:zipline}`
+
+### `number` modifiers
+
+| Modifier | Description                 | Example                |
+| -------- | --------------------------- | ---------------------- |
+| `comma`  | Add commas to the number    | `1000` -> `1,000`      |
+| `hex`    | Encode the number to hex    | `1000` -> `3E8`        |
+| `octal`  | Encode the number to octal  | `1000` -> `1750`       |
+| `binary` | Encode the number to binary | `1000` -> `1111101000` |
+| `bytes`  | Convert the number to bytes | `1000` -> `1 KB`       |
+| `string` | Convert the value to string | `1000` -> `1000`       |
+
+unknown -> `{unknown_int_modifier({mod})}{:zipline}`
+
+### `date` modifiers
+
+| Modifier | Description                                              | Example                                   |                                                            |
+| -------- | -------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------- |
+| `locale` | Format the date to the locale provided or system default | `9/22/2024` -> `9/22/2024, 12:00:00 AM`   | [locale/timezone configuration](#localetimezone-modifiers) |
+| `time`   | Format the date to the time provided                     | `9/22/2024` -> `12:00:00 AM`              | [locale/timezone configuration](#localetimezone-modifiers) |
+| `date`   | Format the date to the date provided                     | `9/22/2024` -> `9/22/2024`                | [locale/timezone configuration](#localetimezone-modifiers) |
+| `unix`   | Convert the date to a Unix timestamp                     | `9/22/2024` -> `1692819200000`            |
+| `iso`    | Convert the date to an ISO string                        | `9/22/2024` -> `2024-09-22T00:00:00.000Z` |
+| `utc`    | Convert the date to UTC time                             | `9/22/2024` -> `2024-09-22T00:00:00.000Z` |
+| `year`   | Get the year from the date                               | `9/22/2024` -> `2024`                     |
+| `month`  | Get the month from the date                              | `9/22/2024` -> `9`                        |
+| `day`    | Get the day from the date                                | `9/22/2024` -> `22`                       |
+| `hour`   | Get the hour from the date                               | `9/22/2024` -> `0`                        |
+| `minute` | Get the minute from the date                             | `9/22/2024` -> `0`                        |
+| `second` | Get the second from the date                             | `9/22/2024` -> `0`                        |
+| `string` | Convert the value to string                              | `9/22/2024` -> `9/22/2024`                |
+| `ampm`   | Get the am/pm from the date                              | `9/22/2024 12:00:00 am` -> `am`           |
+| `AMPM`   | Get the AM/PM from the date                              | `9/22/2024 12:00:00 am` -> `AM`           |
+
+#### Locale/Timezone Modifiers
+
+Zipline lets you specify the locale and timezone for the `locale`, `time`, and `date` modifiers. To achieve this you need to specify the 2nd modifier: `{user.createdAt::locale::en-UK,Europe/London}{:zipline}`.
+
+For example using `{user.createdAt::locale::ja-JP,Asia/Tokyo}{:zipline}` will format the date to the Japanese locale and timezone, yielding `2024/9/23 3:30:00` when the system time is `9/22/2024 11:30 AM` in the `America/Los_Angeles` timezone.
+
+It is also possible to continue using the system locale, but specify a different timezone. To do this just specify the timezone: `{user.createdAt::locale::,Europe/London}{:zipline}`. Notice the comma is right after the double colons.
+
+Some specific use cases for this may be if you want to use 24-hour time but continue using an American timezone, you can use `{user.createdAt::locale::en-UK,America/Los_Angeles}{:zipline}`. This will format the date and time to use 24-hour time and `dd/mm/yyyy` format instead of the default `mm/dd/yyyy` format used in the US.
+
+#### Useful Info
+
+If you are looking for a list of possible locales, you can visit https://www.unicode.org/cldr/charts/44/supplemental/language_territory_information.html. To use this table, take the language code ("Code" in the table) and the territory code ("Territory" in the table) and combine them with a hyphen. For example, the code for English in the United Kingdom is `en-UK`, and the code for Japanese in Japan is `ja-JP`.
+
+A list of timezones can be found at https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. Use the value under the "TZ identifier" column.
+
+<Callout type='info'>
+  All values are case insensitive, so `en-UK` is the same as `EN-uk` and
+  `en-uk`. The same goes for timezones: `America/Los_Angeles` is the same as
+  `america/los_angeles` and `AMERICA/LOS_ANGELES`.
+</Callout>
+
+### Conditional modifiers
+
+To use conditional modifiers, you need to add them after the variable with a double colon `::`, like normal modifiers but with a different format: `{variableName.property::conditionalModifier["trueString"||"falseString"]}{:zipline}`.
+
+For example, to show the file's views if it has max views, you would use `{file.maxViews::>0["{file.views}/{file.maxViews}"||"No max views"]}{:zipline}`. This will show the views and max views if the max views are greater than 0, otherwise it will show "No max views".
+
+| Modifier | Description                              | Types              | Variables                  |
+| -------- | ---------------------------------------- | ------------------ | -------------------------- |
+| `istrue` | If the boolean is true                   | `boolean`          | None                       |
+| `exists` | Whether the element exists               | `string`, `date`   | None                       |
+| `$X`     | If the string starts with `X`            | `string`           | `X` = `string`             |
+| `^X`     | If the string ends with `X`              | `string`           | `X` = `string`             |
+| `~X`     | If the string includes `X`               | `string`           | `X` = `string`             |
+| `=X`     | If the value equals to `X`               | `string`, `number` | `X` = `string` or `number` |
+| `>=X`    | If the number is greater or equal to `X` | `number`           | `X` = `number`             |
+| `>X`     | If the number is greater than `X`        | `number`           | `X` = `number`             |
+| `<=X`    | If the number is lesser or equal to `X`  | `number`           | `X` = `number`             |
+| `<X`     | If the number is lesser than `X`         | `number`           | `X` = `number`             |
+
+## Playground
+
+Try out the variables below to see how they work. For dates, the time is when the page was loaded.
+
+import VariablesPlayground from '@/components/variables-playground';
+
+<VariablesPlayground />

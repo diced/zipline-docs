@@ -1,0 +1,106 @@
+---
+title: OIDC
+description: Setting up Open ID Connect (OIDC) for authentication
+---
+
+This page documents and guides you through setting up Open ID Connect (OIDC) for Zipline. If you are having trouble configuring a different OIDC provider that is not listed here, feel free to join the [Discord](/discord) and ask for help.
+
+{/* credit to 0xEmma's pr https://github.com/diced/zipline-docs/pull/55 */}
+
+## Authentik
+
+This will guide you through setting up an application and provider.
+
+1. Head over to your Authentik Admin Dashboard, and click on "Applications" in the sidebar.
+2. Click "Create with Wizard" to create a new application as well as a new provider. If this option is not available, you can create a new application and provider separately. The guide will assume you are using the wizard.
+
+![authentik create application](/img/docs/oauth-authentik-1.png)
+
+3. Enter a name for your application, and click "Next".
+
+![authentik application name](/img/docs/oauth-authentik-2.png)
+
+4. Select the "OAuth2/OIDC (Open Authorization/OpenID Connect)" option, and click "Next".
+
+![authentik application type](/img/docs/oauth-authentik-3.png)
+
+5. Give the provider a name like "Zipline", and then select a Authorization Flow. You can select "default-provider-authorization-explicit-consent" for the default flow.
+
+![authentik provider name](/img/docs/oauth-authentik-4.png)
+
+6. Copy the "Client ID" and "Client Secret" from the "Protocol Settings" section, and save them for later.
+7. Fill out the "Redirect URIs" with the following URI: `http(s)://<your domain>/api/auth/oauth/oidc`.
+
+![authentik redirect uri](/img/docs/oauth-authentik-5.png)
+
+<Callout type='info'>
+  When clicking the "Login with OIDC" button, or linking your OIDC account, the
+  host that Zipline uses for the redirect URL will be the same as the host that
+  you accessed Zipline from. If you access Zipline from `http://localhost:3000`,
+  the redirect URL will be `http://localhost:3000/api/auth/oauth/oidc`. If you
+  are encountering issues with the redirect URL, you can set a custom redirect
+  URL in the settings dashboard. This **MUST** have the `/api/auth/oauth/oidc`
+  path at the end.
+</Callout>
+
+8. Next, scroll down further and click on the "Advanced Protocol Settings" collapsible to expand it.
+9. Next to scopes enable the `offline_access` scope. In order to do this you may have to hold control and click on the `offline_access` scope. The `email`, `openid`, and `profile` scopes are also required.
+
+![authentik scopes](/img/docs/oauth-authentik-6.png)
+
+10. Click "Submit", and close out of the modal.
+
+### Configure Zipline
+
+11. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
+12. Paste the "Client ID" and "Client Secret" into the respective fields within the OIDC section.
+
+For the OIDC Authorize URL: `https://<authentik domain>/application/o/authorize/`
+
+For the OIDC Token URL: `https://<authentik domain>/application/o/token/`
+
+For the OIDC User Info URL: `https://<authentik domain>/application/o/userinfo/`
+
+![zipline settings oauth oidc](/img/docs/oauth-authentik-7.png)
+
+After these fields are filled out (click Save to save your changes), you should see a "Login with OIDC" button on the login page, as well as the option to link your OIDC account in the manage account page.
+
+## Pocket-ID
+
+Pocket-ID is a simple self-hosted OIDC provider that utilizes passkeys for authentication.
+
+1. Create an OIDC client
+   ![pocket-id create client](/img/docs/oauth-pocketid-1.png)
+
+For the Redirect URIs: add `http(s)://<your domain>/api/auth/oauth/oidc`
+
+2. Copy over these 5 values and urls to their respective fields in the OIDC section of the OAuth settings
+   ![pocket-id copy values](/img/docs/oauth-pocketid-2.png)
+
+## Microsoft Entra
+
+Microsoft Entra ID is a cloud-based identity and access management service. It also offers OIDC support and endpoints.
+
+For the OIDC Client ID: your azure tenant ID
+
+For the OIDC Client Secret: your azure application secret
+
+For the OIDC Authorize URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize`
+
+For the OIDC Token URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`
+
+For the OIDC User Info URL: `https://graph.microsoft.com/oidc/userinfo`
+
+## Other OIDC Providers
+
+The guide above is specific to Authentik and may require modifications for other OIDC providers. While the overall steps and URL names will be similar, some details may differ.
+
+If you're using a different OIDC provider, refer to their documentation to obtain the necessary details for configuring the Zipline settings dashboard.
+
+### Common OIDC Providers
+
+- [Authentik](https://goauthentik.io/) (open-source)
+- [Authelia](https://authelia.com/) (open-source)
+- [Keycloak](https://keycloak.org/) (open-source)
+- [Pocket-ID](https://pocket-id.org/) (open-source)
+- [Okta](https://okta.com/)
