@@ -1,37 +1,25 @@
 'use client';
 import * as Base from '@/components/docs-sidebar/base';
-import { cn } from '@/lib/cn';
-import {
-  type ComponentProps,
-  type ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { cva } from 'class-variance-authority';
+import { createLinkItemRenderer } from '@/components/docs-sidebar/link-item';
 import {
   createPageTreeRenderer,
   type SidebarPageTreeComponents,
 } from '@/components/docs-sidebar/page-tree';
-import { createLinkItemRenderer } from '@/components/docs-sidebar/link-item';
 import { buttonVariants } from '@/components/ui/button';
-import {
-  Check,
-  ChevronDown,
-  ChevronsUpDown,
-  SidebarIcon,
-} from 'lucide-react';
-import { mergeRefs } from '../../../lib/merge-refs';
-import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
-import { LinkItem } from 'fumadocs-ui/layouts/shared';
-import { isLayoutTabActive, type LayoutTab } from 'fumadocs-ui/layouts/shared';
-import { usePathname } from 'fumadocs-core/framework';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../../../components/ui/popover';
+} from '@/components/ui/popover';
+import { isLayoutTabActive, type LayoutTab } from '@/layouts/shared';
+import { cn } from '@/lib/cn';
+import { mergeRefs } from '@/lib/merge-refs';
+import { cva } from 'class-variance-authority';
+import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
+import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
+import { Check, ChevronsUpDown, SidebarIcon } from 'lucide-react';
+import { useMemo, useState, type ComponentProps, type ReactNode } from 'react';
 
 const itemVariants = cva(
   'relative flex flex-row items-center gap-2 rounded-lg p-2 text-start text-fd-muted-foreground wrap-anywhere [&_svg]:size-4 [&_svg]:shrink-0',
@@ -61,7 +49,6 @@ export const { useSidebar } = Base;
 export function SidebarProvider(props: SidebarProviderProps) {
   return <Base.SidebarProvider {...props} />;
 }
-
 
 export function Sidebar({ banner, components, ...rest }: SidebarProps) {
   const {
@@ -136,12 +123,7 @@ function SidebarContent({
 }: ComponentProps<'aside'>) {
   return (
     <Base.SidebarContent>
-      {({
-        ref: asideRef,
-        hovered,
-        onPointerEnter,
-        onPointerLeave,
-      }) => (
+      {({ ref: asideRef, hovered, onPointerEnter, onPointerLeave }) => (
         <div
           data-sidebar-placeholder=''
           className='docs-sidebar-placeholder sticky z-20 [grid-area:sidebar] pointer-events-none *:pointer-events-auto md:layout:[--fd-sidebar-width:268px] max-md:hidden'

@@ -1,18 +1,21 @@
+import { getMDXComponents } from '@/components/mdx';
+import { Footer } from '@/layouts/docs/page/slots/footer';
+import { TOC, TOCPopover, TOCProvider } from '@/layouts/docs/page/slots/toc';
+import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
+  EditOnGitHub,
   MarkdownCopyButton,
+  PageLastUpdate,
   ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
-import { notFound } from 'next/navigation';
-import { getMDXComponents } from '@/components/mdx';
-import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
-import { gitConfig } from '@/lib/shared';
-import { SiteFooter } from '@/components/site-footer';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -21,32 +24,47 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
   const MDX = page.data.body;
   const markdownUrl = getPageMarkdownUrl(page).url;
+  const githubEditUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/edit/${gitConfig.branch}/content/docs/${page.path}`;
+  const githubViewUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`;
 
   return (
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
-      footer={{ children: <SiteFooter variant='docs' /> }}
+      slots={{
+        footer: Footer,
+        toc: {
+          provider: TOCProvider,
+          main: TOC,
+          popover: TOCPopover,
+        },
+      }}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className='mb-0'>
         {page.data.description}
       </DocsDescription>
-      <div className='flex flex-row gap-2 items-center border-b pb-6'>
-        <MarkdownCopyButton markdownUrl={markdownUrl} />
-        <ViewOptionsPopover
-          markdownUrl={markdownUrl}
-          githubUrl={`https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`}
-        />
+      <div className='flex flex-row flex-wrap items-center justify-between gap-2 border-b pb-6'>
+        <div className='flex flex-row flex-wrap items-center gap-2'>
+          {!page.data._openapi && <EditOnGitHub href={githubEditUrl} />}
+          <MarkdownCopyButton markdownUrl={markdownUrl} />
+          <ViewOptionsPopover
+            markdownUrl={markdownUrl}
+            githubUrl={githubViewUrl}
+          />
+        </div>
+        <div className='ms-auto'></div>
       </div>
       <DocsBody>
         <MDX
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
       </DocsBody>
+      {page.data.lastModified && (
+        <PageLastUpdate date={page.data.lastModified} />
+      )}
     </DocsPage>
   );
 }

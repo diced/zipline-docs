@@ -9,6 +9,9 @@
 
 /* theme */
 @theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
   --color-gray-50: #eeeff1;
   --color-gray-100: #dddfe4;
   --color-gray-200: #bbbec8;
@@ -84,6 +87,7 @@
 }
 
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -118,9 +122,7 @@
 /* Docs layout offsets when site nav sits above the Fumadocs grid */
 .docs-sidebar-placeholder {
   top: calc(var(--fd-banner-height, 0px) + var(--fd-site-nav-height, 0px));
-  height: calc(
-    var(--fd-docs-height) - var(--fd-banner-height, 0px) - var(--fd-site-nav-height, 0px)
-  );
+  height: calc(var(--fd-docs-height) - var(--fd-banner-height, 0px) - var(--fd-site-nav-height, 0px));
 }
 
 @keyframes gradient-spin {
@@ -180,7 +182,7 @@ html {
   scrollbar-gutter: stable;
 }
 
-html > body[data-scroll-locked] {
+html>body[data-scroll-locked] {
   margin-right: 0px !important;
   --removed-body-scroll-bar-size: 0px !important;
 }

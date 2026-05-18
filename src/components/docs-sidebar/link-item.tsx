@@ -1,7 +1,7 @@
 'use client';
 import type { HTMLAttributes } from 'react';
 import type * as Base from './base';
-import { isLinkItemActive, type LinkItemType } from 'fumadocs-ui/layouts/shared';
+import { isLinkItemActive, type LinkItemType } from '@/layouts/shared';
 import { usePathname } from 'fumadocs-core/framework';
 
 type InternalComponents = Pick<

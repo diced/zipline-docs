@@ -1,7 +1,7 @@
-import { HomeLayout } from 'fumadocs-ui/layouts/home';
+import { HomeLayout } from '@/layouts/home';
 import { baseOptions } from '@/lib/layout.shared';
 import { FullSearchTrigger, SearchTrigger } from '@/layouts/shared/slots/search-trigger';
-import { SiteFooter } from '@/components/site-footer';
+import { SiteFooter } from '@/layouts/shared/slots/site-footer';
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (

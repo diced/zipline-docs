@@ -3,6 +3,7 @@
 import type { ComponentProps } from 'react';
 import { Container } from 'fumadocs-ui/layouts/docs/slots/container';
 import { SiteHeader } from '@/layouts/shared/slots/site-header';
+import { DocsScrollToTop } from '@/layouts/docs/slots/scroll-to-top';
 import { cn } from '@/lib/cn';
 
 export function DocsContainerWithNav(props: ComponentProps<typeof Container>) {
@@ -13,6 +14,7 @@ export function DocsContainerWithNav(props: ComponentProps<typeof Container>) {
         {...props}
         className={cn('min-h-0 flex-1 [--fd-docs-height:100%]', props.className)}
       />
+      <DocsScrollToTop />
     </div>
   );
 }

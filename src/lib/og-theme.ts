@@ -16,6 +16,25 @@ export const ogColors = {
   blue950: '#091020',
 } as const;
 
+const httpMethodOgColors: Record<string, { bg: string; text: string }> = {
+  GET: { bg: '#3b82f6', text: '#ffffff' },
+  POST: { bg: '#22a86b', text: '#ffffff' },
+  PUT: { bg: '#d97706', text: '#ffffff' },
+  PATCH: { bg: '#14b8a6', text: '#ffffff' },
+  DELETE: { bg: '#dc2626', text: '#ffffff' },
+  HEAD: { bg: '#7c3aed', text: '#ffffff' },
+  OPTIONS: { bg: '#5b6071', text: '#ffffff' },
+};
+
+export function getMethodOgColors(method: string) {
+  return (
+    httpMethodOgColors[method.toUpperCase()] ?? {
+      bg: ogColors.gray500,
+      text: ogColors.gray50,
+    }
+  );
+}
+
 export function truncateOgText(text: string, maxLength: number): string {
   const trimmed = text.trim();
   if (trimmed.length <= maxLength) return trimmed;

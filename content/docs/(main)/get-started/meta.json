@@ -1,0 +1,5 @@
+{
+  "title": "Guides",
+  "pages": ["docker", "source"],
+  "icon": "ListStart"
+}

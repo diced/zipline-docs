@@ -1,0 +1,5 @@
+{
+  "title": "Configuration",
+  "pages": ["core", "datasource", "settings", "..."],
+  "icon": "Cog"
+}

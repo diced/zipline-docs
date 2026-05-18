@@ -1,0 +1,44 @@
+---
+title: API Documentation
+description: Learn how to use the Zipline API to programmatically
+icon: Api
+---
+
+The Zipline API provides programmatic access to all core functionality of your Zipline instance, including file uploads, URL shortening, and user management.
+
+## Base URL
+
+All API endpoints are prefixed with the base URL to your instance, e.g `https://zipline.example.com/api`.
+
+## Errors
+
+In the event of an error, the API will return a JSON response with the following structure:
+
+```json
+{
+  "error": "EXXXX: Error message",
+  "code": 1000,
+  "statusCode": 400
+}
+```
+
+In any route, click the `4xx` response, and in the dropdown you can select different error codes to see the different error responses.
+
+## API Reference
+
+Zipline now exports OpenAPI specifications for all API routes, available [here](/docs/api-reference). This allows you to easily view all API routes, their parameters, and example responses.
+
+## Next Steps
+
+<Cards>
+  <Card
+    title='🔑 Authentication'
+    description='Learn how to authenticate with the API'
+    href='/docs/api/authentication'
+  />
+  <Card
+    title='🚨 Error Handling'
+    description='Learn how to handle errors returned by the API'
+    href='/docs/api/errors'
+  />
+</Cards>

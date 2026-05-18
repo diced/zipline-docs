@@ -1,20 +1,64 @@
-import { ogColors, truncateOgText } from '@/lib/og-theme';
+import { getMethodOgColors, ogColors, truncateOgText } from '@/lib/og-theme';
+
+const METHOD_BADGE_GAP = 20;
+
+function getMethodBadgeWidth(method: string) {
+  const label = method.toUpperCase();
+  return 44 + label.length * 15;
+}
+
+function MethodBadge({ method }: { method: string }) {
+  const label = method.toUpperCase();
+  const colors = getMethodOgColors(label);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        padding: '8px 14px',
+        borderRadius: 10,
+        backgroundColor: colors.bg,
+        color: colors.text,
+        fontSize: 26,
+        fontWeight: 800,
+        letterSpacing: '0.06em',
+        fontFamily: 'ui-monospace, monospace',
+      }}
+    >
+      {label}
+    </div>
+  );
+}
 
 export function DocsOGImage({
   title,
   description,
   site,
-  logo,
+  method,
 }: {
   title: string;
   description?: string;
   site: string;
-  logo: string;
+  method?: string;
 }) {
   const displayTitle = truncateOgText(title, 72);
   const displayDescription = description
     ? truncateOgText(description, 140)
     : undefined;
+  const isApiPage = Boolean(method);
+  const methodBadgeWidth = method
+    ? getMethodBadgeWidth(method) + METHOD_BADGE_GAP
+    : 0;
+  const titleLengthThreshold = method ? 36 : 42;
+  const titleFontSize =
+    displayTitle.length > titleLengthThreshold ? 58 : method ? 62 : 68;
+  const accentLineWidth = Math.min(
+    600,
+    methodBadgeWidth + 40 * displayTitle.length,
+  );
 
   return (
     <div
@@ -40,21 +84,6 @@ export function DocsOGImage({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 72,
-              height: 72,
-              borderRadius: 18,
-              backgroundColor: ogColors.gray800,
-              border: `1px solid ${ogColors.gray700}`,
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={logo} alt='' width={52} height={52} />
-          </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <p
               style={{
@@ -75,7 +104,7 @@ export function DocsOGImage({
                 color: ogColors.gray400,
               }}
             >
-              Documentation
+              {isApiPage ? 'API Reference' : 'Documentation'}
             </p>
           </div>
         </div>
@@ -92,22 +121,35 @@ export function DocsOGImage({
           maxWidth: 980,
         }}
       >
-        <p
+        <div
           style={{
-            margin: 0,
-            fontSize: displayTitle.length > 42 ? 58 : 68,
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: '-0.03em',
-            color: ogColors.gray50,
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: METHOD_BADGE_GAP,
           }}
         >
-          {displayTitle}
-        </p>
+          {method ? <MethodBadge method={method} /> : null}
+          <p
+            style={{
+              margin: 0,
+              flex: 1,
+              minWidth: 0,
+              fontSize: titleFontSize,
+              fontWeight: 800,
+              lineHeight: 1.05,
+              letterSpacing: '-0.03em',
+              color: ogColors.gray50,
+            }}
+          >
+            {displayTitle}
+          </p>
+        </div>
 
         <div
           style={{
-            width: Math.min(600, 40 * displayTitle.length),
+            width: accentLineWidth,
             height: 4,
             borderRadius: 2,
             backgroundColor: ogColors.blue500,

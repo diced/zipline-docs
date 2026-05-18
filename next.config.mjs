@@ -27,6 +27,11 @@ const config = {
       destination: 'https://discord.gg/EAhCRfGxCF',
       permanent: true,
     },
+    {
+      source: '/api/docker-compose.yml',
+      destination: '/docker-compose.yml',
+      permanent: true,
+    },
   ],
   distDir: 'build',
 };
