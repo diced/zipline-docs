@@ -14,6 +14,7 @@ import {
 } from 'fumadocs-ui/components/dialog/search';
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import { createDocSearchClient } from '@/lib/docsearch';
+import { SearchResultItem } from '@/components/search/search-result-item';
 
 const appId = 'BXUJSM62NY';
 const apiKey = '94e0a10b58aab0c08fcb8c7d1821fbb3';
@@ -36,7 +37,10 @@ export default function CustomSearchDialog(props: SharedProps) {
           <SearchDialogInput />
           <SearchDialogClose />
         </SearchDialogHeader>
-        <SearchDialogList items={query.data !== 'empty' ? query.data : null} />
+        <SearchDialogList
+          items={query.data !== 'empty' ? query.data : null}
+          Item={SearchResultItem}
+        />
         <SearchDialogFooter>
           <a
             href="https://algolia.com"

@@ -3,5 +3,5 @@
   "description": "OpenAPI specification for the API endpoints",
   "root": true,
   "icon": "Shapes",
-  "pages": ["index", "...(generated)"]
+  "pages": ["index", "authentication", "---Routes---", "...(generated)"]
 }

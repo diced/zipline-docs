@@ -1,0 +1,69 @@
+---
+title: Authentication
+description: Learn how to authenticate with the Zipline API
+---
+
+Learn how to authenticate with the Zipline API using API keys and/or cookies.
+
+## Getting your token
+
+1. Visit your dashboard
+2. Click on your avatar/username in the top right corner
+3. Click the "Copy token" button to copy your API token to your clipboard
+
+- Note this may not work in insecure contexts. If you have issues copying the token with the button, you can also find the token in the user settings page (Click your avatar/username > Settings) and under User you can copy the token/reveal it.
+
+<Callout type='warning'>
+  Never share this token with anyone, this token has full access to your account
+  and if you are a super-admin, it can be used to change settings.
+</Callout>
+
+### How to the token works
+
+Tokens are encrypted with the `CORE_SECRET` environment variable, so if you change the `CORE_SECRET`, any previously generated tokens will no longer work.
+
+Tokens are:
+
+- Encrypted with AES-256-GCM
+- Contains the generated at timestamp and a randomly generated string of characters
+- Validated on each request
+- Every token is unique, even if you generate multiple tokens in a short period of time, they will all be different due to the random string component and the timestamp.
+
+What makes a token yours specifically is a random string of characters that acts like another "secret". This token secret along with the instance secret (`CORE_SECRET`) are used to encrypt the token.
+
+### Resetting the token
+
+Resetting the token resets the underlying user secret, which will invalidate all previously generated tokens. This means that if you reset your token, you will need to update any applications or scripts that use the old token with the new token.
+
+To reset your token, click the "Reset token" button after clicking the top right avatar/username in the dashboard.
+
+### Using the token
+
+To authenticate with the Zipline API, include the following header in your requests:
+
+```http
+Authorization: <your token>
+```
+
+## Using a cookie
+
+Zipline allows you to authenticate via cookies as well, which can be useful for browser-based applications or apps that work well by requesting a username/password login flow.
+
+To authenticate with cookies, you need to first set a [POST /api/auth/login](/docs/api-reference#post-/api/auth/login).
+
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "username": "username",
+  "password": "password"
+}
+```
+
+Which will return a response with a `Set-Cookie` header that contains the zipline session cookie. You can then include this cookie in subsequent requests to authenticate.
+
+```http
+GET /api/user/files
+Cookie: zipline_session=<cookie value>
+```

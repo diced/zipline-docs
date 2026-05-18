@@ -1,5 +1,6 @@
 import type { LiteClient } from 'algoliasearch/lite';
 import { createContentHighlighter } from 'fumadocs-core/search';
+import { getMethodFromSearchUrl } from '@/lib/http-method';
 
 type HighlightField = {
   value?: string;
@@ -29,6 +30,7 @@ export type DocSearchResultItem = {
   url: string;
   breadcrumbs?: string[];
   content: string;
+  method?: string;
 };
 
 const hierarchyLevels = [
@@ -149,13 +151,16 @@ export function mapDocSearchHits(hits: DocSearchHit[]): DocSearchResultItem[] {
     if (!content) continue;
 
     const type = getItemType(hit);
+    const url = rewriteDocSearchUrl(hit);
+    const method = getMethodFromSearchUrl(hit.url);
 
     items.push({
       id: hit.objectID,
       type,
-      url: rewriteDocSearchUrl(hit),
+      url,
       breadcrumbs: type === 'page' ? undefined : getBreadcrumbs(hit),
       content,
+      method,
     });
   }
 
@@ -187,12 +192,16 @@ export function createDocSearchClient(
       const hits = result.results[0]?.hits ?? [];
       const highlighter = createContentHighlighter(query);
 
-      return mapDocSearchHits(hits).map((item) => ({
-        ...item,
-        content: item.content.includes('<mark>')
+      return mapDocSearchHits(hits).map((item) => {
+        const highlighted = item.content.includes('<mark>')
           ? item.content
-          : highlighter.highlightMarkdown(item.content),
-      }));
+          : highlighter.highlightMarkdown(item.content);
+
+        return {
+          ...item,
+          content: highlighted,
+        };
+      });
     },
   };
 }
