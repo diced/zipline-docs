@@ -68,11 +68,6 @@ export function Header(props: ComponentProps<'header'>) {
           />
         )}
         {slots.themeSwitch && <slots.themeSwitch />}
-        {slots.languageSelect && (
-          <slots.languageSelect.root>
-            <Languages className='size-5' />
-          </slots.languageSelect.root>
-        )}
         <ul className='flex flex-row gap-2 items-center empty:hidden'>
           {navItems.filter(isSecondary).map((item, i) => (
             <NavigationMenuLinkItem
@@ -125,13 +120,6 @@ export function Header(props: ComponentProps<'header'>) {
                   />
                 ))}
                 <div role='separator' className='flex-1' />
-                {slots.languageSelect && (
-                  <slots.languageSelect.root>
-                    <Languages className='size-5' />
-                    {slots.languageSelect.text && <slots.languageSelect.text />}
-                    <ChevronDown className='size-3 text-fd-muted-foreground' />
-                  </slots.languageSelect.root>
-                )}
                 {slots.themeSwitch && <slots.themeSwitch />}
               </div>
             </NavigationMenuContent>
