@@ -59,3 +59,25 @@ Then follow the [update steps](/docs/get-started/source#updating)
 
   </Tab>
 </Tabs>
+
+## Pinning to a specific version
+
+If you want to pin to a specific version or commit for stability reasons, you can do so by using the specific tag for that version or any commit hash.
+
+For example, if you wanted to pin to version `v4.3.2`, you can use the `v4.3.2` tag:
+
+```bash
+docker pull ghcr.io/diced/zipline:v4.3.2
+```
+
+Or if you wanted to pin to a specific commit, you can use the commit hash as the tag:
+
+<Callout type='info'>
+  Note that it must be the short version of the commit hash, which is the first
+  7 characters of the full commit hash. You can find this in the commit history
+  on GitHub.
+</Callout>
+
+```bash
+docker pull ghcr.io/diced/zipline:abc1234
+```

@@ -3,11 +3,10 @@ import { cva, type VariantProps } from 'class-variance-authority';
 const variants = {
   primary:
     'bg-fd-primary text-fd-primary-foreground hover:bg-fd-primary/80 disabled:bg-fd-secondary disabled:text-fd-secondary-foreground',
-  outline:
-    'border hover:bg-fd-muted hover:text-fd-foreground',
+  outline: 'border hover:bg-fd-muted hover:text-fd-foreground',
   ghost: 'hover:bg-fd-muted hover:text-fd-foreground',
   secondary:
-    'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-muted hover:text-fd-foreground hover:border-fd-border',
+    'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-secondary/50 hover:text-fd-foreground hover:border-fd-border',
 } as const;
 
 export const buttonVariants = cva(
@@ -15,7 +14,6 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: variants,
-      // fumadocs use `color` instead of `variant`
       color: variants,
       size: {
         sm: 'gap-1 px-2 py-1.5 text-xs',

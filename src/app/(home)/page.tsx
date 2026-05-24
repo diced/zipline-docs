@@ -7,9 +7,9 @@ import {
 } from '@/components/home/home-screenshots';
 import {
   GithubStarsButton,
-  HomeCta,
+  HomeButtons,
   SponsorButton,
-} from '@/components/home/home-cta';
+} from '@/components/home/home-buttons';
 import { HomeFeatures } from '@/components/home/home-features';
 import { MacTerminal } from '@/components/home/mac';
 
@@ -35,7 +35,7 @@ export default async function HomePage() {
   return (
     <main className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>
       <section className='my-16 text-center'>
-        <h1 className='text-5xl font-medium sm:text-7xl'>
+        <h1 className='text-5xl font-black sm:text-7xl'>
           <span>
             The{' '}
             <span className='bg-linear-to-r from-blue-600 via-blue-400 to-blue-600 bg-size-[200%_200%] bg-clip-text text-transparent'>
@@ -45,30 +45,42 @@ export default async function HomePage() {
           <span className='block'>ShareX / File upload server</span>
         </h1>
 
-        <p className='mt-4 text-xl text-fd-muted-foreground'>
+        <p className='mt-4 text-xl font-semibold text-fd-muted-foreground'>
           Packed with features and a great dashboard. What more could you want?
         </p>
 
-        <HomeCta stars={stars} showSearch />
+        <HomeButtons stars={stars} showSearch />
       </section>
+
+      <div className='my-32 flex justify-center'>
+        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+      </div>
 
       <HomeScreenshots />
 
-      <div className='my-24 flex justify-center'>
+      <div className='my-80 flex justify-center'>
         <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
       </div>
 
       <section id='features' className='scroll-mt-24'>
-        <h2 className='text-center text-5xl font-medium md:text-6xl'>What does Zipline offer?</h2>
+        <h2 className='text-center text-5xl font-black md:text-6xl'>
+          What does Zipline offer?
+        </h2>
         <p className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'>
-          Zipline offers a wide range of features, all designed to make sharing files and links
-          easier.
+          Zipline offers a wide range of features, all designed to make sharing
+          files and links easier.
         </p>
         <HomeFeatures />
       </section>
 
+      <div className='my-80 flex justify-center'>
+        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+      </div>
+
       <section className='my-64'>
-        <h2 className='text-center text-5xl font-medium md:text-6xl'>Ready to get started?</h2>
+        <h2 className='text-center text-5xl font-black md:text-6xl'>
+          Ready to get started?
+        </h2>
 
         <div className='my-32 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-12'>
           <MacTerminal
@@ -77,7 +89,8 @@ export default async function HomePage() {
               {
                 text: (
                   <>
-                    Creating network &quot;zipline_default&quot; with the default driver
+                    Creating network &quot;zipline_default&quot; with the
+                    default driver
                   </>
                 ),
                 showAfter: 1000,
@@ -109,23 +122,31 @@ export default async function HomePage() {
               Setup in <EmphasizeText>seconds</EmphasizeText>
             </h3>
             <p className='my-4 text-xl text-fd-muted-foreground'>
-              Zipline is designed to be easy to setup via Docker, and is ready to go in seconds.
+              Zipline is designed to be easy to setup via Docker, and is ready
+              to go in seconds.
             </p>
-            <HomeCta stars={stars} />
+            <HomeButtons stars={stars} />
           </div>
         </div>
       </section>
 
+      <div className='my-80 flex justify-center'>
+        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+      </div>
+
       <section className='my-64'>
-        <h2 className='text-center text-5xl font-medium md:text-6xl'>Support development!</h2>
+        <h2 className='text-center text-5xl font-medium md:text-6xl'>
+          Support development!
+        </h2>
 
         <div className='mx-auto flex max-w-3xl flex-col items-center gap-16 py-16'>
           <div className='flex flex-col items-center text-center'>
             <Heart className='h-10 w-10 text-red-500' />
             <h3 className='my-2 text-3xl font-bold'>GitHub Sponsor</h3>
             <p className='my-4 text-xl text-fd-muted-foreground'>
-              Zipline is developed in my free time, and I would love to continue working on it. If
-              you want to support me, consider sponsoring me on GitHub!
+              Zipline is developed in my free time, and I would love to continue
+              working on it. If you want to support me, consider sponsoring me
+              on GitHub!
             </p>
             <SponsorButton />
           </div>
@@ -134,8 +155,8 @@ export default async function HomePage() {
             <Star className='h-10 w-10 text-yellow-500' />
             <h3 className='my-2 text-3xl font-bold'>Star Zipline</h3>
             <p className='my-4 text-xl text-fd-muted-foreground'>
-              If sponsoring isn&apos;t an option, consider starring Zipline on GitHub! It greatly
-              helps increase the project&apos;s visibility :)
+              If sponsoring isn&apos;t an option, consider starring Zipline on
+              GitHub! It greatly helps increase the project&apos;s visibility :)
             </p>
             <GithubStarsButton stars={stars} />
           </div>

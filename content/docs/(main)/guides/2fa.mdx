@@ -3,14 +3,55 @@ title: 2FA
 description: How to enable 2 Factor Authentication (2FA) with TOTP in Zipline
 ---
 
-2 Factor Authentication with TOTP (time-based one-time password) is a security feature that adds an extra layer of protection to your account. It requires you to enter a code from your phone (an app like 2FAS, Authy, Google Authenticator, etc.) in addition to your password when logging in.
+TOTP (time-based one-time password) adds a six-digit code on top of your password at login. The code comes from an authenticator app on your phone like [2FAS](https://2fas.com/), [Authy](https://authy.com/), [Aegis](https://getaegis.app/), Google Authenticator, or whatever password manager you already use.
 
-## Enabling 2FA
+## Enabling TOTP on your instance
 
-1. Head to the **Server Settings** page
+1. Head to **Server Settings**
 2. Scroll down to **Multi-Factor Authentication**
-3. Toggle the **Enable TOTP** switch
+3. Toggle **Enable TOTP** and click **Save**
 
 ![Enable 2FA](/img/docs/2fa-1.png)
 
-Additionally, you can configure an issuer. This may help apps like Authy and 2FAS to display an icon or name net to it without extra configuration from the user.
+### Setting an issuer
+
+The **Issuer** is the name shown in the authenticator app next to the code. Set it to something recognizable like `Zipline` or the name of your instance (e.g. `zipline.example.com`). Apps like Authy and 2FAS use this to pick an icon automatically, so users don't have to guess which account they're looking at.
+
+### Environment variables
+
+```dotenv title=".env"
+MFA_TOTP_ENABLED=true
+MFA_TOTP_ISSUER=Zipline
+```
+
+## Setting up TOTP on your account
+
+Once you have enabled TOTP on your instance, users can now enable 2FA on their own accounts:
+
+1. Click your avatar in the top right and head to **Manage Account**
+2. Scroll down to **Multi-Factor Authentication**
+3. Click **Enable TOTP**
+4. Scan the QR code with your authenticator app, or copy the secret and paste it in manually
+5. Enter the six-digit code your app shows you to confirm
+6. Click **Save**
+
+Once set up, you'll be asked for a code every time you log in.
+
+## Disabling TOTP on your account
+
+1. Head to **Manage Account** → **Multi-Factor Authentication**
+2. Click **Disable TOTP**
+3. Confirm with your current TOTP code
+
+## Resetting TOTP for a user
+
+If a user loses their authenticator and can't log in, an admin can clear their TOTP secret with [ziplinectl set-user](/docs/guides/ctl/ziplinectl-set-user):
+
+```bash
+ziplinectl set-user -i <user-id> totpSecret null
+```
+
+## See also
+
+- [Passkeys](/docs/guides/passkeys) — passwordless login as an alternative or addition to TOTP
+- [MFA settings reference](/docs/config/settings#multi-factor-authentication)

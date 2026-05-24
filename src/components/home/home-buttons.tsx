@@ -10,36 +10,40 @@ function homeCtaButtonClass(
   color: NonNullable<ButtonProps['color']> = 'primary',
   className?: string,
 ) {
-  return cn(buttonVariants({ color, size: 'cta' }), 'w-full md:w-auto', className);
+  return cn(
+    buttonVariants({ color, size: 'cta' }),
+    'w-full md:w-auto',
+    className,
+  );
 }
 
-function SearchCtaButton({ hideIfDisabled }: { hideIfDisabled?: boolean }) {
+export function SearchButton({ hideIfDisabled }: { hideIfDisabled?: boolean }) {
   const { setOpenSearch, enabled } = useSearchContext();
   if (hideIfDisabled && !enabled) return null;
 
   return (
     <button
-      type="button"
-      aria-label="Search documentation"
+      type='button'
+      aria-label='Search documentation'
       className={homeCtaButtonClass('secondary')}
       onClick={() => setOpenSearch(true)}
     >
-      <Search className="size-4" />
+      <Search className='size-4' />
       Search docs
     </button>
   );
 }
 
-export function HomeCta({
+export function HomeButtons({
   stars,
   showSearch,
 }: {
   stars: number;
   showSearch?: boolean;
 }) {
-  const formattedStars = Intl.NumberFormat('en', { notation: 'compact' }).format(
-    stars || 1600,
-  );
+  const formattedStars = Intl.NumberFormat('en', {
+    notation: 'compact',
+  }).format(stars || 1600);
 
   return (
     <div className='mt-8 flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6'>
@@ -48,7 +52,7 @@ export function HomeCta({
       </Link>
 
       {showSearch ? (
-        <SearchCtaButton hideIfDisabled />
+        <SearchButton hideIfDisabled />
       ) : (
         <Link
           href='https://github.com/diced/zipline'
@@ -64,9 +68,9 @@ export function HomeCta({
 }
 
 export function GithubStarsButton({ stars }: { stars?: number }) {
-  const formattedStars = Intl.NumberFormat('en', { notation: 'compact' }).format(
-    stars ?? 1600,
-  );
+  const formattedStars = Intl.NumberFormat('en', {
+    notation: 'compact',
+  }).format(stars ?? 1600);
 
   return (
     <Link

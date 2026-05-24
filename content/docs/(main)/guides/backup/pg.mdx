@@ -36,7 +36,7 @@ postgresql:
     - .env
   environment:
     POSTGRES_USER: ${POSTGRESQL_USER:-zipline}
-    POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD:?POSTGRESSQL_PASSWORD is required}
+    POSTGRES_PASSWORD: ${POSTGRESQL_PASSWORD:?POSTGRESQL_PASSWORD is required}
     POSTGRES_DB: ${POSTGRESQL_DB:-zipline}
 ```
 
@@ -82,7 +82,7 @@ Again, before running this, make sure that the Zipline container is off and the 
 After ensuring that the containers are off/on, you can simply run the command below to restore the backup.
 
 ```bash
-docker compose exec -T postgres psql -U zipline zipline < thesqlfilebackup.sql
+docker compose exec -T postgresql psql -U zipline zipline < thesqlfilebackup.sql
 ```
 
 Make sure that "thesqlfilebackup.sql" is replaced with the

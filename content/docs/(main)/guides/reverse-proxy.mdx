@@ -121,3 +121,12 @@ Setting up Zipline with Caddy is very simple. You can use the following Caddyfil
   reverse_proxy localhost:3000
 }
 ```
+
+## After setting up
+
+After you have set up your reverse proxy, there are a couple of ssettings you should set to make sure everything works correctly:
+
+- `CORE_TRUST_PROXY`: This setting tells Zipline to trust the `X-Forwarded-*` headers set by your reverse proxy. This is important for getting the correct client IP and protocol (HTTP or HTTPS) in your application.
+- `CORE_RETURN_HTTPS_URLS`: This setting tells Zipline to return `https://` URLs for file links and other URLs when the request comes in over HTTPS. This is important for ensuring that your website is fully secure and doesn't have mixed content issues.
+  - If SSL terminates at your proxy, you should turn this on so that file links and other URLs are returned as `https://`.
+  - This setting controls whether or not Zipline returns `https://` urls anywhere in the app.

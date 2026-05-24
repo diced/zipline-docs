@@ -62,3 +62,17 @@ openssl rand -base64 32 # 32 is the length, you can change this
 ```dotenv title=".env"
 CORE_SECRET="p5g9NUcnpSbSl+N/70rlv+YXcoL5X0LA6fTc8Anz74w="
 ```
+
+<Callout type="info">
+
+If you change `CORE_SECRET`, everyone will get logged out.
+
+If you want to keep your secret out of your environment variables, you can also point at a file instead:
+
+```dotenv title=".env"
+CORE_SECRET_FILE=/run/secrets/core_secret
+```
+
+See [Reading Environment Variables from Files](/docs/config#reading-environment-variables-from-files).
+
+</Callout>

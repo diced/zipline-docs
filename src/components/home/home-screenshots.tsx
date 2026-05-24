@@ -1,7 +1,12 @@
 import type { ReactNode } from 'react';
 import Image from 'next/image';
 import type { LucideIcon } from 'lucide-react';
-import { Files, LayoutDashboard, LineChart, Link as LinkIcon } from 'lucide-react';
+import {
+  Files,
+  LayoutDashboard,
+  LineChart,
+  Link as LinkIcon,
+} from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 
 import homePageScreenshotDark from '@/../public/img/screenshot-1-dark.png';
@@ -134,39 +139,57 @@ function ScreenshotTitle({ id }: { id: string }) {
 
 export function HomeScreenshots() {
   return (
-    <div className='mt-36 grid grid-cols-1 gap-12 gap-y-36 md:grid-cols-2'>
-      {screenshotSections.map((section) => {
+    <div className='my-24 grid grid-cols-1 gap-12 gap-y-80 md:grid-cols-2'>
+      {screenshotSections.map((section, i) => {
         const Icon = section.icon;
+        const ImageComponent = (
+          <MacWindow>
+            <Image
+              src={section.darkImage}
+              width={SS_WIDTH}
+              height={SS_HEIGHT}
+              placeholder='blur'
+              className='hidden dark:block'
+              alt={section.alt}
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            />
+            <Image
+              src={section.lightImage}
+              width={SS_WIDTH}
+              height={SS_HEIGHT}
+              placeholder='blur'
+              className='block dark:hidden'
+              alt={section.alt}
+              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            />
+          </MacWindow>
+        );
+
+        const DescriptionPart = (
+          <div className='flex flex-col justify-center'>
+            <Icon className='my-2 h-10 w-10 rounded-lg bg-fd-muted p-2 text-fd-muted-foreground' />
+            <div className='my-2 text-3xl font-bold'>
+              <ScreenshotTitle id={section.id} />
+            </div>
+            <p className='my-4 text-xl text-fd-muted-foreground'>
+              {section.text}
+            </p>
+          </div>
+        );
 
         return (
           <div key={section.id} className='contents'>
-            <MacWindow>
-              <Image
-                src={section.darkImage}
-                width={SS_WIDTH}
-                height={SS_HEIGHT}
-                placeholder='blur'
-                className='hidden dark:block'
-                alt={section.alt}
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-              />
-              <Image
-                src={section.lightImage}
-                width={SS_WIDTH}
-                height={SS_HEIGHT}
-                placeholder='blur'
-                className='block dark:hidden'
-                alt={section.alt}
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-              />
-            </MacWindow>
-            <div className='flex flex-col justify-center'>
-              <Icon className='my-2 h-10 w-10 rounded-lg bg-fd-muted p-2 text-fd-muted-foreground' />
-              <div className='my-2 text-3xl font-bold'>
-                <ScreenshotTitle id={section.id} />
-              </div>
-              <p className='my-4 text-xl text-fd-muted-foreground'>{section.text}</p>
-            </div>
+            {i % 2 === 0 ? (
+              <>
+                {ImageComponent}
+                {DescriptionPart}
+              </>
+            ) : (
+              <>
+                {DescriptionPart}
+                {ImageComponent}
+              </>
+            )}
           </div>
         );
       })}

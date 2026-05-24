@@ -1,0 +1,140 @@
+---
+title: Hardening
+description: Things to turn on if you're sharing your instance with anyone besides yourself
+---
+
+If your instance is just for you on a private network, you can skip most of this. If you're sharing the URL with friends, an internet stranger, or you just want to be a bit more careful about who can do what.
+
+Nothing here is exactly mandatory, pick and choose whatever you would like to have on.
+
+## Use a long secret
+
+`CORE_SECRET` signs your session cookies. If someone gets it, they can forge logins. So don't use `password123`, and don't share it.
+
+```bash
+openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32
+```
+
+Zipline will only start once there is a secret longer than 32 characters in `CORE_SECRET`.
+
+<Callout>
+  If you do change the secret, everyone currently logged into your instance
+  (including you), will be logged out.
+</Callout>
+
+## Keep sensitive values out of plain `.env`
+
+Anything Zipline reads from the environment also supports a `_FILE` suffix that points to a file instead. Useful for secrets you don't want sitting in a `.env` someone can `cat`:
+
+```dotenv title=".env"
+CORE_SECRET_FILE=/run/secrets/core_secret
+DATABASE_PASSWORD_FILE=/run/secrets/db_password
+```
+
+Zipline reads the file contents at startup and uses that as the value.
+
+### With `docker compose`
+
+```yaml title="docker-compose.yml"
+services:
+  zipline:
+    image: ghcr.io/diced/zipline:latest
+    environment:
+      CORE_SECRET_FILE: /run/secrets/core_secret
+    secrets:
+      - core_secret
+
+secrets:
+  core_secret:
+    file: ./secrets/core_secret.txt
+```
+
+See [Docker's secrets docs](https://docs.docker.com/engine/swarm/secrets/) for more information.
+
+## Behind a reverse proxy?
+
+If you're running Zipline behind nginx, Caddy, or similar, turn on **Trust Proxy**. Without it, Zipline thinks every request is coming from `127.0.0.1` (your proxy), which breaks rate limiting, breaks the real-IP shown in logs, and can cause weird cookie behavior.
+
+```dotenv title=".env"
+CORE_TRUST_PROXY=true
+CORE_RETURN_HTTPS_URLS=true
+```
+
+See [Reverse Proxy](/docs/guides/reverse-proxy) for the full setup.
+
+## Turn on MFA
+
+Turning on any sort of multifactor authentication is a good idea:
+
+- **[TOTP / 2FA](/docs/guides/2fa)**: six-digit code from an authenticator app at login.
+- **[Passkeys](/docs/guides/passkeys)**: passwordless login with a security key, your phone, or device biometrics.
+
+## Lock down who can sign up
+
+If you want to disallow people from registering an account:
+
+```dotenv
+FEATURES_USER_REGISTRATION=false
+```
+
+If you would like to hand out invites:
+
+```dotenv
+INVITES_ENABLED=true
+```
+
+## OAuth Hardening
+
+If you prefer having users login through OAuth instead of Zipline's password login.
+
+### Stop OAuth from creating new accounts
+
+Once your OAuth provider is set up, turn on **OAuth Login Only** (`OAUTH_LOGIN_ONLY=true`). Existing users can still log in with OAuth, but the OAuth flow will refuse to create new accounts. Combined with `FEATURES_USER_REGISTRATION=false`, your instance becomes existing-users-only.
+
+### Skip the local login page
+
+If nobody on your instance uses a local password anymore, turn on **Bypass Local Login** (`OAUTH_BYPASS_LOCAL_LOGIN=true`). Hitting `/auth/login` redirects straight to your provider, so people never see the username/password form.
+
+If you ever lock yourself out, append `?local=true` to the login URL to get the local form back.
+
+### Discord: limit who can log in
+
+Discord doesn't have a built-in "only these users" gate, so Zipline handles it with two env vars:
+
+- `OAUTH_DISCORD_ALLOWED_IDS`: comma-separated Discord user IDs. Only these accounts can log in.
+- `OAUTH_DISCORD_DENIED_IDS`: comma-separated Discord user IDs. These accounts get blocked.
+
+### OIDC
+
+Most OIDC platforms (Authentik, Authelia, Keycloak, Pocket-ID, Okta, etc.) have access policies. Configure your provider so only the people you want have access to the Zipline application.
+
+See [OAuth](/docs/guides/oauth) for setup details on each provider.
+
+<Callout>
+  Zipline as of 4.6.0 supports PKCE for OIDC OAuth clients, which is a more
+  secure way to authenticate.
+</Callout>
+
+## Assume MIME types
+
+By default Zipline trusts whatever MIME type the browser claims a file is. That means someone can upload an HTML file with `Content-Type: image/png`.
+
+Turn on **Assume MIME types** to make Zipline detect the type from the actual file instead:
+
+```dotenv title=".env"
+FILES_ASSUME_MIMETYPES=true
+```
+
+Then block the types you don't want served inline at all:
+
+```dotenv title=".env"
+FILES_DISABLED_TYPES="text/html,text/javascript"
+```
+
+If you still want people to be able to upload those, but not have the browser execute them, override what they get served as:
+
+```dotenv title=".env"
+FILES_DISABLED_TYPES_DEFAULT="application/octet-stream"
+```
+
+That makes the browser download the file instead of trying to display it. Leaving `FILES_DISABLED_TYPES_DEFAULT` blank just refuses the upload entirely.

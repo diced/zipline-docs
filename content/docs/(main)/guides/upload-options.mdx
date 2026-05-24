@@ -13,7 +13,7 @@ description: HTTP headers that can be used to change various settings for file u
 | `x-zipline-image-compression-type`    | The image format to compress to. One of `jpg`, `png`, `webp`, `jxl`. See [here](#changing-the-format) for more.                                               |
 | `x-zipline-password`                  | If set, the file will have a password protected dialog upon viewing.                                                                                          |
 | `x-zipline-max-views`                 | The maximum number of views before the file is deleted.                                                                                                       |
-| `x-zipline-no-json`                   | Returns file urls seperated by a newline instead of JSON. See [here](#response-output) for more.                                                              |
+| `x-zipline-no-json`                   | Returns file urls separated by a newline instead of JSON. See [here](#response-output) for more.                                                              |
 | `x-zipline-original-name`             | Must be `true` to have the original file name saved. See [here](#original-name) for more.                                                                     |
 | `x-zipline-folder`                    | A folder ID to automatically upload the file to.                                                                                                              |
 | `x-zipline-filename`                  | This header will override the filename of the file, it supercedes the `x-zipline-format`                                                                      |
@@ -78,6 +78,41 @@ This header supports the following values:
 - `jxl` (may require additional setup)
 
 If Zipline fails to compress the image, it will silently error out and use the original image.
+
+## Response Output
+
+See the [ API reference ](/docs/api/api/upload/post#nd-page) for more information on the response output.
+
+```ts
+type UploadResponse =
+  | string
+  | {
+      files: {
+        id: string;
+        name: string;
+        type: string;
+        url: string;
+        pending?: boolean;
+        removedGps?: boolean;
+        compressed?: {
+          mimetype: string;
+          ext: 'jpg' | 'jpeg' | 'png' | 'webp' | 'jxl';
+          failed?: boolean;
+        };
+      }[];
+      deletesAt?: string;
+      assumedMimetypes?: boolean[];
+    };
+```
+
+Setting `x-zipline-no-json: true` switches the response to plain text, with one URL per line:
+
+```
+https://zipline.example.com/u/abc123.png
+https://zipline.example.com/u/def456.png
+```
+
+Useful for uploaders that can't parse JSON, or for piping the output directly into something like `xclip`.
 
 ## Original Name
 

@@ -11,6 +11,11 @@ Enabling debug logs will show more verbose logs from Zipline. This is mostly use
 
 To enable debug mode, set the `DEBUG` environment variable to `zipline`.
 
+<Callout type='warning'>
+  Turn this off when you're done troubleshooting. It logs a lot and there's
+  no reason to leave it running on an instance people actually use.
+</Callout>
+
 ```dotenv title=".env"
 DEBUG=zipline
 ```
@@ -178,7 +183,7 @@ const entries = await readLog('.memory.log');
 ```
 
 ```python title="read.py"
-from datetime import datetime
+import os
 
 LOG_FILE = ".memory.log"
 

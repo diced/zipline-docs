@@ -55,11 +55,11 @@ This will guide you through setting up an application and provider.
 11. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
 12. Paste the "Client ID" and "Client Secret" into the respective fields within the OIDC section.
 
-For the OIDC Authorize URL: `https://<authentik domain>/application/o/authorize/`
+Then fill in the values:
 
-For the OIDC Token URL: `https://<authentik domain>/application/o/token/`
-
-For the OIDC User Info URL: `https://<authentik domain>/application/o/userinfo/`
+- Authorize URL: `https://<authentik domain>/application/o/authorize/`
+- Token URL: `https://<authentik domain>/application/o/token/`
+- User Info URL: `https://<authentik domain>/application/o/userinfo/`
 
 ![zipline settings oauth oidc](/img/docs/oauth-authentik-7.png)
 
@@ -81,15 +81,13 @@ For the Redirect URIs: add `http(s)://<your domain>/api/auth/oauth/oidc`
 
 Microsoft Entra ID is a cloud-based identity and access management service. It also offers OIDC support and endpoints.
 
-For the OIDC Client ID: your azure tenant ID
+In the Entra admin center, register an application and grab the **Application (client) ID** and a **client secret** from "Certificates & secrets". The **tenant ID** is the directory ID of your Entra tenant which goes in the URLs below, not in the Client ID field.
 
-For the OIDC Client Secret: your azure application secret
-
-For the OIDC Authorize URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize`
-
-For the OIDC Token URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`
-
-For the OIDC User Info URL: `https://graph.microsoft.com/oidc/userinfo`
+- Client ID: your app registration's **Application (client) ID**
+- Client Secret: your app registration's client secret
+- Authorize URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize`
+- Token URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`
+- User Info URL: `https://graph.microsoft.com/oidc/userinfo`
 
 ## Other OIDC Providers
 

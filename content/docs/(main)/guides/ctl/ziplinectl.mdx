@@ -46,6 +46,7 @@ Options:
 
 Commands:
   read-config [options]                  output the configuration as json, exactly how Zipline sees it
+  export-config [options]                output the configuration as environment variables
   list-users [options]                   list all users
   set-user [options] <property> <value>
   import-dir [options] <directory>
@@ -63,16 +64,19 @@ ziplinectl -V
 ## Commands
 
 <Cards>
-  <Card href='/docs/guides/cli/read-config' title='📖 Read Config'>
+  <Card href='/docs/guides/ctl/ziplinectl-read-config' title='📖 Read Config'>
     Output the configuration as JSON, exactly how Zipline sees it
   </Card>
-  <Card href='/docs/guides/cli/list-users' title='👥 List Users'>
+  <Card href='/docs/guides/ctl/ziplinectl-export-config' title='📤 Export Config'>
+    Export the current configuration as environment variables
+  </Card>
+  <Card href='/docs/guides/ctl/ziplinectl-list-users' title='👥 List Users'>
     List all users
   </Card>
-  <Card href='/docs/guides/cli/set-user' title='✏️ Set User'>
+  <Card href='/docs/guides/ctl/ziplinectl-set-user' title='✏️ Set User'>
     Set a property in a user, like their password
   </Card>
-  <Card href='/docs/guides/cli/import-dir' title='📩 Import Directory'>
+  <Card href='/docs/guides/ctl/ziplinectl-import-dir' title='📩 Import Directory'>
     Import a directory of files
   </Card>
 </Cards>

@@ -18,12 +18,12 @@ This section is for core configuration, like whether or not to return HTTPS urls
 
 ### Variables
 
-| Variable                                                         | Type      | Example               |
-| ---------------------------------------------------------------- | --------- | --------------------- |
-| `CORE_RETURN_HTTPS_URLS` (being phased out for `CORE_USE_HTTPS`) | `boolean` | `true`                |
-| `CORE_DEFAULT_DOMAIN`                                            | `string`  | `zipline.example.com` |
-| `CORE_TEMP_DIRECTORY`                                            | `string`  | `/var/tmp/zipline`    |
-| `CORE_TRUST_PROXY`                                               | `boolean` | `true`                |
+| Variable                 | Type      | Example               |
+| ------------------------ | --------- | --------------------- |
+| `CORE_RETURN_HTTPS_URLS` | `boolean` | `true`                |
+| `CORE_DEFAULT_DOMAIN`    | `string`  | `zipline.example.com` |
+| `CORE_TEMP_DIRECTORY`    | `string`  | `/var/tmp/zipline`    |
+| `CORE_TRUST_PROXY`       | `boolean` | `true`                |
 
 See the other [core settings](/docs/config/core).
 
@@ -92,6 +92,8 @@ The command used to generate thumbnails is `ffmpeg -i tmpfile -y -vframes 1 -fil
 
 `Thumbnails Number Threads` is the number of worker threads to spawn when generating thumbnails. It is recommended to set this to the number of CPU threads on your server. If you set this too high, it may cause performance issues. If you are noticing performance issues, try setting this value to `1`, so that only one worker thread is spawned. If this value is low, thumbnails will be grouped to be processed by the same worker thread, which may cause a bottleneck.
 
+Enabling instantaneous thumbnails, makes sure that thumbnails are generated after each video file is uploaded instead of on an interval.
+
 ### Variables
 
 | Variable                              | Type      | Example                             |
@@ -104,6 +106,8 @@ The command used to generate thumbnails is `ffmpeg -i tmpfile -y -vframes 1 -fil
 | `FEATURES_DELETE_ON_MAX_VIEWS`        | `boolean` | `true`                              |
 | `FEATURES_THUMBNAILS_ENABLED`         | `boolean` | `true`                              |
 | `FEATURES_THUMBNAILS_NUM_THREADS`     | `number`  | `4`                                 |
+| `FEATURES_THUMBNAILS_FORMAT`          | `string`  | `jpg`                               |
+| `FEATURES_THUMBNAILS_INSTANTANEOUS`   | `boolean` | `false`                             |
 | `FEATURES_METRICS_ENABLED`            | `boolean` | `true`                              |
 | `FEATURES_METRICS_ADMIN_ONLY`         | `boolean` | `false`                             |
 | `FEATURES_METRICS_SHOW_USER_SPECIFIC` | `boolean` | `true`                              |
@@ -113,24 +117,27 @@ The command used to generate thumbnails is `ffmpeg -i tmpfile -y -vframes 1 -fil
 ## Files
 
 These settings are for viewing and uploading files. The route can be anything, even `/` if you want to serve files from the root of your domain. Enabling `Remove GPS Metadata` will attempt to remove any exif GPS metadata from images uploaded to Zipline.
-The `Assume Mimetypes` can be enabled to assume the mimetype of a file based on the file extension. This is useful for files that may not have a mimetype set by the browser or uploader.
+The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its actual contents instead of trusting what the browser claims. If your instance is public, see [Hardening](/docs/guides/hardening#assume-mime-types) for why you probably want this on along with `FILES_DISABLED_TYPES` and `FILES_DISABLED_TYPES_DEFAULT`.
 
 ### Variables
 
-| Variable                            | Type       | Example               |
-| ----------------------------------- | ---------- | --------------------- |
-| `FILES_ROUTE`                       | `string`   | `/u`                  |
-| `FILES_LENGTH`                      | `number`   | `6`                   |
-| `FILES_DEFAULT_FORMAT`              | `string`   | `random`              |
-| `FILES_DISABLED_EXTENSIONS`         | `string[]` | `exe,bat,dmg`         |
-| `FILES_MAX_FILE_SIZE`               | `string`   | `100mb`               |
-| `FILES_DEFAULT_EXPIRATION`          | `string`   | `30d`                 |
-| `FILES_ASSUME_MIMETYPES`            | `boolean`  | `true`                |
-| `FILES_DEFAULT_DATE_FORMAT`         | `string`   | `YYYY-MM-DD_HH:mm:ss` |
-| `FILES_REMOVE_GPS_METADATA`         | `boolean`  | `true`                |
-| `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                   |
-| `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                   |
-| `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`         |
+| Variable                            | Type       | Example                    |
+| ----------------------------------- | ---------- | -------------------------- |
+| `FILES_ROUTE`                       | `string`   | `/u`                       |
+| `FILES_LENGTH`                      | `number`   | `6`                        |
+| `FILES_DEFAULT_FORMAT`              | `string`   | `random`                   |
+| `FILES_DISABLED_TYPES`              | `string[]` | `application/x-sh`         |
+| `FILES_DISABLED_TYPES_DEFAULT`      | `string`   | `application/octet-stream` |
+| `FILES_DISABLED_EXTENSIONS`         | `string[]` | `exe,bat,dmg`              |
+| `FILES_MAX_FILE_SIZE`               | `string`   | `100mb`                    |
+| `FILES_MAX_FILES_PER_UPLOAD`        | `number`   | `10`                       |
+| `FILES_DEFAULT_EXPIRATION`          | `string`   | `30d`                      |
+| `FILES_ASSUME_MIMETYPES`            | `boolean`  | `true`                     |
+| `FILES_DEFAULT_DATE_FORMAT`         | `string`   | `YYYY-MM-DD_HH:mm:ss`      |
+| `FILES_REMOVE_GPS_METADATA`         | `boolean`  | `true`                     |
+| `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                        |
+| `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                        |
+| `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`              |
 
 ## URL Shortener
 
@@ -146,6 +153,8 @@ These settings are for the URL shortener feature. The route can be anything, eve
 ## Invites
 
 Invites are used to invite users to your Zipline instance with the use of invite codes/links. When enabled, users will be able to send invites to other users.
+
+Pair this with **User Registration** disabled if you want an invite-only instance. See [Features](#if-you-want-only-your-friends-on-the-instance).
 
 ### Variables
 
@@ -174,7 +183,7 @@ The allow list is a comma-separated list of IP addresses that are allowed to byp
 | ------------------------ | ---------- | ----------------- |
 | `RATELIMIT_ENABLED`      | `boolean`  | `true`            |
 | `RATELIMIT_MAX`          | `number`   | `10`              |
-| `RATELIMIT_WINDOW`       | `string`   | `2`               |
+| `RATELIMIT_WINDOW`       | `number`   | `60`              |
 | `RATELIMIT_ADMIN_BYPASS` | `boolean`  | `true`            |
 | `RATELIMIT_ALLOW_LIST`   | `string[]` | `1.1.1.1,8.8.8.8` |
 
@@ -252,6 +261,24 @@ These settings are for HTTP webhooks. When enabled, Zipline will send a POST req
 These settings are for Discord webhook notifications. If the main `Webhook URL`, `Username`, and `Avatar URL` are set, the On Upload and On Shorten hook will use them _unless_, they have their own values set.
 
 Content fields like `Content`, `Embed Title`, `Embed Description` can have [variables](/docs/guides/variables) in them for customization.
+
+### Variables
+
+| Variable                         | Type     | Example                                |
+| -------------------------------- | -------- | -------------------------------------- |
+| `DISCORD_WEBHOOK_URL`            | `string` | `https://discord.com/api/webhooks/...` |
+| `DISCORD_USERNAME`               | `string` | `Zipline`                              |
+| `DISCORD_AVATAR_URL`             | `string` | `https://example.com/avatar.png`       |
+| `DISCORD_ON_UPLOAD_WEBHOOK_URL`  | `string` | `https://discord.com/api/webhooks/...` |
+| `DISCORD_ON_UPLOAD_USERNAME`     | `string` | `Zipline Uploads`                      |
+| `DISCORD_ON_UPLOAD_AVATAR_URL`   | `string` | `https://example.com/avatar.png`       |
+| `DISCORD_ON_UPLOAD_CONTENT`      | `string` | `{user.username} uploaded {file.name}` |
+| `DISCORD_ON_UPLOAD_EMBED`        | `json`   | `{"title": "New upload"}`              |
+| `DISCORD_ON_SHORTEN_WEBHOOK_URL` | `string` | `https://discord.com/api/webhooks/...` |
+| `DISCORD_ON_SHORTEN_USERNAME`    | `string` | `Zipline Shortener`                    |
+| `DISCORD_ON_SHORTEN_AVATAR_URL`  | `string` | `https://example.com/avatar.png`       |
+| `DISCORD_ON_SHORTEN_CONTENT`     | `string` | `{user.username} shortened a URL`      |
+| `DISCORD_ON_SHORTEN_EMBED`       | `json`   | `{"title": "New shortened URL"}`       |
 
 ## PWA
 

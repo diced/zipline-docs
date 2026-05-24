@@ -22,6 +22,12 @@ To skip the local username-password authentication process, enable this option i
 
 To prevent users from creating accounts through an OAuth provider, enable this option in the "OAuth" section of the settings dashboard. This will restrict access to OAuth logins only, and any attempt to create a new account will result in an error message.
 
+(`OAUTH_LOGIN_ONLY=true` if you're setting it via env.)
+
+#### Only let certain Discord users in
+
+If you're using Discord OAuth and want to limit who can log in, use **Allowed IDs** and **Denied IDs** in server settings (`OAUTH_DISCORD_ALLOWED_IDS` / `OAUTH_DISCORD_DENIED_IDS`). Allowed IDs is an allowlist, so only those Discord user IDs get through. Denied IDs blocks specific IDs regardless of anything else.
+
 ## Providers
 
 <Cards>

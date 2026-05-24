@@ -116,7 +116,8 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'Video Thumbnails',
-    description: 'Zipline will automatically generate thumbnails for your videos',
+    description:
+      'Zipline will automatically generate thumbnails for your videos',
     icon: Video,
   },
   {
@@ -128,12 +129,14 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'PWA',
-    description: 'When enabled, Zipline can be installed as a PWA on supported devices.',
+    description:
+      'When enabled, Zipline can be installed as a PWA on supported devices.',
     icon: LayoutGrid,
   },
   {
     title: 'Partial Uploads',
-    description: 'Zipline supports "chunking" your files when uploading large files.',
+    description:
+      'Zipline supports "chunking" your files when uploading large files.',
     icon: Share2,
   },
   {
@@ -143,7 +146,8 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'Quotas',
-    description: 'Set quotas on users to limit the amount of files they can upload.',
+    description:
+      'Set quotas on users to limit the amount of files they can upload.',
     icon: UserX,
   },
   {
@@ -162,7 +166,7 @@ function FeatureCard({ title, description, href, icon: Icon }: HomeFeature) {
 
   return (
     <div className='group relative w-full grow rounded-md p-0 transition-all hover:-translate-y-1 hover:p-0.5 hover:shadow-2xl'>
-      <div className='absolute inset-0 rounded-md bg-linear-to-r from-blue-500 via-blue-400 to-blue-500 bg-size-[200%_200%] p-[2px] opacity-0 transition-opacity group-hover:animate-[gradient-spin_3s_linear_infinite] group-hover:opacity-100' />
+      <div className='absolute inset-0 rounded-md bg-linear-to-r from-blue-100 to-blue-500 bg-size-[200%_200%] p-[10px] opacity-0 transition-opacity group-hover:animate-[gradient-spin_3s_linear_infinite] group-hover:opacity-100' />
 
       <div className='relative h-full rounded-md border border-fd-border bg-fd-card p-4 shadow-md'>
         <Icon className='h-8 w-8 rounded-md bg-fd-muted p-1 text-fd-muted-foreground' />
@@ -173,7 +177,9 @@ function FeatureCard({ title, description, href, icon: Icon }: HomeFeature) {
         ) : (
           <span className={titleClassName}>{title}</span>
         )}
-        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>{description}</p>
+        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>
+          {description}
+        </p>
       </div>
     </div>
   );
