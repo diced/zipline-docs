@@ -21,6 +21,12 @@ export function baseOptions(): BaseLayoutProps {
         active: 'nested-url',
         on: 'nav',
       },
+      {
+        text: 'Releases',
+        url: '/releases',
+        active: 'nested-url',
+        on: 'nav',
+      },
     ],
   };
 }

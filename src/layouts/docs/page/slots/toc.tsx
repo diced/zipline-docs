@@ -67,6 +67,7 @@ export function TOC({
       )}
     >
       {header}
+
       <h3
         id='toc-title'
         className='inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground'
@@ -75,8 +76,8 @@ export function TOC({
         <I18nLabel label='toc' />
       </h3>
       <Base.TOCScrollArea>
+        {items.length === 0 && <TOCEmpty />}
         <TOCItems {...list}>
-          {items.length === 0 && <TOCEmpty />}
           {items.map((item) => (
             <TOCItem key={item.url} item={item} />
           ))}
