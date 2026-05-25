@@ -21,7 +21,8 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
         nav={{ ...options.nav, enabled: false }}
         containerProps={{
           style: {
-            '--fd-docs-row-1': `calc(var(--fd-banner-height, 0px) + var(--fd-site-nav-height, 0px))`,
+            '--fd-docs-row-1':
+              'calc(var(--fd-banner-height, 0px) + var(--fd-site-nav-height, 0px))',
           } as any,
         }}
         slots={{

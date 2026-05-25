@@ -29,7 +29,12 @@ export default function CustomSearchDialog(props: SharedProps) {
   });
 
   return (
-    <SearchDialog search={search} onSearchChange={setSearch} isLoading={query.isLoading} {...props}>
+    <SearchDialog
+      search={search}
+      onSearchChange={setSearch}
+      isLoading={query.isLoading}
+      {...props}
+    >
       <SearchDialogOverlay />
       <SearchDialogContent>
         <SearchDialogHeader>
@@ -43,9 +48,9 @@ export default function CustomSearchDialog(props: SharedProps) {
         />
         <SearchDialogFooter>
           <a
-            href="https://algolia.com"
-            rel="noreferrer noopener"
-            className="ms-auto text-xs text-fd-muted-foreground"
+            href='https://algolia.com'
+            rel='noreferrer noopener'
+            className='ms-auto text-xs text-fd-muted-foreground'
           >
             Search powered by Algolia
           </a>

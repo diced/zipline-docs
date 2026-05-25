@@ -8,10 +8,14 @@ export function ScrollArea({
   ...props
 }: React.ComponentPropsWithRef<typeof Primitive.Root>) {
   return (
-    <Primitive.Root type="scroll" className={cn('overflow-hidden', className)} {...props}>
+    <Primitive.Root
+      type='scroll'
+      className={cn('overflow-hidden', className)}
+      {...props}
+    >
       {children}
       <Primitive.Corner />
-      <ScrollBar orientation="vertical" />
+      <ScrollBar orientation='vertical' />
     </Primitive.Root>
   );
 }
@@ -22,7 +26,10 @@ export function ScrollViewport({
   ...props
 }: React.ComponentPropsWithRef<typeof Primitive.Viewport>) {
   return (
-    <Primitive.Viewport className={cn('size-full rounded-[inherit]', className)} {...props}>
+    <Primitive.Viewport
+      className={cn('size-full rounded-[inherit]', className)}
+      {...props}
+    >
       {children}
     </Primitive.Viewport>
   );
@@ -44,7 +51,7 @@ export function ScrollBar({
       )}
       {...props}
     >
-      <Primitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-fd-border" />
+      <Primitive.ScrollAreaThumb className='relative flex-1 rounded-full bg-fd-border' />
     </Primitive.Scrollbar>
   );
 }

@@ -1,25 +1,20 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/cn';
+import { useIsMounted } from '@/lib/use-is-mounted';
 
 export function DocsScrollToTop() {
   const isTop = useIsScrollTop({ enabled: true });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  const mounted = useIsMounted();
   const visible = mounted && isTop === false;
 
   return (
     <button
-      type="button"
-      aria-label="Scroll to top"
+      type='button'
+      aria-label='Scroll to top'
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className={cn(
         buttonVariants({ color: 'secondary', size: 'icon' }),
@@ -29,7 +24,7 @@ export function DocsScrollToTop() {
           : 'pointer-events-none translate-y-2 opacity-0',
       )}
     >
-      <ArrowUp className="size-5" />
+      <ArrowUp className='size-5' />
     </button>
   );
 }

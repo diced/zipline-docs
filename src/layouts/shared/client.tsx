@@ -1,18 +1,17 @@
 'use client';
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
-import type { FC, ComponentProps } from 'react';
+import type { ComponentProps, FC } from 'react';
 import {
-  isLinkItemActive,
   type BaseLayoutProps,
   type LinkItemType,
+  isLinkItemActive,
 } from './index';
 import {
-  type SearchTriggerProps,
   type FullSearchTriggerProps,
-  SearchTrigger,
+  type SearchTriggerProps,
   FullSearchTrigger,
+  SearchTrigger,
 } from './slots/search-trigger';
 import { type ThemeSwitchProps, ThemeSwitch } from './slots/theme-switch';
 
@@ -95,11 +94,9 @@ export function baseSlots({ useProps }: { useProps: () => BaseSlotsProps }) {
       baseSlots: BaseSlots;
       baseProps: BaseSlotsProps;
     } {
-      const { locales = [] } = useI18n();
       const {
         nav,
         slots = {},
-        i18n = locales.length > 1,
         searchToggle: {
           enabled: searchToggleEnabled = true,
           ...searchToggle

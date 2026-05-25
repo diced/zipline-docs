@@ -16,7 +16,10 @@ export function NavigationMenuItem({
   ...props
 }: React.ComponentPropsWithRef<typeof Primitive.NavigationMenuItem>) {
   return (
-    <Primitive.NavigationMenuItem className={cn('list-none', className)} {...props}>
+    <Primitive.NavigationMenuItem
+      className={cn('list-none', className)}
+      {...props}
+    >
       {children}
     </Primitive.NavigationMenuItem>
   );
@@ -28,7 +31,10 @@ export function NavigationMenuTrigger({
   ...props
 }: React.ComponentPropsWithRef<typeof Primitive.Trigger>) {
   return (
-    <Primitive.Trigger className={cn('data-[state=open]:bg-fd-accent/50', className)} {...props}>
+    <Primitive.Trigger
+      className={cn('data-[state=open]:bg-fd-accent/50', className)}
+      {...props}
+    >
       {children}
     </Primitive.Trigger>
   );
@@ -57,7 +63,7 @@ export function NavigationMenuViewport({
   ...props
 }: React.ComponentPropsWithRef<typeof Primitive.Viewport>) {
   return (
-    <div ref={ref} className="flex w-full justify-center">
+    <div ref={ref} className='flex w-full justify-center'>
       <Primitive.Viewport
         {...props}
         className={cn(

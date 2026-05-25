@@ -8,7 +8,6 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/cn';
-import { I18nLabel, useI18n } from 'fumadocs-ui/contexts/i18n';
 import { useTreePath } from 'fumadocs-ui/contexts/tree';
 import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
 import { ChevronDown, Text } from 'lucide-react';
@@ -73,7 +72,7 @@ export function TOC({
         className='inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground'
       >
         <Text className='size-4' />
-        <I18nLabel label='toc' />
+        On this page
       </h3>
       <Base.TOCScrollArea>
         {items.length === 0 && <TOCEmpty />}
@@ -197,7 +196,6 @@ function PageTOCPopoverTrigger({
   className,
   ...props
 }: ComponentProps<'button'>) {
-  const { text } = useI18n();
   const { open } = use(TocPopoverContext)!;
   const items = Base.useItems();
   const selectedIdx = items.findIndex((item) => item.active);
@@ -229,7 +227,7 @@ function PageTOCPopoverTrigger({
             showItem && 'opacity-0 -translate-y-full pointer-events-none',
           )}
         >
-          {path?.name ?? text.toc}
+          {path?.name ?? 'On this page'}
         </span>
         <span
           className={cn(

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { parseString } from '@/lib/parser';
 import sampleData from '@/lib/parser/sample';
 import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
@@ -8,7 +8,7 @@ import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 export default function Playground() {
-  const [date, setDate] = useState(new Date('1/1/2025 11:30 am'));
+  const [date] = useState(() => new Date());
   const data = sampleData(date);
 
   const [value, setValue] = useState(
@@ -22,10 +22,6 @@ export default function Playground() {
     setValue(event.target.value);
     setParsed(parseString(event.target.value, data));
   };
-
-  useEffect(() => {
-    setDate(new Date());
-  }, []);
 
   return (
     <>

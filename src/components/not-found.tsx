@@ -15,7 +15,7 @@ export function NotFoundContent({ className }: { className?: string }) {
       <p className='text-7xl font-black tabular-nums text-blue-400 sm:text-8xl'>
         404
       </p>
-      <h1 className='text-2xl font-bold sm:text-3xl'>You're lost</h1>
+      <h1 className='text-2xl font-bold sm:text-3xl'>You&apos;re lost</h1>
       <div className='mt-4 flex flex-col gap-3 sm:flex-row'>
         <Link
           href='/'

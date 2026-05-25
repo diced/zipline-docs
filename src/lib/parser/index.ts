@@ -214,7 +214,7 @@ function modifier(
         try {
           Intl.DateTimeFormat.supportedLocalesOf(locale);
           args[0] = locale;
-        } catch (e) {
+        } catch {
           args[0] = undefined;
           console.error(`Unknown locale: ${locale}`);
         }
@@ -521,4 +521,3 @@ function toHex(str: string): string {
   }
   return hex;
 }
-

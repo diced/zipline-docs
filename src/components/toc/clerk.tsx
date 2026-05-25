@@ -12,7 +12,6 @@ import {
 import { cn } from '@/lib/cn';
 import { useTOCItems } from './index';
 import { mergeRefs } from '@/lib/merge-refs';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
 
 interface ComputedSVG {
   width: number;
@@ -124,7 +123,6 @@ export function TOCItems({
           i > 0 ? itemLineLengths[i - 1][1] + (top - positions[i - 1][1]) : top;
         while (l < n && path.getPointAtLength(l).y < top) l++;
 
-        // vertical line distance = bottom - top
         itemLineLengths.push([l, l + bottom - top]);
       }
     }
@@ -164,11 +162,9 @@ export function TOCItems({
 }
 
 export function TOCEmpty() {
-  const { text } = useI18n();
-
   return (
     <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>
-      {text.tocNoHeadings}
+      No headings
     </div>
   );
 }
@@ -190,7 +186,7 @@ function ThumbTrack({
   const previousRef = useRef<ThumbBoxInfo>(null);
   const tocInfo = Primitive.useTOC();
 
-  function calculate(items: Primitive.TOCItemInfo[]) {
+  function getTrackStyle(items: Primitive.TOCItemInfo[]) {
     const out: Record<string, string> = {};
     const startIdx = items.findIndex((item) => item.active);
     if (startIdx === -1) return out;
@@ -198,35 +194,47 @@ function ThumbTrack({
     const endIdx = items.findLastIndex((item) => item.active);
     out['--track-top'] = `${computed.positions[startIdx][0]}px`;
     out['--track-bottom'] = `${computed.positions[endIdx][1]}px`;
+    return out;
+  }
 
-    if (thumbBox) {
-      let isUp = false;
-      if (previousRef.current) {
-        const prev = previousRef.current;
-        isUp =
-          prev.startIdx > startIdx ||
-          prev.endIdx > endIdx ||
-          (prev.startIdx === startIdx && prev.endIdx === endIdx && prev.isUp);
-      }
+  function getThumbStyle(
+    items: Primitive.TOCItemInfo[],
+    prev: ThumbBoxInfo | null,
+  ) {
+    const out: Record<string, string> = {};
+    const startIdx = items.findIndex((item) => item.active);
+    if (startIdx === -1) return { out, next: prev };
 
-      previousRef.current = { startIdx, endIdx, isUp };
-      out['--offset-distance'] = isUp
-        ? `${computed.itemLineLengths[startIdx][0]}px`
-        : `${computed.itemLineLengths[endIdx][1]}px`;
-      out['--opacity'] =
-        items[isUp ? startIdx : endIdx].original._step !== undefined
-          ? '0'
-          : '1';
+    const endIdx = items.findLastIndex((item) => item.active);
+    let isUp = false;
+    if (prev) {
+      isUp =
+        prev.startIdx > startIdx ||
+        prev.endIdx > endIdx ||
+        (prev.startIdx === startIdx && prev.endIdx === endIdx && prev.isUp);
     }
 
-    return out;
+    const next = { startIdx, endIdx, isUp };
+    out['--offset-distance'] = isUp
+      ? `${computed.itemLineLengths[startIdx][0]}px`
+      : `${computed.itemLineLengths[endIdx][1]}px`;
+    out['--opacity'] =
+      items[isUp ? startIdx : endIdx].original._step !== undefined ? '0' : '1';
+    return { out, next };
   }
 
   Primitive.useTOCListener((items) => {
     const element = ref.current;
     if (!element) return;
 
-    for (const [k, v] of Object.entries(calculate(items))) {
+    const styles = getTrackStyle(items);
+    if (thumbBox) {
+      const { out, next } = getThumbStyle(items, previousRef.current);
+      previousRef.current = next;
+      Object.assign(styles, out);
+    }
+
+    for (const [k, v] of Object.entries(styles)) {
       element.style.setProperty(k, v);
     }
   });
@@ -238,7 +246,7 @@ function ThumbTrack({
       style={{
         width: computed.width,
         height: computed.height,
-        ...calculate(tocInfo.get()),
+        ...getTrackStyle(tocInfo.get()),
       }}
     >
       <svg
@@ -248,7 +256,8 @@ function ThumbTrack({
         style={{
           width: computed.width,
           height: computed.height,
-          clipPath: `polygon(0 var(--track-top,0), 100% var(--track-top,0), 100% var(--track-bottom,0), 0 var(--track-bottom,0))`,
+          clipPath:
+            'polygon(0 var(--track-top,0), 100% var(--track-top,0), 100% var(--track-bottom,0), 0 var(--track-bottom,0))',
         }}
       >
         {computed.content}

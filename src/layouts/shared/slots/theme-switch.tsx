@@ -3,7 +3,8 @@ import { cn } from '@/lib/cn';
 import { cva } from 'class-variance-authority';
 import { Airplay, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { type ComponentProps, useEffect, useState } from 'react';
+import { type ComponentProps } from 'react';
+import { useIsMounted } from '@/lib/use-is-mounted';
 
 const itemVariants = cva('size-6.5 p-1.5 text-fd-muted-foreground', {
   variants: {
@@ -30,11 +31,7 @@ export function ThemeSwitch({
   ...props
 }: ThemeSwitchProps) {
   const { setTheme, theme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsMounted();
 
   const container = cn(
     'inline-flex items-center rounded-full border p-1 overflow-hidden *:rounded-full',
@@ -47,7 +44,7 @@ export function ThemeSwitch({
     return (
       <button
         className={container}
-        aria-label={`Toggle Theme`}
+        aria-label={'Toggle Theme'}
         onClick={() => setTheme(value === 'light' ? 'dark' : 'light')}
         data-theme-toggle=''
       >

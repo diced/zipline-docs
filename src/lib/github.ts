@@ -1,7 +1,9 @@
 import { micromark } from 'micromark';
 import { gfm, gfmHtml } from 'micromark-extension-gfm';
 
-function githubHeaders(): HeadersInit {
+const REPO = 'diced/zipline';
+
+function githubHeaders() {
   return {
     Accept: 'application/vnd.github+json',
     ...(process.env.GITHUB_TOKEN
@@ -10,9 +12,9 @@ function githubHeaders(): HeadersInit {
   };
 }
 
-export async function getGithubStars(repo = 'diced/zipline'): Promise<number> {
+export async function getStars(): Promise<number> {
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}`, {
+    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
       headers: githubHeaders(),
       next: { revalidate: 3600 },
     });
@@ -26,36 +28,17 @@ export async function getGithubStars(repo = 'diced/zipline'): Promise<number> {
   }
 }
 
-export interface ZiplineRelease {
-  tagName: string;
-  name: string;
-  htmlUrl: string;
-  publishedAt: string | null;
-  prerelease: boolean;
-  bodyHtml: string;
-  author: {
-    login: string;
-    htmlUrl: string;
-    avatarUrl: string;
-  } | null;
-}
-
-interface RawGithubRelease {
+export type GithubRelease = {
   tag_name: string;
   name: string | null;
   body: string | null;
   html_url: string;
   published_at: string | null;
   prerelease: boolean;
-  draft: boolean;
-  author: {
-    login: string;
-    html_url: string;
-    avatar_url: string;
-  } | null;
-}
+};
 
-function renderMarkdown(input: string): string {
+function renderMarkdown(input?: string | null): string {
+  if (!input) return '';
   return micromark(input, {
     allowDangerousHtml: false,
     extensions: [gfm()],
@@ -63,12 +46,10 @@ function renderMarkdown(input: string): string {
   });
 }
 
-export async function getZiplineReleases(
-  repo = 'diced/zipline',
-): Promise<ZiplineRelease[]> {
+export async function getReleases(): Promise<GithubRelease[]> {
   try {
     const res = await fetch(
-      `https://api.github.com/repos/${repo}/releases?per_page=100`,
+      `https://api.github.com/repos/${REPO}/releases?per_page=100`,
       {
         headers: githubHeaders(),
         next: { revalidate: 3600 },
@@ -77,28 +58,18 @@ export async function getZiplineReleases(
 
     if (!res.ok) return [];
 
-    const raw = (await res.json()) as RawGithubRelease[];
+    const raw = (await res.json()) as GithubRelease[];
 
     return raw
-      .filter((r) => !r.draft && /^v4(\.|$)/.test(r.tag_name))
-      .map<ZiplineRelease>((r) => ({
-        tagName: r.tag_name,
+      .filter((r) => /^v4(\.|$)/.test(r.tag_name))
+      .map((r) => ({
+        ...r,
         name: r.name?.trim() || r.tag_name,
-        htmlUrl: r.html_url,
-        publishedAt: r.published_at,
-        prerelease: r.prerelease,
-        bodyHtml: r.body ? renderMarkdown(r.body) : '',
-        author: r.author
-          ? {
-              login: r.author.login,
-              htmlUrl: r.author.html_url,
-              avatarUrl: r.author.avatar_url,
-            }
-          : null,
+        body: renderMarkdown(r.body?.trim()),
       }))
       .sort((a, b) => {
-        const ta = a.publishedAt ? Date.parse(a.publishedAt) : 0;
-        const tb = b.publishedAt ? Date.parse(b.publishedAt) : 0;
+        const ta = a.published_at ? Date.parse(a.published_at) : 0;
+        const tb = b.published_at ? Date.parse(b.published_at) : 0;
         return tb - ta;
       });
   } catch {

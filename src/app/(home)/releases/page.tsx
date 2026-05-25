@@ -1,13 +1,8 @@
-import type { Metadata } from 'next';
-import Link from 'fumadocs-core/link';
-import {
-  ChevronDown,
-  ExternalLink,
-  GitBranch,
-  RefreshCcw,
-} from 'lucide-react';
-import { getZiplineReleases, type ZiplineRelease } from '@/lib/github';
 import { cn } from '@/lib/cn';
+import { getReleases, type GithubRelease } from '@/lib/github';
+import Link from 'fumadocs-core/link';
+import { ChevronDown, ExternalLink, GitBranch, RefreshCcw } from 'lucide-react';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Releases',
@@ -65,33 +60,31 @@ function ReleaseBadge({
 function ReleaseCard({
   release,
   isLatest,
-  defaultOpen,
 }: {
-  release: ZiplineRelease;
+  release: GithubRelease;
   isLatest: boolean;
-  defaultOpen: boolean;
 }) {
-  const anchorId = release.tagName.replace(/[^\w.-]/g, '');
+  const anchorId = release.tag_name.replace(/[^\w.-]/g, '');
 
   return (
     <details
       id={anchorId}
-      open={defaultOpen || undefined}
+      open={isLatest || undefined}
       className='group scroll-mt-24 overflow-hidden rounded-xl border border-fd-border bg-fd-card shadow-sm transition-colors open:border-fd-ring/60 hover:border-fd-ring/60'
     >
       <summary
         className={cn(
-          'flex cursor-pointer list-none flex-col gap-3 p-6 transition-colors md:flex-row md:items-center md:justify-between md:gap-4 md:p-8',
+          'flex cursor-pointer list-none flex-col gap-3 p-2 transition-colors md:flex-row md:items-center md:justify-between md:gap-4 md:p-3.5',
           '[&::-webkit-details-marker]:hidden',
           'group-open:border-b group-open:border-fd-border',
           'hover:bg-fd-muted/40',
         )}
       >
-        <div className='flex min-w-0 flex-1 flex-col gap-2'>
+        <div className='flex min-w-0 flex-1 flex-col gap-2 px-3'>
           <div className='flex flex-wrap items-center gap-2'>
             <span className='inline-flex items-center gap-2 font-mono text-2xl font-bold tracking-tight text-fd-foreground'>
               <GitBranch className='size-5 text-fd-muted-foreground' />
-              {release.tagName}
+              {release.tag_name}
             </span>
             {isLatest && <ReleaseBadge variant='latest'>Latest</ReleaseBadge>}
             {release.prerelease && (
@@ -99,22 +92,22 @@ function ReleaseCard({
             )}
           </div>
 
-          {release.name && release.name !== release.tagName && (
+          {release.name && release.name !== release.tag_name && (
             <p className='text-base font-medium text-fd-muted-foreground'>
               {release.name}
             </p>
           )}
 
           <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fd-muted-foreground'>
-            <time dateTime={release.publishedAt ?? undefined}>
-              {formatDate(release.publishedAt)}
+            <time dateTime={release.published_at ?? undefined}>
+              {formatDate(release.published_at)}
             </time>
           </div>
         </div>
 
         <div className='flex shrink-0 items-center gap-2 self-end md:self-center'>
           <a
-            href={release.htmlUrl}
+            href={release.html_url}
             target='_blank'
             rel='noreferrer noopener'
             className='inline-flex items-center gap-1.5 rounded-md border border-fd-border bg-fd-secondary px-3 py-1.5 text-sm font-medium text-fd-secondary-foreground transition-colors hover:bg-fd-secondary/50 hover:text-fd-foreground'
@@ -132,10 +125,10 @@ function ReleaseCard({
       </summary>
 
       <div className='px-6 pb-6 pt-5 md:px-8 md:pb-8'>
-        {release.bodyHtml ? (
+        {release.body ? (
           <div
             className='prose prose-sm max-w-none'
-            dangerouslySetInnerHTML={{ __html: release.bodyHtml }}
+            dangerouslySetInnerHTML={{ __html: release.body }}
           />
         ) : (
           <p className='text-sm italic text-fd-muted-foreground'>
@@ -148,8 +141,8 @@ function ReleaseCard({
 }
 
 export default async function ReleasesPage() {
-  const releases = await getZiplineReleases();
-  const latestStableTag = releases.find((r) => !r.prerelease)?.tagName;
+  const releases = await getReleases();
+  const latestTag = releases.find((r) => !r.prerelease)?.tag_name;
 
   return (
     <main className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>
@@ -191,15 +184,14 @@ export default async function ReleasesPage() {
           </p>
         </div>
       ) : (
-        <div className='mx-auto mt-16 flex max-w-4xl flex-col gap-4'>
+        <div className='mx-auto mt-16 flex max-w-4xl flex-col gap-7'>
           {releases.map((release) => {
-            const isLatest = release.tagName === latestStableTag;
+            const isLatest = release.tag_name === latestTag;
             return (
               <ReleaseCard
-                key={release.tagName}
+                key={release.tag_name}
                 release={release}
                 isLatest={isLatest}
-                defaultOpen={isLatest}
               />
             );
           })}

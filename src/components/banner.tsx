@@ -1,8 +1,8 @@
 'use client';
 
-import { type HTMLAttributes, useEffect, useState } from 'react';
+import { type HTMLAttributes, useState } from 'react';
 import { X } from 'lucide-react';
-import { cn } from '../lib/cn';
+import { cn } from '@/lib/cn';
 import { buttonVariants } from './ui/button';
 
 type BannerVariant = 'rainbow' | 'normal';
@@ -20,34 +20,16 @@ export function Banner({
   ],
   ...props
 }: HTMLAttributes<HTMLDivElement> & {
-  /**
-   * @defaultValue 3rem
-   */
   height?: string;
-
-  /**
-   * @defaultValue 'normal'
-   */
   variant?: BannerVariant;
-
-  /**
-   * For rainbow variant only, customize the colors
-   */
   rainbowColors?: string[];
-
-  /**
-   * Change Fumadocs layout styles
-   *
-   * @defaultValue true
-   */
   changeLayout?: boolean;
 }) {
-  const [open, setOpen] = useState(true);
   const globalKey = id ? `nd-banner-${encodeBase32(id)}` : null;
-
-  useEffect(() => {
-    if (globalKey && localStorage.getItem(globalKey) === 'true') setOpen(false);
-  }, [globalKey]);
+  const [open, setOpen] = useState(() => {
+    if (typeof window === 'undefined' || !globalKey) return true;
+    return localStorage.getItem(globalKey) !== 'true';
+  });
 
   function onClose() {
     setOpen(false);
@@ -78,7 +60,9 @@ export function Banner({
             : `:root { --fd-banner-height: ${height}; }`}
         </style>
       ) : null}
-      {globalKey ? <style>{`.${globalKey} #${id} { display: none; }`}</style> : null}
+      {globalKey ? (
+        <style>{`.${globalKey} #${id} { display: none; }`}</style>
+      ) : null}
       {globalKey ? (
         <script
           dangerouslySetInnerHTML={{
@@ -95,13 +79,14 @@ export function Banner({
       {props.children}
       {id ? (
         <button
-          type="button"
-          aria-label="Close Banner"
+          type='button'
+          aria-label='Close Banner'
           onClick={onClose}
           className={cn(
             buttonVariants({
               color: 'ghost',
-              className: 'absolute inset-e-2 top-1/2 -translate-y-1/2 text-fd-muted-foreground/50',
+              className:
+                'absolute inset-e-2 top-1/2 -translate-y-1/2 text-fd-muted-foreground/50',
               size: 'icon-sm',
             }),
           )}
@@ -120,7 +105,7 @@ function flow({ colors }: { colors: string[] }) {
   return (
     <>
       <div
-        className="absolute inset-0 -z-1"
+        className='absolute inset-0 -z-1'
         style={
           {
             maskImage,

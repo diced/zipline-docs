@@ -7,16 +7,9 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/cn';
 import { usePathname } from 'fumadocs-core/framework';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { Check, Copy, Edit, ExternalLinkIcon, TextIcon } from 'lucide-react';
-import {
-  type ComponentProps,
-  type ReactNode,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { type ComponentProps, type ReactNode, useMemo, useState } from 'react';
 
 const actionClass =
   'group inline-flex items-center gap-2 text-sm font-normal text-fd-muted-foreground transition-colors hover:text-fd-foreground disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:text-fd-foreground cursor-pointer [&_svg]:size-3.5 [&_svg]:text-fd-muted-foreground [&_svg]:transition-colors hover:[&_svg]:text-fd-foreground';
@@ -26,8 +19,6 @@ export function EditOnGithub({
   children,
   ...props
 }: ComponentProps<'a'>) {
-  const { text } = useI18n();
-
   return (
     <a
       target='_blank'
@@ -36,7 +27,7 @@ export function EditOnGithub({
       className={cn(actionClass, 'not-prose', className)}
     >
       <Edit />
-      {children ?? text.editOnGithub}
+      Edit on GitHub
     </a>
   );
 }
@@ -203,16 +194,11 @@ export function PageLastUpdate({
 }: Omit<ComponentProps<'p'>, 'children'> & {
   date: Date;
 }) {
-  const { text } = useI18n();
-  const [formatted, setFormatted] = useState('');
-
-  useEffect(() => {
-    setFormatted(date.toLocaleDateString());
-  }, [date]);
+  const formatted = date.toLocaleDateString();
 
   return (
     <p {...props} className={cn('text-sm text-fd-muted-foreground', className)}>
-      {text.lastUpdate} {formatted}
+      Last updated {formatted}
     </p>
   );
 }

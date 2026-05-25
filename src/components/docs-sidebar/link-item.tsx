@@ -1,4 +1,5 @@
 'use client';
+
 import type { HTMLAttributes } from 'react';
 import type * as Base from './base';
 import { isLinkItemActive, type LinkItemType } from '@/layouts/shared';
@@ -20,9 +21,6 @@ export function createLinkItemRenderer({
   SidebarFolderTrigger,
   SidebarItem,
 }: InternalComponents) {
-  /**
-   * Render sidebar items from page tree
-   */
   return function SidebarLinkItem({
     item,
     ...props
@@ -37,7 +35,11 @@ export function createLinkItemRenderer({
       return (
         <SidebarFolder {...props}>
           {item.url ? (
-            <SidebarFolderLink href={item.url} active={active} external={item.external}>
+            <SidebarFolderLink
+              href={item.url}
+              active={active}
+              external={item.external}
+            >
               {item.icon}
               {item.text}
             </SidebarFolderLink>

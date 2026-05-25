@@ -77,8 +77,8 @@ function MacShell({
         <div className='flex flex-col justify-center rounded-xl border border-blue-300/50 bg-blue-600 py-8 px-16 text-white transition-all ease-in-out'>
           <div className='text-8xl font-black'>{':('}</div>
           <p className='mt-12 font-semibold text-xl'>
-            Your PC ran into a problem and needs to restart. We're just
-            collecting some error info, and then we'll restart for you.
+            Your PC ran into a problem and needs to restart. We&apos;re just
+            collecting some error info, and then we&apos;ll restart for you.
           </p>
 
           <p className='mt-6 animate-pulse text-xl transition-all ease-in-out'>

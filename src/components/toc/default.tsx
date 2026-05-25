@@ -2,7 +2,6 @@
 import { cn } from '@/lib/cn';
 import { mergeRefs } from '@/lib/merge-refs';
 import * as Primitive from 'fumadocs-core/toc';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
 import {
   type ComponentProps,
   useCallback,
@@ -114,7 +113,8 @@ function TocThumb({ computed }: { computed: ComputedData }) {
       ref={ref}
       className='absolute inset-y-0 inset-s-0 bg-fd-primary w-px transition-[clip-path]'
       style={{
-        clipPath: `polygon(0 var(--track-top,0), 100% var(--track-top,0), 100% var(--track-bottom,0), 0 var(--track-bottom,0))`,
+        clipPath:
+          'polygon(0 var(--track-top,0), 100% var(--track-top,0), 100% var(--track-bottom,0), 0 var(--track-bottom,0))',
         ...calculate(tocInfo.get()),
       }}
     />
@@ -122,11 +122,9 @@ function TocThumb({ computed }: { computed: ComputedData }) {
 }
 
 export function TOCEmpty() {
-  const { text } = useI18n();
-
   return (
     <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>
-      {text.tocNoHeadings}
+      No headings.
     </div>
   );
 }

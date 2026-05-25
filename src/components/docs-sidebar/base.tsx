@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -19,8 +20,8 @@ import {
   createContext,
   type PointerEvent,
   type ReactNode,
-  type RefObject,
   use,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -33,30 +34,15 @@ interface SidebarContext {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   collapsed: boolean;
   setCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
-
-  /**
-   * When set to false, don't close the sidebar when navigate to another page
-   */
-  closeOnRedirect: RefObject<boolean>;
+  closeOnRedirectRef: React.RefObject<boolean>;
   defaultOpenLevel: number;
   prefetch?: boolean;
   mode: Mode;
 }
 
 export interface SidebarProviderProps {
-  /**
-   * Open folders by default if their level is lower or equal to a specific level
-   * (Starting from 1)
-   *
-   * @defaultValue 0
-   */
   defaultOpenLevel?: number;
-
-  /**
-   * Prefetch links, default behaviour depends on your React.js framework.
-   */
   prefetch?: boolean;
-
   children?: ReactNode;
 }
 
@@ -76,17 +62,17 @@ export function SidebarProvider({
   prefetch,
   children,
 }: SidebarProviderProps) {
-  const closeOnRedirect = useRef(true);
+  const closeOnRedirectRef = useRef(true);
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   const mode: Mode = useMediaQuery('(width < 768px)') ? 'drawer' : 'full';
 
   useOnChange(pathname, () => {
-    if (closeOnRedirect.current) {
+    if (closeOnRedirectRef.current) {
       setOpen(false);
     }
-    closeOnRedirect.current = true;
+    closeOnRedirectRef.current = true;
   });
 
   return (
@@ -97,7 +83,7 @@ export function SidebarProvider({
           setOpen,
           collapsed,
           setCollapsed,
-          closeOnRedirect,
+          closeOnRedirectRef,
           defaultOpenLevel,
           prefetch,
           mode,
@@ -128,29 +114,18 @@ export function useFolderDepth() {
   return use(FolderContext)?.depth ?? 0;
 }
 
-export function SidebarContent({
-  mode: allowedMode = 'full',
-  children,
-}: {
-  mode?: Mode | true;
-  children: (state: {
-    ref: RefObject<HTMLElement | null>;
-    collapsed: boolean;
-    hovered: boolean;
-    onPointerEnter: (event: PointerEvent) => void;
-    onPointerLeave: (event: PointerEvent) => void;
-  }) => ReactNode;
-}) {
-  const { collapsed, mode } = useSidebar();
+export function useSidebarHover(mode: Mode | true = 'full') {
+  const { collapsed, mode: sidebarMode } = useSidebar();
   const [hover, setHover] = useState(false);
   const ref = useRef<HTMLElement>(null);
+  const registerAside = useCallback((element: HTMLElement | null) => {
+    ref.current = element;
+  }, []);
   const timerRef = useRef(0);
 
   useOnChange(collapsed, () => {
     if (collapsed) setHover(false);
   });
-
-  if (allowedMode !== true && allowedMode !== mode) return;
 
   function shouldIgnoreHover(e: PointerEvent): boolean {
     const element = ref.current;
@@ -163,28 +138,29 @@ export function SidebarContent({
     );
   }
 
-  return children({
-    ref,
+  if (mode !== true && mode !== sidebarMode) return null;
+
+  return {
+    registerAside,
     collapsed,
     hovered: hover,
-    onPointerEnter(e) {
+    onPointerEnter(e: PointerEvent) {
       if (shouldIgnoreHover(e)) return;
       window.clearTimeout(timerRef.current);
       setHover(true);
     },
-    onPointerLeave(e) {
+    onPointerLeave(e: PointerEvent) {
       if (shouldIgnoreHover(e)) return;
       window.clearTimeout(timerRef.current);
 
       timerRef.current = window.setTimeout(
         () => setHover(false),
-        // if mouse is leaving the viewport, add a close delay
         Math.min(e.clientX, document.body.clientWidth - e.clientX) > 100
           ? 0
           : 500,
       );
     },
-  });
+  };
 }
 
 export function SidebarViewport({
@@ -429,12 +405,9 @@ export function SidebarCollapseTrigger(props: ComponentProps<'button'>) {
   );
 }
 
-/**
- * scroll to the element if `active` is true
- */
 export function useAutoScroll(
   active: boolean,
-  ref: RefObject<HTMLElement | null>,
+  ref: React.RefObject<HTMLElement | null>,
 ) {
   const { mode } = useSidebar();
 

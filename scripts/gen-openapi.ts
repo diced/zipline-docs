@@ -92,6 +92,6 @@ function exit(message: string) {
       await unlink(path);
     }
   }
-  
+
   console.log('docs mdx generated successfully!');
 })();

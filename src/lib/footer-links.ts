@@ -45,7 +45,11 @@ export const footerColumns: FooterColumn[] = [
     title: 'Resources',
     items: [
       { title: 'GitHub', href: '/github', event: 'footer_link_github' },
-      { title: 'GitHub Docs', href: '/github-docs', event: 'footer_link_github_docs' },
+      {
+        title: 'GitHub Docs',
+        href: '/github-docs',
+        event: 'footer_link_github_docs',
+      },
       { title: 'Discord', href: '/discord', event: 'footer_link_discord' },
       {
         title: 'v3 Docs',

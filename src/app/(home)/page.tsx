@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { ArrowDown, Heart, Star, Terminal } from 'lucide-react';
-import { getGithubStars } from '@/lib/github';
+import { getStars } from '@/lib/github';
 import {
   EmphasizeText,
   HomeScreenshots,
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const stars = await getGithubStars();
+  const stars = await getStars();
 
   return (
     <main className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>

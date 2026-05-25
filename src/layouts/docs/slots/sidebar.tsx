@@ -121,30 +121,31 @@ function SidebarContent({
   children,
   ...props
 }: ComponentProps<'aside'>) {
+  const hover = Base.useSidebarHover();
+  if (!hover) return null;
+
+  const { registerAside, hovered, onPointerEnter, onPointerLeave } = hover;
+
   return (
-    <Base.SidebarContent>
-      {({ ref: asideRef, hovered, onPointerEnter, onPointerLeave }) => (
-        <div
-          data-sidebar-placeholder=''
-          className='docs-sidebar-placeholder sticky z-20 [grid-area:sidebar] pointer-events-none *:pointer-events-auto md:layout:[--fd-sidebar-width:268px] max-md:hidden'
-        >
-          <aside
-            id='nd-sidebar'
-            ref={mergeRefs(refProp, asideRef)}
-            className={cn(
-              'absolute flex h-full min-h-0 w-full flex-col items-end overflow-hidden border-e border-transparent bg-transparent text-sm *:w-(--fd-sidebar-width) inset-s-0 inset-y-0',
-              className,
-            )}
-            data-hovered={hovered ? 'true' : undefined}
-            onPointerEnter={onPointerEnter}
-            onPointerLeave={onPointerLeave}
-            {...props}
-          >
-            {children}
-          </aside>
-        </div>
-      )}
-    </Base.SidebarContent>
+    <div
+      data-sidebar-placeholder=''
+      className='docs-sidebar-placeholder sticky z-20 [grid-area:sidebar] pointer-events-none *:pointer-events-auto md:layout:[--fd-sidebar-width:268px] max-md:hidden'
+    >
+      <aside
+        id='nd-sidebar'
+        ref={mergeRefs(refProp, registerAside)}
+        className={cn(
+          'absolute flex h-full min-h-0 w-full flex-col items-end overflow-hidden border-e border-transparent bg-transparent text-sm *:w-(--fd-sidebar-width) inset-s-0 inset-y-0',
+          className,
+        )}
+        data-hovered={hovered ? 'true' : undefined}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
+        {...props}
+      >
+        {children}
+      </aside>
+    </div>
   );
 }
 
@@ -301,7 +302,7 @@ function SidebarTabsDropdown({
   tabs: LayoutTab[];
 } & ComponentProps<'button'>) {
   const [open, setOpen] = useState(false);
-  const { closeOnRedirect } = useSidebar();
+  const { closeOnRedirectRef } = useSidebar();
   const pathname = usePathname();
 
   const selected = useMemo(() => {
@@ -309,7 +310,7 @@ function SidebarTabsDropdown({
   }, [tabs, pathname]);
 
   const onClick = () => {
-    closeOnRedirect.current = false;
+    closeOnRedirectRef.current = false;
     setOpen(false);
   };
 

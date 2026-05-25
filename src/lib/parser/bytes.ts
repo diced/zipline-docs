@@ -9,4 +9,3 @@ export function bytes(
   if (typeof value === 'string') return bytesFn(value) ?? 0;
   return bytesFn(Number(value), { ...options, unitSeparator: ' ' }) ?? '';
 }
-
