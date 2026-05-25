@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Tilt from 'react-parallax-tilt';
-import { Lock, RefreshCw, X } from 'lucide-react';
+import { Lock, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
 const DEFAULT_SCALE = 1.05;

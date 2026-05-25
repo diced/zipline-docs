@@ -8,6 +8,8 @@ import { Banner } from '@/components/banner';
 import Link from 'fumadocs-core/link';
 import CustomSearchDialog from '@/components/search';
 import Script from 'next/script';
+import { SiteFooter } from '@/layouts/shared/slots/site-footer';
+import { Header } from '@/layouts/home/slots/header';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -67,7 +69,9 @@ export default function Layout({ children }: LayoutProps<'/'>) {
             SearchDialog: CustomSearchDialog,
           }}
         >
+          <Header />
           {children}
+          <SiteFooter />
         </RootProvider>
       </body>
     </html>

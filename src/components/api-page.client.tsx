@@ -1,6 +1,4 @@
 'use client';
 import { defineClientConfig } from 'fumadocs-openapi/ui/client';
 
-export default defineClientConfig({
-  // client config
-});
+export default defineClientConfig();

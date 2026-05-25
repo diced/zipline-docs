@@ -1,3 +1,4 @@
+import { ViewOptionsPopover } from '@/components/ai/page-actions';
 import { getMDXComponents } from '@/components/mdx';
 import { Footer } from '@/layouts/docs/page/slots/footer';
 import { TOC, TOCPopover, TOCProvider } from '@/layouts/docs/page/slots/toc';
@@ -11,7 +12,6 @@ import {
   EditOnGitHub,
   MarkdownCopyButton,
   PageLastUpdate,
-  ViewOptionsPopover,
 } from 'fumadocs-ui/layouts/docs/page';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
@@ -26,6 +26,8 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const markdownUrl = getPageMarkdownUrl(page).url;
   const githubEditUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/edit/${gitConfig.branch}/content/docs/${page.path}`;
   const githubViewUrl = `https://github.com/${gitConfig.user}/${gitConfig.repo}/blob/${gitConfig.branch}/content/docs/${page.path}`;
+
+  const isAPI = page.data._openapi;
 
   return (
     <DocsPage
@@ -49,8 +51,8 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           {!page.data._openapi && <EditOnGitHub href={githubEditUrl} />}
           <MarkdownCopyButton markdownUrl={markdownUrl} />
           <ViewOptionsPopover
-            markdownUrl={markdownUrl}
-            githubUrl={githubViewUrl}
+            markdownUrl={isAPI ? undefined : markdownUrl}
+            githubUrl={isAPI ? undefined : githubViewUrl}
           />
         </div>
         <div className='ms-auto'></div>

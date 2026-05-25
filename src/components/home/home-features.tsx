@@ -1,5 +1,4 @@
 import Link from 'fumadocs-core/link';
-import type { LucideIcon } from 'lucide-react';
 import {
   AppWindow,
   Bell,
@@ -22,6 +21,7 @@ import {
   UserX,
   Video,
   Webhook,
+  type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 

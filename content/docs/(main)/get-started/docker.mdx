@@ -60,7 +60,7 @@ After starting, Zipline will be available at `http://<ip>:3000` where `<ip>` is 
 
 You will be redirected to a setup page where you can configure the default super administrator username and password.
 
-# Updating
+## Updating
 
 To update Zipline, simply run the following command:
 
@@ -71,6 +71,11 @@ docker compose up -d
 
 This will pull the latest Zipline image and restart the server.
 
-# Extra resources
+## Next steps
 
-- [Using a reverse proxy](/docs/guides/reverse-proxy)
+After setting up Zipline, you may want to:
+
+- Harden your instance by following the [hardening guide](/docs/guides/hardening)
+- Setup [2FA](/docs/guides/2fa) or [Passkeys](/docs/guides/passkeys) for extra security
+- Explore the [configuration options](/docs/config) to customize your instance
+- Setup a [reverse proxy](/docs/guides/reverse-proxy) for better performance and security

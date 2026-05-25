@@ -1,11 +1,10 @@
-import type { ReactNode } from 'react';
 import Image from 'next/image';
-import type { LucideIcon } from 'lucide-react';
 import {
   Files,
   LayoutDashboard,
   LineChart,
   Link as LinkIcon,
+  type LucideIcon,
 } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 
@@ -26,7 +25,7 @@ import { MacWindow } from './mac';
 const SS_WIDTH = 2560;
 const SS_HEIGHT = 1247;
 
-export function EmphasizeText({ children }: { children: ReactNode }) {
+export function EmphasizeText({ children }: { children: React.ReactNode }) {
   return (
     <span className='bg-linear-to-r from-blue-600 via-blue-400 to-blue-600 bg-size-[200%_200%] bg-clip-text text-transparent transition-all ease-in-out hover:animate-[gradient-spin_3s_linear_infinite]'>
       {children}

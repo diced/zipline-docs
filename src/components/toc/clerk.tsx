@@ -9,9 +9,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from '../../lib/cn';
+import { cn } from '@/lib/cn';
 import { useTOCItems } from './index';
-import { mergeRefs } from '../../lib/merge-refs';
+import { mergeRefs } from '@/lib/merge-refs';
 import { useI18n } from 'fumadocs-ui/contexts/i18n';
 
 interface ComputedSVG {
@@ -27,7 +27,13 @@ export interface TOCItemsProps extends ComponentProps<'div'> {
   thumbBox?: boolean;
 }
 
-export function TOCItems({ ref, className, thumbBox = true, children, ...props }: TOCItemsProps) {
+export function TOCItems({
+  ref,
+  className,
+  thumbBox = true,
+  children,
+  ...props
+}: TOCItemsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const items = useTOCItems();
   const [svg, setSvg] = useState<ComputedSVG | null>(null);
@@ -47,13 +53,18 @@ export function TOCItems({ ref, className, thumbBox = true, children, ...props }
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      const element: HTMLElement | null = container.querySelector(`a[href="${item.url}"]`);
+      const element: HTMLElement | null = container.querySelector(
+        `a[href="${item.url}"]`,
+      );
       if (!element) continue;
 
       const styles = getComputedStyle(element);
       const x = getLineOffset(item.depth) + 0.5;
       const top = element.offsetTop + parseFloat(styles.paddingTop);
-      const bottom = element.offsetTop + element.clientHeight - parseFloat(styles.paddingBottom);
+      const bottom =
+        element.offsetTop +
+        element.clientHeight -
+        parseFloat(styles.paddingBottom);
 
       w = Math.max(x + 8, w);
       h = Math.max(h, bottom);
@@ -69,14 +80,14 @@ export function TOCItems({ ref, className, thumbBox = true, children, ...props }
       if (item._step !== undefined) {
         output.push(
           <g key={i} transform={`translate(${x}, ${(top + bottom) / 2})`}>
-            <circle cx="0" cy="0" r="8" className="fill-fd-primary" />
+            <circle cx='0' cy='0' r='8' className='fill-fd-primary' />
             <text
-              cx="0"
-              cy="0"
-              textAnchor="middle"
-              alignmentBaseline="central"
-              dominantBaseline="middle"
-              className="fill-fd-primary-foreground font-medium text-xs leading-none font-mono rtl:-scale-x-100"
+              cx='0'
+              cy='0'
+              textAnchor='middle'
+              alignmentBaseline='central'
+              dominantBaseline='middle'
+              className='fill-fd-primary-foreground font-medium text-xs leading-none font-mono rtl:-scale-x-100'
             >
               {item._step}
             </text>
@@ -88,19 +99,29 @@ export function TOCItems({ ref, className, thumbBox = true, children, ...props }
     }
 
     output.unshift(
-      <path key="path" d={d} className="stroke-fd-primary" strokeWidth="1" fill="none" />,
+      <path
+        key='path'
+        d={d}
+        className='stroke-fd-primary'
+        strokeWidth='1'
+        fill='none'
+      />,
     );
 
     const itemLineLengths: [top: number, bottom: number][] = [];
 
     if (thumbBox) {
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const path = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'path',
+      );
       path.setAttribute('d', d);
 
       const n = path.getTotalLength();
       for (let i = 0; i < positions.length; i++) {
         const [top, bottom] = positions[i];
-        let l = i > 0 ? itemLineLengths[i - 1][1] + (top - positions[i - 1][1]) : top;
+        let l =
+          i > 0 ? itemLineLengths[i - 1][1] + (top - positions[i - 1][1]) : top;
         while (l < n && path.getPointAtLength(l).y < top) l++;
 
         // vertical line distance = bottom - top
@@ -146,7 +167,7 @@ export function TOCEmpty() {
   const { text } = useI18n();
 
   return (
-    <div className="rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground">
+    <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>
       {text.tocNoHeadings}
     </div>
   );
@@ -158,7 +179,13 @@ interface ThumbBoxInfo {
   isUp: boolean;
 }
 
-function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: boolean }) {
+function ThumbTrack({
+  computed,
+  thumbBox,
+}: {
+  computed: ComputedSVG;
+  thumbBox: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const previousRef = useRef<ThumbBoxInfo>(null);
   const tocInfo = Primitive.useTOC();
@@ -186,7 +213,10 @@ function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: b
       out['--offset-distance'] = isUp
         ? `${computed.itemLineLengths[startIdx][0]}px`
         : `${computed.itemLineLengths[endIdx][1]}px`;
-      out['--opacity'] = items[isUp ? startIdx : endIdx].original._step !== undefined ? '0' : '1';
+      out['--opacity'] =
+        items[isUp ? startIdx : endIdx].original._step !== undefined
+          ? '0'
+          : '1';
     }
 
     return out;
@@ -204,7 +234,7 @@ function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: b
   return (
     <div
       ref={ref}
-      className="absolute top-0 inset-s-0 origin-center rtl:-scale-x-100"
+      className='absolute top-0 inset-s-0 origin-center rtl:-scale-x-100'
       style={{
         width: computed.width,
         height: computed.height,
@@ -212,9 +242,9 @@ function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: b
       }}
     >
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns='http://www.w3.org/2000/svg'
         viewBox={`0 0 ${computed.width} ${computed.height}`}
-        className="absolute transition-[clip-path]"
+        className='absolute transition-[clip-path]'
         style={{
           width: computed.width,
           height: computed.height,
@@ -225,7 +255,7 @@ function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: b
       </svg>
       {thumbBox && (
         <div
-          className="absolute left-0 size-1 bg-fd-primary rounded-full [offset-distance:var(--offset-distance,0)] opacity-(--opacity,0) transition-[opacity,offset-distance]"
+          className='absolute left-0 size-1 bg-fd-primary rounded-full [offset-distance:var(--offset-distance,0)] opacity-(--opacity,0) transition-[opacity,offset-distance]'
           style={{
             offsetPath: `path("${computed.d}")`,
           }}
@@ -268,7 +298,7 @@ export function TOCItem({
       isLast,
       svg: (
         <svg
-          xmlns="http://www.w3.org/2000/svg"
+          xmlns='http://www.w3.org/2000/svg'
           className={cn(
             'absolute -top-1.5 inset-s-0 bottom-0 h-[calc(100%+--spacing(1.5))] -z-1 rtl:-scale-x-100',
             l1 !== l2 && 'h-full bottom-1.5',
@@ -280,30 +310,30 @@ export function TOCItem({
           {l0 !== l1 && (
             <path
               d={`M ${l0 + 0.5} 0 C ${l0 + 0.5} 8 ${l1 + 0.5} 4 ${l1 + 0.5} 12`}
-              stroke="black"
-              strokeWidth="1"
-              fill="none"
-              className="stroke-fd-foreground/10"
+              stroke='black'
+              strokeWidth='1'
+              fill='none'
+              className='stroke-fd-foreground/10'
             />
           )}
           <line
             x1={l1 + 0.5}
             y1={l0 === l1 ? '6' : '12'}
             x2={l1 + 0.5}
-            y2="100%"
-            strokeWidth="1"
-            className="stroke-fd-foreground/10"
+            y2='100%'
+            strokeWidth='1'
+            className='stroke-fd-foreground/10'
           />
           {item._step !== undefined && (
             <g transform={`translate(${l1 + 0.5}, ${l1 === l2 ? '3' : '6'})`}>
-              <circle cx="0" cy="50%" r="8" className="fill-fd-muted" />
+              <circle cx='0' cy='50%' r='8' className='fill-fd-muted' />
               <text
-                x="0"
-                y="50%"
-                textAnchor="middle"
-                alignmentBaseline="central"
-                dominantBaseline="middle"
-                className="fill-fd-muted-foreground font-medium text-xs leading-none font-mono rtl:-scale-x-100"
+                x='0'
+                y='50%'
+                textAnchor='middle'
+                alignmentBaseline='central'
+                dominantBaseline='middle'
+                className='fill-fd-muted-foreground font-medium text-xs leading-none font-mono rtl:-scale-x-100'
               >
                 {item._step}
               </text>

@@ -1,6 +1,8 @@
 'use client';
+import { cn } from '@/lib/cn';
+import { mergeRefs } from '@/lib/merge-refs';
+import * as Primitive from 'fumadocs-core/toc';
 import { useI18n } from 'fumadocs-ui/contexts/i18n';
-import { cn } from '../../lib/cn';
 import {
   type ComponentProps,
   useCallback,
@@ -8,8 +10,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { mergeRefs } from '../../lib/merge-refs';
-import * as Primitive from 'fumadocs-core/toc';
 import { useTOCItems } from './index';
 
 export type TOCItemsProps = ComponentProps<'div'>;
@@ -18,7 +18,12 @@ interface ComputedData {
   positions: [top: number, bottom: number][];
 }
 
-export function TOCItems({ ref, className, children, ...props }: TOCItemsProps) {
+export function TOCItems({
+  ref,
+  className,
+  children,
+  ...props
+}: TOCItemsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const items = useTOCItems();
   const [computed, setComputed] = useState<ComputedData | null>(null);

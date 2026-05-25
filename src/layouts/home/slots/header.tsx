@@ -14,7 +14,7 @@ import { cn } from '@/lib/cn';
 import { cva } from 'class-variance-authority';
 import Link from 'fumadocs-core/link';
 import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
-import { ChevronDown, Languages } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { type ComponentProps, Fragment, useState } from 'react';
 import { useHomeLayout } from '..';
 import { type LinkItemType, type NavOptions, LinkItem } from '../../shared';
