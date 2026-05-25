@@ -8,8 +8,9 @@ import { Banner } from '@/components/banner';
 import Link from 'fumadocs-core/link';
 import CustomSearchDialog from '@/components/search';
 import Script from 'next/script';
-import { SiteFooter } from '@/layouts/shared/slots/site-footer';
-import { Header } from '@/layouts/home/slots/header';
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+import { SidebarProvider } from '@/components/docs-sidebar/base';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -43,7 +44,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
         data-website-id='b67b1a7b-fc2f-4fe7-b6aa-f56d4bbe9c4f'
       />
 
-      <body className='flex min-h-screen flex-col font-sans antialiased'>
+      <body className='flex min-h-screen flex-col font-sans antialiased [--fd-site-nav-height:3.5rem]'>
         <Banner
           id={ANNOUNCEMENT_IDS['stars']}
           rainbowColors={[
@@ -69,9 +70,11 @@ export default function Layout({ children }: LayoutProps<'/'>) {
             SearchDialog: CustomSearchDialog,
           }}
         >
-          <Header />
-          {children}
-          <SiteFooter />
+          <SidebarProvider>
+            <Navbar />
+            <div id='main-content'>{children}</div>
+            <Footer />
+          </SidebarProvider>
         </RootProvider>
       </body>
     </html>

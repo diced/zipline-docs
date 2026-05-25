@@ -1,36 +1,66 @@
 'use client';
-import { type ComponentProps, useMemo, useState } from 'react';
-import {
-  Check,
-  ChevronDown,
-  Copy,
-  ExternalLinkIcon,
-  TextIcon,
-} from 'lucide-react';
-import { cn } from '../../lib/cn';
-import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
-import { Popover, PopoverTrigger, PopoverContent } from '../ui/popover';
-import { buttonVariants } from '../ui/button';
-import { usePathname } from 'fumadocs-core/framework';
 
-const cache = new Map<string, Promise<string>>();
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/cn';
+import { usePathname } from 'fumadocs-core/framework';
+import { useI18n } from 'fumadocs-ui/contexts/i18n';
+import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
+import { Check, Copy, Edit, ExternalLinkIcon, TextIcon } from 'lucide-react';
+import {
+  type ComponentProps,
+  type ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
+const actionClass =
+  'group inline-flex items-center gap-2 text-sm font-normal text-fd-muted-foreground transition-colors hover:text-fd-foreground disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none focus-visible:text-fd-foreground cursor-pointer [&_svg]:size-3.5 [&_svg]:text-fd-muted-foreground [&_svg]:transition-colors hover:[&_svg]:text-fd-foreground';
+
+export function EditOnGithub({
+  className,
+  children,
+  ...props
+}: ComponentProps<'a'>) {
+  const { text } = useI18n();
+
+  return (
+    <a
+      target='_blank'
+      rel='noreferrer noopener'
+      {...props}
+      className={cn(actionClass, 'not-prose', className)}
+    >
+      <Edit />
+      {children ?? text.editOnGithub}
+    </a>
+  );
+}
+
+const markdownCache = new Map<string, Promise<string>>();
 
 export function MarkdownCopyButton({
   markdownUrl,
+  className,
+  children,
   ...props
 }: ComponentProps<'button'> & {
   markdownUrl: string;
 }) {
   const [isLoading, setLoading] = useState(false);
   const [checked, onClick] = useCopyButton(async () => {
-    const cached = cache.get(markdownUrl);
+    const cached = markdownCache.get(markdownUrl);
     if (cached) return navigator.clipboard.writeText(await cached);
 
     setLoading(true);
 
     try {
       const promise = fetch(markdownUrl).then((res) => res.text());
-      cache.set(markdownUrl, promise);
+      markdownCache.set(markdownUrl, promise);
       await navigator.clipboard.write([
         new ClipboardItem({
           'text/plain': promise,
@@ -43,38 +73,42 @@ export function MarkdownCopyButton({
 
   return (
     <button
+      type='button'
       disabled={isLoading}
       onClick={onClick}
       {...props}
-      className={cn(
-        buttonVariants({
-          color: 'secondary',
-          size: 'sm',
-          className: 'gap-2 [&_svg]:size-3.5 [&_svg]:text-fd-muted-foreground',
-        }),
-        props.className,
-      )}
+      className={cn(actionClass, className)}
     >
       {checked ? <Check /> : <Copy />}
-      {props.children ?? t.pageActionsCopyMarkdown}
+      {children ?? 'Copy Markdown'}
     </button>
   );
 }
 
+type ViewOption = {
+  title: string;
+  href: string;
+  icon: ReactNode;
+};
+
 export function ViewOptionsPopover({
   markdownUrl,
   githubUrl,
+  className,
+  children,
   ...props
 }: ComponentProps<typeof PopoverTrigger> & {
   markdownUrl?: string;
   githubUrl?: string;
 }) {
   const pathname = usePathname();
-  const items = useMemo(() => {
+
+  // @ts-ignore
+  const items = useMemo<ViewOption[]>(() => {
     const pageUrl =
       typeof window === 'undefined'
         ? pathname
-        : new URL(pathname, window.location.origin);
+        : new URL(pathname, window.location.origin).toString();
 
     const q = `Read ${pageUrl}, I want to ask questions about it.`;
 
@@ -114,9 +148,7 @@ export function ViewOptionsPopover({
       },
       {
         title: 'Open in Claude',
-        href: `https://claude.ai/new?${new URLSearchParams({
-          q,
-        })}`,
+        href: `https://claude.ai/new?${new URLSearchParams({ q })}`,
         icon: (
           <svg
             fill='currentColor'
@@ -129,7 +161,7 @@ export function ViewOptionsPopover({
           </svg>
         ),
       },
-    ].filter((v) => !!v);
+    ];
   }, [githubUrl, markdownUrl, pathname]);
 
   return (
@@ -137,32 +169,50 @@ export function ViewOptionsPopover({
       <PopoverTrigger
         {...props}
         className={cn(
-          buttonVariants({
-            color: 'secondary',
-            size: 'sm',
-          }),
-          'gap-2 data-[state=open]:bg-fd-accent data-[state=open]:text-fd-accent-foreground',
-          props.className,
+          actionClass,
+          'data-[state=open]:text-fd-foreground',
+          className,
         )}
       >
-        {props.children ?? 'Open'}
-        <ChevronDown className='size-3.5 text-fd-muted-foreground' />
+        <ExternalLinkIcon />
+        {children ?? 'Open in ...'}
       </PopoverTrigger>
-      <PopoverContent className='flex flex-col'>
+      <PopoverContent className='flex flex-col' align='start'>
         {items.map((item) => (
           <a
             key={item.href}
             href={item.href}
             rel='noreferrer noopener'
             target='_blank'
-            className='text-sm p-2 rounded-lg inline-flex items-center gap-2 hover:text-fd-accent-foreground hover:bg-fd-accent [&_svg]:size-4'
+            className='inline-flex items-center gap-2 rounded-lg p-2 text-sm hover:bg-fd-accent hover:text-fd-accent-foreground [&_svg]:size-4'
           >
             {item.icon}
             {item.title}
-            <ExternalLinkIcon className='text-fd-muted-foreground size-3.5 ms-auto' />
+            <ExternalLinkIcon className='ms-auto size-3.5 text-fd-muted-foreground' />
           </a>
         ))}
       </PopoverContent>
     </Popover>
+  );
+}
+
+export function PageLastUpdate({
+  date,
+  className,
+  ...props
+}: Omit<ComponentProps<'p'>, 'children'> & {
+  date: Date;
+}) {
+  const { text } = useI18n();
+  const [formatted, setFormatted] = useState('');
+
+  useEffect(() => {
+    setFormatted(date.toLocaleDateString());
+  }, [date]);
+
+  return (
+    <p {...props} className={cn('text-sm text-fd-muted-foreground', className)}>
+      {text.lastUpdate} {formatted}
+    </p>
   );
 }

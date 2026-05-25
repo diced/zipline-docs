@@ -1,9 +1,16 @@
 'use client';
-import * as TocDefault from '@/components/toc/default';
-import * as TocClerk from '@/components/toc/clerk';
 import * as Base from '@/components/toc';
-import { I18nLabel, useI18n } from 'fumadocs-ui/contexts/i18n';
+import * as TocClerk from '@/components/toc/clerk';
+import * as TocDefault from '@/components/toc/default';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { cn } from '@/lib/cn';
+import { I18nLabel, useI18n } from 'fumadocs-ui/contexts/i18n';
+import { useTreePath } from 'fumadocs-ui/contexts/tree';
+import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
 import { ChevronDown, Text } from 'lucide-react';
 import {
   createContext,
@@ -16,13 +23,6 @@ import {
   type ComponentProps,
   type ReactNode,
 } from 'react';
-import { useTreePath } from 'fumadocs-ui/contexts/tree';
-import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from '../../../../components/ui/collapsible';
-import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
 
 export type TOCProviderProps = Base.TOCProviderProps;
 
@@ -32,14 +32,8 @@ export function TOCProvider(props: TOCProviderProps) {
 
 export type TOCProps = {
   container?: ComponentProps<'div'>;
-  /**
-   * Custom content in TOC container, before the main TOC
-   */
   header?: ReactNode;
 
-  /**
-   * Custom content in TOC container, after the main TOC
-   */
   footer?: ReactNode;
 } & (
   | {
@@ -56,7 +50,7 @@ export function TOC({
   container,
   header,
   footer,
-  style = 'normal',
+  style = 'clerk',
   list,
 }: TOCProps) {
   const items = Base.useTOCItems();
@@ -103,14 +97,8 @@ export type TOCPopoverProps = {
   trigger?: ComponentProps<'button'>;
   content?: ComponentProps<'div'>;
 
-  /**
-   * Custom content in TOC container, before the main TOC
-   */
   header?: ReactNode;
 
-  /**
-   * Custom content in TOC container, after the main TOC
-   */
   footer?: ReactNode;
 } & (
   | {
@@ -129,7 +117,7 @@ export function TOCPopover({
   content,
   header,
   footer,
-  style = 'normal',
+  style = 'clerk',
   list,
 }: TOCPopoverProps) {
   const items = Base.useTOCItems();

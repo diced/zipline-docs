@@ -1,6 +1,7 @@
 'use client';
 
-import { SiteFooter } from '@/layouts/shared/slots/site-footer';
+import { cn } from '@/lib/cn';
+import { isActive } from '@/lib/urls';
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
 import type * as PageTree from 'fumadocs-core/page-tree';
@@ -8,15 +9,10 @@ import { useI18n } from 'fumadocs-ui/contexts/i18n';
 import { useFooterItems } from 'fumadocs-ui/utils/use-footer-items';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { type ComponentProps, useMemo } from 'react';
-import { cn } from '@/lib/cn';
-import { isActive } from '@/lib/urls';
 
 type Item = Pick<PageTree.Item, 'name' | 'description' | 'url'>;
 
 export interface FooterProps extends ComponentProps<'div'> {
-  /**
-   * Items including information for the next and previous page
-   */
   items?: {
     previous?: Item;
     next?: Item;
@@ -51,8 +47,6 @@ export function Footer({ items, children, className, ...props }: FooterProps) {
         {previous && <FooterItem item={previous} index={0} />}
         {next && <FooterItem item={next} index={1} />}
       </div>
-
-      {children ?? <SiteFooter variant='docs' />}
     </>
   );
 }
