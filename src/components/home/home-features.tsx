@@ -72,6 +72,7 @@ const homeFeatures: HomeFeature[] = [
     description:
       'Zipline generates embeds for files uploaded, making it possible to customize how they look in apps like Discord.',
     icon: AppWindow,
+    href: '/docs/guides/view-routes#embeds',
   },
   {
     title: 'Discord Webhooks',
@@ -98,11 +99,13 @@ const homeFeatures: HomeFeature[] = [
     title: '2FA',
     description: "Secure your users account's with Two-Factor Authentication.",
     icon: ShieldCheck,
+    href: '/docs/guides/2fa',
   },
   {
     title: 'Passkeys',
     description: 'Passwordless authentication for your users.',
     icon: Smartphone,
+    href: '/docs/guides/passkeys',
   },
   {
     title: 'Password Protection',
@@ -113,17 +116,19 @@ const homeFeatures: HomeFeature[] = [
     title: 'Image Compression',
     description: 'Compress your images on the fly to save space.',
     icon: FileArchive,
+    href: '/docs/guides/upload-options#image-compression',
   },
   {
     title: 'Video Thumbnails',
     description:
       'Zipline will automatically generate thumbnails for your videos',
     icon: Video,
+    href: '/docs/guides/thumbnails',
   },
   {
     title: 'API',
     description:
-      'Zipline offers a fully featured API that allows for more fine-grained control over your instance.',
+      'Zipline offers a fully featured API for programmatic access to your instance.',
     icon: Braces,
     href: '/docs/api',
   },

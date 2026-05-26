@@ -48,22 +48,25 @@ export default function Layout({ children }: LayoutProps<'/'>) {
         <Banner
           id={ANNOUNCEMENT_IDS['stars']}
           rainbowColors={[
-            'transparent',
-            '#facc15',
-            '#fbbf24',
-            '#f59e0b',
-            'transparent',
-            '#d97706',
-            '#b45309',
-            '#92400e',
-            'transparent',
+            'var(--color-blue-400)',
+            'var(--color-blue-600)',
+            'var(--color-blue-400)',
+            'var(--color-blue-600)',
+            'var(--color-blue-400)',
+            'var(--color-blue-600)',
           ]}
           variant='rainbow'
           height='3rem'
         >
           ⭐ If you find Zipline useful, please consider giving it a star
           on&nbsp;
-          <Link href='https://github.com/diced/zipline'>Github</Link>! ⭐
+          <a
+            className='underline decoration-blue-500 hover:decoration-2'
+            href='https://github.com/diced/zipline'
+          >
+            Github
+          </a>
+          ! ⭐
         </Banner>
         <RootProvider
           search={{

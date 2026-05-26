@@ -11,6 +11,7 @@ import {
   SponsorButton,
 } from '@/components/home/home-buttons';
 import { HomeFeatures } from '@/components/home/home-features';
+import { HomeUploaders } from '@/components/home/home-uploaders';
 import { MacTerminal } from '@/components/home/mac';
 
 export const metadata: Metadata = {
@@ -38,11 +39,11 @@ export default async function HomePage() {
         <h1 className='text-5xl font-black sm:text-7xl'>
           <span>
             The{' '}
-            <span className='bg-linear-to-r from-blue-600 via-blue-400 to-blue-600 bg-size-[200%_200%] bg-clip-text text-transparent'>
+            <span className='bg-linear-to-r from-blue-400 via-blue-600 to-blue-300 bg-size-[200%_200%] bg-clip-text text-transparent'>
               next generation
             </span>{' '}
           </span>
-          <span className='block'>ShareX / File upload server</span>
+          <span className='block'>file upload server</span>
         </h1>
 
         <p className='mt-4 text-xl font-semibold text-fd-muted-foreground'>
@@ -71,6 +72,20 @@ export default async function HomePage() {
           files and links easier.
         </p>
         <HomeFeatures />
+      </section>
+
+      <div className='my-80 flex justify-center'>
+        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+      </div>
+
+      <section id='uploaders' className='scroll-mt-24'>
+        <h2 className='text-center text-5xl font-black md:text-6xl'>
+          Supports your <EmphasizeText>favorite uploaders</EmphasizeText>
+        </h2>
+        <p className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'>
+          Zipline integrates with the tools you already use across every major platform.
+        </p>
+        <HomeUploaders />
       </section>
 
       <div className='my-80 flex justify-center'>

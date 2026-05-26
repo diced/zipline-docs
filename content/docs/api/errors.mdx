@@ -1,0 +1,138 @@
+---
+title: Error Handling
+description: Learn how to handle errors returned by the Zipline API
+---
+
+When the Zipline API encounters an error, it returns a consistent JSON payload along with an appropriate HTTP status code. This page explains the error response shape, the meaning of each error code range, and how to handle errors in your applications.
+
+## Error response shape
+
+Every error response from the API follows the same structure:
+
+```json
+{
+  "error": "E1014: File with this name already exists",
+  "code": 1014,
+  "statusCode": 400
+}
+```
+
+| Field        | Type     | Description                                                                                               |
+| ------------ | -------- | --------------------------------------------------------------------------------------------------------- |
+| `error`      | `string` | A human-readable message, prefixed with `E<code>` (e.g. `E1014`). May contain additional context.         |
+| `code`       | `number` | The Zipline-specific error code. Use this for programmatic handling rather than parsing the error string. |
+| `statusCode` | `number` | The HTTP status code returned with the response. Always matches the response's actual HTTP status.        |
+
+<Callout type='info'>
+  Some endpoints may include additional fields in the error response (for
+  example, validation failures may include a list of fields that failed
+  validation). Always handle unknown fields gracefully.
+</Callout>
+
+## Error code ranges
+
+Error codes are grouped into ranges based on the type of error. The first digit indicates the category, and each category maps to a specific HTTP status code by default:
+
+| Range       | HTTP Status | Category                        | Description                                                  |
+| ----------- | ----------- | ------------------------------- | ------------------------------------------------------------ |
+| `1000-1999` | `400`       | Validation / client errors      | The request was malformed or contained invalid data.         |
+| `2000-2999` | `401`       | Session / authentication errors | The request was not authenticated or the session is invalid. |
+| `3000-3999` | `403`       | Permission errors               | The authenticated user lacks the permission to perform this. |
+| `4000-4999` | `404`       | Not found errors                | The requested resource does not exist.                       |
+| `5000-5999` | `413`       | Constraint errors               | The request exceeded a configured limit (size, quota, etc).  |
+| `6000-6999` | `500`       | Internal errors                 | Something went wrong on the server's side.                   |
+| `9000-9999` | varies      | Catch-all errors                | Generic fallback errors when a more specific code isn't set. |
+
+## Handling errors in your code
+
+Because every error response shares the same shape, you can write a single helper to parse and react to errors. Below are examples in a few common languages.
+
+If using TypeScript, you may also find it useful to just import the `ApiError` type from the Zipline's source to ensure safety.
+
+### JavaScript / TypeScript
+
+```ts
+type ApiError = {
+  error: string;
+  code: number;
+  statusCode: number;
+  [key: string]: unknown;
+};
+
+async function ziplineFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(`https://zipline.example.com${path}`, {
+    ...init,
+    headers: {
+      Authorization: process.env.ZIPLINE_TOKEN!,
+      ...init?.headers,
+    },
+  });
+
+  if (!res.ok) {
+    const err = (await res.json()) as ApiError;
+
+    if (err.code >= 2000 && err.code < 3000) {
+      throw new Error('Your token is invalid or expired.');
+    }
+
+    if (err.code >= 5000 && err.code < 6000) {
+      throw new Error('Upload too large or quota exceeded.');
+    }
+
+    throw new Error(`Zipline API error: ${err.error}`);
+  }
+
+  return res.json() as Promise<T>;
+}
+```
+
+### Python
+
+```python
+import os
+import requests
+
+class ZiplineError(Exception):
+    def __init__(self, code: int, status: int, message: str):
+        super().__init__(message)
+        self.code = code
+        self.status = status
+
+def zipline_request(method: str, path: str, **kwargs):
+    res = requests.request(
+        method,
+        f'https://zipline.example.com{path}',
+        headers={'Authorization': os.environ['ZIPLINE_TOKEN']},
+        **kwargs,
+    )
+
+    if not res.ok:
+        payload = res.json()
+        raise ZiplineError(
+            code=payload['code'],
+            status=payload['statusCode'],
+            message=payload['error'],
+        )
+
+    return res.json()
+```
+
+### cURL
+
+```bash
+curl -i -X POST https://zipline.example.com/api/upload \
+  -H "Authorization: $ZIPLINE_TOKEN" \
+  -F "file=@./image.png"
+```
+
+If the upload fails, the response body will contain the JSON error payload described above, with the HTTP status code matching `statusCode`.
+
+## Best practices
+
+- Use the `code` field for programmatic error handling
+- Don't retry `4xx` errors without changing the request, since these indicate a problem with the request
+- If possible log the entire error if they are `6xxx` internal errors, since these indicate a problem on Zipline's side rather than yours.
+
+## Viewing errors in the API reference
+
+Each route in the API Reference lists all the errors, so viewing any route will show all up-to-date possible errors for any endpoint.
