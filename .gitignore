@@ -7,7 +7,6 @@
 # test & build
 /coverage
 /.next/
-/.open-next/
 /out/
 /build
 *.tsbuildinfo
@@ -31,5 +30,3 @@ openapi.json
 content/docs/api/(generated)/
 .env
 build/
-.pnpm-store/
-.wrangler/
