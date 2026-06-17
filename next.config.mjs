@@ -4,6 +4,7 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+  output: 'standalone',
   serverExternalPackages: ['@takumi-rs/image-response'],
   reactStrictMode: true,
   redirects: async () => [
@@ -33,7 +34,6 @@ const config = {
       permanent: true,
     },
   ],
-  distDir: 'build',
 };
 
 export default withMDX(config);
