@@ -23,6 +23,7 @@ COPY src ./src
 COPY public ./public
 COPY scripts ./scripts
 COPY .git ./.git
+COPY content ./content
 
 RUN pnpm rebuild
 
@@ -46,6 +47,7 @@ COPY --from=builder /zipline/public ./public
 COPY --from=builder --chown=nextjs:nodejs /zipline/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /zipline/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /zipline/openapi.json ./
+COPY --from=builder --chown=nextjs:nodejs /zipline/.source ./
 
 USER nextjs
 EXPOSE 3000
