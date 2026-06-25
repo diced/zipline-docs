@@ -125,16 +125,16 @@ Turn on **Assume MIME types** to make Zipline detect the type from the actual fi
 FILES_ASSUME_MIMETYPES=true
 ```
 
-Then block the types you don't want served inline at all:
+Then block the types you don't want served inline at all. This can be configured in the server settings dashboard under **Files** → **Disabled Types**, or with the environment variable:
 
 ```dotenv title=".env"
-FILES_DISABLED_TYPES="text/html,text/javascript"
+FILES_DISABLED_TYPES="text/html,application/javascript"
 ```
 
-If you still want people to be able to upload those, but not have the browser execute them, override what they get served as:
+If you still want people to be able to upload those, but not have the browser execute them, override what they get served as. Set **Default MIME for Disabled Types** in the dashboard, or use:
 
 ```dotenv title=".env"
 FILES_DISABLED_TYPES_DEFAULT="application/octet-stream"
 ```
 
-That makes the browser download the file instead of trying to display it. Leaving `FILES_DISABLED_TYPES_DEFAULT` blank just refuses the upload entirely.
+That makes the browser download the file instead of trying to display it. Leaving `FILES_DISABLED_TYPES_DEFAULT` blank just refuses the upload entirely with error code `1065`.

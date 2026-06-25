@@ -119,6 +119,10 @@ Enabling instantaneous thumbnails, makes sure that thumbnails are generated afte
 These settings are for viewing and uploading files. The route can be anything, even `/` if you want to serve files from the root of your domain. Enabling `Remove GPS Metadata` will attempt to remove any exif GPS metadata from images uploaded to Zipline.
 The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its actual contents instead of trusting what the browser claims. If your instance is public, see [Hardening](/docs/guides/hardening#assume-mime-types) for why you probably want this on along with `FILES_DISABLED_TYPES` and `FILES_DISABLED_TYPES_DEFAULT`.
 
+**Disabled Types** is a comma-separated list of MIME types to block or rewrite on upload (for example, `text/html, application/javascript`). It is recommended to enable **Assume Mimetypes** when using this setting, so files are classified by their actual contents rather than what the browser claims.
+
+**Default MIME for Disabled Types** sets the MIME type to serve for blocked types instead of rejecting the upload. A common value is `application/octet-stream`, which forces the browser to download the file instead of rendering it inline. Leave this blank to refuse uploads that match a disabled type entirely.
+
 ### Variables
 
 | Variable                            | Type       | Example                    |
@@ -126,7 +130,7 @@ The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its 
 | `FILES_ROUTE`                       | `string`   | `/u`                       |
 | `FILES_LENGTH`                      | `number`   | `6`                        |
 | `FILES_DEFAULT_FORMAT`              | `string`   | `random`                   |
-| `FILES_DISABLED_TYPES`              | `string[]` | `application/x-sh`         |
+| `FILES_DISABLED_TYPES`              | `string[]` | `text/html,application/javascript` |
 | `FILES_DISABLED_TYPES_DEFAULT`      | `string`   | `application/octet-stream` |
 | `FILES_DISABLED_EXTENSIONS`         | `string[]` | `exe,bat,dmg`              |
 | `FILES_MAX_FILE_SIZE`               | `string`   | `100mb`                    |
