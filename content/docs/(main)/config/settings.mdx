@@ -123,6 +123,8 @@ The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its 
 
 **Default MIME for Disabled Types** sets the MIME type to serve for blocked types instead of rejecting the upload. A common value is `application/octet-stream`, which forces the browser to download the file instead of rendering it inline. Leave this blank to refuse uploads that match a disabled type entirely.
 
+**Extensionless URLs** allows file links to work without the file extension in the URL (for example, `/u/abc123` instead of `/u/abc123.png`). Upload responses still include the extension in the returned URL. When multiple files could match an extensionless name, the most recently uploaded file is used.
+
 ### Variables
 
 | Variable                            | Type       | Example                    |
@@ -142,6 +144,7 @@ The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its 
 | `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                        |
 | `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                        |
 | `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`              |
+| `FILES_EXTENSIONLESS_URLS`          | `boolean`  | `true`                     |
 
 ## URL Shortener
 

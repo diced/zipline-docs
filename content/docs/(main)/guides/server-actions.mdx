@@ -1,19 +1,29 @@
 ---
 title: Server Actions
-description: Perform maintenance actions on the server, such as clearing temp files, requerying file
+description: Perform maintenance actions on the server, such as clearing temp files, requerying file sizes, and managing imports
 ---
 
-These are small "maintenance" actions that can be performed on the server. This section is found under the "Administrator" button on the left-nav, then under the "Server Actions" link.
+Administrator tools live under **Administrator** in the sidebar.
+
+## Administrator dashboard
+
+The **Dashboard** page at `/dashboard/admin` is the admin home. It shows storage usage, version information, and quick links to metrics, users, settings, and other admin pages.
+
+### Storage status
+
+The admin dashboard shows how much storage your instance is using. For local storage, this includes total disk space and a usage percentage. For S3, it shows the bucket path and total bytes stored (S3 does not report total capacity).
+
+## Server Actions
+
+Maintenance actions are under **Server Actions** at `/dashboard/admin/actions`.
 
 ![Server Actions](/img/docs/server-actions-1.png)
-
-From here, you can perform the following actions:
 
 ![Server Actions Buttons](/img/docs/server-actions-2.png)
 
 ## Import/Export Data
 
-This will allow you to import data (from V3 or V4 exports) or export your current data (that can be imported here later.)
+This will allow you to import data (from V3 or V4 exports) or export your current data (that can be imported here later.) **Import/Export is only available to super administrators.**
 
 For more information on how V3 imports work, visit [migrations](/docs/migrate).
 
