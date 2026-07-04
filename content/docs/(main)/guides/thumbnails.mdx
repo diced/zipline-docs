@@ -26,6 +26,14 @@ By default the number of threads used to generate thumbnails is set to 4. If you
 
 The reason Zipline offloads thumbnail generation to a separate thread is to prevent the server from being bogged down by the process as it can be quite CPU intensive.
 
+## FFmpeg path
+
+Zipline looks for `ffmpeg` on your `PATH`. If it is installed somewhere else, set `FFMPEG_PATH` to the full path of the executable:
+
+```dotenv title=".env"
+FFMPEG_PATH=/usr/local/bin/ffmpeg
+```
+
 ## Behind the Scenes
 
 The command used to generate thumbnails is:

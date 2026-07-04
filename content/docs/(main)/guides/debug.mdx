@@ -28,17 +28,45 @@ Simply remove the `DEBUG` environment variable.
 
 ![debug out](/img/docs/debug.png)
 
+## Log formatting
+
+Log colors are enabled automatically when writing to a terminal. Set `ZIPLINE_NO_COLOR` to any value to disable color output (useful in Docker or when piping logs to a file):
+
+```dotenv title=".env"
+ZIPLINE_NO_COLOR=true
+```
+
+To change the timestamp format in log lines, set `ZIPLINE_OVERRIDE_LOG_DATE_FORMAT` to a [date format string](https://day.js.org/docs/en/display/format):
+
+```dotenv title=".env"
+ZIPLINE_OVERRIDE_LOG_DATE_FORMAT="YYYY-MM-DD HH:mm:ss"
+```
+
+By default, log output from `db` and `config` loggers is suppressed in worker threads. Set `ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG` to any value to enable it:
+
+```dotenv title=".env"
+ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG=true
+```
+
+## Database logging
+
+To log Prisma database queries, set `ZIPLINE_DB_LOG` to `true`. You can also pass a comma-separated list of [Prisma log levels](https://www.prisma.io/docs/orm/prisma-client/observability-and-logging/logging) (for example, `query,info,warn,error`):
+
+```dotenv title=".env"
+ZIPLINE_DB_LOG=true
+```
+
 ## Detailed Memory Usage
 
 Enabling detailed memory usage logging will log the memory usage of Zipline at 1 second intervals. This is useful for diagnosing memory leaks or high memory usage issues.
 
 ### Enabling
 
-To enable detailed memory usage, set the `DEBUG_MONITOR_MEMORY` environment variable to `true`.
+To enable detailed memory usage, set the `ZIPLINE_MONITOR_MEMORY` environment variable to `true`.
 
 ### Disabling
 
-To disable detailed memory usage, set the `DEBUG_MONITOR_MEMORY` environment variable to `false` or remove it entirely.
+To disable detailed memory usage, set the `ZIPLINE_MONITOR_MEMORY` environment variable to `false` or remove it entirely.
 
 ### Example Output
 
@@ -219,4 +247,20 @@ def read_log():
                 continue
 
     return entries
+```
+
+## OpenAPI schema
+
+Set `ZIPLINE_OUTPUT_OPENAPI` to `true` to write the OpenAPI schema to `openapi.json` in the current working directory and exit. The server starts normally, registers all routes, then writes the file and shuts down.
+
+```dotenv title=".env"
+ZIPLINE_OUTPUT_OPENAPI=true
+```
+
+## Git commit SHA
+
+`ZIPLINE_GIT_SHA` sets the commit hash shown alongside the version on the [admin dashboard](/docs/guides/server-actions). Docker images set this automatically via a build argument. If unset, Zipline tries to read it from the local git repository.
+
+```dotenv title=".env"
+ZIPLINE_GIT_SHA=abc1234
 ```
