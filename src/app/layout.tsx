@@ -43,6 +43,11 @@ export default function Layout({ children }: LayoutProps<'/'>) {
         src='https://analytics_.diced.sh/script.js'
         data-website-id='b67b1a7b-fc2f-4fe7-b6aa-f56d4bbe9c4f'
       />
+      <Script
+        type='module'
+        src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "da4958d241a54c3d9e71712c2c41a5ea"}'
+      />
 
       <body className='flex min-h-screen flex-col font-sans antialiased [--fd-site-nav-height:3.5rem]'>
         <Banner
