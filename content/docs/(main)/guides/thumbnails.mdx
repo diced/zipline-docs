@@ -39,7 +39,7 @@ FFMPEG_PATH=/usr/local/bin/ffmpeg
 The command used to generate thumbnails is:
 
 ```bash
-ffmpeg -i /tmp/zipline/zthumbnail_id.tmp -y -vframes 1 -filter:v thumbnail -f mjpeg /tmp/zipline/zthumbnail_id.jpg
+ffmpeg -i ./uploads/.tmp/zthumbnail_id.tmp -y -vframes 1 -filter:v thumbnail -f mjpeg ./uploads/.tmp/zthumbnail_id.jpg
 ```
 
 - Files are copied to the temporary directory

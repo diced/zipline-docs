@@ -16,13 +16,15 @@ This section is for core configuration, like whether or not to return HTTPS urls
 
 "Trust Proxy" can be enabled if you are running Zipline behind a reverse proxy (like Nginx or Caddy). This will allow Zipline to correctly determine certain values like the protocol, the client IP address, etc.
 
+Temporary files default to `./uploads/.tmp`. Setting `CORE_TEMP_DIRECTORY` to another filesystem, such as tmpfs, can reduce local upload performance.
+
 ### Variables
 
 | Variable                 | Type      | Example               |
 | ------------------------ | --------- | --------------------- |
 | `CORE_RETURN_HTTPS_URLS` | `boolean` | `true`                |
 | `CORE_DEFAULT_DOMAIN`    | `string`  | `zipline.example.com` |
-| `CORE_TEMP_DIRECTORY`    | `string`  | `/var/tmp/zipline`    |
+| `CORE_TEMP_DIRECTORY`    | `string`  | `./uploads/.tmp`      |
 | `CORE_TRUST_PROXY`       | `boolean` | `true`                |
 
 See the other [core settings](/docs/config/core).
