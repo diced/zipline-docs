@@ -64,12 +64,10 @@ function exit(message: string) {
     false,
     true,
     false,
-    'openapi.json',
+    'public/openapi.json',
   );
 
-  console.log(
-    'openapi.json extracted to public/openapi.json... generating docs mdx...',
-  );
+  console.log('openapi.json extracted... generating docs mdx...');
 
   await generateFiles({
     input: openapi,

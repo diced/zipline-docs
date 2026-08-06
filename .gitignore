@@ -26,7 +26,7 @@ yarn-error.log*
 next-env.d.ts
 
 # zipline generated at build time
-openapi.json
+public/openapi.json
 content/docs/api/(generated)/
 .env
 build/

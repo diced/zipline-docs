@@ -1,8 +1,9 @@
+import { APIPage } from '@/components/api-page';
+import { OpenAPIDownloadButton } from '@/components/openapi-dl-button';
+import * as TabComponents from '@/components/tabs';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
 import { ImageZoom } from './image-zoom';
-import * as TabComponents from '@/components/tabs';
-import { APIPage } from '@/components/api-page';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -10,6 +11,7 @@ export function getMDXComponents(components?: MDXComponents) {
     ...components,
     ...TabComponents,
     APIPage,
+    OpenAPIDownloadButton,
     img: (props) => <ImageZoom {...(props as any)} />,
   } satisfies MDXComponents;
 }
