@@ -46,7 +46,6 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY --from=builder /zipline/public ./public
 COPY --from=builder --chown=nextjs:nodejs /zipline/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /zipline/.next/static ./.next/static
-COPY --from=builder --chown=nextjs:nodejs /zipline/openapi.json ./
 COPY --from=builder --chown=nextjs:nodejs /zipline/.source ./
 
 USER nextjs
