@@ -16,10 +16,7 @@ import * as Unstyled from './ui/tabs';
 
 type CollectionKey = string | symbol;
 
-export interface TabsProps extends Omit<
-  ComponentProps<typeof Unstyled.Tabs>,
-  'value' | 'onValueChange'
-> {
+export interface TabsProps extends Omit<ComponentProps<typeof Unstyled.Tabs>, 'value' | 'onValueChange'> {
   /**
    * Use simple mode instead of advanced usage as documented in https://radix-ui.com/primitives/docs/components/tabs.
    */
@@ -49,9 +46,7 @@ function useTabContext() {
   return ctx;
 }
 
-export function TabsList(
-  props: React.ComponentPropsWithRef<typeof Unstyled.TabsList>,
-) {
+export function TabsList(props: React.ComponentPropsWithRef<typeof Unstyled.TabsList>) {
   return (
     <Unstyled.TabsList
       {...props}
@@ -63,9 +58,7 @@ export function TabsList(
   );
 }
 
-export function TabsTrigger(
-  props: React.ComponentPropsWithRef<typeof Unstyled.TabsTrigger>,
-) {
+export function TabsTrigger(props: React.ComponentPropsWithRef<typeof Unstyled.TabsTrigger>) {
   return (
     <Unstyled.TabsTrigger
       {...props}
@@ -92,10 +85,7 @@ export function Tabs({
   return (
     <Unstyled.Tabs
       ref={ref}
-      className={cn(
-        'flex flex-col overflow-hidden rounded-xl border bg-fd-secondary my-4',
-        className,
-      )}
+      className={cn('flex flex-col overflow-hidden rounded-xl border bg-fd-secondary my-4', className)}
       value={value}
       onValueChange={(v: string) => {
         if (items && !items.some((item) => escapeValue(item) === v)) return;
@@ -105,9 +95,7 @@ export function Tabs({
     >
       {items && (
         <TabsList>
-          {label && (
-            <span className='text-sm font-medium my-auto me-auto'>{label}</span>
-          )}
+          {label && <span className='text-sm font-medium my-auto me-auto'>{label}</span>}
           {items.map((item) => (
             <TabsTrigger key={item} value={escapeValue(item)}>
               {item}
@@ -115,19 +103,14 @@ export function Tabs({
           ))}
         </TabsList>
       )}
-      <TabsContext.Provider
-        value={useMemo(() => ({ items, collection }), [collection, items])}
-      >
+      <TabsContext.Provider value={useMemo(() => ({ items, collection }), [collection, items])}>
         {props.children}
       </TabsContext.Provider>
     </Unstyled.Tabs>
   );
 }
 
-export interface TabProps extends Omit<
-  ComponentProps<typeof Unstyled.TabsContent>,
-  'value'
-> {
+export interface TabProps extends Omit<ComponentProps<typeof Unstyled.TabsContent>, 'value'> {
   /**
    * Value of tab, detect from index if unspecified.
    */
@@ -136,14 +119,10 @@ export interface TabProps extends Omit<
 
 export function Tab({ value, ...props }: TabProps) {
   const { items } = useTabContext();
-  const resolved =
-    value ??
-    // eslint-disable-next-line react-hooks/rules-of-hooks -- `value` is not supposed to change
-    items?.at(useCollectionIndex());
+  const index = useCollectionIndex();
+  const resolved = value ?? items?.at(index);
   if (!resolved)
-    throw new Error(
-      'Failed to resolve tab `value`, please pass a `value` prop to the Tab component.',
-    );
+    throw new Error('Failed to resolve tab `value`, please pass a `value` prop to the Tab component.');
 
   return (
     <TabsContent value={escapeValue(resolved)} {...props}>
@@ -152,11 +131,7 @@ export function Tab({ value, ...props }: TabProps) {
   );
 }
 
-export function TabsContent({
-  value,
-  className,
-  ...props
-}: ComponentProps<typeof Unstyled.TabsContent>) {
+export function TabsContent({ value, className, ...props }: ComponentProps<typeof Unstyled.TabsContent>) {
   return (
     <Unstyled.TabsContent
       value={value}

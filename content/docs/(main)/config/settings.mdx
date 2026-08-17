@@ -5,7 +5,7 @@ description: Settings that can be configured through the dashboard, as well as e
 
 As of Zipline v4, most configuration options can be managed through the settings dashboard. However, some settings require a server restart.
 
-To access the settings dashboard, navigate to `/dashboard/admin/settings` on your Zipline instance.
+To access the settings dashboard, navigate to `/dashboard/admin/settings` on your Zipline instance. Only super administrators can view or change server settings.
 ![settings sidebar access](/img/docs/config-settings-1.png)
 
 Each section here on the docs has a table of environment variables that can be used instead of the dashboard. These environment variables can be set in your `.env` file or in the `docker-compose.yml` file if you are using Docker. Note that environment variables will override and take precedence over the settings dashboard values (once the environment variables are set, you can't edit them through the dashboard).
@@ -98,23 +98,22 @@ Enabling instantaneous thumbnails, makes sure that thumbnails are generated afte
 
 ### Variables
 
-| Variable                              | Type      | Example                             |
-| ------------------------------------- | --------- | ----------------------------------- |
-| `FEATURES_IMAGE_COMPRESSION`          | `boolean` | `true`                              |
-| `FEATURES_ROBOTS_TXT`                 | `boolean` | `true`                              |
-| `FEATURES_HEALTHCHECK`                | `boolean` | `true`                              |
-| `FEATURES_USER_REGISTRATION`          | `boolean` | `true`                              |
-| `FEATURES_OAUTH_REGISTRATION`         | `boolean` | `true`                              |
-| `FEATURES_DELETE_ON_MAX_VIEWS`        | `boolean` | `true`                              |
-| `FEATURES_THUMBNAILS_ENABLED`         | `boolean` | `true`                              |
-| `FEATURES_THUMBNAILS_NUM_THREADS`     | `number`  | `4`                                 |
-| `FEATURES_THUMBNAILS_FORMAT`          | `string`  | `jpg`                               |
-| `FEATURES_THUMBNAILS_INSTANTANEOUS`   | `boolean` | `false`                             |
-| `FEATURES_METRICS_ENABLED`            | `boolean` | `true`                              |
-| `FEATURES_METRICS_ADMIN_ONLY`         | `boolean` | `false`                             |
-| `FEATURES_METRICS_SHOW_USER_SPECIFIC` | `boolean` | `true`                              |
-| `FEATURES_VERSION_CHECKING`           | `boolean` | `true`                              |
-| `FEATURES_VERSION_API`                | `string`  | `https://zipline-version.diced.sh/` |
+| Variable                              | Type      | Example |
+| ------------------------------------- | --------- | ------- |
+| `FEATURES_IMAGE_COMPRESSION`          | `boolean` | `true`  |
+| `FEATURES_ROBOTS_TXT`                 | `boolean` | `true`  |
+| `FEATURES_HEALTHCHECK`                | `boolean` | `true`  |
+| `FEATURES_USER_REGISTRATION`          | `boolean` | `true`  |
+| `FEATURES_OAUTH_REGISTRATION`         | `boolean` | `true`  |
+| `FEATURES_DELETE_ON_MAX_VIEWS`        | `boolean` | `true`  |
+| `FEATURES_THUMBNAILS_ENABLED`         | `boolean` | `true`  |
+| `FEATURES_THUMBNAILS_NUM_THREADS`     | `number`  | `4`     |
+| `FEATURES_THUMBNAILS_FORMAT`          | `string`  | `jpg`   |
+| `FEATURES_THUMBNAILS_INSTANTANEOUS`   | `boolean` | `false` |
+| `FEATURES_METRICS_ENABLED`            | `boolean` | `true`  |
+| `FEATURES_METRICS_ADMIN_ONLY`         | `boolean` | `false` |
+| `FEATURES_METRICS_SHOW_USER_SPECIFIC` | `boolean` | `true`  |
+| `FEATURES_VERSION_CHECKING`           | `boolean` | `true`  |
 
 ## Files
 
@@ -125,28 +124,28 @@ The `Assume Mimetypes` setting makes Zipline detect a file's MIME type from its 
 
 **Default MIME for Disabled Types** sets the MIME type to serve for blocked types instead of rejecting the upload. A common value is `application/octet-stream`, which forces the browser to download the file instead of rendering it inline. Leave this blank to refuse uploads that match a disabled type entirely.
 
-**Extensionless URLs** allows file links to work without the file extension in the URL (for example, `/u/abc123` instead of `/u/abc123.png`). Upload responses still include the extension in the returned URL. When multiple files could match an extensionless name, the most recently uploaded file is used.
+**Extensionless URLs** allows file links to work without the file extension in the URL (for example, `/u/abc123` instead of `/u/abc123.png`). Upload responses include the extension by default; users can request an extensionless response URL from the dashboard upload options or with the [`x-zipline-extensionless` header](/docs/guides/upload-options#extensionless-urls). When multiple files could match an extensionless name, the most recently uploaded file is used.
 
 ### Variables
 
-| Variable                            | Type       | Example                    |
-| ----------------------------------- | ---------- | -------------------------- |
-| `FILES_ROUTE`                       | `string`   | `/u`                       |
-| `FILES_LENGTH`                      | `number`   | `6`                        |
-| `FILES_DEFAULT_FORMAT`              | `string`   | `random`                   |
+| Variable                            | Type       | Example                            |
+| ----------------------------------- | ---------- | ---------------------------------- |
+| `FILES_ROUTE`                       | `string`   | `/u`                               |
+| `FILES_LENGTH`                      | `number`   | `6`                                |
+| `FILES_DEFAULT_FORMAT`              | `string`   | `random`                           |
 | `FILES_DISABLED_TYPES`              | `string[]` | `text/html,application/javascript` |
-| `FILES_DISABLED_TYPES_DEFAULT`      | `string`   | `application/octet-stream` |
-| `FILES_DISABLED_EXTENSIONS`         | `string[]` | `exe,bat,dmg`              |
-| `FILES_MAX_FILE_SIZE`               | `string`   | `100mb`                    |
-| `FILES_MAX_FILES_PER_UPLOAD`        | `number`   | `10`                       |
-| `FILES_DEFAULT_EXPIRATION`          | `string`   | `30d`                      |
-| `FILES_ASSUME_MIMETYPES`            | `boolean`  | `true`                     |
-| `FILES_DEFAULT_DATE_FORMAT`         | `string`   | `YYYY-MM-DD_HH:mm:ss`      |
-| `FILES_REMOVE_GPS_METADATA`         | `boolean`  | `true`                     |
-| `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                        |
-| `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                        |
-| `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`              |
-| `FILES_EXTENSIONLESS_URLS`          | `boolean`  | `true`                     |
+| `FILES_DISABLED_TYPES_DEFAULT`      | `string`   | `application/octet-stream`         |
+| `FILES_DISABLED_EXTENSIONS`         | `string[]` | `exe,bat,dmg`                      |
+| `FILES_MAX_FILE_SIZE`               | `string`   | `100mb`                            |
+| `FILES_MAX_FILES_PER_UPLOAD`        | `number`   | `10`                               |
+| `FILES_DEFAULT_EXPIRATION`          | `string`   | `30d`                              |
+| `FILES_ASSUME_MIMETYPES`            | `boolean`  | `true`                             |
+| `FILES_DEFAULT_DATE_FORMAT`         | `string`   | `YYYY-MM-DD_HH:mm:ss`              |
+| `FILES_REMOVE_GPS_METADATA`         | `boolean`  | `true`                             |
+| `FILES_RANDOM_WORDS_NUM_ADJECTIVES` | `number`   | `3`                                |
+| `FILES_RANDOM_WORDS_SEPARATOR`      | `string`   | `-`                                |
+| `FILES_DEFAULT_COMPRESSION_FORMAT`  | `string`   | `webp`, `jpg`                      |
+| `FILES_EXTENSIONLESS_URLS`          | `boolean`  | `true`                             |
 
 ## URL Shortener
 

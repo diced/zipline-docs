@@ -1,16 +1,9 @@
 'use client';
 import * as Base from '@/components/docs-sidebar/base';
 import { createLinkItemRenderer } from '@/components/docs-sidebar/link-item';
-import {
-  createPageTreeRenderer,
-  type SidebarPageTreeComponents,
-} from '@/components/docs-sidebar/page-tree';
+import { createPageTreeRenderer, type SidebarPageTreeComponents } from '@/components/docs-sidebar/page-tree';
 import { buttonVariants } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { isLayoutTabActive, type LayoutTab } from '@/layouts/shared';
 import { cn } from '@/lib/cn';
 import { mergeRefs } from '@/lib/merge-refs';
@@ -60,11 +53,7 @@ export function Sidebar({ banner, components, ...rest }: SidebarProps) {
       {menuItems
         .filter((v) => v.type !== 'icon')
         .map((item, i, list) => (
-          <SidebarLinkItem
-            key={i}
-            item={item}
-            className={cn(i === list.length - 1 && 'mb-4')}
-          />
+          <SidebarLinkItem key={i} item={item} className={cn(i === list.length - 1 && 'mb-4')} />
         ))}
       <SidebarPageTree {...components} />
     </Base.SidebarViewport>
@@ -75,9 +64,7 @@ export function Sidebar({ banner, components, ...rest }: SidebarProps) {
       <SidebarContent {...rest}>
         {((tabs.length > 0 && tabMode === 'auto') || banner) && (
           <div className='flex flex-col gap-3 p-4 pb-2'>
-            {tabs.length > 0 && tabMode === 'auto' && (
-              <SidebarTabsDropdown tabs={tabs} />
-            )}
+            {tabs.length > 0 && tabMode === 'auto' && <SidebarTabsDropdown tabs={tabs} />}
             {banner}
           </div>
         )}
@@ -115,12 +102,7 @@ export function SidebarTrigger(props: ComponentProps<'button'>) {
   return <Base.SidebarTrigger {...props} />;
 }
 
-function SidebarContent({
-  ref: refProp,
-  className,
-  children,
-  ...props
-}: ComponentProps<'aside'>) {
+function SidebarContent({ ref: refProp, className, children, ...props }: ComponentProps<'aside'>) {
   const hover = Base.useSidebarHover();
   if (!hover) return null;
 
@@ -149,11 +131,7 @@ function SidebarContent({
   );
 }
 
-function SidebarDrawer({
-  children,
-  className,
-  ...props
-}: ComponentProps<typeof Base.SidebarDrawerContent>) {
+function SidebarDrawer({ children, className, ...props }: ComponentProps<typeof Base.SidebarDrawerContent>) {
   return (
     <>
       <Base.SidebarDrawerOverlay className='fixed z-40 inset-0 backdrop-blur-xs data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fd-fade-out' />
@@ -170,12 +148,7 @@ function SidebarDrawer({
   );
 }
 
-function SidebarSeparator({
-  className,
-  style,
-  children,
-  ...props
-}: ComponentProps<'p'>) {
+function SidebarSeparator({ className, style, children, ...props }: ComponentProps<'p'>) {
   const depth = Base.useFolderDepth();
 
   return (
@@ -196,20 +169,12 @@ function SidebarSeparator({
   );
 }
 
-function SidebarItem({
-  className,
-  style,
-  children,
-  ...props
-}: ComponentProps<typeof Base.SidebarItem>) {
+function SidebarItem({ className, style, children, ...props }: ComponentProps<typeof Base.SidebarItem>) {
   const depth = Base.useFolderDepth();
 
   return (
     <Base.SidebarItem
-      className={cn(
-        itemVariants({ variant: 'link', highlight: depth >= 1 }),
-        className,
-      )}
+      className={cn(itemVariants({ variant: 'link', highlight: depth >= 1 }), className)}
       style={{
         paddingInlineStart: getItemOffset(depth),
         ...style,
@@ -230,11 +195,7 @@ function SidebarFolderTrigger({
 
   return (
     <Base.SidebarFolderTrigger
-      className={cn(
-        itemVariants({ variant: collapsible ? 'button' : null }),
-        'w-full',
-        className,
-      )}
+      className={cn(itemVariants({ variant: collapsible ? 'button' : null }), 'w-full', className)}
       style={{
         paddingInlineStart: getItemOffset(depth - 1),
         ...style,
@@ -246,20 +207,12 @@ function SidebarFolderTrigger({
   );
 }
 
-function SidebarFolderLink({
-  className,
-  style,
-  ...props
-}: ComponentProps<typeof Base.SidebarFolderLink>) {
+function SidebarFolderLink({ className, style, ...props }: ComponentProps<typeof Base.SidebarFolderLink>) {
   const depth = Base.useFolderDepth();
 
   return (
     <Base.SidebarFolderLink
-      className={cn(
-        itemVariants({ variant: 'link', highlight: depth > 1 }),
-        'w-full',
-        className,
-      )}
+      className={cn(itemVariants({ variant: 'link', highlight: depth > 1 }), 'w-full', className)}
       style={{
         paddingInlineStart: getItemOffset(depth - 1),
         ...style,
@@ -316,14 +269,10 @@ function SidebarTabsDropdown({
 
   const item = selected ? (
     <>
-      <div className='size-9 shrink-0 empty:hidden md:size-5'>
-        {selected.icon}
-      </div>
+      <div className='size-9 shrink-0 empty:hidden md:size-5'>{selected.icon}</div>
       <div>
         <p className='text-sm font-medium'>{selected.title}</p>
-        <p className='text-sm text-fd-muted-foreground empty:hidden md:hidden'>
-          {selected.description}
-        </p>
+        <p className='text-sm text-fd-muted-foreground empty:hidden md:hidden'>{selected.description}</p>
       </div>
     </>
   ) : (
@@ -360,9 +309,7 @@ function SidebarTabsDropdown({
                 item.props?.className,
               )}
             >
-              <div className='shrink-0 size-9 md:mb-auto md:size-5 empty:hidden'>
-                {item.icon}
-              </div>
+              <div className='shrink-0 size-9 md:mb-auto md:size-5 empty:hidden'>{item.icon}</div>
               <div>
                 <p className='text-sm font-medium leading-none'>{item.title}</p>
                 <p className='text-[0.8125rem] text-fd-muted-foreground mt-1 empty:hidden'>
@@ -370,12 +317,7 @@ function SidebarTabsDropdown({
                 </p>
               </div>
 
-              <Check
-                className={cn(
-                  'shrink-0 ms-auto size-3.5 text-fd-primary',
-                  !isActive && 'invisible',
-                )}
-              />
+              <Check className={cn('shrink-0 ms-auto size-3.5 text-fd-primary', !isActive && 'invisible')} />
             </Link>
           );
         })}

@@ -24,9 +24,8 @@ const uploaders: HomeUploader[] = [
     name: 'ShareX',
     description: (
       <>
-        Generate a ready-to-use <span className='font-mono'>.sxcu</span> file
-        from your dashboard and start uploading with one of the most popular
-        Windows screenshot tools.
+        Generate a ready-to-use <span className='font-mono'>.sxcu</span> file from your dashboard and start
+        uploading with one of the most popular Windows screenshot tools.
       </>
     ),
     href: '/docs/guides/uploaders/windows-sharex',
@@ -37,8 +36,8 @@ const uploaders: HomeUploader[] = [
     name: 'ishare',
     description: (
       <>
-        Upload screenshots and screen recordings on macOS with ishare, using a
-        Zipline-generated <span className='font-mono'>.iscu</span> file.
+        Upload screenshots and screen recordings on macOS with ishare, using a Zipline-generated{' '}
+        <span className='font-mono'>.iscu</span> file.
       </>
     ),
     href: '/docs/guides/uploaders/macos-ishare',
@@ -47,8 +46,7 @@ const uploaders: HomeUploader[] = [
   {
     platform: 'Linux',
     name: 'Flameshot',
-    description:
-      'Capture screenshots with Flameshot and upload them straight to your Zipline instance.',
+    description: 'Capture screenshots with Flameshot and upload them straight to your Zipline instance.',
     href: '/docs/guides/uploaders/flameshot',
     icon: Flame,
   },
@@ -78,13 +76,7 @@ const uploaders: HomeUploader[] = [
   },
 ];
 
-function UploaderCard({
-  platform,
-  name,
-  description,
-  href,
-  icon: Icon,
-}: HomeUploader) {
+function UploaderCard({ platform, name, description, href, icon: Icon }: HomeUploader) {
   return (
     <Link
       href={href}
@@ -109,9 +101,7 @@ function UploaderCard({
           {name}
         </span>
 
-        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>
-          {description}
-        </p>
+        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>{description}</p>
       </div>
     </Link>
   );

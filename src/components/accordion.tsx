@@ -1,13 +1,7 @@
 'use client';
 
 import { Check, LinkIcon } from 'lucide-react';
-import {
-  type ComponentProps,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type ComponentProps, type ReactNode, useEffect, useRef, useState } from 'react';
 import { cn } from '../lib/cn';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { buttonVariants } from './ui/button';
@@ -44,9 +38,7 @@ export function Accordions({
 
     if (value) {
       queueMicrotask(() => {
-        setValue((prev) =>
-          typeof prev === 'string' ? value : [value, ...prev],
-        );
+        setValue((prev) => (typeof prev === 'string' ? value : [value, ...prev]));
       });
     }
   }, []);
@@ -59,10 +51,7 @@ export function Accordions({
       value={value}
       onValueChange={setValue}
       collapsible={type === 'single' ? true : undefined}
-      className={cn(
-        'divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card',
-        className,
-      )}
+      className={cn('divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card', className)}
       {...props}
     />
   );
@@ -85,9 +74,7 @@ export function Accordion({
         {id ? <CopyButton id={id} /> : null}
       </AccordionHeader>
       <AccordionContent>
-        <div className='px-4 pb-2 text-[0.9375rem] prose-no-margin'>
-          {children}
-        </div>
+        <div className='px-4 pb-2 text-[0.9375rem] prose-no-margin'>{children}</div>
       </AccordionContent>
     </AccordionItem>
   );
@@ -113,11 +100,7 @@ function CopyButton({ id }: { id: string }) {
       )}
       onClick={onClick}
     >
-      {checked ? (
-        <Check className='size-3.5' />
-      ) : (
-        <LinkIcon className='size-3.5' />
-      )}
+      {checked ? <Check className='size-3.5' /> : <LinkIcon className='size-3.5' />}
     </button>
   );
 }

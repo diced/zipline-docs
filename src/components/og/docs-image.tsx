@@ -45,20 +45,12 @@ export function DocsOGImage({
   method?: string;
 }) {
   const displayTitle = truncateOgText(title, 72);
-  const displayDescription = description
-    ? truncateOgText(description, 140)
-    : undefined;
+  const displayDescription = description ? truncateOgText(description, 140) : undefined;
   const isApiPage = Boolean(method);
-  const methodBadgeWidth = method
-    ? getMethodBadgeWidth(method) + METHOD_BADGE_GAP
-    : 0;
+  const methodBadgeWidth = method ? getMethodBadgeWidth(method) + METHOD_BADGE_GAP : 0;
   const titleLengthThreshold = method ? 36 : 42;
-  const titleFontSize =
-    displayTitle.length > titleLengthThreshold ? 58 : method ? 62 : 68;
-  const accentLineWidth = Math.min(
-    600,
-    methodBadgeWidth + 40 * displayTitle.length,
-  );
+  const titleFontSize = displayTitle.length > titleLengthThreshold ? 58 : method ? 62 : 68;
+  const accentLineWidth = Math.min(600, methodBadgeWidth + 40 * displayTitle.length);
 
   return (
     <div

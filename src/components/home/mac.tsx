@@ -77,8 +77,8 @@ function MacShell({
         <div className='flex flex-col justify-center rounded-xl border border-blue-300/50 bg-blue-600 py-8 px-16 text-white transition-all ease-in-out'>
           <div className='text-8xl font-black'>{':('}</div>
           <p className='mt-12 font-semibold text-xl'>
-            Your PC ran into a problem and needs to restart. We&apos;re just
-            collecting some error info, and then we&apos;ll restart for you.
+            Your PC ran into a problem and needs to restart. We&apos;re just collecting some error info, and
+            then we&apos;ll restart for you.
           </p>
 
           <p className='mt-6 animate-pulse text-xl transition-all ease-in-out'>
@@ -87,18 +87,8 @@ function MacShell({
         </div>
       ) : (
         <div className='flex h-full flex-col rounded-xl border border-fd-border bg-fd-card transition-all'>
-          <div
-            className={cn(
-              'flex border-b border-fd-border',
-              center && 'grid grid-cols-3',
-            )}
-          >
-            <div
-              className={cn(
-                'flex items-center space-x-2 p-2',
-                !center && 'border-r border-fd-border',
-              )}
-            >
+          <div className={cn('flex border-b border-fd-border', center && 'grid grid-cols-3')}>
+            <div className={cn('flex items-center space-x-2 p-2', !center && 'border-r border-fd-border')}>
               <button
                 type='button'
                 aria-label='Close window'
@@ -153,13 +143,7 @@ type TerminalLine = {
   showAfter: number;
 };
 
-export function MacTerminal({
-  text,
-  lines,
-}: {
-  text: string;
-  lines: TerminalLine[];
-}) {
+export function MacTerminal({ text, lines }: { text: string; lines: TerminalLine[] }) {
   const [visibleText, setVisibleText] = useState('');
   const [typingInterval, setTypingInterval] = useState(600);
   const [outputLines, setOutputLines] = useState(
@@ -172,8 +156,7 @@ export function MacTerminal({
     const isVisible = () => {
       if (!divRef.current) return false;
       const { top, bottom } = divRef.current.getBoundingClientRect();
-      const vHeight =
-        window.innerHeight || document.documentElement.clientHeight;
+      const vHeight = window.innerHeight || document.documentElement.clientHeight;
       return top > 0 && bottom < vHeight;
     };
 
@@ -185,9 +168,7 @@ export function MacTerminal({
           const { showAfter } = lines[visibleIdx];
           setTypingInterval(showAfter);
           setOutputLines((prev) =>
-            prev.map((line, index) =>
-              index === visibleIdx ? { ...line, visible: true } : line,
-            ),
+            prev.map((line, index) => (index === visibleIdx ? { ...line, visible: true } : line)),
           );
           setVisibleIdx((prev) => prev + 1);
         }
@@ -211,8 +192,7 @@ export function MacTerminal({
       }
     >
       <div className='mt-1 w-full p-2 px-4 font-mono' ref={divRef}>
-        <span className='text-fd-muted-foreground'>/zipline</span>{' '}
-        <span>{visibleText}</span>
+        <span className='text-fd-muted-foreground'>/zipline</span> <span>{visibleText}</span>
         <span
           className={cn(
             'ml-1 bg-blue-200 px-1.5 dark:bg-blue-800 transition-all',

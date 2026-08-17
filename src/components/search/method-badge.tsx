@@ -1,13 +1,7 @@
 import { getMethodOgColors } from '@/lib/og-theme';
 import { cn } from '@/lib/cn';
 
-export function SearchMethodBadge({
-  method,
-  className,
-}: {
-  method: string;
-  className?: string;
-}) {
+export function SearchMethodBadge({ method, className }: { method: string; className?: string }) {
   const label = method.toUpperCase();
   const colors = getMethodOgColors(label);
 

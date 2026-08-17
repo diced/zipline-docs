@@ -36,11 +36,7 @@ export function Footer({ items, className, ...props }: FooterProps) {
   return (
     <>
       <div
-        className={cn(
-          '@container grid gap-4',
-          previous && next ? 'grid-cols-2' : 'grid-cols-1',
-          className,
-        )}
+        className={cn('@container grid gap-4', previous && next ? 'grid-cols-2' : 'grid-cols-1', className)}
         {...props}
       >
         {previous && <FooterItem item={previous} index={0} />}
@@ -61,12 +57,7 @@ function FooterItem({ item, index }: { item: Item; index: 0 | 1 }) {
         index === 1 && 'text-end',
       )}
     >
-      <div
-        className={cn(
-          'inline-flex items-center gap-1.5 font-medium',
-          index === 1 && 'flex-row-reverse',
-        )}
-      >
+      <div className={cn('inline-flex items-center gap-1.5 font-medium', index === 1 && 'flex-row-reverse')}>
         <Icon className='-mx-1 size-4 shrink-0 rtl:rotate-180' />
         <p>{item.name}</p>
       </div>

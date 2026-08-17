@@ -18,8 +18,8 @@ openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32
 Zipline will only start once there is a secret longer than 32 characters in `CORE_SECRET`.
 
 <Callout>
-  If you do change the secret, everyone currently logged into your instance
-  (including you), will be logged out.
+  If you do change the secret, everyone currently logged into your instance (including you), will be logged
+  out.
 </Callout>
 
 ## Keep sensitive values out of plain `.env`
@@ -111,8 +111,7 @@ Most OIDC platforms (Authentik, Authelia, Keycloak, Pocket-ID, Okta, etc.) have 
 See [OAuth](/docs/guides/oauth) for setup details on each provider.
 
 <Callout>
-  Zipline as of 4.6.0 supports PKCE for OIDC OAuth clients, which is a more
-  secure way to authenticate.
+  Zipline as of 4.6.0 supports PKCE for OIDC OAuth clients, which is a more secure way to authenticate.
 </Callout>
 
 ## Assume MIME types

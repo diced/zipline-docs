@@ -12,8 +12,8 @@ Enabling debug logs will show more verbose logs from Zipline. This is mostly use
 To enable debug mode, set the `DEBUG` environment variable to `zipline`.
 
 <Callout type='warning'>
-  Turn this off when you're done troubleshooting. It logs a lot and there's
-  no reason to leave it running on an instance people actually use.
+  Turn this off when you're done troubleshooting. It logs a lot and there's no reason to leave it running on
+  an instance people actually use.
 </Callout>
 
 ```dotenv title=".env"
@@ -174,19 +174,11 @@ interface MemoryCpuLog {
 }
 
 function readLine(line: string): MemoryCpuLog {
-  const [
-    ts,
-    mem_rss,
-    mem_heap_used,
-    mem_heap_total,
-    mem_external,
-    mem_array_buffers,
-    cpu_user,
-    cpu_system,
-  ] = line
-    .trim()
-    .split(',')
-    .map((value) => Number(value));
+  const [ts, mem_rss, mem_heap_used, mem_heap_total, mem_external, mem_array_buffers, cpu_user, cpu_system] =
+    line
+      .trim()
+      .split(',')
+      .map((value) => Number(value));
   return {
     ts,
     mem_rss,

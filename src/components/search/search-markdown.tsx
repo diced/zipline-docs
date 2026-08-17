@@ -27,9 +27,7 @@ export function SearchMarkdown({ children }: { children: string }) {
 
   return (
     <p className='min-w-0'>
-      {parts.length > 0
-        ? parts.map((part, i) => <Fragment key={i}>{part}</Fragment>)
-        : children}
+      {parts.length > 0 ? parts.map((part, i) => <Fragment key={i}>{part}</Fragment>) : children}
     </p>
   );
 }

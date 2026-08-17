@@ -2,11 +2,7 @@
 import * as Base from '@/components/toc';
 import * as TocClerk from '@/components/toc/clerk';
 import * as TocDefault from '@/components/toc/default';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { cn } from '@/lib/cn';
 import { useTreePath } from 'fumadocs-ui/contexts/tree';
 import { useDocsLayout } from 'fumadocs-ui/layouts/docs';
@@ -45,16 +41,9 @@ export type TOCProps = {
     }
 );
 
-export function TOC({
-  container,
-  header,
-  footer,
-  style = 'clerk',
-  list,
-}: TOCProps) {
+export function TOC({ container, header, footer, style = 'clerk', list }: TOCProps) {
   const items = Base.useTOCItems();
-  const { TOCItems, TOCEmpty, TOCItem } =
-    style === 'clerk' ? TocClerk : TocDefault;
+  const { TOCItems, TOCEmpty, TOCItem } = style === 'clerk' ? TocClerk : TocDefault;
 
   return (
     <div
@@ -67,10 +56,7 @@ export function TOC({
     >
       {header}
 
-      <h3
-        id='toc-title'
-        className='inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground'
-      >
+      <h3 id='toc-title' className='inline-flex items-center gap-1.5 text-sm text-fd-muted-foreground'>
         <Text className='size-4' />
         On this page
       </h3>
@@ -124,8 +110,7 @@ export function TOCPopover({
   const ref = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const { isNavTransparent } = useDocsLayout();
-  const { TOCItems, TOCItem, TOCEmpty } =
-    style === 'clerk' ? TocClerk : TocDefault;
+  const { TOCItems, TOCItem, TOCEmpty } = style === 'clerk' ? TocClerk : TocDefault;
 
   const onClickOutside = useEffectEvent((e: Event) => {
     if (!open || !(e.target instanceof HTMLElement)) return;
@@ -192,10 +177,7 @@ export function TOCPopover({
   );
 }
 
-function PageTOCPopoverTrigger({
-  className,
-  ...props
-}: ComponentProps<'button'>) {
+function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'button'>) {
   const { open } = use(TocPopoverContext)!;
   const items = Base.useItems();
   const selectedIdx = items.findIndex((item) => item.active);
@@ -212,10 +194,7 @@ function PageTOCPopoverTrigger({
       {...props}
     >
       <ProgressCircle
-        value={
-          (items.findLastIndex((item) => item.active) + 1) /
-          Math.max(1, items.length)
-        }
+        value={(items.findLastIndex((item) => item.active) + 1) / Math.max(1, items.length)}
         max={1}
         className={cn('shrink-0', open && 'text-fd-primary')}
       />
@@ -238,20 +217,12 @@ function PageTOCPopoverTrigger({
           {items[selectedIdx]?.original.title}
         </span>
       </span>
-      <ChevronDown
-        className={cn(
-          'shrink-0 transition-transform mx-0.5',
-          open && 'rotate-180',
-        )}
-      />
+      <ChevronDown className={cn('shrink-0 transition-transform mx-0.5', open && 'rotate-180')} />
     </CollapsibleTrigger>
   );
 }
 
-interface ProgressCircleProps extends Omit<
-  React.ComponentProps<'svg'>,
-  'strokeWidth'
-> {
+interface ProgressCircleProps extends Omit<React.ComponentProps<'svg'>, 'strokeWidth'> {
   value: number;
   strokeWidth?: number;
   size?: number;
@@ -313,9 +284,7 @@ function ProgressCircle({
 function PageTOCPopoverContent(props: ComponentProps<'div'>) {
   return (
     <CollapsibleContent data-toc-popover-content='' {...props}>
-      <div className='flex flex-col px-4 max-h-[50vh] md:px-6'>
-        {props.children}
-      </div>
+      <div className='flex flex-col px-4 max-h-[50vh] md:px-6'>{props.children}</div>
     </CollapsibleContent>
   );
 }

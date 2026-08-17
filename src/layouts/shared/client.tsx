@@ -2,11 +2,7 @@
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
 import type { ComponentProps, FC } from 'react';
-import {
-  type BaseLayoutProps,
-  type LinkItemType,
-  isLinkItemActive,
-} from './index';
+import { type BaseLayoutProps, type LinkItemType, isLinkItemActive } from './index';
 import {
   type FullSearchTriggerProps,
   type SearchTriggerProps,
@@ -26,13 +22,7 @@ export function LinkItem({
   const active = isLinkItemActive(item, pathname);
 
   return (
-    <Link
-      ref={ref}
-      href={item.url}
-      external={item.external}
-      {...props}
-      data-active={active}
-    >
+    <Link ref={ref} href={item.url} external={item.external} {...props} data-active={active}>
       {props.children}
     </Link>
   );
@@ -49,9 +39,7 @@ export interface BaseSlots {
     | false;
 }
 
-export interface BaseSlotsProps<
-  P extends BaseLayoutProps = BaseLayoutProps,
-> extends Pick<P, 'nav'> {
+export interface BaseSlotsProps<P extends BaseLayoutProps = BaseLayoutProps> extends Pick<P, 'nav'> {
   themeSwitch: Omit<NonNullable<P['themeSwitch']>, 'enabled'>;
   searchToggle: Omit<NonNullable<P['searchToggle']>, 'enabled'>;
 }
@@ -75,10 +63,7 @@ export function baseSlots({ useProps }: { useProps: () => BaseSlotsProps }) {
     return <FullSearchTrigger {...props} {...searchToggle.full} />;
   }
 
-  function InlineNavTitle({
-    href: defaultUrl = '/',
-    ...props
-  }: ComponentProps<'a'>) {
+  function InlineNavTitle({ href: defaultUrl = '/', ...props }: ComponentProps<'a'>) {
     const { url = defaultUrl, title } = useProps().nav ?? {};
 
     if (typeof title === 'function') return title({ href: url, ...props });
@@ -97,21 +82,14 @@ export function baseSlots({ useProps }: { useProps: () => BaseSlotsProps }) {
       const {
         nav,
         slots = {},
-        searchToggle: {
-          enabled: searchToggleEnabled = true,
-          ...searchToggle
-        } = {},
-        themeSwitch: {
-          enabled: themeSwitchEnabled = true,
-          ...themeSwitch
-        } = {},
+        searchToggle: { enabled: searchToggleEnabled = true, ...searchToggle } = {},
+        themeSwitch: { enabled: themeSwitchEnabled = true, ...themeSwitch } = {},
       } = options;
 
       return {
         baseSlots: {
           navTitle: slots.navTitle ?? InlineNavTitle,
-          themeSwitch:
-            themeSwitchEnabled && (slots.themeSwitch ?? InlineThemeSwitch),
+          themeSwitch: themeSwitchEnabled && (slots.themeSwitch ?? InlineThemeSwitch),
           searchTrigger:
             searchToggleEnabled &&
             (slots.searchTrigger ?? {

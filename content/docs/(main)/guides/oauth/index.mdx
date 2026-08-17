@@ -12,10 +12,9 @@ To enable OAuth, you will need to enable the **OAuth Registration** setting unde
 To skip the local username-password authentication process, enable this option in the "OAuth" section of the settings dashboard. Users will then be automatically redirected to the first available OAuth provider, which is particularly useful when only one provider is fully configured.
 
 <Callout type='note'>
-  The **Bypass Local Login** setting is client-side and can be overridden using
-  the built-in `?local=true` query parameter. This can be helpful if your
-  settings are misconfigured — simply append `?local=true` to the `/auth/login`
-  URL to bypass the automatic redirection.
+  The **Bypass Local Login** setting is client-side and can be overridden using the built-in `?local=true`
+  query parameter. This can be helpful if your settings are misconfigured — simply append `?local=true` to the
+  `/auth/login` URL to bypass the automatic redirection.
 </Callout>
 
 ### Login only
@@ -49,9 +48,8 @@ If you're using Discord OAuth and want to limit who can log in, use **Allowed ID
 </Cards>
 
 <Callout>
-  There are no plans to support other OAuth providers. The four that are
-  currently supported were chosen as they are commonly used, and OIDC support
-  allows for various different self-hosted providers to be used as well. If you
-  have a specific provider you would like to see supported, please open an issue
-  in the GitHub repository!
+  There are no plans to support other OAuth providers. The four that are currently supported were chosen as
+  they are commonly used, and OIDC support allows for various different self-hosted providers to be used as
+  well. If you have a specific provider you would like to see supported, please open an issue in the GitHub
+  repository!
 </Callout>

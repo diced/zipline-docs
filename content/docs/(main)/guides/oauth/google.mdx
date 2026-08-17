@@ -42,13 +42,11 @@ Then click the "Add to table button" button.
 ![google oauth redirect url](/img/docs/oauth-google-1.png)
 
 <Callout type='info'>
-  When clicking the "Login with Google" button, or linking your Google account,
-  the host that Zipline uses for the redirect URL will be the same as the host
-  that you accessed Zipline from. If you access Zipline from
-  `http://localhost:3000`, the redirect URL will be
-  `http://localhost:3000/api/auth/oauth/google`. If you are encountering issues
-  with the redirect URL, you can set a custom redirect URL in the settings
-  dashboard. This **MUST** have the `/api/auth/oauth/google` path at the end.
+  When clicking the "Login with Google" button, or linking your Google account, the host that Zipline uses for
+  the redirect URL will be the same as the host that you accessed Zipline from. If you access Zipline from
+  `http://localhost:3000`, the redirect URL will be `http://localhost:3000/api/auth/oauth/google`. If you are
+  encountering issues with the redirect URL, you can set a custom redirect URL in the settings dashboard. This
+  **MUST** have the `/api/auth/oauth/google` path at the end.
 </Callout>
 
 5. Click "Create" and copy the "Client ID" and "Client Secret" for later.

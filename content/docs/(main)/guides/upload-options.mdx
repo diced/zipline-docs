@@ -15,6 +15,7 @@ description: HTTP headers that can be used to change various settings for file u
 | `x-zipline-max-views`                 | The maximum number of views before the file is deleted.                                                                                                       |
 | `x-zipline-no-json`                   | Returns file urls separated by a newline instead of JSON. See [here](#response-output) for more.                                                              |
 | `x-zipline-original-name`             | Must be `true` to have the original file name saved. See [here](#original-name) for more.                                                                     |
+| `x-zipline-extensionless`             | Must be `true` to omit the file extension from the returned URL. Requires [Extensionless URLs](#extensionless-urls) to be enabled on the server.              |
 | `x-zipline-folder`                    | A folder ID to automatically upload the file to.                                                                                                              |
 | `x-zipline-filename`                  | This header will override the filename of the file, it supercedes the `x-zipline-format`                                                                      |
 | `x-zipline-domain`                    | Instead of using the domain of the request, use this domain for the file URL. See [here](#override-domain) for more.                                          |
@@ -57,6 +58,8 @@ X-Zipline-Deletes-At: date=2025-01-01T00:00:00Z
 ```
 
 This will delete the file on January 1st, 2025 at midnight UTC.
+
+If the server has a maximum expiration configured, Zipline rejects expiration dates beyond that limit. The `never` value is also rejected when a maximum is set.
 
 ## Image Compression
 
@@ -120,6 +123,12 @@ When using the `x-zipline-original-name` header, the original file name will be 
 
 ![original name](/img/docs/original-name-1.png "The file's original name can be seen in the title, while the URL has the random name.")
 
+## Extensionless URLs
+
+Setting `x-zipline-extensionless: true` removes the file extension from the URL returned after an upload. The server must have **Extensionless URLs** enabled; otherwise the header has no effect.
+
+The file itself keeps its extension and remains accessible with either URL. For example, an upload stored as `abc123.png` can return `https://zipline.example.com/u/abc123`, while `https://zipline.example.com/u/abc123.png` continues to work.
+
 ## Override Domain
 
 If specified, the domain in the file URL will be replaced with the domain specified in the `x-zipline-domain` header.
@@ -159,5 +168,6 @@ The word list must be at `./public/animals.txt` and `./public/adjectives.txt`. I
 Public folders can be accessed at `/folder/{id}` or `/folder/{name}` in the browser (for example, `/folder/screenshots`). The same applies to the API endpoint `GET /api/server/folder/{idOrName}`.
 
 <Callout type='note'>
-  Folder names are not guaranteed to be unique. If multiple folders share the same name, the first match is returned.
+  Folder names are not guaranteed to be unique. If multiple folders share the same name, the first match is
+  returned.
 </Callout>

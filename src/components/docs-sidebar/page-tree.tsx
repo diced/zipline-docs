@@ -1,12 +1,5 @@
 import { useTreeContext, useTreePath } from 'fumadocs-ui/contexts/tree';
-import {
-  type FC,
-  Fragment,
-  type ReactNode,
-  createContext,
-  use,
-  useMemo,
-} from 'react';
+import { type FC, Fragment, type ReactNode, createContext, use, useMemo } from 'react';
 import type * as PageTree from 'fumadocs-core/page-tree';
 import type * as Base from './base';
 import { usePathname } from 'fumadocs-core/framework';
@@ -49,6 +42,7 @@ export function createPageTreeRenderer({
 
   function PageTreeNode({ node }: { node: PageTree.Node }) {
     const { Separator, Item, Folder, pathname } = use(RendererContext)!;
+    const path = useTreePath();
 
     if (node.type === 'separator') {
       if (Separator) return <Separator item={node} />;
@@ -61,10 +55,7 @@ export function createPageTreeRenderer({
     }
 
     if (node.type === 'folder') {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const path = useTreePath();
-      if (Folder)
-        return <Folder item={node}>{renderList(node.children)}</Folder>;
+      if (Folder) return <Folder item={node}>{renderList(node.children)}</Folder>;
 
       return (
         <SidebarFolder
@@ -87,9 +78,7 @@ export function createPageTreeRenderer({
               {node.name}
             </SidebarFolderTrigger>
           )}
-          <SidebarFolderContent>
-            {renderList(node.children)}
-          </SidebarFolderContent>
+          <SidebarFolderContent>{renderList(node.children)}</SidebarFolderContent>
         </SidebarFolder>
       );
     }
@@ -107,19 +96,14 @@ export function createPageTreeRenderer({
     );
   }
 
-  return function SidebarPageTree(
-    components: Partial<SidebarPageTreeComponents>,
-  ) {
+  return function SidebarPageTree(components: Partial<SidebarPageTreeComponents>) {
     const { Folder, Item, Separator } = components;
     const { root } = useTreeContext();
     const pathname = usePathname();
 
     return (
       <RendererContext
-        value={useMemo(
-          () => ({ Folder, Item, Separator, pathname }),
-          [Folder, Item, Separator, pathname],
-        )}
+        value={useMemo(() => ({ Folder, Item, Separator, pathname }), [Folder, Item, Separator, pathname])}
       >
         <Fragment key={root.$id}>{renderList(root.children)}</Fragment>
       </RendererContext>

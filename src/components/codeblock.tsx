@@ -35,10 +35,7 @@ const TabsContext = createContext<{
 
 export function Pre(props: ComponentProps<'pre'>) {
   return (
-    <pre
-      {...props}
-      className={cn('min-w-full w-max *:flex *:flex-col', props.className)}
-    >
+    <pre {...props} className={cn('min-w-full w-max *:flex *:flex-col', props.className)}>
       {props.children}
     </pre>
   );
@@ -52,9 +49,7 @@ export function CodeBlock({
   icon,
   viewportProps = {},
   children,
-  Actions = (props) => (
-    <div {...props} className={cn('empty:hidden', props.className)} />
-  ),
+  Actions = (props) => <div {...props} className={cn('empty:hidden', props.className)} />,
   ...props
 }: CodeBlockProps) {
   const inTab = use(TabsContext) !== null;
@@ -67,9 +62,7 @@ export function CodeBlock({
       {...props}
       tabIndex={-1}
       className={cn(
-        inTab
-          ? 'bg-fd-secondary -mx-px -mb-px last:rounded-b-xl'
-          : 'my-4 bg-fd-card rounded-xl',
+        inTab ? 'bg-fd-secondary -mx-px -mb-px last:rounded-b-xl' : 'my-4 bg-fd-card rounded-xl',
         keepBackground && 'bg-(--shiki-light-bg) dark:bg-(--shiki-dark-bg)',
 
         'shiki relative border shadow-sm not-prose overflow-hidden text-sm',
@@ -96,8 +89,7 @@ export function CodeBlock({
         </div>
       ) : (
         Actions({
-          className:
-            'absolute top-3 right-2 z-2 backdrop-blur-lg rounded-lg text-fd-muted-foreground',
+          className: 'absolute top-3 right-2 z-2 backdrop-blur-lg rounded-lg text-fd-muted-foreground',
           children: allowCopy && <CopyButton containerRef={areaRef} />,
         })
       )}
@@ -152,8 +144,7 @@ function CopyButton({
       data-checked={checked || undefined}
       className={cn(
         buttonVariants({
-          className:
-            'hover:text-fd-accent-foreground data-checked:text-fd-accent-foreground',
+          className: 'hover:text-fd-accent-foreground data-checked:text-fd-accent-foreground',
           size: 'icon-xs',
         }),
         className,
@@ -175,11 +166,7 @@ export function CodeBlockTabs({ ref, ...props }: ComponentProps<typeof Tabs>) {
     <Tabs
       ref={mergeRefs(containerRef, ref)}
       {...props}
-      className={cn(
-        'bg-fd-card rounded-xl border',
-        !nested && 'my-4',
-        props.className,
-      )}
+      className={cn('bg-fd-card rounded-xl border', !nested && 'my-4', props.className)}
     >
       <TabsContext
         value={useMemo(
@@ -200,20 +187,14 @@ export function CodeBlockTabsList(props: ComponentProps<typeof TabsList>) {
   return (
     <TabsList
       {...props}
-      className={cn(
-        'flex flex-row px-2 overflow-x-auto text-fd-muted-foreground',
-        props.className,
-      )}
+      className={cn('flex flex-row px-2 overflow-x-auto text-fd-muted-foreground', props.className)}
     >
       {props.children}
     </TabsList>
   );
 }
 
-export function CodeBlockTabsTrigger({
-  children,
-  ...props
-}: ComponentProps<typeof TabsTrigger>) {
+export function CodeBlockTabsTrigger({ children, ...props }: ComponentProps<typeof TabsTrigger>) {
   return (
     <TabsTrigger
       {...props}

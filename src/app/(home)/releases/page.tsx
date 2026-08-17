@@ -6,13 +6,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Releases',
-  description:
-    'Browse the latest Zipline v4 releases with full changelogs from GitHub.',
+  description: 'Browse the latest Zipline v4 releases with full changelogs from GitHub.',
   openGraph: {
     url: 'https://zipline.diced.sh/releases',
     title: 'Releases · Zipline',
-    description:
-      'Browse the latest Zipline v4 releases with full changelogs from GitHub.',
+    description: 'Browse the latest Zipline v4 releases with full changelogs from GitHub.',
     images: [{ url: '/img/og-banner.png' }],
   },
   twitter: {
@@ -46,8 +44,7 @@ function ReleaseBadge({
     <span
       className={cn(
         'inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium',
-        variant === 'latest' &&
-          'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
+        variant === 'latest' && 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-300',
         variant === 'prerelease' &&
           'border-yellow-500/40 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300',
       )}
@@ -57,13 +54,7 @@ function ReleaseBadge({
   );
 }
 
-function ReleaseCard({
-  release,
-  isLatest,
-}: {
-  release: GithubRelease;
-  isLatest: boolean;
-}) {
+function ReleaseCard({ release, isLatest }: { release: GithubRelease; isLatest: boolean }) {
   const anchorId = release.tag_name.replace(/[^\w.-]/g, '');
 
   return (
@@ -87,21 +78,15 @@ function ReleaseCard({
               {release.tag_name}
             </span>
             {isLatest && <ReleaseBadge variant='latest'>Latest</ReleaseBadge>}
-            {release.prerelease && (
-              <ReleaseBadge variant='prerelease'>Pre-release</ReleaseBadge>
-            )}
+            {release.prerelease && <ReleaseBadge variant='prerelease'>Pre-release</ReleaseBadge>}
           </div>
 
           {release.name && release.name !== release.tag_name && (
-            <p className='text-base font-medium text-fd-muted-foreground'>
-              {release.name}
-            </p>
+            <p className='text-base font-medium text-fd-muted-foreground'>{release.name}</p>
           )}
 
           <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-fd-muted-foreground'>
-            <time dateTime={release.published_at ?? undefined}>
-              {formatDate(release.published_at)}
-            </time>
+            <time dateTime={release.published_at ?? undefined}>{formatDate(release.published_at)}</time>
           </div>
         </div>
 
@@ -126,14 +111,9 @@ function ReleaseCard({
 
       <div className='px-6 pb-6 pt-5 md:px-8 md:pb-8'>
         {release.body ? (
-          <div
-            className='prose prose-sm max-w-none'
-            dangerouslySetInnerHTML={{ __html: release.body }}
-          />
+          <div className='prose prose-sm max-w-none' dangerouslySetInnerHTML={{ __html: release.body }} />
         ) : (
-          <p className='text-sm italic text-fd-muted-foreground'>
-            Unable to fetch release notes.
-          </p>
+          <p className='text-sm italic text-fd-muted-foreground'>Unable to fetch release notes.</p>
         )}
       </div>
     </details>
@@ -187,13 +167,7 @@ export default async function ReleasesPage() {
         <div className='mx-auto mt-16 flex max-w-4xl flex-col gap-7'>
           {releases.map((release) => {
             const isLatest = release.tag_name === latestTag;
-            return (
-              <ReleaseCard
-                key={release.tag_name}
-                release={release}
-                isLatest={isLatest}
-              />
-            );
+            return <ReleaseCard key={release.tag_name} release={release} isLatest={isLatest} />;
           })}
         </div>
       )}

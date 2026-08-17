@@ -29,12 +29,7 @@ export default function CustomSearchDialog(props: SharedProps) {
   });
 
   return (
-    <SearchDialog
-      search={search}
-      onSearchChange={setSearch}
-      isLoading={query.isLoading}
-      {...props}
-    >
+    <SearchDialog search={search} onSearchChange={setSearch} isLoading={query.isLoading} {...props}>
       <SearchDialogOverlay />
       <SearchDialogContent>
         <SearchDialogHeader>
@@ -42,10 +37,7 @@ export default function CustomSearchDialog(props: SharedProps) {
           <SearchDialogInput />
           <SearchDialogClose />
         </SearchDialogHeader>
-        <SearchDialogList
-          items={query.data !== 'empty' ? query.data : null}
-          Item={SearchResultItem}
-        />
+        <SearchDialogList items={query.data !== 'empty' ? query.data : null} Item={SearchResultItem} />
         <SearchDialogFooter>
           <a
             href='https://algolia.com'

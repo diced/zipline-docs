@@ -12,27 +12,16 @@ export function NotFoundContent({ className }: { className?: string }) {
         className,
       )}
     >
-      <p className='text-7xl font-black tabular-nums text-blue-400 sm:text-8xl'>
-        404
-      </p>
+      <p className='text-7xl font-black tabular-nums text-blue-400 sm:text-8xl'>404</p>
       <h1 className='text-2xl font-bold sm:text-3xl'>You&apos;re lost</h1>
       <div className='mt-4 flex flex-col gap-3 sm:flex-row'>
-        <Link
-          href='/'
-          className={cn(
-            buttonVariants({ color: 'primary', size: 'cta' }),
-            'gap-2',
-          )}
-        >
+        <Link href='/' className={cn(buttonVariants({ color: 'primary', size: 'cta' }), 'gap-2')}>
           <Home className='size-4' />
           Home
         </Link>
         <Link
           href='/docs/get-started'
-          className={cn(
-            buttonVariants({ color: 'secondary', size: 'cta' }),
-            'gap-2',
-          )}
+          className={cn(buttonVariants({ color: 'secondary', size: 'cta' }), 'gap-2')}
         >
           <BookOpen className='size-4' />
           Docs

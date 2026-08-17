@@ -15,13 +15,11 @@ description: Set up Discord OAuth in Zipline
 ![discord oauth redirect url with url](/img/docs/oauth-discord-2.png)
 
 <Callout type='info'>
-  When clicking the "Login with Discord" button, or linking your Discord
-  account, the host that Zipline uses for the redirect URL will be the same as
-  the host that you accessed Zipline from. If you access Zipline from
-  `http://localhost:3000`, the redirect URL will be
-  `http://localhost:3000/api/auth/oauth/discord`. If you are encountering issues
-  with the redirect URL, you can set a custom redirect URL in the settings
-  dashboard. This **MUST** have the `/api/auth/oauth/discord` path at the end.
+  When clicking the "Login with Discord" button, or linking your Discord account, the host that Zipline uses
+  for the redirect URL will be the same as the host that you accessed Zipline from. If you access Zipline from
+  `http://localhost:3000`, the redirect URL will be `http://localhost:3000/api/auth/oauth/discord`. If you are
+  encountering issues with the redirect URL, you can set a custom redirect URL in the settings dashboard. This
+  **MUST** have the `/api/auth/oauth/discord` path at the end.
 </Callout>
 
 6. Copy the "Client ID" and "Client Secret" from the "Client information" section at the top of the page.

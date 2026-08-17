@@ -1,21 +1,12 @@
 'use client';
 
-import {
-  SearchDialogListItem,
-  type SearchItemType,
-} from 'fumadocs-ui/components/dialog/search';
+import { SearchDialogListItem, type SearchItemType } from 'fumadocs-ui/components/dialog/search';
 import { SearchMethodBadge } from './method-badge';
 import { SearchMarkdown } from './search-markdown';
 
 type SearchResult = SearchItemType & { method?: string };
 
-export function SearchResultItem({
-  item,
-  onClick,
-}: {
-  item: SearchItemType;
-  onClick: () => void;
-}) {
+export function SearchResultItem({ item, onClick }: { item: SearchItemType; onClick: () => void }) {
   const method = (item as SearchResult).method;
 
   if (item.type === 'action' || !method || typeof item.content !== 'string') {

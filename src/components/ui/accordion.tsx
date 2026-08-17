@@ -5,26 +5,16 @@ import { ChevronRight } from 'lucide-react';
 import { type ComponentProps } from 'react';
 import { cn } from '../../lib/cn';
 
-export function Accordion({
-  className,
-  ...props
-}: ComponentProps<typeof Primitive.Root>) {
+export function Accordion({ className, ...props }: ComponentProps<typeof Primitive.Root>) {
   return (
     <Primitive.Root
-      className={cn(
-        'divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card',
-        className,
-      )}
+      className={cn('divide-y divide-fd-border overflow-hidden rounded-lg border bg-fd-card', className)}
       {...props}
     />
   );
 }
 
-export function AccordionItem({
-  className,
-  children,
-  ...props
-}: ComponentProps<typeof Primitive.Item>) {
+export function AccordionItem({ className, children, ...props }: ComponentProps<typeof Primitive.Item>) {
   return (
     <Primitive.Item className={cn('scroll-m-24', className)} {...props}>
       {children}
@@ -32,11 +22,7 @@ export function AccordionItem({
   );
 }
 
-export function AccordionHeader({
-  className,
-  children,
-  ...props
-}: ComponentProps<typeof Primitive.Header>) {
+export function AccordionHeader({ className, children, ...props }: ComponentProps<typeof Primitive.Header>) {
   return (
     <Primitive.Header
       className={cn(

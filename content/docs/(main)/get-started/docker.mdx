@@ -37,16 +37,14 @@ openssl rand -base64 42 | tr -dc A-Za-z0-9 | cut -c -32 | tr -d '\n'
 </Callout>
 
 <Callout type='warning'>
-  Zipline will fail to start without the `POSTGRESQL_PASSWORD` and `CORE_SECRET`
-  variables.
+  Zipline will fail to start without the `POSTGRESQL_PASSWORD` and `CORE_SECRET` variables.
 </Callout>
 
 <Callout type='info'>
-  You will also want to setup a [datasource](/docs/config/datasource) for your
-  instance. By default, Zipline will use `./uploads` (the docker-compose.yml
-  also includes a volume for this) for local file storage. You can configure a
-  different datasource (e.g. S3) by setting the appropriate environment
-  variables in the `.env` file.
+  You will also want to setup a [datasource](/docs/config/datasource) for your instance. By default, Zipline
+  will use `./uploads` (the docker-compose.yml also includes a volume for this) for local file storage. You
+  can configure a different datasource (e.g. S3) by setting the appropriate environment variables in the
+  `.env` file.
 </Callout>
 
 ## Run the server [step]

@@ -59,17 +59,7 @@ export function parseString(str: string, value: ParseValue) {
   if (!str) return null;
 
   const replacer = (key: string, value: unknown) => {
-    if (
-      [
-        'password',
-        'avatar',
-        'passkeys',
-        'oauthProviders',
-        'tags',
-        'quota',
-        'totpSecret',
-      ].includes(key)
-    )
+    if (['password', 'avatar', 'passkeys', 'oauthProviders', 'tags', 'quota', 'totpSecret'].includes(key))
       return 'redacted';
 
     return value;
@@ -106,22 +96,11 @@ export function parseString(str: string, value: ParseValue) {
     }
 
     if (
-      [
-        'password',
-        'avatar',
-        'passkeys',
-        'oauthProviders',
-        'tags',
-        'quota',
-        'totpSecret',
-      ].includes(matches.groups.prop)
+      ['password', 'avatar', 'passkeys', 'oauthProviders', 'tags', 'quota', 'totpSecret'].includes(
+        matches.groups.prop,
+      )
     ) {
-      str = replaceCharsFromString(
-        str,
-        '{unknown_property}',
-        index,
-        re.lastIndex,
-      );
+      str = replaceCharsFromString(str, '{unknown_property}', index, re.lastIndex);
       re.lastIndex = index;
       continue;
     }
@@ -150,19 +129,10 @@ export function parseString(str: string, value: ParseValue) {
 
     const v =
       // @ts-ignore
-      getV[
-        matches.groups.prop as
-          | keyof ParseValue['file']
-          | keyof ParseValue['user']
-      ];
+      getV[matches.groups.prop as keyof ParseValue['file'] | keyof ParseValue['user']];
 
     if (v === undefined) {
-      str = replaceCharsFromString(
-        str,
-        '{unknown_property}',
-        index,
-        re.lastIndex,
-      );
+      str = replaceCharsFromString(str, '{unknown_property}', index, re.lastIndex);
       re.lastIndex = index;
       continue;
     }
@@ -221,9 +191,7 @@ function modifier(
       }
 
       if (tz) {
-        const intlTz = Intl.supportedValuesOf('timeZone').find(
-          (v) => v.toLowerCase() === tz.toLowerCase(),
-        );
+        const intlTz = Intl.supportedValuesOf('timeZone').find((v) => v.toLowerCase() === tz.toLowerCase());
         if (intlTz) args[1] = { timeZone: intlTz };
         else {
           args[1] = undefined;
@@ -493,9 +461,7 @@ function modifier(
 
   if (
     typeof check_false == 'string' &&
-    (['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) =>
-      mod.startsWith(modif),
-    ) ||
+    (['>', '>=', '=', '<=', '<', '~', '$', '^'].some((modif) => mod.startsWith(modif)) ||
       ['istrue', 'isfalse', 'exists'].includes(mod))
   ) {
     if (_value) return parseString(check_false, _value) || check_false;
@@ -505,12 +471,7 @@ function modifier(
   return `{unknown_modifier(${mod})}`;
 }
 
-function replaceCharsFromString(
-  str: string,
-  replace: string,
-  start: number,
-  end: number,
-): string {
+function replaceCharsFromString(str: string, replace: string, start: number, end: number): string {
   return str.slice(0, start) + replace + str.slice(end);
 }
 

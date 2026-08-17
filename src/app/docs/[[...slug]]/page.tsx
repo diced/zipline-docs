@@ -1,3 +1,4 @@
+import { APIPage } from '@/components/api-page';
 import { getMDXComponents } from '@/components/mdx';
 import {
   EditOnGithub,
@@ -9,12 +10,8 @@ import { Footer } from '@/layouts/docs/page/slots/footer';
 import { TOC, TOCPopover, TOCProvider } from '@/layouts/docs/page/slots/toc';
 import { gitConfig } from '@/lib/shared';
 import { getPageImage, getPageMarkdownUrl, source } from '@/lib/source';
-import {
-  DocsBody,
-  DocsDescription,
-  DocsPage,
-  DocsTitle,
-} from 'fumadocs-ui/layouts/docs/page';
+import { openapi } from '@/lib/openapi';
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/layouts/docs/page';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -39,9 +36,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
         markdownUrl={isAPI ? undefined : markdownUrl}
         githubUrl={isAPI ? undefined : githubViewUrl}
       />
-      {page.data.lastModified && (
-        <PageLastUpdate date={page.data.lastModified} />
-      )}
+      {page.data.lastModified && <PageLastUpdate date={page.data.lastModified} />}
     </div>
   );
 
@@ -66,6 +61,9 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
         <MDX
           components={getMDXComponents({
             a: createRelativeLink(source, page),
+            APIPage: async (componentProps) => (
+              <APIPage {...await openapi.preloadOpenAPIPage(page)} {...componentProps} />
+            ),
           })}
         />
       </DocsBody>
@@ -77,9 +75,7 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(
-  props: PageProps<'/docs/[[...slug]]'>,
-): Promise<Metadata> {
+export async function generateMetadata(props: PageProps<'/docs/[[...slug]]'>): Promise<Metadata> {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();

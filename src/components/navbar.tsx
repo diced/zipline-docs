@@ -6,21 +6,10 @@ import Link from 'fumadocs-core/link';
 import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
 import { ChevronDown, SidebarIcon } from 'lucide-react';
 import { cva } from 'class-variance-authority';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { buttonVariants } from '@/components/ui/button';
-import {
-  useLinkItems,
-  type LinkItemType,
-  LinkItem as SharedLinkItem,
-} from '@/layouts/shared';
-import {
-  SearchTrigger,
-  FullSearchTrigger,
-} from '@/layouts/shared/slots/search-trigger';
+import { useLinkItems, type LinkItemType, LinkItem as SharedLinkItem } from '@/layouts/shared';
+import { SearchTrigger, FullSearchTrigger } from '@/layouts/shared/slots/search-trigger';
 import { ThemeSwitch } from '@/layouts/shared/slots/theme-switch';
 import { useSidebar } from '@/components/docs-sidebar/base';
 import { baseOptions } from '@/lib/layout.shared';
@@ -52,12 +41,7 @@ function DesktopNavLink({ item }: { item: LinkItemType }) {
       item={item}
       className={cn(
         navItemClass({
-          variant:
-            item.type === 'icon'
-              ? 'icon'
-              : item.type === 'button'
-                ? 'button'
-                : 'main',
+          variant: item.type === 'icon' ? 'icon' : item.type === 'button' ? 'button' : 'main',
         }),
       )}
       aria-label={item.type === 'icon' ? item.label : undefined}
@@ -68,8 +52,7 @@ function DesktopNavLink({ item }: { item: LinkItemType }) {
 }
 
 function MobileNavLink({ item }: { item: LinkItemType }) {
-  if (item.type === 'custom')
-    return <div className='grid'>{item.children}</div>;
+  if (item.type === 'custom') return <div className='grid'>{item.children}</div>;
   if (item.type === 'menu') return null;
 
   return (
@@ -124,8 +107,7 @@ export function Navbar() {
 
   const transparentMode = options.nav?.transparentMode;
   const isTop = useIsScrollTop({ enabled: transparentMode === 'top' }) ?? true;
-  const isTransparent =
-    transparentMode === 'top' ? isTop : transparentMode === 'always';
+  const isTransparent = transparentMode === 'top' ? isTop : transparentMode === 'always';
 
   const primaryItems = navItems.filter((item) => !isSecondary(item));
   const secondaryNavItems = navItems.filter(isSecondary);
@@ -148,10 +130,7 @@ export function Navbar() {
           )}
         >
           <div className='mx-auto flex h-14 w-full max-w-(--fd-layout-width,1400px) items-center gap-2 px-4'>
-            <Link
-              href={titleHref}
-              className='inline-flex items-center gap-2.5 font-semibold'
-            >
+            <Link href={titleHref} className='inline-flex items-center gap-2.5 font-semibold'>
               {appName}
             </Link>
 
@@ -164,10 +143,7 @@ export function Navbar() {
             </ul>
 
             <div className='hidden flex-1 items-center justify-end gap-1.5 lg:flex'>
-              <FullSearchTrigger
-                hideIfDisabled
-                className='w-full max-w-[240px] rounded-full ps-2.5'
-              />
+              <FullSearchTrigger hideIfDisabled className='w-full max-w-[240px] rounded-full ps-2.5' />
               <ThemeSwitch />
               <ul className='flex items-center gap-2'>
                 {secondaryNavItems.map((item, i) => (

@@ -30,9 +30,8 @@ Click "Yes" after confirming the export.
 ![Export Data](/img/docs/migrate-2.png 'The modal shows what data is collected in the export file and asks for confirmation.')
 
 <Callout type='warning'>
-  The export contains sensitive information, such as passwords, API keys, 2fa
-  secrets, and more. Make sure to keep the file secure and delete it after the
-  migration.
+  The export contains sensitive information, such as passwords, API keys, 2fa secrets, and more. Make sure to
+  keep the file secure and delete it after the migration.
 </Callout>
 
 ### Wait for the export file to be prepared [step]
@@ -68,11 +67,10 @@ CREATE DATABASE zipline_v4; -- you may name this anything
 ```
 
 <Callout type='info'>
-  You may run into an error that says `ERROR: template database "template1" has
-  a collation version mismatch`, run `ALTER DATABASE template1 REFRESH COLLATION
-  VERSION;` in the postgres CLI to rebuild all of the objects in the template
-  database using the new version, and you should be able to proceed with
-  creating the database.
+  You may run into an error that says `ERROR: template database "template1" has a collation version mismatch`,
+  run `ALTER DATABASE template1 REFRESH COLLATION VERSION;` in the postgres CLI to rebuild all of the objects
+  in the template database using the new version, and you should be able to proceed with creating the
+  database.
 </Callout>
 
 ### Exit the postgres shell [step]
@@ -137,9 +135,8 @@ environment:
 All other environment variables will have no effect on the server.
 
 <Callout type='danger'>
-  Zipline will fail to run if the database URL is the same as the one used in
-  v3. This is because the database schema has changed significantly between v3
-  and v4.
+  Zipline will fail to run if the database URL is the same as the one used in v3. This is because the database
+  schema has changed significantly between v3 and v4.
 </Callout>
 
 ## Migrating Data

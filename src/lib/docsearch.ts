@@ -33,15 +33,7 @@ export type DocSearchResultItem = {
   method?: string;
 };
 
-const hierarchyLevels = [
-  'lvl0',
-  'lvl1',
-  'lvl2',
-  'lvl3',
-  'lvl4',
-  'lvl5',
-  'lvl6',
-] as const;
+const hierarchyLevels = ['lvl0', 'lvl1', 'lvl2', 'lvl3', 'lvl4', 'lvl5', 'lvl6'] as const;
 
 export function rewriteDocSearchUrl(hit: DocSearchHit): string {
   try {
@@ -65,10 +57,7 @@ function decodeHtmlEntities(value: string): string {
 function algoliaHighlightToMark(value: string): string {
   return decodeHtmlEntities(
     value
-      .replaceAll(
-        '<span class="algolia-docsearch-suggestion--highlight">',
-        '<mark>',
-      )
+      .replaceAll('<span class="algolia-docsearch-suggestion--highlight">', '<mark>')
       .replaceAll('</span>', '</mark>'),
   );
 }
@@ -88,18 +77,12 @@ function getHitLevel(hit: DocSearchHit): number | null {
   return Number.parseInt(hit.type.slice(3), 10);
 }
 
-function getHierarchyAtLevel(
-  hit: DocSearchHit,
-  level: number,
-): string | undefined {
+function getHierarchyAtLevel(hit: DocSearchHit, level: number): string | undefined {
   const value = hit.hierarchy[`lvl${level}`];
   return value ?? undefined;
 }
 
-function getHighlightedAtLevel(
-  hit: DocSearchHit,
-  level: number,
-): string | undefined {
+function getHighlightedAtLevel(hit: DocSearchHit, level: number): string | undefined {
   const field = hit._highlightResult?.hierarchy?.[`lvl${level}`];
   if (field?.value) return algoliaHighlightToMark(field.value);
   return getHierarchyAtLevel(hit, level);

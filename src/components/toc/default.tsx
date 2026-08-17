@@ -2,13 +2,7 @@
 import { cn } from '@/lib/cn';
 import { mergeRefs } from '@/lib/merge-refs';
 import * as Primitive from 'fumadocs-core/toc';
-import {
-  type ComponentProps,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type ComponentProps, useCallback, useEffect, useRef, useState } from 'react';
 import { useTOCItems } from './index';
 
 export type TOCItemsProps = ComponentProps<'div'>;
@@ -17,12 +11,7 @@ interface ComputedData {
   positions: [top: number, bottom: number][];
 }
 
-export function TOCItems({
-  ref,
-  className,
-  children,
-  ...props
-}: TOCItemsProps) {
+export function TOCItems({ ref, className, children, ...props }: TOCItemsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const items = useTOCItems();
   const [computed, setComputed] = useState<ComputedData | null>(null);
@@ -38,17 +27,13 @@ export function TOCItems({
     const positions: [top: number, bottom: number][] = [];
 
     for (const item of items) {
-      const element = container.querySelector<HTMLElement>(
-        `a[href="${item.url}"]`,
-      );
+      const element = container.querySelector<HTMLElement>(`a[href="${item.url}"]`);
       if (!element) continue;
 
       const styles = getComputedStyle(element);
       positions.push([
         element.offsetTop + parseFloat(styles.paddingTop),
-        element.offsetTop +
-          element.clientHeight -
-          parseFloat(styles.paddingBottom),
+        element.offsetTop + element.clientHeight - parseFloat(styles.paddingBottom),
       ]);
     }
 
@@ -73,10 +58,7 @@ export function TOCItems({
       {computed && <TocThumb computed={computed} />}
       <div
         ref={mergeRefs(ref, containerRef)}
-        className={cn(
-          'flex flex-col border-s border-fd-foreground/10',
-          className,
-        )}
+        className={cn('flex flex-col border-s border-fd-foreground/10', className)}
         {...props}
       >
         {children}
@@ -123,16 +105,11 @@ function TocThumb({ computed }: { computed: ComputedData }) {
 
 export function TOCEmpty() {
   return (
-    <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>
-      No headings.
-    </div>
+    <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>No headings.</div>
   );
 }
 
-export function TOCItem({
-  item,
-  ...props
-}: Primitive.TOCItemProps & { item: Primitive.TOCItemType }) {
+export function TOCItem({ item, ...props }: Primitive.TOCItemProps & { item: Primitive.TOCItemType }) {
   return (
     <Primitive.TOCItem
       href={item.url}

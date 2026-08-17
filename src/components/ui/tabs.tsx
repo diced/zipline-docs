@@ -59,12 +59,10 @@ export function Tabs({
 }: TabsProps) {
   const tabsRef = useRef<HTMLDivElement>(null);
   const valueToIdMap = useMemo(() => new Map<string, string>(), []);
-  const [value, setValue] =
-    _value === undefined
-      ? // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
-        useState(defaultValue)
-      : // eslint-disable-next-line react-hooks/rules-of-hooks -- not supposed to change controlled/uncontrolled
-        [_value, useEffectEvent((v: string) => _onValueChange?.(v))];
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
+  const setControlledValue = useEffectEvent((value: string) => _onValueChange?.(value));
+  const value = _value ?? uncontrolledValue;
+  const setValue = _value === undefined ? setUncontrolledValue : setControlledValue;
 
   useLayoutEffect(() => {
     if (!groupId) return;
@@ -120,17 +118,12 @@ export function Tabs({
       }}
       {...props}
     >
-      <TabsContext value={useMemo(() => ({ valueToIdMap }), [valueToIdMap])}>
-        {props.children}
-      </TabsContext>
+      <TabsContext value={useMemo(() => ({ valueToIdMap }), [valueToIdMap])}>{props.children}</TabsContext>
     </Primitive.Tabs>
   );
 }
 
-export function TabsContent({
-  value,
-  ...props
-}: ComponentProps<typeof Primitive.TabsContent>) {
+export function TabsContent({ value, ...props }: ComponentProps<typeof Primitive.TabsContent>) {
   const { valueToIdMap } = useTabContext();
 
   if (props.id) {

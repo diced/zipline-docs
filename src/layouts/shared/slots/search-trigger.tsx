@@ -5,8 +5,7 @@ import { useSearchContext } from 'fumadocs-ui/contexts/search';
 import { Search } from 'lucide-react';
 import type { ComponentProps } from 'react';
 
-export interface SearchTriggerProps
-  extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
+export interface SearchTriggerProps extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
   hideIfDisabled?: boolean;
 }
 
@@ -44,10 +43,7 @@ export interface FullSearchTriggerProps extends ComponentProps<'button'> {
   hideIfDisabled?: boolean;
 }
 
-export function FullSearchTrigger({
-  hideIfDisabled,
-  ...props
-}: FullSearchTriggerProps) {
+export function FullSearchTrigger({ hideIfDisabled, ...props }: FullSearchTriggerProps) {
   const { enabled, hotKey, setOpenSearch } = useSearchContext();
   if (hideIfDisabled && !enabled) return null;
 

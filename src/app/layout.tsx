@@ -5,7 +5,6 @@ import type { Metadata } from 'next';
 import './global.css';
 import { siteMetadata } from '@/lib/site-metadata';
 import { Banner } from '@/components/banner';
-import Link from 'fumadocs-core/link';
 import CustomSearchDialog from '@/components/search';
 import Script from 'next/script';
 import { Footer } from '@/components/footer';
@@ -33,11 +32,7 @@ const ANNOUNCEMENT_IDS = {
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <html
-      lang='en'
-      className={`${inter.variable} ${jetBrainsMono.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang='en' className={`${inter.variable} ${jetBrainsMono.variable}`} suppressHydrationWarning>
       <Script
         async
         src='https://analytics_.diced.sh/script.js'
@@ -63,8 +58,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
           variant='rainbow'
           height='3rem'
         >
-          ⭐ If you find Zipline useful, please consider giving it a star
-          on&nbsp;
+          ⭐ If you find Zipline useful, please consider giving it a star on&nbsp;
           <a
             className='underline decoration-blue-500 hover:decoration-2'
             href='https://github.com/diced/zipline'

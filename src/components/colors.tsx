@@ -1,18 +1,7 @@
 export default function Colors({
   colors,
 }: {
-  colors: [
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-    string,
-  ];
+  colors: [string, string, string, string, string, string, string, string, string, string];
 }) {
   if (!colors) {
     return null;

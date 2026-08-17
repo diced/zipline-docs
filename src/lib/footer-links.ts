@@ -63,12 +63,6 @@ export const footerColumns: FooterColumn[] = [
         external: true,
         event: 'footer_link_version_search',
       },
-      {
-        title: 'Version API',
-        href: 'https://github.com/diced/zipline-version',
-        external: true,
-        event: 'footer_link_version_api',
-      },
     ],
   },
 ];

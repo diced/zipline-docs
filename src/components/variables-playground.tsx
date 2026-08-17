@@ -37,9 +37,7 @@ export default function Playground() {
       <div
         className={cn(
           'dark:bg-gray-800 border border-gray-50 dark:border-gray-700 rounded-md p-2 my-2 transition-colors',
-          parsed?.trim().length === 0
-            ? 'text-gray-200'
-            : 'text-black dark:text-white',
+          parsed?.trim().length === 0 ? 'text-gray-200' : 'text-black dark:text-white',
         )}
         style={{ whiteSpace: 'pre-wrap' }}
       >
@@ -47,13 +45,8 @@ export default function Playground() {
       </div>
 
       <div className='flex-col items-center justify-between mb-12'>
-        <button
-          className='flex items-center space-x-2 p-1 rounded-md'
-          onClick={() => setDataOpen(!dataOpen)}
-        >
-          <span className='text-gray-200 dark:text-gray-500'>
-            View Sample Data
-          </span>
+        <button className='flex items-center space-x-2 p-1 rounded-md' onClick={() => setDataOpen(!dataOpen)}>
+          <span className='text-gray-200 dark:text-gray-500'>View Sample Data</span>
 
           <ChevronDown
             className={cn(
@@ -63,12 +56,7 @@ export default function Playground() {
           />
         </button>
 
-        <div
-          className={cn(
-            'overflow-auto transition-all max-h-0',
-            dataOpen && 'max-h-400',
-          )}
-        >
+        <div className={cn('overflow-auto transition-all max-h-0', dataOpen && 'max-h-400')}>
           <DynamicCodeBlock
             code={JSON.stringify(data, null, 2)}
             lang='json'

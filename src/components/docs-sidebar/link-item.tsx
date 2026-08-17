@@ -7,11 +7,7 @@ import { usePathname } from 'fumadocs-core/framework';
 
 type InternalComponents = Pick<
   typeof Base,
-  | 'SidebarFolder'
-  | 'SidebarFolderLink'
-  | 'SidebarFolderContent'
-  | 'SidebarFolderTrigger'
-  | 'SidebarItem'
+  'SidebarFolder' | 'SidebarFolderLink' | 'SidebarFolderContent' | 'SidebarFolderTrigger' | 'SidebarItem'
 >;
 
 export function createLinkItemRenderer({
@@ -35,11 +31,7 @@ export function createLinkItemRenderer({
       return (
         <SidebarFolder {...props}>
           {item.url ? (
-            <SidebarFolderLink
-              href={item.url}
-              active={active}
-              external={item.external}
-            >
+            <SidebarFolderLink href={item.url} active={active} external={item.external}>
               {item.icon}
               {item.text}
             </SidebarFolderLink>
@@ -58,13 +50,7 @@ export function createLinkItemRenderer({
       );
 
     return (
-      <SidebarItem
-        href={item.url}
-        icon={item.icon}
-        external={item.external}
-        active={active}
-        {...props}
-      >
+      <SidebarItem href={item.url} icon={item.icon} external={item.external} active={active} {...props}>
         {item.text}
       </SidebarItem>
     );

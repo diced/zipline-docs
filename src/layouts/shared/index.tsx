@@ -3,10 +3,7 @@ import * as PageTree from 'fumadocs-core/page-tree';
 import { isActive, normalize } from '../../lib/urls';
 import type { BaseSlots } from './client';
 import type { ThemeSwitchProps } from './slots/theme-switch';
-import type {
-  FullSearchTriggerProps,
-  SearchTriggerProps,
-} from './slots/search-trigger';
+import type { FullSearchTriggerProps, SearchTriggerProps } from './slots/search-trigger';
 
 export interface NavOptions {
   enabled?: boolean;
@@ -78,9 +75,7 @@ export function getLayoutTabs(
 
   function next(node: PageTree.Root | PageTree.Folder, unlisted?: boolean) {
     if ('root' in node && node.root) {
-      const url =
-        node.index?.url ??
-        node.children.find((node) => node.type === 'page')?.url;
+      const url = node.index?.url ?? node.children.find((node) => node.type === 'page')?.url;
 
       if (url) {
         const option: LayoutTab = {
@@ -180,12 +175,7 @@ export interface CustomItemType extends Filterable {
   children: ReactNode;
 }
 
-export type LinkItemType =
-  | MainItemType
-  | IconItemType
-  | ButtonItemType
-  | MenuItemType
-  | CustomItemType;
+export type LinkItemType = MainItemType | IconItemType | ButtonItemType | MenuItemType | CustomItemType;
 
 export function resolveLinkItems({
   links = [],
@@ -210,10 +200,7 @@ export function resolveLinkItems({
   return result;
 }
 
-export function useLinkItems({
-  githubUrl,
-  links,
-}: Pick<BaseLayoutProps, 'links' | 'githubUrl'>) {
+export function useLinkItems({ githubUrl, links }: Pick<BaseLayoutProps, 'links' | 'githubUrl'>) {
   return useMemo(() => {
     const all = resolveLinkItems({ links, githubUrl });
     const navItems: LinkItemType[] = [];
@@ -244,9 +231,4 @@ export function isLinkItemActive(link: LinkItemType, pathname: string) {
   return isActive(link.url, pathname, link.active === 'nested-url');
 }
 
-export {
-  type BaseSlots,
-  type BaseSlotsProps,
-  baseSlots,
-  LinkItem,
-} from './client';
+export { type BaseSlots, type BaseSlotsProps, baseSlots, LinkItem } from './client';

@@ -8,11 +8,11 @@ import { ImageZoom } from './image-zoom';
 export function getMDXComponents(components?: MDXComponents) {
   return {
     ...defaultMdxComponents,
-    ...components,
     ...TabComponents,
     APIPage,
     OpenAPIDownloadButton,
     img: (props) => <ImageZoom {...(props as any)} />,
+    ...components,
   } satisfies MDXComponents;
 }
 

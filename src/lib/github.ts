@@ -6,9 +6,7 @@ const REPO = 'diced/zipline';
 function githubHeaders() {
   return {
     Accept: 'application/vnd.github+json',
-    ...(process.env.GITHUB_TOKEN
-      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
-      : {}),
+    ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
   };
 }
 
@@ -48,13 +46,10 @@ function renderMarkdown(input?: string | null): string {
 
 export async function getReleases(): Promise<GithubRelease[]> {
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/${REPO}/releases?per_page=100`,
-      {
-        headers: githubHeaders(),
-        next: { revalidate: 3600 },
-      },
-    );
+    const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, {
+      headers: githubHeaders(),
+      next: { revalidate: 3600 },
+    });
 
     if (!res.ok) return [];
 

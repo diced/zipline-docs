@@ -34,13 +34,11 @@ This will guide you through setting up an application and provider.
 ![authentik redirect uri](/img/docs/oauth-authentik-5.png)
 
 <Callout type='info'>
-  When clicking the "Login with OIDC" button, or linking your OIDC account, the
-  host that Zipline uses for the redirect URL will be the same as the host that
-  you accessed Zipline from. If you access Zipline from `http://localhost:3000`,
-  the redirect URL will be `http://localhost:3000/api/auth/oauth/oidc`. If you
-  are encountering issues with the redirect URL, you can set a custom redirect
-  URL in the settings dashboard. This **MUST** have the `/api/auth/oauth/oidc`
-  path at the end.
+  When clicking the "Login with OIDC" button, or linking your OIDC account, the host that Zipline uses for the
+  redirect URL will be the same as the host that you accessed Zipline from. If you access Zipline from
+  `http://localhost:3000`, the redirect URL will be `http://localhost:3000/api/auth/oauth/oidc`. If you are
+  encountering issues with the redirect URL, you can set a custom redirect URL in the settings dashboard. This
+  **MUST** have the `/api/auth/oauth/oidc` path at the end.
 </Callout>
 
 8. Next, scroll down further and click on the "Advanced Protocol Settings" collapsible to expand it.

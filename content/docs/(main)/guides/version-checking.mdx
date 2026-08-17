@@ -5,7 +5,7 @@ description: Configure version checking settings
 
 Version checking is a feature that notifies you on the dashboard whenever a new version is available, or if you are using a version that is outdated.
 
-Version checking is enabled by default, and the server sends a request to `https://zipline-version.diced.sh` to check requests.
+Version checking is enabled by default. Zipline queries the GitHub API for release and tag information, then caches the result for six hours. Your instance needs outbound HTTPS access to `api.github.com` for these checks.
 
 Administrators can still view version information on the [admin dashboard](/docs/guides/server-actions) even when version checking is disabled for regular users.
 
@@ -15,32 +15,12 @@ If you want to disable version checking, you can do so by going to the Server Se
 
 ![version checking](/img/docs/version-checking-1.png 'Version Checking toggle in the Server Settings page')
 
-## Changing the Version Checking URL
+You can also disable it with an environment variable:
 
-If you want to run your own version checking server, you can do so by setting the Version Checking API field in the Server Settings page. This is useful if you do not want to send requests to `https://zipline-version.diced.sh` for privacy reasons, or if you want to run your own version checking server.
+```dotenv title=".env"
+FEATURES_VERSION_CHECKING=false
+```
 
-![version checking](/img/docs/version-checking-2.png 'Version Checking API field in the Server Settings page')
+## GitHub API Rate Limits
 
-# Running your own version checking server
-
-Visit the [zipline-version](https://github.com/diced/zipline-version) repository for instructions on how to run your own version checking server.
-
-## Cloudflare Workers
-
-The default version checking server is hosted on Cloudflare Workers, which is a serverless platform that allows you to run code on the edge. Using workers also allows us to utilize the [KV storage](https://developers.cloudflare.com/workers/runtime-apis/kv/) API to store and cache version data for faster access. This means that the version checking server is fast, reliable, and can handle a large number of requests without any issues.
-
-## Self-hosted
-
-The repository also contains a self-hosted version of the version checking server, with the same functionality as the Cloudflare Workers version. This runs a Node.js server that serves the same API, but uses an in-memory cache (internally a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)) to store version data. The performance of this version may not be as good as the workers version, but is still a good option to run your own server.
-
-## Other Platforms
-
-In theory the server can run on any platform that [Hono](https://hono.dev) supports:
-
-- [Deno](https://deno.land/)
-- [AWS Lambda](https://aws.amazon.com/lambda/)
-- [Fastly Compute](https://developer.fastly.com/learning/compute/)
-- [Vercel](https://vercel.com/)
-- [Bun](https://bun.sh/)
-
-are all supported platforms, but the server has not been built or tested on these platforms. If you would like to help with this feel free to open an issue or PR on the GitHub repository.
+Requests are unauthenticated by default. If GitHub somehow (Zipline will only make requests on every startup or every 6 hours) rate limits your instance, set `ZIPLINE_GITHUB_TOKEN` to a GitHub token that can read the public Zipline repository.

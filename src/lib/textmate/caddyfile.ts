@@ -137,8 +137,7 @@ export const caddyTextmateGrammar = {
 
           name: 'keyword.control.caddyfile',
 
-          match:
-            '((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)',
+          match: '((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)',
         },
 
         {
@@ -283,8 +282,7 @@ export const caddyTextmateGrammar = {
     heredoc: {
       patterns: [
         {
-          begin:
-            '(?i)(?=<<\\s*([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)\\s*$)',
+          begin: '(?i)(?=<<\\s*([a-z_\\x{7f}-\\x{10ffff}][a-z0-9_\\x{7f}-\\x{10ffff}]*)\\s*$)',
 
           end: '(?!\\G)',
 
@@ -450,8 +448,7 @@ export const caddyTextmateGrammar = {
         {
           comment: 'Any other heredoc',
 
-          begin:
-            '(?i)(<<)\\s*([a-z_\\x{7f}-\\x{10ffff}]+[a-z0-9_\\x{7f}-\\x{10ffff}]*)(\\s*)',
+          begin: '(?i)(<<)\\s*([a-z_\\x{7f}-\\x{10ffff}]+[a-z0-9_\\x{7f}-\\x{10ffff}]*)(\\s*)',
 
           beginCaptures: {
             '0': { name: 'punctuation.section.embedded.begin.caddyfile' },

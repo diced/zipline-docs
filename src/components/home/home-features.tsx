@@ -76,22 +76,19 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'Discord Webhooks',
-    description:
-      'Receive notifications in Discord when files are uploaded and URLs are shortened.',
+    description: 'Receive notifications in Discord when files are uploaded and URLs are shortened.',
     icon: Bell,
     href: '/docs/guides/discord-webhooks',
   },
   {
     title: 'HTTP Webhooks',
-    description:
-      'Need more than Discord? You can access all event data with HTTP webhooks.',
+    description: 'Need more than Discord? You can access all event data with HTTP webhooks.',
     icon: Webhook,
     href: '/docs/guides/http-webhooks',
   },
   {
     title: 'OAuth2',
-    description:
-      'Zipline supports Discord, GitHub, Google, and OIDC (any provider) for authentication.',
+    description: 'Zipline supports Discord, GitHub, Google, and OIDC (any provider) for authentication.',
     icon: Users,
     href: '/docs/guides/oauth',
   },
@@ -120,28 +117,24 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'Video Thumbnails',
-    description:
-      'Zipline will automatically generate thumbnails for your videos',
+    description: 'Zipline will automatically generate thumbnails for your videos',
     icon: Video,
     href: '/docs/guides/thumbnails',
   },
   {
     title: 'API',
-    description:
-      'Zipline offers a fully featured API for programmatic access to your instance.',
+    description: 'Zipline offers a fully featured API for programmatic access to your instance.',
     icon: Braces,
     href: '/docs/api',
   },
   {
     title: 'PWA',
-    description:
-      'When enabled, Zipline can be installed as a PWA on supported devices.',
+    description: 'When enabled, Zipline can be installed as a PWA on supported devices.',
     icon: LayoutGrid,
   },
   {
     title: 'Partial Uploads',
-    description:
-      'Zipline supports "chunking" your files when uploading large files.',
+    description: 'Zipline supports "chunking" your files when uploading large files.',
     icon: Share2,
   },
   {
@@ -151,8 +144,7 @@ const homeFeatures: HomeFeature[] = [
   },
   {
     title: 'Quotas',
-    description:
-      'Set quotas on users to limit the amount of files they can upload.',
+    description: 'Set quotas on users to limit the amount of files they can upload.',
     icon: UserX,
   },
   {
@@ -182,9 +174,7 @@ function FeatureCard({ title, description, href, icon: Icon }: HomeFeature) {
         ) : (
           <span className={titleClassName}>{title}</span>
         )}
-        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>
-          {description}
-        </p>
+        <p className='mt-2 grow text-lg text-fd-muted-foreground md:text-xl'>{description}</p>
       </div>
     </div>
   );

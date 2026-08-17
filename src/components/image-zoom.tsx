@@ -14,20 +14,14 @@ function getImageSrc(src: ImageProps['src']): string {
   if (typeof src === 'string') return src;
 
   if (typeof src === 'object') {
-    if ('default' in src)
-      return (src as { default: { src: string } }).default.src;
+    if ('default' in src) return (src as { default: { src: string } }).default.src;
     return src.src;
   }
 
   return '';
 }
 
-export function ImageZoom({
-  zoomInProps,
-  children,
-  rmiz,
-  ...props
-}: ImageZoomProps) {
+export function ImageZoom({ zoomInProps, children, rmiz, ...props }: ImageZoomProps) {
   return (
     <Zoom
       zoomMargin={20}

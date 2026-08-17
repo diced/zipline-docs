@@ -1,11 +1,5 @@
 import Image from 'next/image';
-import {
-  Files,
-  LayoutDashboard,
-  LineChart,
-  Link as LinkIcon,
-  type LucideIcon,
-} from 'lucide-react';
+import { Files, LayoutDashboard, LineChart, Link as LinkIcon, type LucideIcon } from 'lucide-react';
 import type { StaticImageData } from 'next/image';
 
 import homePageScreenshotDark from '@/../public/img/screenshot-1-dark.png';
@@ -170,9 +164,7 @@ export function HomeScreenshots() {
             <div className='my-2 text-3xl font-bold'>
               <ScreenshotTitle id={section.id} />
             </div>
-            <p className='my-4 text-xl text-fd-muted-foreground'>
-              {section.text}
-            </p>
+            <p className='my-4 text-xl text-fd-muted-foreground'>{section.text}</p>
           </div>
         );
 

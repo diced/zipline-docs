@@ -26,13 +26,7 @@ export interface TOCItemsProps extends ComponentProps<'div'> {
   thumbBox?: boolean;
 }
 
-export function TOCItems({
-  ref,
-  className,
-  thumbBox = true,
-  children,
-  ...props
-}: TOCItemsProps) {
+export function TOCItems({ ref, className, thumbBox = true, children, ...props }: TOCItemsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const items = useTOCItems();
   const [svg, setSvg] = useState<ComputedSVG | null>(null);
@@ -52,18 +46,13 @@ export function TOCItems({
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
-      const element: HTMLElement | null = container.querySelector(
-        `a[href="${item.url}"]`,
-      );
+      const element: HTMLElement | null = container.querySelector(`a[href="${item.url}"]`);
       if (!element) continue;
 
       const styles = getComputedStyle(element);
       const x = getLineOffset(item.depth) + 0.5;
       const top = element.offsetTop + parseFloat(styles.paddingTop);
-      const bottom =
-        element.offsetTop +
-        element.clientHeight -
-        parseFloat(styles.paddingBottom);
+      const bottom = element.offsetTop + element.clientHeight - parseFloat(styles.paddingBottom);
 
       w = Math.max(x + 8, w);
       h = Math.max(h, bottom);
@@ -97,30 +86,18 @@ export function TOCItems({
       positions.push([top, bottom, x]);
     }
 
-    output.unshift(
-      <path
-        key='path'
-        d={d}
-        className='stroke-fd-primary'
-        strokeWidth='1'
-        fill='none'
-      />,
-    );
+    output.unshift(<path key='path' d={d} className='stroke-fd-primary' strokeWidth='1' fill='none' />);
 
     const itemLineLengths: [top: number, bottom: number][] = [];
 
     if (thumbBox) {
-      const path = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'path',
-      );
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', d);
 
       const n = path.getTotalLength();
       for (let i = 0; i < positions.length; i++) {
         const [top, bottom] = positions[i];
-        let l =
-          i > 0 ? itemLineLengths[i - 1][1] + (top - positions[i - 1][1]) : top;
+        let l = i > 0 ? itemLineLengths[i - 1][1] + (top - positions[i - 1][1]) : top;
         while (l < n && path.getPointAtLength(l).y < top) l++;
 
         itemLineLengths.push([l, l + bottom - top]);
@@ -150,11 +127,7 @@ export function TOCItems({
   }, [onPrint]);
 
   return (
-    <div
-      ref={mergeRefs(containerRef, ref)}
-      className={cn('relative flex flex-col', className)}
-      {...props}
-    >
+    <div ref={mergeRefs(containerRef, ref)} className={cn('relative flex flex-col', className)} {...props}>
       {svg && <ThumbTrack computed={svg} thumbBox={thumbBox} />}
       {children}
     </div>
@@ -162,11 +135,7 @@ export function TOCItems({
 }
 
 export function TOCEmpty() {
-  return (
-    <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>
-      No headings
-    </div>
-  );
+  return <div className='rounded-lg border bg-fd-card p-3 text-xs text-fd-muted-foreground'>No headings</div>;
 }
 
 interface ThumbBoxInfo {
@@ -175,13 +144,7 @@ interface ThumbBoxInfo {
   isUp: boolean;
 }
 
-function ThumbTrack({
-  computed,
-  thumbBox,
-}: {
-  computed: ComputedSVG;
-  thumbBox: boolean;
-}) {
+function ThumbTrack({ computed, thumbBox }: { computed: ComputedSVG; thumbBox: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const previousRef = useRef<ThumbBoxInfo>(null);
   const tocInfo = Primitive.useTOC();
@@ -197,10 +160,7 @@ function ThumbTrack({
     return out;
   }
 
-  function getThumbStyle(
-    items: Primitive.TOCItemInfo[],
-    prev: ThumbBoxInfo | null,
-  ) {
+  function getThumbStyle(items: Primitive.TOCItemInfo[], prev: ThumbBoxInfo | null) {
     const out: Record<string, string> = {};
     const startIdx = items.findIndex((item) => item.active);
     if (startIdx === -1) return { out, next: prev };
@@ -218,8 +178,7 @@ function ThumbTrack({
     out['--offset-distance'] = isUp
       ? `${computed.itemLineLengths[startIdx][0]}px`
       : `${computed.itemLineLengths[endIdx][1]}px`;
-    out['--opacity'] =
-      items[isUp ? startIdx : endIdx].original._step !== undefined ? '0' : '1';
+    out['--opacity'] = items[isUp ? startIdx : endIdx].original._step !== undefined ? '0' : '1';
     return { out, next };
   }
 
@@ -288,10 +247,7 @@ function getLineOffset(depth: number): number {
   return 16 + a;
 }
 
-export function TOCItem({
-  item,
-  ...props
-}: Primitive.TOCItemProps & { item: Primitive.TOCItemType }) {
+export function TOCItem({ item, ...props }: Primitive.TOCItemProps & { item: Primitive.TOCItemType }) {
   const items = useTOCItems();
   const { isFirst, isLast, svg } = useMemo(() => {
     const index = items.indexOf(item);

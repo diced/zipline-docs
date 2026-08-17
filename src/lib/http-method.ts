@@ -1,12 +1,4 @@
-const HTTP_METHOD_SEGMENTS = new Set([
-  'get',
-  'post',
-  'put',
-  'patch',
-  'delete',
-  'head',
-  'options',
-]);
+const HTTP_METHOD_SEGMENTS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head', 'options']);
 
 export function getMethodFromSearchUrl(url: string): string | undefined {
   try {

@@ -24,11 +24,7 @@ export function TOCProvider({ toc, children, ...props }: TOCProviderProps) {
   );
 }
 
-export function TOCScrollArea({
-  ref,
-  className,
-  ...props
-}: ComponentProps<'div'>) {
+export function TOCScrollArea({ ref, className, ...props }: ComponentProps<'div'>) {
   const viewRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -40,9 +36,7 @@ export function TOCScrollArea({
       )}
       {...props}
     >
-      <Primitive.ScrollProvider containerRef={viewRef}>
-        {props.children}
-      </Primitive.ScrollProvider>
+      <Primitive.ScrollProvider containerRef={viewRef}>{props.children}</Primitive.ScrollProvider>
     </div>
   );
 }

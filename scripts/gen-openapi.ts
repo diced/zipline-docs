@@ -58,14 +58,7 @@ function exit(message: string) {
   const openApiEntry = zip.getEntry('openapi.json');
   if (!openApiEntry) exit('openapi.json not found in artifact');
 
-  zip.extractEntryTo(
-    openApiEntry as IZipEntry,
-    '.',
-    false,
-    true,
-    false,
-    'public/openapi.json',
-  );
+  zip.extractEntryTo(openApiEntry as IZipEntry, '.', false, true, false, 'public/openapi.json');
 
   console.log('openapi.json extracted... generating docs mdx...');
 

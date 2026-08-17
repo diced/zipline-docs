@@ -16,8 +16,7 @@ export default function ExternalLinksBuilder() {
     if (newLink.name.length === 0) return;
     if (newLink.url.length === 0) return;
 
-    if (!URL.canParse(newLink.url))
-      return alert(`"${newLink.url}" is not a valid link`);
+    if (!URL.canParse(newLink.url)) return alert(`"${newLink.url}" is not a valid link`);
 
     // @ts-ignore
     setLinks([...links, newLink]);
@@ -47,9 +46,7 @@ export default function ExternalLinksBuilder() {
         <button
           className='bg-blue-400 w-full md:w-auto rounded-md p-2 px-4 transition-all hover:bg-blue-500 ease-in-out disabled:bg-gray-300 dark:disabled:bg-gray-600 disabled:text-gray-100 dark:disabled:text-gray-300'
           onClick={handleAdd}
-          disabled={
-            labelValue.trim().length === 0 || linkValue.trim().length === 0
-          }
+          disabled={labelValue.trim().length === 0 || linkValue.trim().length === 0}
           data-umami-event='external_links_builder_add'
         >
           Add
@@ -99,8 +96,8 @@ export default function ExternalLinksBuilder() {
         />
 
         <figcaption className='text-sm text-gray-500 dark:text-gray-400 mb-2'>
-          Copy the above JSON and paste it into the External Links text box, or
-          into the <code>WEBSITE_EXTERNAL_LINKS</code> environment variable.
+          Copy the above JSON and paste it into the External Links text box, or into the{' '}
+          <code>WEBSITE_EXTERNAL_LINKS</code> environment variable.
         </figcaption>
       </figure>
     </div>

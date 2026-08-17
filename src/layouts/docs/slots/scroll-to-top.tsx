@@ -19,9 +19,7 @@ export function DocsScrollToTop() {
       className={cn(
         buttonVariants({ color: 'secondary', size: 'icon' }),
         'fixed bottom-6 end-6 z-50 border shadow-md transition-[opacity,translate] duration-200 xl:layout:end-[calc(var(--fd-toc-width,0px)+1.5rem)]',
-        visible
-          ? 'translate-y-0 opacity-100'
-          : 'pointer-events-none translate-y-2 opacity-0',
+        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0',
       )}
     >
       <ArrowUp className='size-5' />
