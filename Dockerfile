@@ -18,6 +18,7 @@ COPY package.json pnpm-lock.yaml .npmrc* source.config.* tsconfig.json ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
   pnpm install --frozen-lockfile --ignore-scripts
 
+COPY .gitignore .oxfmtrc.json .oxlintrc.json ./
 COPY next.config.* proxy.ts postcss.config.* tailwind.config.* ./
 COPY src ./src
 COPY public ./public
