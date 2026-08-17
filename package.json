@@ -21,6 +21,7 @@
     "@radix-ui/react-presence": "^1.1.5",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@swc/helpers": "0.5.23",
     "@takumi-rs/image-response": "^2.9.2",
     "algoliasearch": "^5.52.1",
     "bytes": "^3.1.2",

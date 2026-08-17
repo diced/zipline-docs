@@ -5,6 +5,9 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   output: 'standalone',
+  outputFileTracingIncludes: {
+    '/*': ['./node_modules/@swc/helpers/**/*'],
+  },
   serverExternalPackages: ['@takumi-rs/image-response'],
   reactStrictMode: true,
   redirects: async () => [
