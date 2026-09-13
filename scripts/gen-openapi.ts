@@ -9,9 +9,14 @@ try {
   loadEnvFile('.env');
 } catch {}
 
-function exit(message: string) {
+function exit(message: string): never {
   console.error(message);
   process.exit(1);
+}
+
+async function exitResponse(message: string, response: Response): Promise<never> {
+  const details = await response.text();
+  exit(`${message} (${response.status} ${response.statusText})${details ? `: ${details}` : ''}`);
 }
 
 const githubHeaders = {
@@ -29,12 +34,12 @@ const githubHeaders = {
   const REPO = 'diced/zipline';
 
   const runsResponse = await fetch(
-    `https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/runs?per_page=1`,
+    `https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/runs?branch=trunk&event=push&status=success&per_page=1`,
     {
       headers: githubHeaders,
     },
   );
-  if (!runsResponse.ok) exit('failed to fetch');
+  if (!runsResponse.ok) await exitResponse('failed to fetch workflow runs', runsResponse);
 
   const runsData = await runsResponse.json();
   if (runsData.workflow_runs.length === 0) exit('no runs');
@@ -46,17 +51,24 @@ const githubHeaders = {
     headers: githubHeaders,
   });
 
-  if (!artifactsResponse.ok) exit('failed to get artifacts');
+  if (!artifactsResponse.ok) await exitResponse('failed to fetch workflow artifacts', artifactsResponse);
 
   const artifactsData = await artifactsResponse.json();
-  if (artifactsData.artifacts.length === 0) exit('no artifacts found');
+  const latestArtifact = artifactsData.artifacts.find(
+    (artifact: { expired: boolean; name: string }) => artifact.name === 'openapi-json' && !artifact.expired,
+  );
+  if (!latestArtifact) exit('no unexpired openapi-json artifact found');
 
-  const latestArtifact = artifactsData.artifacts[0];
   const downloadUrl = latestArtifact.archive_download_url;
   const zipResponse = await fetch(downloadUrl, {
     headers: githubHeaders,
   });
-  if (!zipResponse.ok) exit('failed to download artifact');
+  if (!zipResponse.ok) {
+    const hint = process.env.GITHUB_TOKEN
+      ? ''
+      : ' Set GITHUB_TOKEN to a token with Actions read access to diced/zipline.';
+    await exitResponse(`failed to download artifact.${hint}`, zipResponse);
+  }
 
   const zipBuffer = await zipResponse.arrayBuffer();
   const zip = new AdmZip(Buffer.from(zipBuffer));
