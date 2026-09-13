@@ -6,7 +6,7 @@ const withMDX = createMDX();
 const config = {
   output: 'standalone',
   outputFileTracingIncludes: {
-    '/*': ['./node_modules/@swc/helpers/**/*'],
+    '/*': ['./node_modules/.pnpm/@swc+helpers@*/node_modules/@swc/helpers/**/*'],
   },
   serverExternalPackages: ['@takumi-rs/image-response'],
   reactStrictMode: true,

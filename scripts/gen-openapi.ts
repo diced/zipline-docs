@@ -1,5 +1,6 @@
 import { generateFiles } from 'fumadocs-openapi';
 import { openapi } from '@/lib/openapi';
+import { generateErrorCodeDocs } from './gen-error-codes';
 import AdmZip, { IZipEntry } from 'adm-zip';
 import { loadEnvFile } from 'process';
 import { readdir, rm, unlink } from 'fs/promises';
@@ -13,6 +14,16 @@ function exit(message: string) {
   process.exit(1);
 }
 
+const githubHeaders = {
+  Accept: 'application/vnd.github+json',
+  'X-GitHub-Api-Version': '2022-11-28',
+  ...(process.env.GITHUB_TOKEN
+    ? {
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      }
+    : {}),
+};
+
 (async () => {
   const WORKFLOW = 'openapi.yml';
   const REPO = 'diced/zipline';
@@ -20,9 +31,7 @@ function exit(message: string) {
   const runsResponse = await fetch(
     `https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/runs?per_page=1`,
     {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-      },
+      headers: githubHeaders,
     },
   );
   if (!runsResponse.ok) exit('failed to fetch');
@@ -34,9 +43,7 @@ function exit(message: string) {
   const artifactsUrl = latestRun.artifacts_url;
 
   const artifactsResponse = await fetch(artifactsUrl, {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
+    headers: githubHeaders,
   });
 
   if (!artifactsResponse.ok) exit('failed to get artifacts');
@@ -47,9 +54,7 @@ function exit(message: string) {
   const latestArtifact = artifactsData.artifacts[0];
   const downloadUrl = latestArtifact.archive_download_url;
   const zipResponse = await fetch(downloadUrl, {
-    headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-    },
+    headers: githubHeaders,
   });
   if (!zipResponse.ok) exit('failed to download artifact');
 
@@ -83,6 +88,8 @@ function exit(message: string) {
       await unlink(path);
     }
   }
+
+  await generateErrorCodeDocs();
 
   console.log('docs mdx generated successfully!');
 })();
