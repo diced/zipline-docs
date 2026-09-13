@@ -60,14 +60,55 @@ Then follow the [update steps](/docs/get-started/source#updating)
   </Tab>
 </Tabs>
 
+## Upgrading to 4.8
+
+Zipline 4.8 replaces Prisma with [Drizzle ORM](https://orm.drizzle.team/). On its first start, 4.8 adopts your existing database: it checks that the Prisma migration history is complete, then records the Drizzle baseline and applies the new migrations. This step only runs once and cannot be reverted by downgrading.
+
+<Callout type="warning">
+  Upgrade to **4.7.0 first** if you are running an older version. 4.8 refuses to adopt a database whose Prisma
+  history stops before the `20260806081144_remove_version_api` migration, which was added in 4.7.0, and exits with:
+
+```
+cannot safely migrate from prisma to drizzle: expected migration 20260806081144_remove_version_api was not applied
+```
+
+</Callout>
+
+If you are on 4.6.x or older, run 4.7.0 once so it applies the remaining Prisma migrations:
+
+<Tabs items={["docker", "source"]} groupId="docker-vs-source">
+  <Tab value="docker">
+  Switch to the `4.7.0` tag in your docker-compose file and start Zipline:
+
+```yaml
+image: ghcr.io/diced/zipline:4.7.0
+```
+
+  </Tab>
+  <Tab value="source">
+  Switch to the `v4.7.0` tag:
+
+```bash
+git checkout v4.7.0
+```
+
+Then follow the [update steps](/docs/get-started/source#updating)
+
+  </Tab>
+</Tabs>
+
+Then [back up your PostgreSQL database](/docs/guides/backup/pg). Nothing is dropped during adoption (the `_prisma_migrations` table is kept), but the Drizzle migrations that follow do change the schema.
+
+Finally switch to 4.8 and start Zipline. Your database configuration does not change: both `DATABASE_URL` and the individual `DATABASE_*` variables keep working.
+
 ## Pinning to a specific version
 
 If you want to pin to a specific version or commit for stability reasons, you can do so by using the specific tag for that version or any commit hash.
 
-For example, if you wanted to pin to version `v4.3.2`, you can use the `v4.3.2` tag:
+For example, if you wanted to pin to version `4.3.2`, you can use the `4.3.2` tag:
 
 ```bash
-docker pull ghcr.io/diced/zipline:v4.3.2
+docker pull ghcr.io/diced/zipline:4.3.2
 ```
 
 Or if you wanted to pin to a specific commit, you can use the commit hash as the tag:
