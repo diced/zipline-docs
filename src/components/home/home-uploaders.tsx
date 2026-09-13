@@ -44,6 +44,18 @@ const uploaders: HomeUploader[] = [
     icon: Laptop,
   },
   {
+    platform: 'macOS',
+    name: 'iTake',
+    description: (
+      <>
+        Upload screenshots, screen recordings and files on macOS with iTake, using a Zipline-generated{' '}
+        <span className='font-mono'>.itup</span> file.
+      </>
+    ),
+    href: '/docs/guides/uploaders/macos-itake',
+    icon: Laptop,
+  },
+  {
     platform: 'Linux',
     name: 'Flameshot',
     description: 'Capture screenshots with Flameshot and upload them straight to your Zipline instance.',
