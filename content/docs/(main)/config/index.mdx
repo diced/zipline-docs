@@ -7,7 +7,7 @@ Zipline is primarily configured through environment variables. These can be set 
 
 Most of Zipline's settings are also configurable through the settings dashboard.
 
-By default, only the `DATABASE_URL` and `CORE_SECRET` environment variables are required. The rest are optional and have default values.
+Zipline requires `CORE_SECRET` and a database connection: either `DATABASE_URL` or all five [PostgreSQL connection variables](/docs/config/core#database_url). The rest are optional and have default values.
 
 <Callout type='info'>
   It is important that the `CORE_SECRET` is not easily guessable. This secret is used to sign website cookies,

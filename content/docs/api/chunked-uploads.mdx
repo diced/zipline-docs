@@ -1,0 +1,76 @@
+---
+title: Chunked Uploads
+description: Upload a file in sequential chunks using the partial upload API
+---
+
+Use `POST /api/upload/partial` to upload one file across multiple requests. Each request contains exactly one chunk as a multipart file. Send chunks sequentially, waiting for each response before sending the next.
+
+Authenticate every request using your [API token or session cookie](/docs/api/authentication). A continuation token identifies the upload; it does not replace authentication. Keep the same user and, if supplied, `x-zipline-folder` throughout the upload.
+
+## Headers
+
+| Header                       | Value                                                                         |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| `Content-Range`              | `bytes start-end/total`, with zero-based offsets and an **inclusive** end.    |
+| `x-zipline-p-content-length` | The total size of the complete file in bytes, not the chunk size.             |
+| `x-zipline-p-content-type`   | The MIME type of the complete file.                                           |
+| `x-zipline-p-filename`       | The name of the complete file.                                                |
+| `x-zipline-p-lastchunk`      | `true` only when this chunk ends at `total - 1`; otherwise `false`.           |
+| `x-zipline-p-token`          | The latest `partialToken` returned by the server. Omit it on the first chunk. |
+
+The chunk must contain exactly `end - start + 1` bytes. The first chunk starts at `0`; each subsequent chunk starts immediately after the previous one ends. Keep the total size unchanged.
+
+Let your HTTP client set the multipart `Content-Type` and boundary. The file's MIME type belongs in `x-zipline-p-content-type`, not the request's `Content-Type`.
+
+## Example
+
+For a 10-byte file split into two 5-byte files named `chunk-1` and `chunk-2`, send the first chunk without a continuation token:
+
+```bash
+curl 'https://zipline.example.com/api/upload/partial' \
+  -H 'Authorization: YOUR_API_TOKEN' \
+  -H 'Content-Range: bytes 0-4/10' \
+  -H 'x-zipline-p-content-length: 10' \
+  -H 'x-zipline-p-content-type: text/plain' \
+  -H 'x-zipline-p-filename: example.txt' \
+  -H 'x-zipline-p-lastchunk: false' \
+  -F 'file=@chunk-1'
+```
+
+A successful non-final response includes:
+
+```json
+{
+  "files": [],
+  "partialSuccess": true,
+  "partialToken": "CONTINUATION_TOKEN"
+}
+```
+
+Use that token for the next chunk:
+
+```bash
+curl 'https://zipline.example.com/api/upload/partial' \
+  -H 'Authorization: YOUR_API_TOKEN' \
+  -H 'Content-Range: bytes 5-9/10' \
+  -H 'x-zipline-p-content-length: 10' \
+  -H 'x-zipline-p-content-type: text/plain' \
+  -H 'x-zipline-p-filename: example.txt' \
+  -H 'x-zipline-p-lastchunk: true' \
+  -H 'x-zipline-p-token: CONTINUATION_TOKEN' \
+  -F 'file=@chunk-2'
+```
+
+For a larger upload, replace the token with the new `partialToken` from **every** non-final response. Tokens are single-use, so do not reuse one or send chunks in parallel. Clients using the older `partialIdentifier` response and `x-zipline-p-identifier` header must switch to this token flow.
+
+## Expiry and failures
+
+Each continuation token is valid for 30 minutes. Inactive uploads are cleaned up after 30 minutes, and unfinished upload sessions do not survive a Zipline restart.
+
+If the token is expired or already used, or the server has lost the session, start again from byte `0` without a continuation token. A failed or aborted continuation request can consume its token and discard the session; do not assume retrying the same request will resume it. If you lose a response containing the next token, you will need to restart the upload.
+
+The first chunk is subject to upload rate limiting. A valid continuation token allows the remaining chunks to continue without consuming that rate limit. File size and user quota limits still apply to the whole file.
+
+## Finishing the upload
+
+The final chunk starts background processing to assemble the file. A successful response means the chunks were accepted, not that the finished file is already available. Use [GET /api/user/files/incomplete](/docs/api/api/user/files/incomplete/get) to check processing status (`PENDING`, `PROCESSING`, `COMPLETE`, or `FAILED`).

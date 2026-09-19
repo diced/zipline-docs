@@ -124,9 +124,20 @@ Setting up Zipline with Caddy is very simple. You can use the following Caddyfil
 
 ## After setting up
 
-After you have set up your reverse proxy, there are a couple of ssettings you should set to make sure everything works correctly:
+After you have set up your reverse proxy, configure these settings and restart Zipline:
 
-- `CORE_TRUST_PROXY`: This setting tells Zipline to trust the `X-Forwarded-*` headers set by your reverse proxy. This is important for getting the correct client IP and protocol (HTTP or HTTPS) in your application.
+- `CORE_TRUST_PROXY`: Enable this to use `X-Forwarded-*` headers from trusted proxies for the client IP and protocol.
+- `CORE_TRUSTED_PROXIES`: A comma-separated list of your reverse proxies' IPv4/IPv6 addresses or CIDRs. Enabling `CORE_TRUST_PROXY` alone is not enough: an empty list ignores forwarded headers, so clients behind the same proxy share rate limits.
 - `CORE_RETURN_HTTPS_URLS`: This setting tells Zipline to return `https://` URLs for file links and other URLs when the request comes in over HTTPS. This is important for ensuring that your website is fully secure and doesn't have mixed content issues.
   - If SSL terminates at your proxy, you should turn this on so that file links and other URLs are returned as `https://`.
   - This setting controls whether or not Zipline returns `https://` urls anywhere in the app.
+
+For a proxy connecting to Zipline over loopback on the same host:
+
+```dotenv title=".env"
+CORE_TRUST_PROXY=true
+CORE_TRUSTED_PROXIES=127.0.0.1,::1
+CORE_RETURN_HTTPS_URLS=true
+```
+
+In Docker, use the proxy's address as seen by the Zipline container, not the loopback example above. You can use a CIDR such as `172.30.0.0/24` for a dedicated, trusted proxy network, but only if that is your actual network and every address in it can be trusted. Do not add client networks or all addresses (`0.0.0.0/0` or `::/0`), as this would allow untrusted clients to supply forwarded headers.

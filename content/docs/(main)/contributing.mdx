@@ -36,7 +36,7 @@ Here's how to setup Zipline for development
 - [nodejs@24](https://nodejs.org/)
 - [pnpm@11](https://pnpm.io/installation)
 - [ffmpeg](https://ffmpeg.org/download.html) (for generating thumbnails, optional)
-- a [postgresql](https://postgresql.org) server
+- a [postgresql](https://postgresql.org) server, or a local [PGlite directory](/docs/config/core#pglite)
 
 #### Setup
 
@@ -98,9 +98,9 @@ pnpm start
 
 #### Making changes to the database schema
 
-Zipline uses [prisma](https://www.prisma.io/) as its ORM, and as such, you will need to use the prisma CLI to facilitate any changes to the database schema.
+Zipline uses Drizzle ORM for its database schema and queries.
 
-Once you have made a change to `prisma.schema`, you can run the script `db:migrate` to generate a migration file. This script doesn't apply the migration, as Zipline handles applying migrations itself on startup.
+After changing `src/lib/db/schema.ts`, run `db:migrate` to generate a migration in `drizzle/`. This command only creates the migration; Zipline applies committed migrations automatically on startup.
 
 ```bash
 pnpm db:migrate

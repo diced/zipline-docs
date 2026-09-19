@@ -14,18 +14,19 @@ Each section here on the docs has a table of environment variables that can be u
 
 This section is for core configuration, like whether or not to return HTTPS urls. Most of these options require a server restart after saving them.
 
-"Trust Proxy" can be enabled if you are running Zipline behind a reverse proxy (like Nginx or Caddy). This will allow Zipline to correctly determine certain values like the protocol, the client IP address, etc.
+If you are running Zipline behind a reverse proxy (like Nginx or Caddy), enable "Trust Proxies" and add its IP addresses or CIDRs to "Trusted Proxies". Both settings require a restart. Only headers from trusted proxies are used to determine the client IP and protocol; with an empty list, forwarded headers are ignored and clients behind the same proxy share rate limits. See [Reverse Proxy](/docs/guides/reverse-proxy#after-setting-up) for examples.
 
 Temporary files default to `./uploads/.tmp`. Setting `CORE_TEMP_DIRECTORY` to another filesystem, such as tmpfs, can reduce local upload performance.
 
 ### Variables
 
-| Variable                 | Type      | Example               |
-| ------------------------ | --------- | --------------------- |
-| `CORE_RETURN_HTTPS_URLS` | `boolean` | `true`                |
-| `CORE_DEFAULT_DOMAIN`    | `string`  | `zipline.example.com` |
-| `CORE_TEMP_DIRECTORY`    | `string`  | `./uploads/.tmp`      |
-| `CORE_TRUST_PROXY`       | `boolean` | `true`                |
+| Variable                 | Type       | Example               |
+| ------------------------ | ---------- | --------------------- |
+| `CORE_RETURN_HTTPS_URLS` | `boolean`  | `true`                |
+| `CORE_DEFAULT_DOMAIN`    | `string`   | `zipline.example.com` |
+| `CORE_TEMP_DIRECTORY`    | `string`   | `./uploads/.tmp`      |
+| `CORE_TRUST_PROXY`       | `boolean`  | `true`                |
+| `CORE_TRUSTED_PROXIES`   | `string[]` | `127.0.0.1,::1`       |
 
 See the other [core settings](/docs/config/core).
 

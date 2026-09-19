@@ -5,9 +5,7 @@ description: This page documents the core configuration options available
 
 ## `DATABASE_URL`
 
-`DATABASE_URL` is a **required** environment variable, Zipline will fail to start without it.
-
-This variable should be a postgresql connection string.
+Zipline requires a database connection, supplied through `DATABASE_URL` or all five PostgreSQL variables below. `DATABASE_URL` can be a PostgreSQL connection string or a [PGlite directory](#pglite).
 
 ```dotenv title=".env"
 DATABASE_URL=postgresql://user:password@localhost:5432/zipline
@@ -29,6 +27,31 @@ DATABASE_PORT=5432
 If any one of the individual components are missing, Zipline will fail to start.
 
 </Callout>
+
+### PGlite
+
+PGlite stores the database in a local directory without a separate PostgreSQL server. Use an absolute path, not a relative path or a server address:
+
+```dotenv title=".env"
+DATABASE_URL=pglite:///var/lib/zipline/database
+```
+
+The directory must be writable by Zipline. It stores the database, **not uploaded files**; keep your [datasource](/docs/config/datasource) configured separately.
+
+For Docker, the path is inside the container. Mount persistent storage so that recreating the container does not lose the database. For example, merge these settings into the `zipline` service, keeping its other environment variables and upload volumes:
+
+```yaml title="docker-compose.yml"
+services:
+  zipline:
+    environment:
+      DATABASE_URL: pglite:///zipline/data/database
+    volumes:
+      - './data:/zipline/data'
+```
+
+A new PGlite instance does not need the PostgreSQL service or its `depends_on` entry. If you already have data in PostgreSQL, follow [Migrating to PGlite](/docs/guides/ctl/ziplinectl-migrate-pglite) before changing the connection; changing the URL alone does not copy your data.
+
+To back up PGlite, stop Zipline before copying the entire database directory, and keep it stopped until the copy finishes. Back up uploaded files separately. To restore, use the saved directory while Zipline is stopped and point `DATABASE_URL` at it.
 
 ## `CORE_HOSTNAME`
 

@@ -5,6 +5,8 @@ description: Install and run Zipline with Docker*
 
 Zipline can be easily installed and run using Docker Compose. This is the recommended installation method for most users, as it abstracts away the complexities of setting up the environment and dependencies.
 
+This guide uses PostgreSQL. To use an embedded database instead, see [PGlite configuration](/docs/config/core#pglite), including the required persistent volume.
+
 ## Set up `docker-compose.yml` [step]
 
 First, download the `docker-compose.yml` file:
@@ -59,6 +61,8 @@ After starting, Zipline will be available at `http://<ip>:3000` where `<ip>` is 
 You will be redirected to a setup page where you can configure the default super administrator username and password.
 
 ## Updating
+
+Before updating, read the [database upgrade notes](/docs/guides/releases#database-upgrades).
 
 To update Zipline, simply run the following command:
 

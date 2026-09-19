@@ -1,0 +1,76 @@
+---
+title: ziplinectl migrate-pglite
+description: Move an existing PostgreSQL database to PGlite
+---
+
+This command copies your PostgreSQL database into a new [PGlite directory](/docs/config/core#pglite). It does not move uploaded files or thumbnails; keep your existing datasource and storage mounted.
+
+## Usage
+
+```bash
+ziplinectl migrate-pglite [options] <directory>
+```
+
+| Option           | Description                                                                             |
+| ---------------- | --------------------------------------------------------------------------------------- |
+| `--source <url>` | PostgreSQL connection string. Defaults to `DATABASE_URL` or the `DATABASE_*` variables. |
+| `-h`, `--help`   | Display help for this command.                                                          |
+
+The destination directory must **not already exist**. Its parent must be writable by the user running the command.
+
+## Before migrating
+
+1. [Back up PostgreSQL](/docs/guides/backup/pg).
+2. Upgrade Zipline while still using PostgreSQL and let its database migrations finish. See the [database upgrade notes](/docs/guides/releases#database-upgrades).
+3. Stop Zipline, but leave PostgreSQL running so the command can read it.
+
+<Callout type='warning'>
+  Keep Zipline stopped until you have switched to PGlite. The command copies a snapshot; writes made to
+  PostgreSQL after the snapshot starts are not included.
+</Callout>
+
+## Copy the database
+
+For a manual installation, run this from the Zipline project directory, with your existing PostgreSQL configuration still in place:
+
+```bash
+pnpm ctl migrate-pglite /var/lib/zipline/database
+```
+
+To specify a different PostgreSQL source, use `--source <url>`.
+
+### Docker
+
+Before running the command, add persistent storage to the `zipline` service, keeping its existing volumes and PostgreSQL connection settings:
+
+```yaml title="docker-compose.yml"
+services:
+  zipline:
+    volumes:
+      - './data:/zipline/data'
+```
+
+Stop the application and use a one-off container to run the migration. Unlike `docker compose exec`, this works while the Zipline service is stopped. Overriding the entrypoint runs the CLI instead of starting the server:
+
+```bash
+docker compose stop zipline
+docker compose run --rm --no-deps --entrypoint ziplinectl zipline migrate-pglite /zipline/data/database
+```
+
+PostgreSQL must still be running and reachable from that container. The example creates `./data/database` on the host; do not create that destination directory beforehand.
+
+## Switch to PGlite
+
+On success, the command prints the new `DATABASE_URL`. Set it in your environment or Compose configuration. For the Docker example above:
+
+```dotenv title=".env"
+DATABASE_URL=pglite:///zipline/data/database
+```
+
+If your Compose service defines `DATABASE_URL` under `environment`, update that value too; it overrides the value from `env_file`. Keep the persistent volume, then start Zipline and verify that your users and files are present.
+
+```bash
+docker compose up -d zipline
+```
+
+For a manual installation, use `pnpm start` instead. Once the new database is verified, the PostgreSQL service and Zipline's dependency on it are no longer needed. Keep your original database and backup until you are satisfied with the migration; subsequent writes to PGlite are not copied back to PostgreSQL.

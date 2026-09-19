@@ -53,14 +53,17 @@ See [Docker's secrets docs](https://docs.docker.com/engine/swarm/secrets/) for m
 
 ## Behind a reverse proxy?
 
-If you're running Zipline behind nginx, Caddy, or similar, turn on **Trust Proxy**. Without it, Zipline thinks every request is coming from `127.0.0.1` (your proxy), which breaks rate limiting, breaks the real-IP shown in logs, and can cause weird cookie behavior.
+If you're running Zipline behind nginx, Caddy, or similar, enable **Trust Proxies** and configure **Trusted Proxies** with only your reverse proxies' IP addresses or CIDRs. Without both, Zipline uses the proxy's address instead of the client's, so clients behind it share rate limits. Restart Zipline after changing these settings.
+
+For a proxy connecting over loopback on the same host:
 
 ```dotenv title=".env"
 CORE_TRUST_PROXY=true
+CORE_TRUSTED_PROXIES=127.0.0.1,::1
 CORE_RETURN_HTTPS_URLS=true
 ```
 
-See [Reverse Proxy](/docs/guides/reverse-proxy) for the full setup.
+For Docker, replace the loopback addresses with your actual proxy addresses or trusted proxy network. See [Reverse Proxy](/docs/guides/reverse-proxy#after-setting-up) for the full setup.
 
 ## Turn on MFA
 

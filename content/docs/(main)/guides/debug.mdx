@@ -50,11 +50,14 @@ ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG=true
 
 ## Database logging
 
-To log Prisma database queries, set `ZIPLINE_DB_LOG` to `true`. You can also pass a comma-separated list of [Prisma log levels](https://www.prisma.io/docs/orm/prisma-client/observability-and-logging/logging) (for example, `query,info,warn,error`):
+To log database queries and their parameters, enable debug logging and set `ZIPLINE_DB_LOG` to `true`:
 
 ```dotenv title=".env"
 ZIPLINE_DB_LOG=true
+DEBUG=zipline
 ```
+
+Remove `ZIPLINE_DB_LOG` when finished. Query parameters can contain sensitive data, so review these logs before sharing them.
 
 ## Detailed Memory Usage
 

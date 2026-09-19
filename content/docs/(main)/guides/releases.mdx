@@ -5,6 +5,18 @@ description: Information about Zipline releases and how to update
 
 Zipline is currently being maintained by me ([@diced](https://github.com/diced)) and only me. New releases can come out frequently or take a while depending on my schedule. If a new minor/patch release (4.x.x) is not out, you can build from source or use the `trunk` tag on docker for the latest commit version.
 
+## Database upgrades
+
+Back up your database before upgrading. Zipline applies database migrations automatically on startup.
+
+The upgrade to 4.8.0 switches database migrations from Prisma to Drizzle. Existing PostgreSQL databases must have the complete, unmodified Prisma migration history. If you are on an older release, first run the latest release before 4.8.0 and let its migrations finish before upgrading.
+
+<Callout type='warning'>
+  If startup reports "cannot safely migrate from prisma to drizzle", resolve the migration problem using the
+  preceding release before retrying. Do not delete migration history or manually mark migrations as applied to
+  bypass the check. The error identifies the missing, failed, or unexpected migration.
+</Callout>
+
 ## `latest`
 
 Updated every once in a while, the most frequent updates will be under `4.x.[number]` where `[number]` increments. These may come out every few weeks or so. This is the **most stable** version of Zipline and is recommended for production use.

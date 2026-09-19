@@ -33,7 +33,7 @@ pnpm install
 
 ## Building Zipline [step]
 
-Before building Zipline, you will have to create a `.env` file, as well as have a PostgreSQL database running. An example .env looks like this:
+Before building Zipline, create a `.env` file and configure a database. You can use a running PostgreSQL server, as below, or a local [PGlite directory](/docs/config/core#pglite).
 
 ```bash copy
 # Replace username and password with your PostgreSQL credentials
@@ -83,6 +83,8 @@ pnpm start
 ```
 
 ## Updating
+
+Before updating, read the [database upgrade notes](/docs/guides/releases#database-upgrades).
 
 To update Zipline, simply run the following command:
 
