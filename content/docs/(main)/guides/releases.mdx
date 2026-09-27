@@ -5,18 +5,6 @@ description: Information about Zipline releases and how to update
 
 Zipline is currently being maintained by me ([@diced](https://github.com/diced)) and only me. New releases can come out frequently or take a while depending on my schedule. If a new minor/patch release (4.x.x) is not out, you can build from source or use the `trunk` tag on docker for the latest commit version.
 
-## Database upgrades
-
-Back up your database before upgrading. Zipline applies database migrations automatically on startup.
-
-The upgrade to 4.8.0 switches database migrations from Prisma to Drizzle. Existing PostgreSQL databases must have the complete, unmodified Prisma migration history. If you are on an older release, first run the latest release before 4.8.0 and let its migrations finish before upgrading.
-
-<Callout type='warning'>
-  If startup reports "cannot safely migrate from prisma to drizzle", resolve the migration problem using the
-  preceding release before retrying. Do not delete migration history or manually mark migrations as applied to
-  bypass the check. The error identifies the missing, failed, or unexpected migration.
-</Callout>
-
 ## `latest`
 
 Updated every once in a while, the most frequent updates will be under `4.x.[number]` where `[number]` increments. These may come out every few weeks or so. This is the **most stable** version of Zipline and is recommended for production use.
@@ -74,7 +62,7 @@ Then follow the [update steps](/docs/get-started/source#updating)
 
 ## Upgrading to 4.8
 
-Zipline 4.8 replaces Prisma with [Drizzle ORM](https://orm.drizzle.team/). On its first start, 4.8 adopts your existing database: it checks that the Prisma migration history is complete, then records the Drizzle baseline and applies the new migrations. This step only runs once and cannot be reverted by downgrading.
+Zipline 4.8 replaces Prisma with [Drizzle ORM](https://orm.drizzle.team/). On its first start, 4.8 adopts your existing database: it checks that the Prisma migration history is complete, then records the Drizzle baseline and applies the new migrations.
 
 <Callout type="warning">
   Upgrade to **4.7.0 first** if you are running an older version. 4.8 refuses to adopt a database whose Prisma
@@ -83,6 +71,8 @@ Zipline 4.8 replaces Prisma with [Drizzle ORM](https://orm.drizzle.team/). On it
 ```
 cannot safely migrate from prisma to drizzle: expected migration 20260806081144_remove_version_api was not applied
 ```
+
+If startup reports a failed or unexpected migration instead, resolve it using 4.7.0 before retrying. Do not delete migration history or manually mark migrations as applied to bypass the check.
 
 </Callout>
 
@@ -109,7 +99,11 @@ Then follow the [update steps](/docs/get-started/source#updating)
   </Tab>
 </Tabs>
 
-Then [back up your PostgreSQL database](/docs/guides/backup/pg). Nothing is dropped during adoption (the `_prisma_migrations` table is kept), but the Drizzle migrations that follow do change the schema.
+<Callout type='warning'>
+  [Back up your PostgreSQL database](/docs/guides/backup/pg) before starting 4.8. Nothing is dropped during
+  adoption (the `_prisma_migrations` table is kept), but the Drizzle migrations that follow do change the
+  schema. This transition only runs once and cannot be reverted by downgrading.
+</Callout>
 
 Finally switch to 4.8 and start Zipline. Your database configuration does not change: both `DATABASE_URL` and the individual `DATABASE_*` variables keep working.
 
