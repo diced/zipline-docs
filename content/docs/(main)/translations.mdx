@@ -1,0 +1,72 @@
+---
+title: Translations
+description: Available languages and how to contribute translations
+icon: Languages
+---
+
+Zipline is available in English, Simplified Chinese, Japanese, French, German, Spanish, Brazilian Portuguese, and Russian.
+
+## Choosing a language
+
+Zipline uses your browser's preferred language by default. You can change it using the language button in the dashboard header or on the login and public pages. Your choice is saved in your browser.
+
+If a language or translation is unavailable, Zipline falls back to English. API errors and custom text set by an administrator are not translated.
+
+## Contributing
+
+Translation fixes and new languages are welcome. The files are in [`src/lib/i18n/locales`](https://github.com/diced/zipline/tree/trunk/src/lib/i18n/locales), organized by language and section of the interface:
+
+```text
+src/lib/i18n/locales/en/auth.json
+src/lib/i18n/locales/fr/auth.json
+```
+
+For example, `auth.json` contains login and registration text, while `common.json` contains shared labels.
+
+### Editing a translation
+
+Edit the file in your language's directory, using the matching English file in `locales/en/` as a reference. Keep the same JSON keys and structure, and translate the values. Missing keys can be added as you translate them; partial translations are supported.
+
+Keep placeholders such as `{{name}}` and tags such as `<anchor>...</anchor>` unchanged. You can move them within the sentence and translate the text between tags.
+
+<Callout type='warning'>
+  Do not leave empty values. Omit untranslated keys so Zipline can use the English text instead.
+</Callout>
+
+### Plurals
+
+Plural keys use suffixes such as `_one` and `_other`. Include every form your language requires, even if English only has two:
+
+| Language                    | Required forms                    |
+| --------------------------- | --------------------------------- |
+| Chinese, Japanese           | `_other`                          |
+| English, German             | `_one`, `_other`                  |
+| French, Spanish, Portuguese | `_one`, `_many`, `_other`         |
+| Russian                     | `_one`, `_few`, `_many`, `_other` |
+
+Use the English `_other` entry as a reference for additional forms. `{{count}}` inserts the number into the sentence.
+
+## Adding a language
+
+To add a language:
+
+1. Create `src/lib/i18n/locales/<code>/` with translated JSON files, using the English filenames and structure.
+2. In `src/lib/i18n/languages.ts`, add the code to `LANGUAGES`, its native name to `LANGUAGE_NAMES`, and its date locale to `DAYJS_LOCALES`.
+3. Import that Day.js locale in `src/lib/i18n/index.ts`.
+
+Language detection currently uses base codes such as `fr` or `pt`. Separate regional variants would also need changes to the detection logic.
+
+## Testing and submitting
+
+Follow the [development setup](/docs/contributing#development), then run:
+
+```bash
+pnpm test
+pnpm validate
+```
+
+The tests check keys, placeholders, tags, empty values, and plural forms. Select your language in Zipline and check the affected pages for text that gets cut off or wraps awkwardly.
+
+Open a pull request against `trunk` with a short description of the language and changes. You can also [report a translation issue](https://github.com/diced/zipline/issues) with the affected page and suggested wording.
+
+For adding translatable text in components, see the [i18n developer notes](https://github.com/diced/zipline/blob/trunk/src/lib/i18n/README.md).

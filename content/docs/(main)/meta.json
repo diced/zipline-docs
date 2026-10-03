@@ -2,5 +2,5 @@
   "title": "Documentation",
   "root": true,
   "icon": "BookOpen",
-  "pages": ["get-started", "config", "guides", "..."]
+  "pages": ["get-started", "config", "guides", "contributing", "translations", "..."]
 }
