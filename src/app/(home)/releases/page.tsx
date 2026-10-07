@@ -54,6 +54,8 @@ function ReleaseBadge({
   );
 }
 
+// test
+
 function ReleaseCard({ release, isLatest }: { release: GithubRelease; isLatest: boolean }) {
   const anchorId = release.tag_name.replace(/[^\w.-]/g, '');
 
