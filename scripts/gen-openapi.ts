@@ -1,9 +1,11 @@
-import { generateFiles } from 'fumadocs-openapi';
 import { openapi } from '@/lib/openapi';
-import { generateErrorCodeDocs } from './gen-error-codes';
-import AdmZip, { IZipEntry } from 'adm-zip';
+import AdmZip from 'adm-zip';
+import { mkdir, readdir, rm, unlink, writeFile } from 'fs/promises';
+import { generateFiles } from 'fumadocs-openapi';
+import { createHash } from 'node:crypto';
 import { loadEnvFile } from 'process';
-import { readdir, rm, unlink } from 'fs/promises';
+import { generateErrorCodeDocs } from './gen-error-codes';
+import { validateOpenApiReferences } from './lib/openapi';
 
 try {
   loadEnvFile('.env');
@@ -42,9 +44,11 @@ const githubHeaders = {
   if (!runsResponse.ok) await exitResponse('failed to fetch workflow runs', runsResponse);
 
   const runsData = await runsResponse.json();
-  if (runsData.workflow_runs.length === 0) exit('no runs');
-
   const latestRun = runsData.workflow_runs[0];
+  if (!latestRun) exit('no runs');
+  if (latestRun.conclusion !== 'success') exit('selected OpenAPI workflow run was not successful');
+
+  console.log(`OpenAPI workflow: ${latestRun.html_url} (commit ${latestRun.head_sha})`);
   const artifactsUrl = latestRun.artifacts_url;
 
   const artifactsResponse = await fetch(artifactsUrl, {
@@ -58,6 +62,7 @@ const githubHeaders = {
     (artifact: { expired: boolean; name: string }) => artifact.name === 'openapi-json' && !artifact.expired,
   );
   if (!latestArtifact) exit('no unexpired openapi-json artifact found');
+  console.log(`OpenAPI artifact: ${latestArtifact.id} (created ${latestArtifact.created_at})`);
 
   const downloadUrl = latestArtifact.archive_download_url;
   const zipResponse = await fetch(downloadUrl, {
@@ -75,20 +80,29 @@ const githubHeaders = {
   const openApiEntry = zip.getEntry('openapi.json');
   if (!openApiEntry) exit('openapi.json not found in artifact');
 
-  zip.extractEntryTo(openApiEntry as IZipEntry, '.', false, true, false, 'public/openapi.json');
+  const schema = openApiEntry.getData();
+  console.log(`OpenAPI schema SHA-256: ${createHash('sha256').update(schema).digest('hex')}`);
+  const references = validateOpenApiReferences(JSON.parse(schema.toString('utf8')));
+  console.log(`Validated ${references} internal OpenAPI references`);
+
+  await mkdir('./public', { recursive: true });
+  await writeFile('./public/openapi.json', schema);
+
+  // replace generated pages so removed endpoints cannot survive a repeated build
+  const generatedDir = './content/docs/api/(generated)';
+  await rm(generatedDir, { recursive: true, force: true });
 
   console.log('openapi.json extracted... generating docs mdx...');
 
   await generateFiles({
     input: openapi,
-    output: './content/docs/api/(generated)',
+    output: generatedDir,
     meta: {
       folderStyle: 'separator',
     },
   });
 
   // remove everything except the content/docs/api/(generated)/api directory
-  const generatedDir = './content/docs/api/(generated)';
   const entries = await readdir(generatedDir, { withFileTypes: true });
   for (const entry of entries) {
     if (entry.name === 'api' && entry.isDirectory()) continue;

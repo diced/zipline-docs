@@ -5,6 +5,10 @@ node_modules
 out
 build
 
+.source
+public/openapi.json
+content/docs/api/(generated)
+
 .env
 .env.local
 .env.development.local

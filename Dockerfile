@@ -9,7 +9,7 @@ RUN corepack enable && \
 
 WORKDIR /zipline
 
-FROM base AS builder
+FROM base AS prepare
 
 RUN apk add --no-cache git
 
@@ -30,8 +30,13 @@ RUN pnpm rebuild
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+FROM prepare AS openapi
+
 RUN --mount=type=secret,id=GITHUB_TOKEN \
   GITHUB_TOKEN=$(cat /run/secrets/GITHUB_TOKEN) pnpm run gen:openapi
+
+FROM openapi AS builder
+
 RUN pnpm run build
 
 FROM base AS runner
