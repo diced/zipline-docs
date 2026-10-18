@@ -1,10 +1,10 @@
 ---
 title: Translations
-description: Available languages and how to contribute translations
+description: Translation status, language settings, and how to contribute
 icon: Languages
 ---
 
-Zipline is available in English, Simplified Chinese, Japanese, French, German, Spanish, Brazilian Portuguese, and Russian.
+[![Translation status](https://wl.diced.sh/widget/zipline/multi-auto.svg)](https://wl.diced.sh/engage/zipline/)
 
 ## Choosing a language
 
@@ -14,7 +14,17 @@ If a language or translation is unavailable, Zipline falls back to English. API 
 
 ## Contributing
 
-Translation fixes and new languages are welcome. The files are in [`src/lib/i18n/locales`](https://github.com/diced/zipline/tree/trunk/src/lib/i18n/locales), organized by language and section of the interface:
+Zipline uses [Weblate](https://wl.diced.sh) for translation contributions. You can help translate missing text or improve existing translations directly in your browser:
+
+1. Open [Zipline's Weblate](https://wl.diced.sh).
+2. Sign in with your GitHub account.
+3. Choose your language and start translating.
+
+Keep placeholders such as `{{name}}` and tags such as `<anchor>...</anchor>` unchanged. You can move them within the sentence and translate the text between tags.
+
+## Working with translation files
+
+For development or local changes, translation files are in [`src/lib/i18n/locales`](https://github.com/diced/zipline/tree/trunk/src/lib/i18n/locales), organized by language and section of the interface:
 
 ```text
 src/lib/i18n/locales/en/auth.json
@@ -35,14 +45,7 @@ Keep placeholders such as `{{name}}` and tags such as `<anchor>...</anchor>` unc
 
 ### Plurals
 
-Plural keys use suffixes such as `_one` and `_other`. Include every form your language requires, even if English only has two:
-
-| Language                    | Required forms                    |
-| --------------------------- | --------------------------------- |
-| Chinese, Japanese           | `_other`                          |
-| English, German             | `_one`, `_other`                  |
-| French, Spanish, Portuguese | `_one`, `_many`, `_other`         |
-| Russian                     | `_one`, `_few`, `_many`, `_other` |
+Plural keys use suffixes such as `_one`, `_few`, `_many`, and `_other`. Include every form your language requires; the forms may differ from English.
 
 Use the English `_other` entry as a reference for additional forms. `{{count}}` inserts the number into the sentence.
 
@@ -51,12 +54,13 @@ Use the English `_other` entry as a reference for additional forms. `{{count}}` 
 To add a language:
 
 1. Create `src/lib/i18n/locales/<code>/` with translated JSON files, using the English filenames and structure.
-2. In `src/lib/i18n/languages.ts`, add the code to `LANGUAGES`, its native name to `LANGUAGE_NAMES`, and its date locale to `DAYJS_LOCALES`.
-3. Import that Day.js locale in `src/lib/i18n/index.ts`.
+2. In `src/lib/i18n/languages.ts`, add the language code and its native name to `LANGUAGE_NAMES`. `LANGUAGES` is derived from this map.
+3. If the Day.js locale differs from the language code, add a mapping to `DAYJS_OVERRIDES` in the same file.
+4. Import the corresponding Day.js locale in `src/lib/i18n/index.ts`.
 
 Language detection currently uses base codes such as `fr` or `pt`. Separate regional variants would also need changes to the detection logic.
 
-## Testing and submitting
+## Testing changes locally
 
 Follow the [development setup](/docs/contributing#development), then run:
 
@@ -67,6 +71,4 @@ pnpm validate
 
 The tests check keys, placeholders, tags, empty values, and plural forms. Select your language in Zipline and check the affected pages for text that gets cut off or wraps awkwardly.
 
-Open a pull request against `trunk` with a short description of the language and changes. You can also [report a translation issue](https://github.com/diced/zipline/issues) with the affected page and suggested wording.
-
-For adding translatable text in components, see the [i18n developer notes](https://github.com/diced/zipline/blob/trunk/src/lib/i18n/README.md).
+If you edit translation files directly, open a pull request against `trunk` with a short description of the language and changes. You can also [report a translation issue](https://github.com/diced/zipline/issues) with the affected page and suggested wording.

@@ -1,143 +1,109 @@
 ---
 title: Customizing the Dashboard
-description: How to customize the Zipline dashboard with the available settings
+description: Customize your instance's appearance and your personal dashboard
 ---
 
-Zipline offers a couple of settings that let you customize the dashboard to your liking. This guide will walk you through the available options.
+Server settings control the appearance of your instance for everyone. Your account settings control your own dashboard.
 
-## Server Settings
+## Server settings
 
-These settings are configured for the entire server, so they will show up for all users.
+Open **Server Settings → Website** for the options below, and save after making changes. The favicon is configured separately through the filesystem.
 
-### Favicons
+### Favicon
 
-Changing the favicon is as simple as replacing the `favicon.ico` file in the `public` directory.
-
-The favicon is the small icon that appears in the browser tab next to the page title. It is also used when a user bookmarks the page.
+Replace `public/favicon.ico` with your icon. This appears in browser tabs and bookmarks. In Docker, mount your replacement file at `/zipline/public/favicon.ico`.
 
 ![Favicon](/img/docs/customize-1.png)
 
 ### Title
 
-If you want to change the title of the dashboard, you can do so by changing the title by heading over to the **Server Settings**
-
-1. Scroll down to the **Website** section
-2. Change the **Title** field to your liking
+Set **Title** to the name you want in the browser tab and navigation bar.
 
 ![Title](/img/docs/customize-2.png)
 
-This will change the title that appears in the browser tab, as well as the title that appears in the navigation bar.
-
 ![Title](/img/docs/customize-3.png)
 
-### Title Logo
+### Title logo
 
-If you want to change the logo that appears in the navigation bar, you can do so by changing the **Title Logo** by heading over to the **Server Settings**
-
-1. Scroll down to the **Website** section
-2. Change the **Title Logo** field to the URL of the image you want to use
+Set **Title Logo** to an image URL to change the logo in the navigation bar.
 
 ![Title Logo](/img/docs/customize-4.png)
 
-## External Links
+### External links
 
-External Links are links that are found at the bottom of the sidebar. To learn more about how to add external links, check out the [External Links](/docs/guides/external-links) guide.
-
-If you want to change the external links, you can do so by heading over to the **Server Settings**
-
-1. Scroll down to the **Website** section
-2. Change the **External Links** field to your liking. This field must be a valid JSON array, with each object containing a `name` and `url` field.
+**External Links** adds links at the bottom of the sidebar. Enter a JSON array whose objects contain `name` and `url` fields, or use the [External Links Builder](/docs/guides/external-links#builder) to generate it.
 
 ![External Links](/img/docs/customize-5.png)
 
-If you want help making the JSON array, you can use the [External Links Builder](/docs/guides/external-links#builder) tool.
-
 ### Terms of Service
 
-Zipline allows you to add a Terms of Service link. The file provided must be a Markdown file, and it is accessible at `/auth/tos` when configured.
+Set **Terms of Service** to the server-side path of a Markdown file. Zipline serves it at `/auth/tos` and asks new users to agree to it when registering.
 
-If you want to change the Terms of Service, you can do so by heading over to the **Server Settings**
+In Docker, mount the file into the container:
 
-1. Scroll down to the **Website** section
-2. Change the **Terms of Service** field to the the **path** of the Markdown file you want to use.
-
-<Callout type="info">
-If you are using docker, make sure to mount the file to the container. For example, when using docker-compose:
-```yaml
-...
+```yaml title="docker-compose.yml"
 services:
   zipline:
-    ...
     volumes:
-      - ./path/to/tos.md:/zipline/tos.md
-...
+      - ./tos.md:/zipline/tos.md:ro
 ```
 
-Then you can set the path to `/zipline/tos.md` in the **Terms of Service** field.
-
-</Callout>
-
-Now, when users sign up they will see a checkbox requiring them to agree to the Terms of Service.
+Then enter `/zipline/tos.md` in the setting. Keep your service's other configuration and volumes when adding this mount.
 
 ![Terms of Service](/img/docs/customize-6.png)
 
-### Login Background
+### Login background
 
-If you want to change from the default solid color background on the login page, you can do so by changing the **Login Background** by heading over to the **Server Settings**.
-
-1. Scroll down to the **Website** section
-2. Change the **Login Background** field to the URL of the image you want to use
+Set **Login Background** to an image URL. Enable **Login Background Blur** if you want to blur it.
 
 ![Login Background](/img/docs/customize-7.png)
 
-### Login Background Blur
+### Default theme
 
-Configures whether the login background should be blurred or not.
-
-### Theme
-
-Zipline allows you to change the theme of the dashboard as well. Users are free to set their own themes, but you can set a default theme that is used on view-routes and the dashboard when the user has not set their own theme yet.
+Choose the default theme for users who haven't selected their own, including visitors viewing public file pages.
 
 ![theme](/img/docs/theme.png)
 
-<Callout type="note">
-Setting the main theme to "System" will expose two more options: Dark theme and Light theme. This setting will be used when the users system color-scheme is dark or light respectively.
+Selecting **System** exposes separate light and dark theme choices, used according to the visitor's browser or operating system preference.
 
-Note that what counts as dark/light is dependent on the OS and browser.
+To create a theme, follow the [Themes guide](/docs/guides/themes). You can also contribute a theme through a pull request.
 
-</Callout>
+## Personal dashboard settings
 
-#### Custom Themes
-
-If you want to make your own theme, visit [theming](/docs/guides/themes) for more info.
-
-On the other hand, if you are looking to contribute a theme, you can do so by simply submitting a PR with the theme you want to add in!
-
-## User Dashboard Settings
-
-Head over to your user settings page, and then you should see a section titled "Dashboard Settings".
+Open your account settings from your avatar in the top-right corner, then find **Dashboard Settings**.
 
 ![Dashboard Settings](/img/docs/customize-8.png)
 
-### File Viewer
+### File viewer
 
-As of Zipline 4.6, there are now two options for the "file viewer" which controls what view you get when clicking on a file.
+Choose how files open from the dashboard:
 
-- Fullscreen: new viewer, is fullscreen and takes up the entire viewport.
-- Modal: the old viewer, most people recognize. This may or may not be deprecated in the future.
+- **Fullscreen** fills the viewport.
+- **Modal** opens the file in a dialog.
 
-### Default Domain
+### Default domain
 
-This domain can be configured based on the server settings' domains or if there are none set, it will become an input where you can put in a domain.
+Choose the domain used when copying file URLs and other links. If the server has configured domains, select one from the list; otherwise, enter your own.
 
-It's then used in anywhere a domain is needed, for example, when copying file urls.
+### Home page sections
 
-### Home Page Sections
+Choose which sections appear on your dashboard home page:
 
-You can control which sections appear on the dashboard home page:
+- **Show recents**: Your three most recent uploads.
+- **Show activity**: Daily uploads and logins over 1, 7, 14, or 30 days.
+- **Show file types**: Your uploads grouped by MIME type.
 
-- **Show recents**: Displays your three most recently uploaded files at the top of the home page.
-- **Show activity**: Displays an activity chart with your daily uploads and logins over a selectable window (1, 7, 14, or 30 days).
-- **Show file types**: Displays a table breaking down your uploads by MIME type.
+All three are enabled by default.
 
-All three are enabled by default. Toggle them off in **Dashboard Settings** if you prefer a simpler home page.
+### Quick links
+
+Quick links add shortcut buttons to the top of your dashboard home page.
+
+1. Find **Quick links** in your account settings.
+2. Check the pages you want shortcuts for.
+3. Drag the entries into your preferred order.
+4. Click **Save**.
+
+To remove all shortcuts, uncheck every entry and save. Your selection and order are saved to your account across browsers and devices.
+
+Available links depend on your role and the server's enabled features. Administrator pages are only offered to administrators; metrics appear only when your account can access them.

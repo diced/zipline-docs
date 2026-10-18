@@ -1,344 +1,171 @@
 ---
 title: Wayland Guide
-description: How to upload videos/screenshots from a Wayland session
+description: Capture screenshots and recordings on Wayland and upload them to Zipline
 ---
 
-Having trouble taking screenshots or recording on Wayland (Linux)? Here are a bunch of different ways to do both of those things. Most problems arise when using a wlroots based compositor, it's easier when using GNOME or KDE with Flameshot.
+Choose a capture tool that supports your desktop or compositor, then upload the saved file to Zipline.
 
-<Callout type='warning'>
-  Note that Wayland is a rapidly evolving ecosystem, and this guide may become outdated.
+| Desktop or compositor           | Screenshots                                                      | Recordings                  |
+| ------------------------------- | ---------------------------------------------------------------- | --------------------------- |
+| GNOME                           | Flameshot through the desktop portal, or GNOME's screenshot tool | GNOME's screen recorder     |
+| KDE Plasma                      | Spectacle or Flameshot                                           | Spectacle                   |
+| Hyprland                        | Hyprshot, or Grim with Slurp                                     | wf-recorder where supported |
+| Sway and compatible compositors | Grim with Slurp; add Satty for annotation                        | wf-recorder                 |
 
-If you have any suggestions or improvements to this guide, feel free to open a PR!
+Install current packages from your distribution. Capture support depends on the compositor and its protocols; Grim and wf-recorder aren't universal Wayland capture tools.
 
-</Callout>
+## Upload a captured file
 
-## Screenshot
+The examples below share one upload script. It needs `curl`, `jq`, and `wl-clipboard` (which provides `wl-copy`). Get your [API token](/docs/api/authentication#getting-your-token), then save this as `~/.local/bin/zipline-upload`, creating the directory if needed:
 
-You will need to install `grim` let apps like `flameshot` take screenshots.
+```bash title="~/.local/bin/zipline-upload"
+#!/usr/bin/env bash
+set -euo pipefail
+
+TOKEN="YOUR_API_TOKEN"
+URL="https://zipline.example.com/api/upload"
+
+file=${1:?Usage: zipline-upload /path/to/file}
+response=$(curl --fail-with-body --silent --show-error \
+  -H "Authorization: $TOKEN" \
+  -F "file=@$file" \
+  "$URL")
+url=$(jq -er '.files[0].url' <<< "$response")
+
+printf '%s' "$url" | wl-copy
+printf '%s\n' "$url"
+```
+
+Replace the token and domain, then make the script executable:
+
+```bash
+chmod +x ~/.local/bin/zipline-upload
+```
+
+Run it with any saved screenshot or recording. It prints the URL and copies it to your clipboard:
+
+```bash
+~/.local/bin/zipline-upload ~/Pictures/screenshot.png
+```
+
+Your HTTP client sets the multipart content type automatically. Don't add a `Content-Type` header manually.
+
+## Screenshots
 
 ### Flameshot
 
-If you are using Flameshot on GNOME, KDE or Sway, you can use the normal [Flameshot generator](/docs/guides/uploaders/flameshot) to generate a script that will take a screenshot, upload it to a server, and copy the URL to your clipboard.
-
-### Flameshot (wlroots)
-
-Using the generated script on the Account Settings page, will work for Gnome and KDE on Wayland. However, if you are using a different compositor, like [Hyprland](https://hyprland.org), or [river](https://isaacfreund.com/software/river/), you will need add the `XDG_CURRENT_DESKTOP=sway` environment variable to the script.
-
-Your milage may vary, since there are many different issues/workarounds for different compositors.
+Use Zipline's [Flameshot uploader generator](/docs/guides/uploaders/flameshot), or capture a file and pass it to the shared script:
 
 ```bash
-export XDG_CURRENT_DESKTOP=sway
-
-flameshot gui # will most likely work now on wlroots based compositors and others if they implement the needed protocols
+capture_dir=$(mktemp -d)
+flameshot gui --raw > "$capture_dir/screenshot.png" &&
+  ~/.local/bin/zipline-upload "$capture_dir/screenshot.png"
 ```
 
-Heres a simple script that will take a screenshot, upload it to a server, and copy the URL to your clipboard.
+Flameshot's [Wayland troubleshooting guide](https://flameshot.org/docs/guide/wayland-help/) recommends `xdg-desktop-portal` with the backend for your desktop:
 
-```bash
-#!/bin/bash
-export XDG_CURRENT_DESKTOP=sway
-TOKEN="token"
-URL="https://example.com/api/upload"
+- GNOME: `xdg-desktop-portal-gnome`
+- KDE: `xdg-desktop-portal-kde`
+- Hyprland: `xdg-desktop-portal-hyprland`
 
-flameshot gui -r > /tmp/screenshot.png
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot.png \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
-```
-
-Setting the `XDG_CURRENT_DESKTOP` variable to `sway` is a workaround to make Flameshot work on compositors other than GNOME, KDE and Sway.
+GNOME may ask you to approve screen sharing. If capture fails, check the portal setup first. The old `XDG_CURRENT_DESKTOP=sway` workaround isn't a general requirement; use upstream's troubleshooting steps for your desktop.
 
 ### Grim + Slurp
 
-This is a more stripped down way to take screenshots, but it should work on all wlroots compositors.
+On a compositor supported by [Grim](https://sr.ht/~emersion/grim/), use Slurp to select a region:
 
-Here is a simple region capture script using `grim`, `slurp`, and `wl-copy`.
+```bash
+capture_dir=$(mktemp -d)
+grim -g "$(slurp)" "$capture_dir/screenshot.png" &&
+  ~/.local/bin/zipline-upload "$capture_dir/screenshot.png"
+```
+
+To copy the image itself instead of uploading it:
 
 ```bash
 grim -g "$(slurp)" - | wl-copy
-```
-
-<Callout type="note">
-What does this command do?
-
-```bash
-grim -g "$(slurp)" - | wl-copy
-```
-
-- `grim -g`: capture a region of the screen given a geometry string.
-- `slurp`: interactively select a region of the screen, then return a geometry string.
-- `wl-copy`: copy the output to the clipboard.
-
-</Callout>
-
-We can take this and extend it to upload the screenshot to a server and copy the URL to the clipboard.
-
-```bash
-#!/bin/bash
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-grim -g "$(slurp)" - > /tmp/screenshot.png
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot.png \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
 ```
 
 ### Satty + Grim + Slurp
 
-[Satty](https://github.com/gabm/Satty) is a modern screenshot annotation tool, inspired by Flameshot and Swappy. You can try to use `satty` with `grim` and `slurp` to take screenshots if Flameshot doesn't work for you.
-
-A simple script to take a screenshot with `grim` and `slurp`, then annotate it with `satty` which will then copy/save it to a file depending on the options you choose.
+[Satty](https://github.com/Satty-org/Satty) adds annotation to a captured image:
 
 ```bash
-grim -g "$(slurp -c '#ff0000ff')" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+capture_dir=$(mktemp -d)
+grim -g "$(slurp)" "$capture_dir/screenshot.png" &&
+  satty --filename "$capture_dir/screenshot.png" \
+    --output-filename "$capture_dir/annotated.png"
 ```
 
-<Callout type="note">
-What does this command do?
+Annotate the image, press **Ctrl+S** to save to the output path, then close Satty. Upload the saved result:
 
 ```bash
-grim -g "$(slurp)" -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
-```
-
-<figcaption>Taken from the examples in the satty repository.</figcaption>
-
-- `grim -g`: capture a region of the screen given a geometry string.
-- `slurp`: interactively select a region of the screen, then return a geometry string.
-- `satty`: the tool to annotate the screenshot.
-- `--filename -`: the filename of the screenshot to annotate, in this case its reading from stdin.
-- `--fullscreen`: open the screenshot in fullscreen mode.
-- `--output-filename`: the filename of the annotated screenshot.
-
-</Callout>
-
-We can take this script now and extend it to upload the screenshot to a server and copy the URL to the clipboard.
-
-```bash
-#!/bin/bash
-
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-grim -g "$(slurp)" -t ppm - > /tmp/screenshot.png
-
-satty --filename /tmp/screenshot.png --fullscreen --output-filename /tmp/screenshot-annotated.png
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot-annotated.png \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
+test -s "$capture_dir/annotated.png" &&
+  ~/.local/bin/zipline-upload "$capture_dir/annotated.png"
 ```
 
 ### Hyprshot
 
-[hyprshot](https://github.com/Gustash/Hyprshot/blob/main/hyprshot) is a screenshot tool made specifically to work well in Hyprland
-
-```bash copy
-hyprshot -m region --freeze --raw > /tmp/screenshot.png
-```
-
-<Callout type="note">
-What does this command do?
-
-```bash copy
-hyprshot -m region --freeze --raw > /tmp/screenshot.png
-```
-
-- `hyprshot -m region`: capture a region of the screen.
-- `--freeze`: freeze current screen content.
-- `--raw`: output the screenshot to stdout.
-- `> /tmp/screenshot.png`: save the screenshot to a file.
-
-</Callout>
-
-We can take this script now and extend it to upload the screenshot to a server and copy the URL to the clipboard.
+[Hyprshot](https://github.com/Gustash/Hyprshot) captures regions, windows, and monitors on Hyprland:
 
 ```bash
-#!/bin/bash
-
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-hyprshot -m region --freeze --raw > /tmp/screenshot.png
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot.png \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
+capture_dir=$(mktemp -d)
+hyprshot -m region --raw > "$capture_dir/screenshot.png" &&
+  ~/.local/bin/zipline-upload "$capture_dir/screenshot.png"
 ```
+
+Add `--freeze` to freeze the screen during selection; this requires `hyprpicker`.
 
 ### Spectacle (KDE)
 
-Spectacle is a screenshot/recording tool for KDE, it works on both Wayland and X11.
-
-Take a screenshot of a region then save it to `/tmp/screenshot.png`:
+Use Spectacle's background mode to capture a region and exit:
 
 ```bash
-spectacle -o /tmp/screenshot.png -ribn
+capture_dir=$(mktemp -d)
+spectacle --region --background --nonotify \
+  --output "$capture_dir/screenshot.png" &&
+  ~/.local/bin/zipline-upload "$capture_dir/screenshot.png"
 ```
 
-<Callout type="note">
-What does this command do?
+`--nonotify` suppresses the capture notification. See [Spectacle's documentation](https://docs.kde.org/trunk_kf6/en/spectacle/spectacle/starting.html) and `spectacle --help` for your installed version's options.
 
-```bash
-spectacle -o /tmp/screenshot.png -ribn
-```
-
-- `-o /tmp/screenshot.png`: save the screenshot to a file.
-- `-r`: capture a region of the screen.
-- `-i`: launch a new instance instead of using an existing one.
-- `-b`: launch in background mode (will not open a GUI after selecting region)
-- `-n`: will not send a notification after taking the screenshot (if this was enabled, the script will hang until the notification receives an interaction or times out)
-
-</Callout>
-
-Take a screenshot of a region then upload it to a server and copy the URL to the clipboard:
-
-```bash
-#!/bin/bash
-
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-spectacle -o /tmp/screenshot.png -ribn
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/screenshot.png \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
-```
-
-## Screen Recording
+## Screen recording
 
 ### wf-recorder
 
-You will need to install `wf-recorder` to record your screen on Wayland (wlroots).
-
-A simple script to record your entire screen using `wf-recorder`, which is saved to `/tmp/recording.mp4`.:
+[wf-recorder](https://github.com/ammen99/wf-recorder) captures video on compositors supporting `wlr-screencopy`. Record a region selected with Slurp:
 
 ```bash
-wf-recorder -f /tmp/recording.mp4
+capture_dir=$(mktemp -d)
+wf-recorder -g "$(slurp)" -f "$capture_dir/recording.mp4"
 ```
 
-<Callout type="note">
-What does this command do?
+Omit `-g "$(slurp)"` to record an entire output. Add `--audio` to include audio.
+
+Stop with **Ctrl+C**, or send `SIGINT` to the recorder process. Wait for it to finish writing the file, then upload:
 
 ```bash
-wf-recorder -f /tmp/recording.mp4
+~/.local/bin/zipline-upload "$capture_dir/recording.mp4"
 ```
-
-- `-f /tmp/recording.mp4`: save the recording to a file.
-
-</Callout>
-
-Record a region:
-
-```bash
-wf-recorder -g "$(slurp)" -f /tmp/recording.mp4
-```
-
-<Callout type="note">
-What does this command do?
-
-```bash
-wf-recorder -g "$(slurp)" -f /tmp/recording.mp4
-```
-
-- `-g "$(slurp)"`: record a region of the screen given a geometry string.
-- `-f /tmp/recording.mp4`: save the recording to a file.
-
-</Callout>
-
-Record a region and upload it to a server:
-
-```bash
-#!/bin/bash
-
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-wf-recorder -g "$(slurp)" -f /tmp/recording.mp4 -y
-# -y: Overwrite the file if it already exists
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/recording.mp4 \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
-```
-
-<Callout type='info'>
-When running this command, you will have to stop the recording by either pressing `Ctrl+C` or sending `sigint` to the `wf-recorder` process.
-  
-```bash
-killall -s SIGINT wf-recorder
-```
-
-You can bind this command to a key (however you do it on your compositor) to make it easier to stop recording.
-
-</Callout>
 
 ### Spectacle (KDE)
 
-Spectacle is a screenshot/recording tool for KDE, it works on both Wayland and X11.
-
-Record a region and save it to `/tmp/recording.mp4`:
+Record a region with Spectacle:
 
 ```bash
-spectacle -R region -ibn -o /tmp/recording.mp4
+capture_dir=$(mktemp -d)
+spectacle --record region --background --nonotify \
+  --output "$capture_dir/recording.webm"
 ```
 
-<Callout type="note">
-What does this command do?
+Stop the recording through Spectacle and wait for the file to finish saving, then upload it:
 
 ```bash
-spectacle -R region -ibn -o /tmp/recording.mp4
+~/.local/bin/zipline-upload "$capture_dir/recording.webm"
 ```
 
-- `-R region`: record a region of the screen.
-- `-i`: launch a new instance instead of using an existing one.
-- `-b`: launch in background mode (will not open a GUI after selecting region)
-- `-n`: will not send a notification after taking the screenshot (if this was enabled, the script will hang until the notification receives an interaction or times out)
+## Keyboard shortcuts
 
-</Callout>
+Bind a working capture-and-upload script to a shortcut in your desktop or compositor settings. Test it in a terminal first so you can see capture, portal, or upload errors.
 
-Record a region and upload it to a server:
-
-```bash
-#!/bin/bash
-
-TOKEN="token"
-URL="https://example.com/api/upload"
-
-spectacle -R region -ibn -o /tmp/recording.mp4
-
-curl \
-  -H "authorization: $TOKEN" $URL \
-  -F file=@/tmp/recording.mp4 \
-  -H 'content-type: multipart/form-data' |
-  jq -r .files[0].url |
-  tr -d '\n' |
-  wl-copy
-```
+The examples leave captures in a temporary directory. Remove those files when you no longer need them.

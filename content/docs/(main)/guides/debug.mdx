@@ -1,82 +1,70 @@
 ---
 title: Debug
-description: Enable verbose logging or detailed memory usage to help diagnose issues
+description: Configure logs and memory monitoring to diagnose issues
 ---
 
-## Verbose Logs
+Enable the logging you need, reproduce the issue, and turn it off afterward. Restart Zipline after changing these environment variables, and review logs for sensitive data before sharing them.
 
-Enabling debug logs will show more verbose logs from Zipline. This is mostly useful when debugging an issue with Zipline. This mode is helpful when reporting issues, as it provides more context about what is happening.
+## Verbose logs
 
-### Enabling
-
-To enable debug mode, set the `DEBUG` environment variable to `zipline`.
-
-<Callout type='warning'>
-  Turn this off when you're done troubleshooting. It logs a lot and there's no reason to leave it running on
-  an instance people actually use.
-</Callout>
+Set `DEBUG=zipline` to include debug messages in Zipline's logs:
 
 ```dotenv title=".env"
 DEBUG=zipline
 ```
 
-### Disabling
-
-Simply remove the `DEBUG` environment variable.
-
-### Example Output
+Remove `DEBUG` when you're finished. Debug output can be noisy; enable it while troubleshooting or collecting details for a bug report.
 
 ![debug out](/img/docs/debug.png)
 
-## Log formatting
-
-Log colors are enabled automatically when writing to a terminal. Set `ZIPLINE_NO_COLOR` to any value to disable color output (useful in Docker or when piping logs to a file):
-
-```dotenv title=".env"
-ZIPLINE_NO_COLOR=true
-```
-
-To change the timestamp format in log lines, set `ZIPLINE_OVERRIDE_LOG_DATE_FORMAT` to a [date format string](https://day.js.org/docs/en/display/format):
-
-```dotenv title=".env"
-ZIPLINE_OVERRIDE_LOG_DATE_FORMAT="YYYY-MM-DD HH:mm:ss"
-```
-
-By default, log output from `db` and `config` loggers is suppressed in worker threads. Set `ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG` to any value to enable it:
-
-```dotenv title=".env"
-ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG=true
-```
-
 ## Database logging
 
-To log database queries and their parameters, enable debug logging and set `ZIPLINE_DB_LOG` to `true`:
+Enable query logging alongside debug logs to include database queries and their parameters:
 
 ```dotenv title=".env"
 ZIPLINE_DB_LOG=true
 DEBUG=zipline
 ```
 
-Remove `ZIPLINE_DB_LOG` when finished. Query parameters can contain sensitive data, so review these logs before sharing them.
+Remove `ZIPLINE_DB_LOG` afterward. Query parameters can contain sensitive data.
 
-## Detailed Memory Usage
+## Log formatting
 
-Enabling detailed memory usage logging will log the memory usage of Zipline at 1 second intervals. This is useful for diagnosing memory leaks or high memory usage issues.
+Colors are enabled when output goes to a terminal. Set `ZIPLINE_NO_COLOR` to any value to disable them:
 
-### Enabling
+```dotenv title=".env"
+ZIPLINE_NO_COLOR=true
+```
 
-To enable detailed memory usage, set the `ZIPLINE_MONITOR_MEMORY` environment variable to `true`.
+Use a [Day.js format string](https://day.js.org/docs/en/display/format) to change timestamps:
 
-### Disabling
+```dotenv title=".env"
+ZIPLINE_OVERRIDE_LOG_DATE_FORMAT="YYYY-MM-DD HH:mm:ss"
+```
 
-To disable detailed memory usage, set the `ZIPLINE_MONITOR_MEMORY` environment variable to `false` or remove it entirely.
+The `db` and `config` loggers are normally suppressed in worker threads. Set this variable to any value to include them:
 
-### Example Output
+```dotenv title=".env"
+ZIPLINE_OVERRIDE_DISABLED_WORKER_LOG=true
+```
 
-The output of the detailed memory usage will output to a file called `.memory.log` in the current working directory.
-Each line in the file has values seperated by commas, and each line represents an entry logged at 1 second intervals.
+## Detailed memory usage
 
-```json
+Set `ZIPLINE_MONITOR_MEMORY=true` to record memory and CPU usage once per second:
+
+```dotenv title=".env"
+ZIPLINE_MONITOR_MEMORY=true
+```
+
+To stop recording, remove the variable or set it to `false`, then restart Zipline.
+
+### Output format
+
+The log is written to `.memory.log` in Zipline's working directory. Each startup with monitoring enabled replaces the previous file, so save a copy before restarting if you need it.
+
+Each line contains eight comma-separated values:
+
+```csv
 1762909354,651100160,100545640,296501248,13717303,1183518,443816,2374767
 1762909355,651132928,100567832,296501248,13718816,1184991,444319,2375661
 1762909356,651182080,100593088,296501248,13720273,1186448,444625,2376558
@@ -84,177 +72,190 @@ Each line in the file has values seperated by commas, and each line represents a
 1762909358,651280384,100636944,296501248,13723187,1189362,445310,2378343
 ```
 
-To parse the file, each value is in the following order:
+| Position | Field               | Unit                                       |
+| -------- | ------------------- | ------------------------------------------ |
+| 1        | `ts`                | Unix timestamp in seconds                  |
+| 2        | `mem_rss`           | Resident memory in bytes                   |
+| 3        | `mem_heap_used`     | Used heap in bytes                         |
+| 4        | `mem_heap_total`    | Total heap in bytes                        |
+| 5        | `mem_external`      | External memory in bytes                   |
+| 6        | `mem_array_buffers` | Array buffer memory in bytes               |
+| 7        | `cpu_system`        | Cumulative system CPU time in microseconds |
+| 8        | `cpu_user`          | Cumulative user CPU time in microseconds   |
 
-1. ts (timestamp in UNIX epoch)
-2. mem_rss (resident set size)
-3. mem_heap_used (heap used)
-4. mem_heap_total (total heap)
-5. mem_external (external memory)
-6. mem_array_buffers (array buffer memory)
-7. cpu_system (system CPU usage)
-8. cpu_user (user CPU usage)
+### Parsing examples
 
-#### Parsing Examples
+These examples read the log into structured records:
 
-```cpp title="read.cc"
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
+<Tabs items={['C++', 'TypeScript', 'Python']} groupId="memory-log-language">
+  <Tab value="C++">
+    ```cpp title="read.cc"
+    #include <fstream>
+    #include <iostream>
+    #include <sstream>
+    #include <string>
+    #include <vector>
 
-using namespace std;
+    using namespace std;
 
-struct MemoryCpuLog {
-  long long ts, mem_rss, mem_heap_used, mem_heap_total, mem_external,
-      mem_array_buffers, cpu_system, cpu_user;
-};
+    struct MemoryCpuLog {
+      long long ts, mem_rss, mem_heap_used, mem_heap_total, mem_external,
+          mem_array_buffers, cpu_system, cpu_user;
+    };
 
-bool parseLine(const string &line, MemoryCpuLog &entry) {
-  stringstream ss(line);
-  string part;
+    bool parseLine(const string &line, MemoryCpuLog &entry) {
+      stringstream ss(line);
+      string part;
 
-  vector<long long *> fields = {&entry.ts,
-                                &entry.mem_rss,
-                                &entry.mem_heap_used,
-                                &entry.mem_heap_total,
-                                &entry.mem_external,
-                                &entry.mem_array_buffers,
-                                &entry.cpu_system,
-                                &entry.cpu_user};
+      vector<long long *> fields = {&entry.ts,
+                                    &entry.mem_rss,
+                                    &entry.mem_heap_used,
+                                    &entry.mem_heap_total,
+                                    &entry.mem_external,
+                                    &entry.mem_array_buffers,
+                                    &entry.cpu_system,
+                                    &entry.cpu_user};
 
-  for (auto *field : fields) {
-    if (!getline(ss, part, ','))
-      return false;
+      for (auto *field : fields) {
+        if (!getline(ss, part, ','))
+          return false;
 
-    *field = stoll(part);
-  }
+        *field = stoll(part);
+      }
 
-  return true;
-}
-
-int main() {
-  vector<MemoryCpuLog> entries = {};
-
-  ifstream file(".memory.log");
-  if (!file.is_open()) {
-    cerr << "failed" << endl;
-    return 1;
-  }
-
-  string line;
-
-  while (getline(file, line)) {
-    MemoryCpuLog entry;
-
-    if (parseLine(line, entry)) {
-      entries.push_back(entry);
-    } else {
-      cerr << "failed" << endl;
-      return 1;
+      return true;
     }
-  }
 
-  // do something with the entries
+    int main() {
+      vector<MemoryCpuLog> entries = {};
 
-  return 0;
-}
-```
+      ifstream file(".memory.log");
+      if (!file.is_open()) {
+        cerr << "failed" << endl;
+        return 1;
+      }
 
-```ts title="read.ts"
-import { readFile } from 'fs/promises';
+      string line;
 
-interface MemoryCpuLog {
-  ts: number;
-  mem_rss: number;
-  mem_heap_used: number;
-  mem_heap_total: number;
-  mem_external: number;
-  mem_array_buffers: number;
-  cpu_user: number;
-  cpu_system: number;
-}
+      while (getline(file, line)) {
+        MemoryCpuLog entry;
 
-function readLine(line: string): MemoryCpuLog {
-  const [ts, mem_rss, mem_heap_used, mem_heap_total, mem_external, mem_array_buffers, cpu_user, cpu_system] =
-    line
-      .trim()
-      .split(',')
-      .map((value) => Number(value));
-  return {
-    ts,
-    mem_rss,
-    mem_heap_used,
-    mem_heap_total,
-    mem_external,
-    mem_array_buffers,
-    cpu_user,
-    cpu_system,
-  };
-}
+        if (parseLine(line, entry)) {
+          entries.push_back(entry);
+        } else {
+          cerr << "failed" << endl;
+          return 1;
+        }
+      }
 
-async function readLog(file: string): Promise<MemoryCpuLog[]> {
-  const str = await readFile(file, 'utf-8');
+      // do something with the entries
 
-  const lines = str.trim().split('\n');
+      return 0;
+    }
+    ```
 
-  return lines.map(readLine);
-}
+  </Tab>
+  <Tab value="TypeScript">
+    ```ts title="read.ts"
+    import { readFile } from 'fs/promises';
 
-const entries = await readLog('.memory.log');
-```
+    interface MemoryCpuLog {
+      ts: number;
+      mem_rss: number;
+      mem_heap_used: number;
+      mem_heap_total: number;
+      mem_external: number;
+      mem_array_buffers: number;
+      cpu_user: number;
+      cpu_system: number;
+    }
 
-```python title="read.py"
-import os
+    function readLine(line: string): MemoryCpuLog {
+      const [ts, mem_rss, mem_heap_used, mem_heap_total, mem_external, mem_array_buffers, cpu_system, cpu_user] =
+        line
+          .trim()
+          .split(',')
+          .map((value) => Number(value));
+      return {
+        ts,
+        mem_rss,
+        mem_heap_used,
+        mem_heap_total,
+        mem_external,
+        mem_array_buffers,
+        cpu_user,
+        cpu_system,
+      };
+    }
 
-LOG_FILE = ".memory.log"
+    async function readLog(file: string): Promise<MemoryCpuLog[]> {
+      const str = await readFile(file, 'utf-8');
 
-def read_log():
-    if not os.path.exists(LOG_FILE):
-        return []
+      const lines = str.trim().split('\n');
 
-    entries = []
-    with open(LOG_FILE, "r") as f:
-        for line in f:
-            line = line.strip()
-            if not line or not line[0].isdigit():
-                continue
+      return lines.map(readLine);
+    }
 
-            try:
-                parts = line.split(",")
-                if len(parts) != 8:
+    const entries = await readLog('.memory.log');
+    ```
+
+  </Tab>
+  <Tab value="Python">
+    ```python title="read.py"
+    import os
+
+    LOG_FILE = ".memory.log"
+
+    def read_log():
+        if not os.path.exists(LOG_FILE):
+            return []
+
+        entries = []
+        with open(LOG_FILE, "r") as f:
+            for line in f:
+                line = line.strip()
+                if not line or not line[0].isdigit():
                     continue
 
-                entry = {
-                  "ts": int(parts[0]),
-                  "mem_rss": int(parts[1]),
-                  "mem_heap_used": int(parts[2]),
-                  "mem_heap_total": int(parts[3]),
-                  "mem_external": int(parts[4]),
-                  "mem_array_buffers": int(parts[5]),
-                  "cpu_system": int(parts[6]),
-                  "cpu_user": int(parts[7]),
-                }
+                try:
+                    parts = line.split(",")
+                    if len(parts) != 8:
+                        continue
 
-                entries.append(entry)
-            except Exception:
-                continue
+                    entry = {
+                      "ts": int(parts[0]),
+                      "mem_rss": int(parts[1]),
+                      "mem_heap_used": int(parts[2]),
+                      "mem_heap_total": int(parts[3]),
+                      "mem_external": int(parts[4]),
+                      "mem_array_buffers": int(parts[5]),
+                      "cpu_system": int(parts[6]),
+                      "cpu_user": int(parts[7]),
+                    }
 
-    return entries
-```
+                    entries.append(entry)
+                except Exception:
+                    continue
+
+        return entries
+    ```
+
+  </Tab>
+</Tabs>
 
 ## OpenAPI schema
 
-Set `ZIPLINE_OUTPUT_OPENAPI` to `true` to write the OpenAPI schema to `openapi.json` in the current working directory and exit. The server starts normally, registers all routes, then writes the file and shuts down.
+Set `ZIPLINE_OUTPUT_OPENAPI=true` to write `openapi.json` to the current working directory. Zipline registers its routes, writes the schema, and exits:
 
 ```dotenv title=".env"
 ZIPLINE_OUTPUT_OPENAPI=true
 ```
 
+Remove the variable before starting Zipline normally.
+
 ## Git commit SHA
 
-`ZIPLINE_GIT_SHA` sets the commit hash shown alongside the version on the [admin dashboard](/docs/guides/server-actions). Docker images set this automatically via a build argument. If unset, Zipline tries to read it from the local git repository.
+`ZIPLINE_GIT_SHA` sets the commit hash shown with the version on the [admin dashboard](/docs/guides/server-actions). Docker images set it automatically. Otherwise, Zipline tries to read it from the local Git repository.
 
 ```dotenv title=".env"
 ZIPLINE_GIT_SHA=abc1234

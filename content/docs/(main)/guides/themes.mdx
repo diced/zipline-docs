@@ -1,28 +1,15 @@
 ---
 title: Themes
-description: Create custom themes
+description: Create, install, and apply custom themes
 ---
+
+Custom themes are JSON files in Zipline's `themes/` directory. Start with the example below, then adjust its colors and other properties.
 
 import Colors from '@/components/colors';
 
-You can create custom themes for Zipline by adding JSON files within the `themes/` directory (relative to the root of Zipline).
+## Create a theme
 
-## Structure
-
-Zipline uses [Mantine](https://mantine.dev) for the UI components, so the `theme_name.theme.json` can have any properties that Mantine supports (see [this](https://mantine.dev/theming/theme-object/) for available properties and documentation).
-This is recommended for advanced users.
-
-<Callout type="info">
-
-There are a few requirements when creating custom themes:
-
-- The file name must end with `.theme.json`.
-- The file must be a valid JSON file.
-- The file must be placed in the `themes/` directory.
-
-</Callout>
-
-However, for most users just changing the colors are the most common use case. Below is a example of a theme file.
+Save this as `themes/blue_dark.theme.json`:
 
 ```json title="blue_dark.theme.json"
 {
@@ -59,21 +46,47 @@ However, for most users just changing the colors are the most common use case. B
 }
 ```
 
-### Main Properties
+Theme files must contain valid JSON and end in `.theme.json`. Zipline uses the filename without that suffix as the theme ID; this example becomes `blue_dark`.
 
-| Property              | Description                                                                                    |
-| --------------------- | ---------------------------------------------------------------------------------------------- |
-| `name`                | The name of the theme, which will show up for users in the dashboard.                          |
-| `colors`              | The colors of the theme. See [this](#colors) for more.                                         |
-| `primaryColor`        | The primary color of the theme. This is used for buttons and such.                             |
-| `colorScheme`         | The color scheme of the theme. Can be `light` or `dark`.                                       |
-| `mainBackgroundColor` | The main background color of the theme. This is used for the main background of the dashboard. |
+### Docker
 
-### `colors`
+Mount your themes directory into the container, keeping the service's other volumes:
 
-Colors must be an array of 10 elements. The first element should be the lightest color, and the last element should be the darkest color. The colors are used for various parts of the dashboard.
+```yml title="docker-compose.yml"
+volumes:
+  - ./themes:/zipline/themes
+```
 
-For example the for the example theme above, the blue colors look like these:
+## Apply a theme
+
+Open **Manage Account → Dashboard Settings** and choose your theme. Select **System** to choose separate light and dark themes based on your browser or operating system preference.
+
+![dashboard settings](/img/docs/themes-dashboard-system.png)
+
+Choose a specific theme to use it regardless of the system preference.
+
+![dashboard settings](/img/docs/themes-dashboard-nosystem.png)
+
+To set the default for your instance, use **Server Settings → Website**. See [Dashboard customization](/docs/guides/customize-dash#default-theme).
+
+## Theme properties
+
+Zipline uses [Mantine](https://mantine.dev) for its interface. Theme files support JSON-compatible [Mantine theme properties](https://mantine.dev/theming/theme-object/) alongside Zipline's own fields:
+
+| Property              | Purpose                                             |
+| --------------------- | --------------------------------------------------- |
+| `name`                | Display name in the theme selector.                 |
+| `colorScheme`         | `light` or `dark`.                                  |
+| `colors`              | Named palettes, each containing ten colors.         |
+| `primaryColor`        | A palette name used for buttons and other controls. |
+| `mainBackgroundColor` | CSS color value for the dashboard background.       |
+| `extraCss`            | Optional CSS, including font imports.               |
+
+### Colors
+
+Each palette contains ten colors, ordered from lightest to darkest and indexed from `0` to `9`. The `dark` palette controls dark-mode surfaces; it isn't used for a light theme.
+
+The example's `dark` palette looks like this:
 
 <Colors
   colors={[
@@ -90,47 +103,32 @@ For example the for the example theme above, the blue colors look like these:
   ]}
 />
 
-<Callout type='info'>
-  The `dark` colors are used for the dark theme only. If you are making a light theme, the `dark` colors will
-  not be used.
-</Callout>
+### Primary color
 
-### `primaryColor`
-
-This is the primary color of the theme. This is used for buttons and such. The value should be the key of the color in the `colors` object.
+Set `primaryColor` to a palette name from `colors`, such as `blue`. This controls the primary color used by buttons and other interface elements.
 
 ![themes primaryColor outlined](/img/docs/themes-primaryColor.png 'The button is using the primary color of the provided dark_blue theme.')
 
-### `mainBackgroundColor`
+### Background color
 
-This is the background color behind the content.
+`mainBackgroundColor` controls the area behind the page content:
 
 ![themes mainBackgroundColor outlined](/img/docs/themes-mainBackgroundColor.png 'The areas outlined in red are the mainBackgroundColor')
 
-The default themes use a css function called `color-mix` to make the darkest color (9th index) 45% darker. For example the below:
+You can use a CSS color, variable, or function. For example, this mixes the darkest `dark` palette color with 45% black:
 
 ```css
 color-mix(in srgb, var(--mantine-color-dark-9), black 45%)
 ```
 
-makes the `dark[9]` color 45% darker.
+### Custom fonts and CSS
 
-In theory any value can be used here, any valid CSS function or variables will work here.
-
-### `extraCss`
-
-This property is optional and can be used to add extra CSS to the theme.
-
-#### Adding Custom Fonts
-
-This example uses Google Fonts to add the "Ubuntu" font. First you will need to select a theme in [Google Fonts](https://fonts.google.com/), then after clicking "Get Fonts", click the "@import" button and then copy the contents that are inside the `<style>` tag.
-
-Then you can add it to the extraCss property like so:
+Use `extraCss` for additional CSS. This example imports Ubuntu from Google Fonts and sets it as the theme's font:
 
 ```json title="custom_font.theme.json"
 {
   "name": "Custom Font Example",
-  "id": "custom_font",
+  "colorScheme": "dark",
   "primaryColor": "blue",
   "mainBackgroundColor": "color-mix(in srgb, var(--mantine-color-blue-9), black 45%)",
   "extraCss": "@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');",
@@ -139,19 +137,17 @@ Then you can add it to the extraCss property like so:
 }
 ```
 
-Now, restarting the server and choosing the "Custom Font Example" theme will apply the Ubuntu font to the dashboard.
+Save the file and reload Zipline, then select **Custom Font Example**.
 
-## Developing
+## Preview changes
 
-When creating themes, you can test them out instantly by just reloading the page. The theme will be reloaded and applied so you may see the changes instantly after changing the `.theme.json` file.
+Edit your `.theme.json` file and reload the page to see changes. If the theme doesn't appear, check that the file is valid JSON and is in the mounted `themes/` directory.
 
-## Built In themes
+## Built-in themes
 
-To avoid having no theme, Zipline will always have 2 built in themes. The default theme is `system` which will choose either `dark_gray` or `light_gray` based on the system preference.
+Zipline includes built-in themes. The default **System** selection uses `builtin:dark_gray` or `builtin:light_gray` according to the system preference.
 
 ### `builtin:dark_gray`
-
-This is the default dark theme.
 
 ```json title="src/lib/theme/builtins/dark_gray.theme.json"
 {
@@ -165,8 +161,6 @@ This is the default dark theme.
 
 ### `builtin:light_gray`
 
-This is the default light theme.
-
 ```json title="src/lib/theme/builtins/light_gray.theme.json"
 {
   "name": "Light Gray",
@@ -177,29 +171,9 @@ This is the default light theme.
 }
 ```
 
-## Applying a theme
+## Resources
 
-Head to the Manage Account page, then scroll down to Dashboard Settings.
-
-If you select "System", two more options will appear. You can select the light or dark theme to use that will be used depending on the system preference.
-![dashboard settings](/img/docs/themes-dashboard-system.png)
-
-If you select anything other than "System", it will use the selected theme regardless of the system preference.
-![dashboard settings](/img/docs/themes-dashboard-nosystem.png)
-
-## Docker
-
-If using Docker, you can mount the `themes/` directory to `/zipline/themes/` to add custom themes.
-
-```yml title="docker-compose.yml"
-volumes:
-  - ./themes:/zipline/themes
-```
-
-## Extra Resources
-
-- [Zipline Discord](/discord): Feel free to ask for help regarding anything!
-- [Mantine Theme Object](https://mantine.dev/theming/theme-object/): The Mantine documentation for the theme object.
-  - [Mantine Colors](https://mantine.dev/theming/colors/) for more information on colors.
-  - [Color Generator](https://mantine.dev/colors-generator/) generate an array of 10 colors based on a single color.
-- [`<color value>`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value) for more information on CSS color values.
+- [Mantine theme object](https://mantine.dev/theming/theme-object/)
+- [Mantine colors](https://mantine.dev/theming/colors/) and [palette generator](https://mantine.dev/colors-generator/)
+- [CSS color values](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)
+- [Zipline Discord](/discord) for help with your theme

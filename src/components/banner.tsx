@@ -26,10 +26,8 @@ export function Banner({
   changeLayout?: boolean;
 }) {
   const globalKey = id ? `nd-banner-${encodeBase32(id)}` : null;
-  const [open, setOpen] = useState(() => {
-    if (typeof window === 'undefined' || !globalKey) return true;
-    return localStorage.getItem(globalKey) !== 'true';
-  });
+  // The bootstrap script below hides dismissed banners before hydration.
+  const [open, setOpen] = useState(true);
 
   function onClose() {
     setOpen(false);

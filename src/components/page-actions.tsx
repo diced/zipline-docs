@@ -170,7 +170,7 @@ export function PageLastUpdate({
 }: Omit<ComponentProps<'p'>, 'children'> & {
   date: Date;
 }) {
-  const formatted = date.toLocaleDateString();
+  const formatted = date.toLocaleDateString('en-US', { timeZone: 'UTC' });
 
   return (
     <p {...props} className={cn('text-sm text-fd-muted-foreground', className)}>

@@ -1,102 +1,225 @@
 ---
 title: OIDC
-description: Setting up Open ID Connect (OIDC) for authentication
+description: Configure OpenID Connect providers and optional provider logout
 ---
 
-This page documents and guides you through setting up Open ID Connect (OIDC) for Zipline. If you are having trouble configuring a different OIDC provider that is not listed here, feel free to join the [Discord](/discord) and ask for help.
+Use OpenID Connect (OIDC) to sign in to Zipline through an identity provider. This guide covers Authentik, Kanidm, Pocket-ID, and Microsoft Entra ID.
+
+## Before you start
+
+The examples use `https://zipline.example.com` for Zipline. Replace it with your instance's public URL.
+
+- Register `https://zipline.example.com/api/auth/oauth/oidc` as the provider's login callback.
+- Use a confidential client with a client ID and secret. Zipline requests `openid`, `email`, `profile`, and `offline_access`, and supports PKCE with S256.
+- Enable **Server Settings → Features → OAuth Registration** so the login button is available.
+
+Zipline normally builds the callback from the host you access it through. If you need a fixed callback, set **Redirect URL** under **Server Settings → OAuth → OIDC**. It must end in `/api/auth/oauth/oidc` and exactly match the URL registered with your provider.
+
+After completing a provider's setup below, save your Zipline settings and test **Login with OIDC**. To link an existing Zipline account, sign in to it first and link OIDC from your account settings.
 
 {/* credit to 0xEmma's pr https://github.com/diced/zipline-docs/pull/55 */}
 
 ## Authentik
 
-This will guide you through setting up an application and provider.
+### Configure Authentik
 
-1. Head over to your Authentik Admin Dashboard, and click on "Applications" in the sidebar.
-2. Click "Create with Wizard" to create a new application as well as a new provider. If this option is not available, you can create a new application and provider separately. The guide will assume you are using the wizard.
+1. Open **Applications** in the Authentik admin dashboard and select **Create with Wizard**. If the wizard isn't available, create an application and provider separately.
 
 ![authentik create application](/img/docs/oauth-authentik-1.png)
 
-3. Enter a name for your application, and click "Next".
+2. Name the application and click **Next**.
 
 ![authentik application name](/img/docs/oauth-authentik-2.png)
 
-4. Select the "OAuth2/OIDC (Open Authorization/OpenID Connect)" option, and click "Next".
+3. Choose **OAuth2/OIDC (Open Authorization/OpenID Connect)** and click **Next**.
 
 ![authentik application type](/img/docs/oauth-authentik-3.png)
 
-5. Give the provider a name like "Zipline", and then select a Authorization Flow. You can select "default-provider-authorization-explicit-consent" for the default flow.
+4. Name the provider, keep the client type **Confidential**, and choose an authorization flow, such as `default-provider-authorization-explicit-consent`.
 
 ![authentik provider name](/img/docs/oauth-authentik-4.png)
 
-6. Copy the "Client ID" and "Client Secret" from the "Protocol Settings" section, and save them for later.
-7. Fill out the "Redirect URIs" with the following URI: `http(s)://<your domain>/api/auth/oauth/oidc`.
+5. Copy the **Client ID** and **Client Secret**. Set **Redirect URIs** to `https://zipline.example.com/api/auth/oauth/oidc`.
 
 ![authentik redirect uri](/img/docs/oauth-authentik-5.png)
 
-<Callout type='info'>
-  When clicking the "Login with OIDC" button, or linking your OIDC account, the host that Zipline uses for the
-  redirect URL will be the same as the host that you accessed Zipline from. If you access Zipline from
-  `http://localhost:3000`, the redirect URL will be `http://localhost:3000/api/auth/oauth/oidc`. If you are
-  encountering issues with the redirect URL, you can set a custom redirect URL in the settings dashboard. This
-  **MUST** have the `/api/auth/oauth/oidc` path at the end.
-</Callout>
-
-8. Next, scroll down further and click on the "Advanced Protocol Settings" collapsible to expand it.
-9. Next to scopes enable the `offline_access` scope. In order to do this you may have to hold control and click on the `offline_access` scope. The `email`, `openid`, and `profile` scopes are also required.
+6. Expand **Advanced Protocol Settings** and include the `openid`, `email`, `profile`, and `offline_access` scopes. You may need to hold Ctrl while selecting additional scopes.
 
 ![authentik scopes](/img/docs/oauth-authentik-6.png)
 
-10. Click "Submit", and close out of the modal.
+7. Submit the application and provider.
 
 ### Configure Zipline
 
-11. Navigate to your Zipline instance and go to the settings dashboard, scroll down to the "OAuth" section.
-12. Paste the "Client ID" and "Client Secret" into the respective fields within the OIDC section.
+Open **Server Settings → OAuth → OIDC** and enter:
 
-Then fill in the values:
+| Setting       | Value                                                    |
+| ------------- | -------------------------------------------------------- |
+| Client ID     | The Authentik client ID                                  |
+| Client Secret | The Authentik client secret                              |
+| Authorize URL | `https://authentik.example.com/application/o/authorize/` |
+| Token URL     | `https://authentik.example.com/application/o/token/`     |
+| User Info URL | `https://authentik.example.com/application/o/userinfo/`  |
 
-- Authorize URL: `https://<authentik domain>/application/o/authorize/`
-- Token URL: `https://<authentik domain>/application/o/token/`
-- User Info URL: `https://<authentik domain>/application/o/userinfo/`
+Replace `authentik.example.com` with your Authentik domain, then save and test the login.
 
 ![zipline settings oauth oidc](/img/docs/oauth-authentik-7.png)
 
-After these fields are filled out (click Save to save your changes), you should see a "Login with OIDC" button on the login page, as well as the option to link your OIDC account in the manage account page.
+## Kanidm
+
+Install the [Kanidm CLI](https://kanidm.github.io/kanidm/stable/client_tools.html) and use your existing Kanidm instance. Replace `https://idm.example.com` with its URL and `ziplineuser1` with an existing username.
+
+### Configure Kanidm
+
+Point the CLI at your instance and sign in as `idm_admin`, or an administrator with permission to manage groups and OAuth2 clients:
+
+```bash
+export KANIDM_URL=https://idm.example.com
+export KANIDM_NAME=idm_admin
+kanidm login
+```
+
+Create a group for users who should be able to sign in to Zipline, then add your users:
+
+```bash
+kanidm group create zipline_users
+kanidm group add-members zipline_users ziplineuser1
+```
+
+Create a confidential client, register the callback, and grant Zipline's scopes to the group:
+
+```bash
+kanidm system oauth2 create zipline "Zipline" https://zipline.example.com
+kanidm system oauth2 add-redirect-url zipline https://zipline.example.com/api/auth/oauth/oidc
+kanidm system oauth2 update-scope-map zipline zipline_users openid email profile offline_access
+kanidm system oauth2 prefer-short-username zipline
+```
+
+The first URL is Zipline's landing page in Kanidm's application portal. The scope map gives members of `zipline_users` access to the client; add more users with `kanidm group add-members`.
+
+`prefer-short-username` makes Kanidm return usernames such as `ziplineuser1` instead of `ziplineuser1@idm.example.com`.
+
+Kanidm enables PKCE by default, and Zipline automatically uses PKCE with S256. No additional setting is needed in Zipline. If PKCE was previously disabled for this client, re-enable it:
+
+```bash
+kanidm system oauth2 enable-pkce zipline
+```
+
+Keep the client secret configured in Zipline; PKCE works alongside the confidential client's secret.
+
+Retrieve the generated client secret:
+
+```bash
+kanidm system oauth2 show-basic-secret zipline
+```
+
+### Configure Zipline
+
+In **Server Settings → OAuth → OIDC**, enter:
+
+| Setting       | Value                                                          |
+| ------------- | -------------------------------------------------------------- |
+| Client ID     | `zipline`                                                      |
+| Client Secret | The output of `kanidm system oauth2 show-basic-secret zipline` |
+| Authorize URL | `https://idm.example.com/ui/oauth2`                            |
+| Token URL     | `https://idm.example.com/oauth2/token`                         |
+| User Info URL | `https://idm.example.com/oauth2/openid/zipline/userinfo`       |
+| Redirect URL  | `https://zipline.example.com/api/auth/oauth/oidc`              |
+
+You can verify the endpoint URLs using the client-specific discovery document:
+
+```bash
+curl --fail --silent --show-error \
+  https://idm.example.com/oauth2/openid/zipline/.well-known/openid-configuration
+```
+
+Leave **OIDC End Session URL** empty unless the discovery document includes an `end_session_endpoint`. If it does, follow the [OIDC logout setup](#oidc-logout) below.
+
+Save your changes and test **Login with OIDC** as a member of `zipline_users`.
+
+For more details, see [Kanidm's OAuth2 documentation](https://kanidm.github.io/kanidm/stable/integrations/oauth2.html).
 
 ## Pocket-ID
 
-Pocket-ID is a simple self-hosted OIDC provider that utilizes passkeys for authentication.
+### Configure Pocket-ID
 
-1. Create an OIDC client
-   ![pocket-id create client](/img/docs/oauth-pocketid-1.png)
+Create an OIDC client and register `https://zipline.example.com/api/auth/oauth/oidc` under **Redirect URIs**.
 
-For the Redirect URIs: add `http(s)://<your domain>/api/auth/oauth/oidc`
+![pocket-id create client](/img/docs/oauth-pocketid-1.png)
 
-2. Copy over these 5 values and urls to their respective fields in the OIDC section of the OAuth settings
-   ![pocket-id copy values](/img/docs/oauth-pocketid-2.png)
+### Configure Zipline
 
-## Microsoft Entra
+Copy these values from Pocket-ID into **Server Settings → OAuth → OIDC**:
 
-Microsoft Entra ID is a cloud-based identity and access management service. It also offers OIDC support and endpoints.
+| Pocket-ID value   | Zipline setting |
+| ----------------- | --------------- |
+| Client ID         | Client ID       |
+| Client secret     | Client Secret   |
+| Authorization URL | Authorize URL   |
+| Token URL         | Token URL       |
+| Userinfo URL      | User Info URL   |
 
-In the Entra admin center, register an application and grab the **Application (client) ID** and a **client secret** from "Certificates & secrets". The **tenant ID** is the directory ID of your Entra tenant which goes in the URLs below, not in the Client ID field.
+![pocket-id copy values](/img/docs/oauth-pocketid-2.png)
 
-- Client ID: your app registration's **Application (client) ID**
-- Client Secret: your app registration's client secret
-- Authorize URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize`
-- Token URL: `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`
-- User Info URL: `https://graph.microsoft.com/oidc/userinfo`
+Save your changes and test the login.
 
-## Other OIDC Providers
+## Microsoft Entra ID
 
-The guide above is specific to Authentik and may require modifications for other OIDC providers. While the overall steps and URL names will be similar, some details may differ.
+### Configure Microsoft Entra ID
 
-If you're using a different OIDC provider, refer to their documentation to obtain the necessary details for configuring the Zipline settings dashboard.
+Register an application in the Entra admin center, add `https://zipline.example.com/api/auth/oauth/oidc` as a **Web** redirect URI, and create a client secret under **Certificates & secrets**.
 
-### Common OIDC Providers
+Copy the **Application (client) ID**, client secret value, and **Directory (tenant) ID**. Use the client ID in Zipline's Client ID field; the tenant ID belongs in the endpoint URLs below.
+
+### Configure Zipline
+
+Open **Server Settings → OAuth → OIDC** and enter:
+
+| Setting       | Value                                                                 |
+| ------------- | --------------------------------------------------------------------- |
+| Client ID     | The Application (client) ID                                           |
+| Client Secret | The client secret value                                               |
+| Authorize URL | `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/authorize` |
+| Token URL     | `https://login.microsoftonline.com/<tenant_id>/oauth2/v2.0/token`     |
+| User Info URL | `https://graph.microsoft.com/oidc/userinfo`                           |
+
+Replace `<tenant_id>` with your Directory (tenant) ID, then save and test the login.
+
+## OIDC logout
+
+By default, logging out ends your current Zipline session while leaving your OIDC provider session active. Configure the optional **OIDC End Session URL** to also request a logout from your provider when you log out of Zipline.
+
+1. Find your provider's logout endpoint, usually listed as `end_session_endpoint` in its OpenID Connect discovery document.
+2. In Zipline, open **Server Settings → OAuth → OIDC**, enter that endpoint in **OIDC End Session URL**, and save your changes.
+3. In your provider's client settings, register your Zipline login URL as an allowed post-logout redirect URI, including the query parameter:
+
+```text
+https://zipline.example.com/auth/login?logged_out=true
+```
+
+Replace `zipline.example.com` with your Zipline domain. If you configured a custom OIDC redirect URL, the logout callback uses the same origin as that URL. Otherwise, it uses the host you accessed Zipline from and the protocol configured by `CORE_RETURN_HTTPS_URLS`.
+
+You can also configure the endpoint through an environment variable:
+
+```dotenv
+OAUTH_OIDC_END_SESSION_URL=https://oidc.example.com/logout
+```
+
+When you log out of a session created by signing in with OIDC, Zipline ends the local session and redirects your browser to the provider's logout endpoint. The provider can then return you to `/auth/login?logged_out=true`. This query parameter prevents **Bypass Local Login** from immediately sending you back to the provider.
+
+Sessions created with a local login or another OAuth provider only log out of Zipline, even if the account has an OIDC provider linked.
+
+## Other OIDC providers
+
+For another provider, obtain its client credentials, authorization URL, token URL, and userinfo URL from its documentation or discovery document. Apply the callback and scope requirements in [Before you start](#before-you-start).
+
+If you need help, ask in [Discord](/discord).
+
+### Provider resources
 
 - [Authentik](https://goauthentik.io/) (open-source)
 - [Authelia](https://authelia.com/) (open-source)
 - [Keycloak](https://keycloak.org/) (open-source)
+- [Kanidm](https://kanidm.github.io/kanidm/stable/) (open-source)
 - [Pocket-ID](https://pocket-id.org/) (open-source)
 - [Okta](https://okta.com/)

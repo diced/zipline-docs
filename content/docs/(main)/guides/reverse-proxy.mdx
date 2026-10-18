@@ -1,21 +1,86 @@
 ---
 title: Reverse Proxy
-description: Guides for setting up reverse proxies for Zipline, including NGINX and Caddy
+description: Set up Caddy or NGINX in front of Zipline with HTTPS and trusted proxy settings.
 ---
 
+Use Caddy, NGINX, or NGINX Proxy Manager to serve Zipline on your domain with HTTPS.
+
+Replace `zipline.example.com` with your domain and `localhost:3000` with Zipline's address. For separate Docker containers, use Zipline's service name on their shared network, such as `zipline:3000`.
+
+After configuring your proxy, complete the [Zipline proxy settings](#after-setting-up) at the end of this page.
+
+## Caddy
+
+Add your domain and Zipline's address to your Caddyfile:
+
+```caddyfile title="Caddyfile"
+zipline.example.com {
+  reverse_proxy localhost:3000
+}
+```
+
+### Caddy with SSL
+
+The Caddyfile above automatically enables HTTPS, renews certificates, and redirects HTTP to HTTPS. For a public domain:
+
+1. Point your domain's DNS `A` record to the server's public IPv4 address. Any `AAAA` record must point to its reachable IPv6 address.
+2. Allow inbound TCP ports **80** and **443** to reach Caddy, forwarding them through your router if needed.
+3. Save the Caddyfile and restart Caddy.
+
+Open `https://zipline.example.com`. If certificate issuance fails, check Caddy's logs, DNS, and firewall settings.
+
+Keep Caddy's data directory writable and persistent so its certificates survive restarts. In Docker, persist `/data` with a volume.
+
+See Caddy's [Automatic HTTPS documentation](https://caddyserver.com/docs/automatic-https) for details.
+
+#### Using certificate files
+
+To use certificate files, follow [Generating certificates](#generating-certificates), then set their paths with the [`tls` directive](https://caddyserver.com/docs/caddyfile/directives/tls). Both files must be readable by Caddy:
+
+```caddyfile title="Caddyfile"
+zipline.example.com {
+  tls /etc/caddy/certs/zipline.example.com.pem /etc/caddy/certs/zipline.example.com.key
+  reverse_proxy localhost:3000
+}
+```
+
+Save the Caddyfile and restart Caddy. Certificates loaded from files aren't renewed by Caddy; replace them before they expire.
+
+#### Tailscale certificates
+
+Complete the [Tailscale setup](#tailscale) on the same machine as Caddy, then use its full Tailscale hostname:
+
+```caddyfile title="Caddyfile"
+zipline.example-tailnet.ts.net {
+  reverse_proxy localhost:3000
+}
+```
+
+Replace the hostname with your own. Caddy obtains and renews the certificate through Tailscale automatically; no certificate files are needed.
+
+For a non-root Caddy user, grant permission to fetch certificates. On Linux installations using `/etc/default/tailscaled`, add this with your Caddy username:
+
+```dotenv title="/etc/default/tailscaled"
+TS_PERMIT_CERT_UID=caddy
+```
+
+Restart Tailscale and Caddy, then open your HTTPS URL from a permitted device on your tailnet.
+
+In Docker, Caddy also needs access to the local Tailscale daemon. See [Tailscale's Caddy integration](https://tailscale.com/kb/1190/caddy-certificates) for details.
+
 ## NGINX
+
+For HTTP, use this server block. For HTTPS, use [NGINX with SSL](#nginx-with-ssl).
 
 ```nginx title="/etc/nginx/sites-available/zipline.conf"
 server {
   listen 80;
-  # Allows Zipline to handle large file uploads, feel free to change this value
+  server_name zipline.example.com;
+
+  # Adjust this to allow your intended upload size.
   client_max_body_size 100M;
 
-  # If you have a domain, replace <your domain> with it for DNS resolution
-  server_name <your domain (optional)>;
-
   location / {
-    # If Zipline is running on a different port or hostname, change the port here
     proxy_pass http://localhost:3000;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
@@ -25,32 +90,36 @@ server {
 }
 ```
 
+Save the configuration and restart NGINX. Increase `client_max_body_size` for uploads larger than 100 MB.
+
 ### NGINX Proxy Manager
 
-You may be using NGINX Proxy Manager, a web interface for managing NGINX reverse proxies. You can follow the guide below to set up Zipline with NGINX Proxy Manager.
+In the NGINX Proxy Manager dashboard:
 
-First navigate to your NGINX Proxy Manager dashboard, and click on the "Proxy Hosts" tab. Then click "Add Proxy Host".
+1. Open **Proxy Hosts** and select **Add Proxy Host**.
+2. Set **Domain Names** to your Zipline domain, such as `zipline.example.com`.
+3. Set the forwarding scheme to **http**, then enter the hostname and port where NGINX Proxy Manager can reach Zipline.
+
 ![add proxy host](/img/docs/npm-1.png)
 
-You may change the hostname and port to match your Zipline instance. If you are using a domain, you can enter it in the "Domain Names" field. In this example it is set to `zipline.example.com`.
-
-Setting up SSL through NGINX Proxy Manager is also very simple, you can use the "SSL" tab to generate a certificate for your domain.
+Open the **SSL** tab to request a certificate for your domain, then save the proxy host.
 
 ![npm ssl](/img/docs/npm-2.png)
 
 ### NGINX with SSL
 
-You will need to have a valid SSL certificate to use this configuration. If you don't have one, you can use [Let's Encrypt](https://letsencrypt.org/), or Cloudflare for example.
+Follow [Generating certificates](#generating-certificates), then use this server block with your domain and certificate paths:
 
 ```nginx title="/etc/nginx/sites-available/zipline-ssl.conf"
 server {
   listen 443 ssl;
-  client_max_body_size 100M;
-  server_name <your domain>;
+  server_name zipline.example.com;
 
-  # these paths can be anywhere, depending on where your keys are stored
-  ssl_certificate /<your domain>.pem;
-  ssl_certificate_key /<your domain>.key;
+  # Adjust this to allow your intended upload size.
+  client_max_body_size 100M;
+
+  ssl_certificate /etc/nginx/certs/zipline.example.com.pem;
+  ssl_certificate_key /etc/nginx/certs/zipline.example.com.key;
 
   location / {
     proxy_pass http://localhost:3000;
@@ -62,75 +131,54 @@ server {
 }
 ```
 
-#### Generating Cloudflare Certificates
+Make sure NGINX can read both certificate files, then save the configuration and restart NGINX. Reload NGINX whenever the files are renewed or replaced.
 
-If you are using cloudflare, you can generate a certificate within the dashboard.
+## Generating certificates
 
-First visit [dash.cloudflare.com](https://dash.cloudflare.com) and select your domain. Then navigate to the SSL/TLS tab, and click "Client Certificates". Then click "Create Certificate".
+Use these methods to obtain certificate files for [Caddy](#using-certificate-files) or [NGINX](#nginx-with-ssl). Caddy's automatic HTTPS setup doesn't require separate certificate generation.
 
-![cf client certs](/img/docs/cf-ssl-1.png)
+### Let's Encrypt
 
-Next, make sure the options are like the following:
+[Let's Encrypt](https://letsencrypt.org/getting-started/) issues publicly trusted certificates for your domain. Use an ACME client such as Certbot, following its instructions for your system. Configure your proxy with the full certificate chain and private key paths it provides, and enable automatic renewal.
 
-![cf client certs 2](/img/docs/cf-ssl-2.png)
+### Cloudflare Origin CA certificates
 
-Finally, click "Next" and you will be presented with the public and private keys. Make sure the key format is set to PEM.
+If your domain is proxied through Cloudflare, you can use an [Origin CA certificate](https://developers.cloudflare.com/ssl/origin-configuration/origin-ca/) between Cloudflare and your reverse proxy:
 
-![cf client certs 3](/img/docs/cf-ssl-3.png)
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com), select your domain and open **SSL/TLS → Origin Server → Create Certificate**.
+2. Let Cloudflare generate the private key and CSR. Include your Zipline hostname, choose a validity period, and create the certificate.
+3. Choose **PEM**, then save the **Origin Certificate** and **Private Key** separately. The private key is only shown once.
 
-You will have to save the **Certificate** to `<your domain>.pem` and the **Private Key** to `<your domain>.key`. For example if your domain is `zipline.example.com`, you will have the following files:
+Save the files as `zipline.example.com.pem` and `zipline.example.com.key` somewhere your proxy can read, then configure their paths.
 
-```
-/zipline.example.com.pem
-/zipline.example.com.key
-```
+Keep the DNS record **Proxied** and set Cloudflare's SSL/TLS encryption mode to **Full (strict)**.
 
-You can save these keys anywhere, but make sure your reverse proxy configuration points to the correct path.
+Origin CA certificates are trusted by Cloudflare, but browsers won't trust them when connecting directly to your server. Replace these certificates before they expire.
 
-Then within NGINX, you can use the following configuration:
+### Tailscale
 
-```nginx title="/etc/nginx/sites-available/zipline-ssl.conf"
-server {
-  ...
+Before requesting a Tailscale certificate:
 
-    ssl_certificate /<your domain>.pem;
-    ssl_certificate_key /<your domain>.key;
+1. Run Tailscale on your server and connect it to your tailnet.
+2. Open **DNS** in the Tailscale admin console and enable **MagicDNS** and **HTTPS Certificates**, following [Tailscale's HTTPS setup](https://tailscale.com/kb/1153/enabling-https).
 
-  ...
-}
-```
-
-#### Generating Certificates with Tailscale
-
-If you are using Tailscale, and want to create a certificate pair for your domain (e.g. `hostname.tails-scales.ts.net`) to use with NGINX, you can use the following commands:
+For Caddy, continue with its [Tailscale integration](#tailscale-certificates). For certificate files, run this on the Tailscale machine with its full hostname:
 
 ```bash
-tailscale cert <domain>
+tailscale cert zipline.example-tailnet.ts.net
 ```
 
-This will output a `<domain>.key` and `<domain>.crt` file. You can then use these files in your NGINX configuration.
+This creates `.crt` and `.key` files in the current directory. Move them somewhere your proxy can read, then configure their paths.
 
-Additionally, visit [this page](https://tailscale.com/kb/1080/cli#cert) for more information on how to use the certificates.
-
-## Caddy
-
-Setting up Zipline with Caddy is very simple. You can use the following Caddyfile configuration:
-
-```caddyfile title="Caddyfile"
-<your domain> {
-  reverse_proxy localhost:3000
-}
-```
+Run `tailscale cert` periodically to renew, replace the installed files, and reload your proxy. Tailscale doesn't update those copies automatically.
 
 ## After setting up
 
-After you have set up your reverse proxy, configure these settings and restart Zipline:
+Configure these settings so Zipline can use the client IP and protocol passed by your proxy:
 
-- `CORE_TRUST_PROXY`: Enable this to use `X-Forwarded-*` headers from trusted proxies for the client IP and protocol.
-- `CORE_TRUSTED_PROXIES`: A comma-separated list of your reverse proxies' IPv4/IPv6 addresses or CIDRs. Enabling `CORE_TRUST_PROXY` alone is not enough: an empty list ignores forwarded headers, so clients behind the same proxy share rate limits.
-- `CORE_RETURN_HTTPS_URLS`: This setting tells Zipline to return `https://` URLs for file links and other URLs when the request comes in over HTTPS. This is important for ensuring that your website is fully secure and doesn't have mixed content issues.
-  - If SSL terminates at your proxy, you should turn this on so that file links and other URLs are returned as `https://`.
-  - This setting controls whether or not Zipline returns `https://` urls anywhere in the app.
+- `CORE_TRUST_PROXY`: Set to `true` to use `X-Forwarded-*` headers from trusted proxies.
+- `CORE_TRUSTED_PROXIES`: Set to a comma-separated list of your proxy's IP addresses or CIDRs. An empty list ignores forwarded headers, even when `CORE_TRUST_PROXY` is enabled, so clients behind the proxy share rate limits.
+- `CORE_RETURN_HTTPS_URLS`: Set to `true` when your proxy serves Zipline over HTTPS so generated links use `https://`.
 
 For a proxy connecting to Zipline over loopback on the same host:
 
@@ -140,4 +188,6 @@ CORE_TRUSTED_PROXIES=127.0.0.1,::1
 CORE_RETURN_HTTPS_URLS=true
 ```
 
-In Docker, use the proxy's address as seen by the Zipline container, not the loopback example above. You can use a CIDR such as `172.30.0.0/24` for a dedicated, trusted proxy network, but only if that is your actual network and every address in it can be trusted. Do not add client networks or all addresses (`0.0.0.0/0` or `::/0`), as this would allow untrusted clients to supply forwarded headers.
+In Docker, use the proxy's address as seen by the Zipline container. A CIDR such as `172.30.0.0/24` is suitable only if it matches your dedicated proxy network and every address in that network is trusted. Don't add client networks or all addresses (`0.0.0.0/0` or `::/0`), which would let untrusted clients supply forwarded headers.
+
+Save your settings and restart Zipline.
