@@ -53,6 +53,8 @@ A new PGlite instance does not need the PostgreSQL service or its `depends_on` e
 
 To back up PGlite, stop Zipline before copying the entire database directory, and keep it stopped until the copy finishes. Back up uploaded files separately. To restore, use the saved directory while Zipline is stopped and point `DATABASE_URL` at it.
 
+Existing PGlite directories using PostgreSQL 17 can run with Zipline's legacy engine. To upgrade them to PostgreSQL 18 while keeping the same `DATABASE_URL`, follow [Upgrading PGlite](/docs/guides/ctl/ziplinectl-upgrade-pglite). New directories use PostgreSQL 18 and don't need this upgrade.
+
 ## `CORE_HOSTNAME`
 
 `CORE_HOSTNAME` is an optional environment variable that specifies the hostname that Zipline will bind to, it defaults to `0.0.0.0`.

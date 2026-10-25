@@ -1,0 +1,106 @@
+---
+title: ziplinectl upgrade-pglite
+description: Upgrade an existing PGlite directory from PostgreSQL 17 to PostgreSQL 18
+---
+
+<Callout type='warning'>
+  This command is a temporary workaround for a PGlite bug introduced in Zipline 4.8.1. The command and the
+  need for this manual upgrade will be deprecated in a future release.
+</Callout>
+
+Older PGlite directories use PostgreSQL 17, while newer PGlite versions use PostgreSQL 18. These data formats aren't interchangeable. Zipline can open an existing PostgreSQL 17 directory with a legacy engine, but that support will be removed in a future release.
+
+`upgrade-pglite` copies the database into the newer format, applies Zipline's database migrations, and switches to the upgraded copy. It retains the original files and keeps the same `DATABASE_URL`. Uploaded files and thumbnails aren't moved.
+
+To move from a separate PostgreSQL server to PGlite, use [migrate-pglite](/docs/guides/ctl/ziplinectl-migrate-pglite) instead.
+
+## Usage
+
+```bash
+ziplinectl upgrade-pglite [options]
+```
+
+| Option           | Description                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------ |
+| `--source <url>` | Existing PGlite URL. Defaults to `DATABASE_URL`. Must use `pglite:///absolute/path`. |
+| `-h`, `--help`   | Display help for this command.                                                       |
+
+This command requires Zipline 4.8.2 or later.
+
+<Callout type='warning'>
+  Stop every Zipline process using the directory before upgrading, and keep them stopped until the command
+  finishes. Make a separate backup first, and allow enough disk space for both the original database and the
+  upgraded copy. The directory must be writable.
+</Callout>
+
+## Docker
+
+These examples assume your existing `DATABASE_URL` is `pglite:///zipline/data/database`, with its parent mounted at `/zipline/data`. This works with either a bind mount, such as `./data:/zipline/data`, or a named volume. Substitute your own paths without changing which database the service uses.
+
+Use the latest Zipline image, keeping your service's existing environment variables and volumes:
+
+```yaml title="docker-compose.yml"
+services:
+  zipline:
+    image: ghcr.io/diced/zipline:latest
+```
+
+Pull the image and stop Zipline:
+
+```bash
+docker compose pull zipline
+docker compose stop zipline
+```
+
+Back up the entire database directory to an archive on your host. Choose a new filename if you already have a backup at this path:
+
+```bash
+docker compose run --rm --no-deps -T --entrypoint tar zipline \
+  -C /zipline/data -czf - database > pglite-backup.tar.gz
+```
+
+Run the upgrade in a one-off container, using the service's configured `DATABASE_URL` and volumes:
+
+```bash
+docker compose run --rm --no-deps --entrypoint ziplinectl zipline upgrade-pglite
+```
+
+Overriding the entrypoint runs only the CLI. Use `docker compose run`, since `docker compose exec` requires a running Zipline container.
+
+After a successful upgrade, restart Zipline with the same image, volume mounts, and `DATABASE_URL`:
+
+```bash
+docker compose up -d zipline
+```
+
+Sign in and check that your users, files, and settings are present.
+
+## Manual installation
+
+Update and rebuild Zipline using the [source installation instructions](/docs/get-started/source#updating). Stop the running server and back up the entire PGlite directory before continuing.
+
+From the Zipline project directory, with your existing `.env` configuration, run:
+
+```bash
+pnpm ctl upgrade-pglite
+```
+
+To select a directory explicitly, pass its PGlite URL, not a bare filesystem path:
+
+```bash
+pnpm ctl upgrade-pglite --source pglite:///var/lib/zipline/database
+```
+
+After success, start Zipline with the same `DATABASE_URL` and verify your data:
+
+```bash
+pnpm start
+```
+
+## After upgrading
+
+The command reports success and the location of the retained original files. If the database already uses PostgreSQL 18, it reports that no upgrade is needed.
+
+The upgraded database lives in a hidden subdirectory inside your configured directory. Keep the whole directory intact, including hidden files and subdirectories, when backing it up or moving it. Don't delete the configured directory to remove the old files; it also contains the active database.
+
+The switch happens only after the copy and database migrations succeed. If the command fails, review the error before restarting or retrying, and keep your separate backup.

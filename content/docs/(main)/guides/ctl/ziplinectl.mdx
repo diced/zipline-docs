@@ -51,6 +51,7 @@ Commands:
   set-user [options] <property> <value>
   import-dir [options] <directory>
   migrate-pglite [options] <directory>    copy PostgreSQL data to a new PGlite directory
+  upgrade-pglite [options]                upgrade PGlite in place, retaining the old database; stop Zipline first
   help [command]                         display help for command
 ```
 
@@ -67,6 +68,9 @@ ziplinectl -V
 <Cards>
   <Card href='/docs/guides/ctl/ziplinectl-migrate-pglite' title='Migrate to PGlite'>
     Move an existing PostgreSQL database to PGlite
+  </Card>
+  <Card href='/docs/guides/ctl/ziplinectl-upgrade-pglite' title='Upgrade PGlite'>
+    Upgrade an existing PGlite directory to the newer PostgreSQL format
   </Card>
   <Card href='/docs/guides/ctl/ziplinectl-read-config' title='📖 Read Config'>
     Output the configuration as JSON, exactly how Zipline sees it

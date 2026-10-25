@@ -107,6 +107,10 @@ Then follow the [update steps](/docs/get-started/source#updating)
 
 Finally switch to 4.8 and start Zipline. Your database configuration does not change: both `DATABASE_URL` and the individual `DATABASE_*` variables keep working.
 
+## Upgrading a PGlite database
+
+PGlite's embedded PostgreSQL version has changed from 17 to 18. Zipline includes a legacy engine for existing PostgreSQL 17 directories, so they can still start, but it doesn't automatically upgrade their data format. Follow [Upgrading PGlite](/docs/guides/ctl/ziplinectl-upgrade-pglite) to upgrade the directory with the provided CLI, including Docker instructions.
+
 ## Pinning to a specific version
 
 If you want to pin to a specific version or commit for stability reasons, you can do so by using the specific tag for that version or any commit hash.
