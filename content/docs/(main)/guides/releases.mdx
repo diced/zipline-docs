@@ -109,7 +109,7 @@ Finally switch to 4.8 and start Zipline. Your database configuration does not ch
 
 ## Upgrading a PGlite database
 
-PGlite's embedded PostgreSQL version has changed from 17 to 18. Zipline includes a legacy engine for existing PostgreSQL 17 directories, so they can still start, but it doesn't automatically upgrade their data format. Follow [Upgrading PGlite](/docs/guides/ctl/ziplinectl-upgrade-pglite) to upgrade the directory with the provided CLI, including Docker instructions.
+If you're affected by the PGlite compatibility bug introduced in 4.8.1, see [Upgrading PGlite](/docs/guides/ctl/ziplinectl-upgrade-pglite) for the temporary workaround.
 
 ## Pinning to a specific version
 
