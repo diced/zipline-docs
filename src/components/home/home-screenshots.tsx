@@ -16,9 +16,6 @@ import settingsPageScreenshotDark from '@/../public/img/screenshot-6-dark.png';
 import settingsPageScreenshotLight from '@/../public/img/screenshot-6-light.png';
 import { MacWindow } from './mac';
 
-const SS_WIDTH = 2560;
-const SS_HEIGHT = 1247;
-
 export function EmphasizeText({ children }: { children: React.ReactNode }) {
   return (
     <span className='bg-linear-to-r from-blue-600 via-blue-400 to-blue-600 bg-size-[200%_200%] bg-clip-text text-transparent transition-all ease-in-out hover:animate-[gradient-spin_3s_linear_infinite]'>
@@ -139,27 +136,23 @@ export function HomeScreenshots() {
           <MacWindow>
             <Image
               src={section.darkImage}
-              width={SS_WIDTH}
-              height={SS_HEIGHT}
               placeholder='blur'
               className='hidden dark:block'
               alt={section.alt}
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              sizes='(max-width: 767px) calc(100vw - 48px), (max-width: 1400px) calc(50vw - 56px), 644px'
             />
             <Image
               src={section.lightImage}
-              width={SS_WIDTH}
-              height={SS_HEIGHT}
               placeholder='blur'
               className='block dark:hidden'
               alt={section.alt}
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+              sizes='(max-width: 767px) calc(100vw - 48px), (max-width: 1400px) calc(50vw - 56px), 644px'
             />
           </MacWindow>
         );
 
         const DescriptionPart = (
-          <div className='flex flex-col justify-center'>
+          <div data-reveal data-reveal-delay='120' className='flex flex-col justify-center'>
             <Icon className='my-2 h-10 w-10 rounded-lg bg-fd-muted p-2 text-fd-muted-foreground' />
             <div className='my-2 text-3xl font-bold'>
               <ScreenshotTitle id={section.id} />

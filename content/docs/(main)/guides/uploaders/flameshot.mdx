@@ -45,13 +45,27 @@ Hit `Apply` and you're done! You can now press `Print` to open the flameshot gui
 
 ## DIY
 
-To upload files using Flameshot we will use a script. Replace $TOKEN and $HOST with your own values.
+Save this Bash script and replace the token and URL. It saves a screenshot in `~/Pictures`, uploads it, and copies the returned URL with `xsel`:
 
 ```bash title="ss.sh"
-DATE=$(date '+%h_%Y_%d_%I_%m_%S.png');
-flameshot gui -r > ~/Pictures/$DATE;
+#!/usr/bin/env bash
+set -euo pipefail
 
-curl -H "Content-Type: multipart/form-data" -H "authorization: $TOKEN" -F file=@~/Pictures/$DATE $HOST/api/upload | jq -r .files[0].url | xsel -ib
+TOKEN="YOUR_API_TOKEN"
+URL="https://zipline.example.com/api/upload"
+
+mkdir -p "$HOME/Pictures"
+file="$HOME/Pictures/$(date '+%Y-%m-%d_%H-%M-%S').png"
+flameshot gui --raw > "$file"
+test -s "$file"
+
+response=$(curl --fail-with-body --silent --show-error \
+  -H "Authorization: $TOKEN" \
+  -F "file=@$file" \
+  "$URL")
+url=$(jq -er '.files[0].url | strings | select(length > 0)' <<< "$response")
+printf '%s' "$url" | xsel -ib
+printf '%s\n' "$url"
 ```
 
 ## More Information

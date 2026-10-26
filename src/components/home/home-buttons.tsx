@@ -33,7 +33,11 @@ export function HomeButtons({ stars, showSearch }: { stars: number; showSearch?:
   }).format(stars || 1600);
 
   return (
-    <div className='mt-8 flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6'>
+    <div
+      data-reveal={showSearch ? '' : undefined}
+      data-reveal-delay={showSearch ? 200 : undefined}
+      className='mt-8 flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0 md:space-x-6'
+    >
       <Link href='/docs/get-started' className={homeButtonsClass('primary')}>
         Get started
       </Link>

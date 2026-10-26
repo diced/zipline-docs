@@ -40,21 +40,36 @@ chmod +x ~/Downloads/zipline-script-url.sh
 
 ## DIY
 
-If you would like to create your own script, here are some constants that will most likely be needed.
+This Bash script needs `curl` and `jq`. Replace the token and URL, then save it as `zipline-upload.sh` and make it executable:
 
-```bash
-TOKEN="your token"
-URL="https://yourdomain.com/api/upload"
+```bash title="zipline-upload.sh"
+#!/usr/bin/env bash
+set -euo pipefail
 
-curl -H "authorization: $TOKEN" -H "content-type: multipart/form-data" $URL -F file=@$1 | jq -r .files[0].url | tr -d '\n'
+TOKEN="YOUR_API_TOKEN"
+URL="https://zipline.example.com/api/upload"
+
+file=${1:?Usage: zipline-upload.sh /path/to/file}
+response=$(curl --fail-with-body --silent --show-error \
+  -H "Authorization: $TOKEN" \
+  -F "file=@$file" \
+  "$URL")
+url=$(jq -er '.files[0].url | strings | select(length > 0)' <<< "$response")
+printf '%s' "$url"
 ```
 
-After piping the output to `jq` (gets the URL) and `tr` (gets rid of the newline), you can pipe it to anything you want:
+Make the script executable and pass a file path:
 
-- `xclip -selection clipboard` for X11
-- `wl-copy` for Wayland
-- `pbcopy` for macOS (this might be annoying since macOS is annoying)
-- etc.
+```bash
+chmod +x ./zipline-upload.sh
+./zipline-upload.sh "/path/to/my screenshot.png"
+```
+
+To copy the URL, pipe the output to your clipboard tool:
+
+- `./zipline-upload.sh "/path/to/file" | xclip -selection clipboard` for X11
+- `./zipline-upload.sh "/path/to/file" | wl-copy` for Wayland
+- `./zipline-upload.sh "/path/to/file" | pbcopy` for macOS
 
 ## More Information
 

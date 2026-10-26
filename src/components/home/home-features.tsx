@@ -155,14 +155,18 @@ const homeFeatures: HomeFeature[] = [
   },
 ];
 
-function FeatureCard({ title, description, href, icon: Icon }: HomeFeature) {
+function FeatureCard({ title, description, href, icon: Icon, index }: HomeFeature & { index: number }) {
   const titleClassName = cn(
     'mt-4 flex items-center text-2xl font-bold transition-all md:text-3xl',
     href && 'hover:underline decoration-blue-500',
   );
 
   return (
-    <div className='group relative w-full grow rounded-md p-0 transition-all hover:-translate-y-1 hover:p-0.5 hover:shadow-2xl'>
+    <div
+      data-reveal
+      data-reveal-delay={(index % 3) * 80}
+      className='group relative w-full grow rounded-md p-0 transition-all hover:-translate-y-1 hover:p-0.5 hover:shadow-2xl'
+    >
       <div className='absolute inset-0 rounded-md bg-linear-to-r from-blue-100 to-blue-500 bg-size-[200%_200%] p-[10px] opacity-0 transition-opacity group-hover:animate-[gradient-spin_3s_linear_infinite] group-hover:opacity-100' />
 
       <div className='relative h-full rounded-md border border-fd-border bg-fd-card p-4 shadow-md'>
@@ -183,8 +187,8 @@ function FeatureCard({ title, description, href, icon: Icon }: HomeFeature) {
 export function HomeFeatures() {
   return (
     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-      {homeFeatures.map((feature) => (
-        <FeatureCard key={feature.title} {...feature} />
+      {homeFeatures.map((feature, index) => (
+        <FeatureCard key={feature.title} {...feature} index={index} />
       ))}
     </div>
   );

@@ -19,13 +19,8 @@ docker pull ghcr.io/diced/zipline:latest
 
   </Tab>
   <Tab value="source">
-  First switch to the latest tag, for example if the latest tag is `4.0.0`, run:
-
-```bash
-git checkout v4.0.0
-```
-
-Then follow the [update steps](/docs/get-started/source#updating)
+  Follow the [source update steps](/docs/get-started/source#updating), selecting the latest stable tag from
+  [GitHub Releases](https://github.com/diced/zipline/releases/latest).
 
   </Tab>
 </Tabs>
@@ -50,12 +45,15 @@ image: ghcr.io/diced/zipline:trunk
 
   </Tab>
   <Tab value="source">
-  First switch to the `trunk` branch:
+  Stop Zipline, update the `trunk` branch, and rebuild:
 ```bash
-git checkout trunk
+git fetch origin
+git switch trunk
+git pull --ff-only origin trunk
+pnpm install
+pnpm build
+pnpm start
 ```
-
-Then follow the [update steps](/docs/get-started/source#updating)
 
   </Tab>
 </Tabs>
@@ -88,13 +86,15 @@ image: ghcr.io/diced/zipline:4.7.0
 
   </Tab>
   <Tab value="source">
-  Switch to the `v4.7.0` tag:
+  Stop Zipline, switch to `v4.7.0`, and rebuild. Start it once to apply the remaining Prisma migrations:
 
 ```bash
-git checkout v4.7.0
+git fetch --tags origin
+git switch --detach v4.7.0
+pnpm install
+pnpm build
+pnpm start
 ```
-
-Then follow the [update steps](/docs/get-started/source#updating)
 
   </Tab>
 </Tabs>
@@ -105,7 +105,7 @@ Then follow the [update steps](/docs/get-started/source#updating)
   schema. This transition only runs once and cannot be reverted by downgrading.
 </Callout>
 
-Finally switch to 4.8 and start Zipline. Your database configuration does not change: both `DATABASE_URL` and the individual `DATABASE_*` variables keep working.
+Finally switch to 4.8 and start Zipline, using the [source update steps](/docs/get-started/source#updating) for a manual installation. Your database configuration does not change: both `DATABASE_URL` and the individual `DATABASE_*` variables keep working.
 
 ## Upgrading a PGlite database
 

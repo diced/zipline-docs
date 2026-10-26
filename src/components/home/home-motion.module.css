@@ -1,0 +1,9 @@
+.pending {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pending {
+    opacity: 1;
+  }
+}

@@ -86,7 +86,10 @@ function MacShell({
           </p>
         </div>
       ) : (
-        <div className='flex h-full flex-col rounded-xl border border-fd-border bg-fd-card transition-all'>
+        <div
+          data-reveal='image'
+          className='flex h-full flex-col rounded-xl border border-fd-border bg-fd-card transition-all'
+        >
           <div className={cn('flex border-b border-fd-border', center && 'grid grid-cols-3')}>
             <div className={cn('flex items-center space-x-2 p-2', !center && 'border-r border-fd-border')}>
               <button

@@ -88,10 +88,19 @@ const uploaders: HomeUploader[] = [
   },
 ];
 
-function UploaderCard({ platform, name, description, href, icon: Icon }: HomeUploader) {
+function UploaderCard({
+  platform,
+  name,
+  description,
+  href,
+  icon: Icon,
+  index,
+}: HomeUploader & { index: number }) {
   return (
     <Link
       href={href}
+      data-reveal
+      data-reveal-delay={(index % 3) * 80}
       className='group relative w-full grow rounded-md p-0 transition-all hover:-translate-y-1 hover:p-0.5 hover:shadow-2xl'
     >
       <div className='absolute inset-0 rounded-md bg-linear-to-r from-blue-100 to-blue-500 bg-size-[200%_200%] p-[10px] opacity-0 transition-opacity group-hover:animate-[gradient-spin_3s_linear_infinite] group-hover:opacity-100' />
@@ -122,8 +131,8 @@ function UploaderCard({ platform, name, description, href, icon: Icon }: HomeUpl
 export function HomeUploaders() {
   return (
     <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
-      {uploaders.map((uploader) => (
-        <UploaderCard key={uploader.name} {...uploader} />
+      {uploaders.map((uploader, index) => (
+        <UploaderCard key={uploader.name} {...uploader} index={index} />
       ))}
     </div>
   );

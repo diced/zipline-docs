@@ -24,6 +24,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
+  timeZone: 'UTC',
 });
 
 function formatDate(value: string | null): string {
@@ -122,7 +123,7 @@ function ReleaseCard({ release, isLatest }: { release: GithubRelease; isLatest: 
 
 export default async function ReleasesPage() {
   const releases = await getReleases();
-  const latestTag = releases.find((r) => !r.prerelease)?.tag_name;
+  const latestTag = releases?.find((r) => !r.prerelease)?.tag_name;
 
   return (
     <main className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>
@@ -147,18 +148,20 @@ export default async function ReleasesPage() {
         </div>
       </section>
 
-      {releases.length === 0 ? (
+      {!releases?.length ? (
         <div className='mx-auto mt-16 max-w-2xl rounded-xl border border-fd-border bg-fd-card p-8 text-center'>
-          <p className='text-lg font-semibold'>No releases available</p>
+          <p className='text-lg font-semibold'>
+            {releases === null ? 'Unable to load releases' : 'No releases available'}
+          </p>
           <p className='mt-2 text-sm text-fd-muted-foreground'>
-            Unable to fetch releases.. See them{' '}
+            Browse the releases on{' '}
             <a
               href='https://github.com/diced/zipline/releases'
               target='_blank'
               rel='noreferrer noopener'
               className='font-medium text-fd-primary hover:underline'
             >
-              here
+              GitHub
             </a>
             .
           </p>

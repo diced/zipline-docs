@@ -3,19 +3,32 @@ import { gfm, gfmHtml } from 'micromark-extension-gfm';
 
 const REPO = 'diced/zipline';
 
-function githubHeaders() {
+function githubHeaders(token?: string) {
   return {
     Accept: 'application/vnd.github+json',
-    ...(process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+}
+
+async function fetchGithub(path: string) {
+  const token = process.env.GITHUB_TOKEN;
+  const url = `https://api.github.com/repos/${REPO}${path}`;
+  const options = {
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(10000),
+  };
+  const response = await fetch(url, { ...options, headers: githubHeaders(token) });
+
+  // Public repository data remains available when the configured token is invalid.
+  if (token && response.status === 401) {
+    return fetch(url, { ...options, headers: githubHeaders() });
+  }
+  return response;
 }
 
 export async function getStars(): Promise<number> {
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
-      headers: githubHeaders(),
-      next: { revalidate: 3600 },
-    });
+    const res = await fetchGithub('');
 
     if (!res.ok) return 0;
 
@@ -44,19 +57,16 @@ function renderMarkdown(input?: string | null): string {
   });
 }
 
-export async function getReleases(): Promise<GithubRelease[]> {
+export async function getReleases(): Promise<GithubRelease[] | null> {
   try {
-    const res = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=100`, {
-      headers: githubHeaders(),
-      next: { revalidate: 3600 },
-    });
+    const res = await fetchGithub('/releases?per_page=100');
 
-    if (!res.ok) return [];
+    if (!res.ok) return null;
 
-    const raw = (await res.json()) as GithubRelease[];
+    const raw = (await res.json()) as (GithubRelease & { draft: boolean })[];
 
     return raw
-      .filter((r) => /^v4(\.|$)/.test(r.tag_name))
+      .filter((r) => !r.draft && /^v4(\.|$)/.test(r.tag_name))
       .map((r) => ({
         ...r,
         name: r.name?.trim() || r.tag_name,
@@ -68,6 +78,6 @@ export async function getReleases(): Promise<GithubRelease[]> {
         return tb - ta;
       });
   } catch {
-    return [];
+    return null;
   }
 }

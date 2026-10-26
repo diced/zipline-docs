@@ -15,9 +15,12 @@ You'll also need a PostgreSQL server or a local [PGlite directory](/docs/config/
 
 ## Clone the repository [step]
 
+Choose a stable version from [Zipline's releases](https://github.com/diced/zipline/releases/latest). The examples use `v4.8.2`; replace it with the release tag you want to install.
+
 ```bash copy
 git clone https://github.com/diced/zipline
 cd zipline
+git switch --detach v4.8.2
 ```
 
 ## Install dependencies [step]
@@ -83,10 +86,11 @@ pnpm start
   Before updating, read the [4.8 upgrade notes](/docs/guides/releases#upgrading-to-48).
 </Callout>
 
-To update Zipline, simply run the following command:
+Stop the running Zipline server. Fetch the release tags and select the version you want to install, replacing `v4.8.2` below:
 
 ```bash copy
-git pull
+git fetch --tags origin
+git switch --detach v4.8.2
 ```
 
 Then update dependencies and build Zipline:

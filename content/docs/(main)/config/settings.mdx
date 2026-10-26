@@ -156,15 +156,19 @@ Domains users can select for upload and shortened URL links. Each must point to 
 
 ## Ratelimit
 
-Limits requests to `/api/upload` and `/api/shorten`. **Max Requests** is the number allowed per **Window**, measured in seconds. The allow list contains IP addresses that bypass this limit.
+Limits uploads at `/api/upload` and URL creation at `/api/user/urls`. Each user has a separate limit for each route and HTTP method. For [chunked uploads](/docs/api/chunked-uploads), only the first chunk counts toward this limit.
+
+**Max Requests** is the number allowed per **Window**. Set the window in milliseconds: `60000` is one minute. Leaving it unset uses a one-minute default. **Admin Bypass** exempts administrators.
 
 | Variable                 | Type       | Example           |
 | ------------------------ | ---------- | ----------------- |
 | `RATELIMIT_ENABLED`      | `boolean`  | `true`            |
 | `RATELIMIT_MAX`          | `number`   | `10`              |
-| `RATELIMIT_WINDOW`       | `number`   | `60`              |
+| `RATELIMIT_WINDOW`       | `number`   | `60000`           |
 | `RATELIMIT_ADMIN_BYPASS` | `boolean`  | `true`            |
 | `RATELIMIT_ALLOW_LIST`   | `string[]` | `1.1.1.1,8.8.8.8` |
+
+IP allow list entries aren't applied in the current release.
 
 ## Website
 

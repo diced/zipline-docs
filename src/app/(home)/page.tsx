@@ -5,6 +5,7 @@ import { EmphasizeText, HomeScreenshots } from '@/components/home/home-screensho
 import { GithubStarsButton, HomeButtons, SponsorButton } from '@/components/home/home-buttons';
 import { HomeFeatures } from '@/components/home/home-features';
 import { HomeUploaders } from '@/components/home/home-uploaders';
+import { HomeMotion } from '@/components/home/home-motion';
 import { MacTerminal } from '@/components/home/mac';
 
 export const metadata: Metadata = {
@@ -27,9 +28,9 @@ export default async function HomePage() {
   const stars = await getStars();
 
   return (
-    <main className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>
+    <HomeMotion className='mx-auto w-full max-w-(--fd-layout-width,1400px) px-6 py-16 md:px-8'>
       <section className='my-16 text-center'>
-        <h1 className='text-5xl font-black sm:text-7xl'>
+        <h1 data-reveal className='text-5xl font-black sm:text-7xl'>
           <span>
             The{' '}
             <span className='bg-linear-to-r from-blue-400 via-blue-600 to-blue-300 bg-size-[200%_200%] bg-clip-text text-transparent'>
@@ -39,7 +40,11 @@ export default async function HomePage() {
           <span className='block'>file upload server</span>
         </h1>
 
-        <p className='mt-4 text-xl font-semibold text-fd-muted-foreground'>
+        <p
+          data-reveal
+          data-reveal-delay='100'
+          className='mt-4 text-xl font-semibold text-fd-muted-foreground'
+        >
           Packed with features and a great dashboard. What more could you want?
         </p>
 
@@ -47,43 +52,55 @@ export default async function HomePage() {
       </section>
 
       <div className='my-32 flex justify-center'>
-        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+        <ArrowDown className='size-10 motion-safe:animate-bounce text-fd-muted-foreground' />
       </div>
 
       <HomeScreenshots />
 
       <div className='my-80 flex justify-center'>
-        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+        <ArrowDown className='size-10 motion-safe:animate-bounce text-fd-muted-foreground' />
       </div>
 
       <section id='features' className='scroll-mt-24'>
-        <h2 className='text-center text-5xl font-black md:text-6xl'>What does Zipline offer?</h2>
-        <p className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'>
+        <h2 data-reveal className='text-center text-5xl font-black md:text-6xl'>
+          What does Zipline offer?
+        </h2>
+        <p
+          data-reveal
+          data-reveal-delay='80'
+          className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'
+        >
           Zipline offers a wide range of features, all designed to make sharing files and links easier.
         </p>
         <HomeFeatures />
       </section>
 
       <div className='my-80 flex justify-center'>
-        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+        <ArrowDown className='size-10 motion-safe:animate-bounce text-fd-muted-foreground' />
       </div>
 
       <section id='uploaders' className='scroll-mt-24'>
-        <h2 className='text-center text-5xl font-black md:text-6xl'>
+        <h2 data-reveal className='text-center text-5xl font-black md:text-6xl'>
           Supports your <EmphasizeText>favorite uploaders</EmphasizeText>
         </h2>
-        <p className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'>
+        <p
+          data-reveal
+          data-reveal-delay='80'
+          className='mb-16 mt-4 text-center text-lg text-fd-muted-foreground'
+        >
           Zipline integrates with the tools you already use across every major platform.
         </p>
         <HomeUploaders />
       </section>
 
       <div className='my-80 flex justify-center'>
-        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+        <ArrowDown className='size-10 motion-safe:animate-bounce text-fd-muted-foreground' />
       </div>
 
       <section className='my-64'>
-        <h2 className='text-center text-5xl font-black md:text-6xl'>Ready to get started?</h2>
+        <h2 data-reveal className='text-center text-5xl font-black md:text-6xl'>
+          Ready to get started?
+        </h2>
 
         <div className='my-32 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-12'>
           <MacTerminal
@@ -112,7 +129,7 @@ export default async function HomePage() {
             ]}
           />
 
-          <div className='flex flex-col justify-center'>
+          <div data-reveal data-reveal-delay='120' className='flex flex-col justify-center'>
             <Terminal className='my-2 h-10 w-10 rounded-lg bg-fd-muted p-2 text-fd-muted-foreground' />
             <h3 className='my-2 text-3xl font-bold'>
               Setup in <EmphasizeText>seconds</EmphasizeText>
@@ -126,14 +143,16 @@ export default async function HomePage() {
       </section>
 
       <div className='my-80 flex justify-center'>
-        <ArrowDown className='size-10 animate-bounce text-fd-muted-foreground' />
+        <ArrowDown className='size-10 motion-safe:animate-bounce text-fd-muted-foreground' />
       </div>
 
       <section className='my-64'>
-        <h2 className='text-center text-5xl font-medium md:text-6xl'>Support development!</h2>
+        <h2 data-reveal className='text-center text-5xl font-medium md:text-6xl'>
+          Support development!
+        </h2>
 
         <div className='mx-auto flex max-w-3xl flex-col items-center gap-16 py-16'>
-          <div className='flex flex-col items-center text-center'>
+          <div data-reveal className='flex flex-col items-center text-center'>
             <Heart className='h-10 w-10 text-red-500' />
             <h3 className='my-2 text-3xl font-bold'>GitHub Sponsor</h3>
             <p className='my-4 text-xl text-fd-muted-foreground'>
@@ -143,7 +162,7 @@ export default async function HomePage() {
             <SponsorButton />
           </div>
 
-          <div className='flex flex-col items-center text-center'>
+          <div data-reveal className='flex flex-col items-center text-center'>
             <Star className='h-10 w-10 text-yellow-500' />
             <h3 className='my-2 text-3xl font-bold'>Star Zipline</h3>
             <p className='my-4 text-xl text-fd-muted-foreground'>
@@ -154,6 +173,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-    </main>
+    </HomeMotion>
   );
 }

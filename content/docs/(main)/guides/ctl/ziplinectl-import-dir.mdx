@@ -3,6 +3,8 @@ title: ziplinectl import-dir
 description: Import a directory of files into Zipline
 ---
 
+This command copies new files into your configured datasource and creates database records for them.
+
 ## Usage
 
 ```bash
@@ -11,21 +13,22 @@ ziplinectl import-dir [options] <directory>
 
 ## Options
 
-| Option           | Description                                                                                                                                                                                              |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `-i`, `--id`     | If no user ID is specified, the files will be imported to a user named "administrator." If the "administrator" user does not exist, the files will be imported to the first available `SUPERADMIN` user. |
-| `-f`, `--folder` | An ID to a folder where you want files to be automatically added to. This is optional.                                                                                                                   |
-| `-h`, `--help`   | Display options and arguments for this command.                                                                                                                                                          |
+| Option           | Description                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `-i`, `--id`     | The user ID to assign the files to. Defaults to the `administrator` user if they are a `SUPERADMIN`, or the first available `SUPERADMIN`. |
+| `-f`, `--folder` | An ID to a folder where you want files to be automatically added to. This is optional.                                                    |
+| `--skip-db`      | Copy files while retaining their existing database records, ownership, and metadata.                                                      |
+| `-h`, `--help`   | Display options and arguments for this command.                                                                                           |
 
 ## Arguments
 
-| Argument      | Description                                                                                |
-| ------------- | ------------------------------------------------------------------------------------------ |
-| `<directory>` | The directory to import files from. This directory must be readable by the Zipline server. |
+| Argument      | Description                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| `<directory>` | A readable directory containing the files to copy. Subdirectories are not imported recursively. |
 
 ## Example Usage
 
-Importing without an existing user:
+Importing to the default super administrator:
 
 ```bash
 ziplinectl import-dir /path/to/directory
@@ -49,6 +52,19 @@ Importing into a folder
 ziplinectl import-dir -f cm5cb80hg0005hp06k6khttfp /path/to/directory
 ```
 
-## Extra
+## Copy existing files to another datasource
 
-This can be used to move your files from `local` to `s3` storage. This can't be used to move files from `s3` to `local` storage though.
+To copy existing local files to S3, back up your database and files, stop Zipline, configure the [S3 datasource](/docs/config/datasource#s3-datasource), and run:
+
+```bash
+ziplinectl import-dir --skip-db /path/to/existing-files
+```
+
+Use a directory containing only the files to copy, without temporary directories or other subdirectories. In Docker, mount the source directory into the container and use its container path with a one-off CLI container:
+
+```bash
+docker compose run --rm --no-deps --entrypoint ziplinectl zipline \
+  import-dir --skip-db /path/in/container/existing-files
+```
+
+Keep filenames unchanged and copy any thumbnails too. Restart Zipline and verify your files before removing the original storage.
